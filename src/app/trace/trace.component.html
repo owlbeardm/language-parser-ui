@@ -1,0 +1,27 @@
+<h1>Trace a word!</h1>
+
+<form [formGroup]="checkoutForm" (ngSubmit)="submit(checkoutForm.value)">
+    <div>
+        <label for="langs">
+            Langs
+        </label>
+        <input id="langs" type="text" formControlName="langs">
+    </div>
+
+    <div>
+        <label for="wordText">
+            Word
+        </label>
+        <input id="wordText" type="text" formControlName="wordText">
+    </div>
+
+    <button class="button" type="submit">Submit</button>
+</form>
+
+<h2>Evolved Words</h2>
+
+<div *ngFor="let word of words">
+    <h3>
+        {{ word }}
+    </h3>
+</div>
