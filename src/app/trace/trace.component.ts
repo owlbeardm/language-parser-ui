@@ -20,7 +20,7 @@ export class TraceComponent implements OnInit {
   words: String[];
 
   constructor(private http: HttpClient,
-    private formBuilder: FormBuilder,) {
+    private formBuilder: FormBuilder, ) {
     this.words = [""];
     this.langs = [""];
     this.http = http;
@@ -35,12 +35,12 @@ export class TraceComponent implements OnInit {
   }
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json'/*, 'Access-Control-Allow-Origin': '*'  ,'Host': 'localhost:4200'*/})
   };
 
   /** GET heroes from the server */
   getHeroes(req: TraceWordReq): Observable<String[]> {
-    const url = "http://localhost:8000/api/langs/traceWord";
+    const url = "http://api.lang.lo/api/langs/traceWord";
     return this.http.post<String[]>(url, req, this.httpOptions);
   }
 
@@ -49,8 +49,8 @@ export class TraceComponent implements OnInit {
     console.log(traceData);
     this.langs = traceData.langs.split(",").map((lang: String) => { return new String(lang.trim()) });
     this.wordText = traceData.wordText.trim();
-    window.alert(`${this.wordText} in ${this.langs} langs`);
-    const req: TraceWordReq = { langs: this.langs, wordText: this.wordText };
+    // window.alert(`${this.wordText} in ${this.langs} langs`);
+    const req: TraceWordReq = { langs: this.langs, word: this.wordText };
     this.getHeroes(req).subscribe((words) => {
       this.words = words;
     })

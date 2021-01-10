@@ -1,5 +1,6 @@
 <h1>Trace a word!</h1>
-
+<span>Titan,SlaveRunic,ProtoHuman,Queran,NitholanEmpire,OldNitholan,<b>Nitholan</b></span>
+<hr>
 <form [formGroup]="checkoutForm" (ngSubmit)="submit(checkoutForm.value)">
     <div>
         <label for="langs">
@@ -20,8 +21,10 @@
 
 <h2>Evolved Words</h2>
 
-<div *ngFor="let word of words">
-    <h3>
-        {{ word }}
-    </h3>
-</div>
+<div >
+    <ol >
+        <li *ngFor="let word of words">
+            <span>{{ word }}</span>
+        </li>
+    <ol>
+<!-- </div> -->

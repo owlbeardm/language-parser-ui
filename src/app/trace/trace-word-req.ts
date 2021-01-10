@@ -1,5 +1,5 @@
 export interface TraceWordReq {
-    wordText: String;
+    word: String;
     langs: String[];
 }
 
