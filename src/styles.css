@@ -1,1 +1,49 @@
 /* You can add global styles to this file, and also import other style files */
+
+html {
+    font-family: 'Ubuntu Mono';
+    font-size: 16px;
+    color: #E4E4E4;
+    background-color: #252525;
+}
+
+a {
+    color: #764C70;
+}
+
+a:hover, a:active{
+    color: #AF7FA8;
+}
+
+input {
+    font-family: 'Ubuntu Mono';
+    color: #2E2E2B;
+    font-size: 16px;
+    margin: 0 auto;
+    padding: 3px 0.5rem;
+    border-radius: 0.2rem;
+    background-color: #E4E4E4;
+    border: 1px solid #2E2E2B;
+    /* width: 90%; */
+    /* display: block; */
+    /* border-bottom: 0.3rem solid transparent; */
+    transition: all 0.3s;
+  }
+
+button {
+	--p: 0;
+	--q: calc(1 - var(--p));
+	overflow: hidden;
+	position: relative;
+	z-index: 1;
+	/* width: $btn-w; */
+	background: #764C70;
+	color: #E4E4E4;
+	/* font: 700 1.125em/ #{$btn-lh} trebuchet ms, sans-serif; */
+	text-align: center;
+	text-decoration: none;
+    text-transform: uppercase;
+    border: none;
+    height: 32px;
+    padding: 3px 0.5rem;
+}
