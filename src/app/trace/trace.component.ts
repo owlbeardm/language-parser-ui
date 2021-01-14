@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { TraceWordReq, TraceWordForm } from './trace-word-req';
-import { catchError, map, tap } from 'rxjs/operators';
-
-
+import { FormBuilder } from '@angular/forms';
+import { TraceWordReq, TraceWordForm } from '../models/trace-word-req';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-trace',
@@ -19,11 +15,12 @@ export class TraceComponent implements OnInit {
   langs: String[];
   words: String[];
 
-  constructor(private http: HttpClient,
-    private formBuilder: FormBuilder, ) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private apiService:ApiService) {
     this.words = [""];
     this.langs = [""];
-    this.http = http;
+    this.apiService = apiService;
     this.checkoutForm = this.formBuilder.group({
       wordText: '',
       langs: ''
@@ -34,16 +31,6 @@ export class TraceComponent implements OnInit {
 
   }
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json'/*, 'Access-Control-Allow-Origin': '*'  ,'Host': 'localhost:4200'*/})
-  };
-
-  /** GET heroes from the server */
-  getHeroes(req: TraceWordReq): Observable<String[]> {
-    const url = "http://api.lang.lo/api/langs/traceWord";
-    return this.http.post<String[]>(url, req, this.httpOptions);
-  }
-
   submit(traceData: TraceWordForm) {
     // this.checkoutForm.reset();
     console.log(traceData);
@@ -51,7 +38,7 @@ export class TraceComponent implements OnInit {
     this.wordText = traceData.wordText.trim();
     // window.alert(`${this.wordText} in ${this.langs} langs`);
     const req: TraceWordReq = { langs: this.langs, word: this.wordText };
-    this.getHeroes(req).subscribe((words) => {
+    this.apiService.traceWords(req).subscribe((words) => {
       this.words = words;
     })
 

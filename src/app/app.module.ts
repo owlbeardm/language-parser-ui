@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TraceComponent } from './trace/trace.component';
 import { HttpClientModule } from '@angular/common/http';
+import { WordsComponent } from './words/words.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TraceComponent
+    TraceComponent,
+    WordsComponent
   ],
   imports: [
     BrowserModule,
