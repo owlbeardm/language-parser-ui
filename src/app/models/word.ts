@@ -1,5 +1,5 @@
 export interface Word {
-    forgotten: Boolean;
+    forgotten: boolean;
     word: String;
     partOfSpeech: String;
 }

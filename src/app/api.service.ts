@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TraceWordReq } from './models/trace-word-req';
-import { WordDescriptionAPI } from './models/word';
+import { WordDescriptionAPI, Language } from './models/word';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -26,5 +26,10 @@ export class ApiService {
     const url = `http://api.lang.lo/api/words/${word}`;
     const langQ = lang?`?lang=${lang}`:"";
     return this.http.get<WordDescriptionAPI[]>(url+langQ, this.httpOptions);
+  }
+
+  getLanguages(): Observable<Language[]> {
+    const url = `http://api.lang.lo/api/langs`;
+    return this.http.get<Language[]>(url, this.httpOptions);
   }
 }

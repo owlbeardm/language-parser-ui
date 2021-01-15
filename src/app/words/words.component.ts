@@ -14,6 +14,8 @@ export class WordsComponent implements OnInit {
   word: String;
   langs: String[];
   selectedLanguage: String;
+  loadingPage: Boolean;
+  loadingWords: Boolean;
 
   constructor(private apiService: ApiService,
     private route: ActivatedRoute,
@@ -21,32 +23,46 @@ export class WordsComponent implements OnInit {
 
     this.apiService = apiService;
     this.words = [];
-    //TODO: get langs from api
-    this.langs = ["Titan", "SlaveRunic", "ProtoHuman", "Queran", "NitholanEmpire", "OldNitholan", "Nitholan"];
+    // this.langs = ["Titan", "SlaveRunic", "ProtoHuman", "Queran", "NitholanEmpire", "OldNitholan", "Nitholan"];
+    this.langs = [];
     this.selectedLanguage = "";
     this.word = "";
+    this.loadingPage = true;
+    this.loadingWords = true;
   }
 
   ngOnInit(): void {
     this.word = String(this.route.snapshot.paramMap.get('word'));
     const lang = String(this.route.snapshot.queryParamMap.get('lang'));
-    if (this.langs.includes(lang)) {
-      this.selectedLanguage = lang;
-    }
-    this.refresh();
+    this.apiService.getLanguages().subscribe((langs) => {
+      this.langs = langs.map((lang) => lang.name);
+      if (this.langs.includes(lang)) {
+        this.selectedLanguage = lang;
+      } else {
+        this.router.navigate([], {
+          queryParams: {},
+          relativeTo: this.route
+        });
+      }
+      this.refresh();
+      this.loadingPage = false;
+    });
+    
   }
 
   changeLang(): void {
     this.router.navigate([], {
-      queryParams: this.selectedLanguage?{ lang: this.selectedLanguage }:{},
+      queryParams: this.selectedLanguage ? { lang: this.selectedLanguage } : {},
       relativeTo: this.route
     });
     this.refresh();
   }
 
   refresh(): void {
+    this.loadingWords = true;
     this.apiService.getWords(this.word, this.selectedLanguage).subscribe((words) => {
       this.words = words;
+      this.loadingWords = false;
     });
   }
 

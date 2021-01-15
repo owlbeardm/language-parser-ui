@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { TraceComponent } from './trace/trace.component';
 import { HttpClientModule } from '@angular/common/http';
 import { WordsComponent } from './words/words.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TraceComponent,
-    WordsComponent
+    WordsComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
