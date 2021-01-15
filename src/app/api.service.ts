@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TraceWordReq } from './models/trace-word-req';
-import { Word } from './models/word';
+import { WordDescriptionAPI } from './models/word';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -22,8 +22,9 @@ export class ApiService {
     return this.http.post<String[]>(url, req, this.httpOptions);
   }
 
-  getWords(word: String, lang: String): Observable<Word[]> {
-    const url = `http://api.lang.lo/api/words/traceWord${word}` + lang?`?lang=${lang}`:"";
-    return this.http.get<Word[]>(url, this.httpOptions);
+  getWords(word: String, lang: String): Observable<WordDescriptionAPI[]> {
+    const url = `http://api.lang.lo/api/words/${word}`;
+    const langQ = lang?`?lang=${lang}`:"";
+    return this.http.get<WordDescriptionAPI[]>(url+langQ, this.httpOptions);
   }
 }

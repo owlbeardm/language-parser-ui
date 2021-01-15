@@ -5,6 +5,7 @@ import { WordsComponent } from './words/words.component';
 
 const routes: Routes = [
   { path: 'trace', component: TraceComponent },
+  { path: 'words/:word', component: WordsComponent },
   { path: 'words', component: WordsComponent }
 ];
 
