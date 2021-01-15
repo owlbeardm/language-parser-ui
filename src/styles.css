@@ -63,6 +63,29 @@ button {
     padding: 3px 0.5rem;
 }
 
+button:active {
+    background: #AF7FA8;
+}
+
+table, th, td {
+    border: none;
+    width: 100%;
+}
+
+
+tr:nth-child(even) {
+    /* background-color: #333333; */
+}
+
+tr:nth-child(odd) {
+    background-color: #292828;
+}
+
+tr:hover {
+    background-color: #333333;
+}
+
+
 .text-green {
     color: #8FD637;
 }
@@ -86,4 +109,3 @@ button {
 .text-red {
     color: #BF2020;
 }
-
