@@ -9,6 +9,7 @@ html {
 
 a {
   color: #764c70;
+  
 }
 
 a:hover,
@@ -87,13 +88,14 @@ tr:nth-child(even).table-content {
   background-color: #292828;
 }
 
-tr:nth-child(odd).table-content {
-  /* background-color: #333333; */
-}
-
 tr:hover.table-content {
   background-color: #333333;
 }
+
+/* tr:nth-child(odd).table-content {
+  background-color: #333333;
+} */
+
 
 .text-green {
   color: #8fd637;
@@ -131,4 +133,8 @@ td.border {
 .border {
   text-align: center;
   color: #5b5b55;
+}
+
+.nowrap{
+  white-space:nowrap;
 }

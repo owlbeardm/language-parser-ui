@@ -1,4 +1,5 @@
 export interface Word {
+    id: number;
     forgotten: boolean;
     word: String;
     partOfSpeech: String;

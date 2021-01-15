@@ -60,7 +60,7 @@ export class WordsComponent implements OnInit {
 
   refresh(): void {
     this.loadingWords = true;
-    this.apiService.getWords(this.word, this.selectedLanguage).subscribe((words) => {
+    this.apiService.getWord(this.word, this.selectedLanguage).subscribe((words) => {
       this.words = words;
       this.loadingWords = false;
     });
