@@ -1,111 +1,134 @@
 /* You can add global styles to this file, and also import other style files */
 
 html {
-    font-family: 'Ubuntu Mono';
-    font-size: 16px;
-    color: #E4E4E4;
-    background-color: #252525;
+  font-family: "Ubuntu Mono";
+  font-size: 16px;
+  color: #e4e4e4;
+  background-color: #252525;
 }
 
 a {
-    color: #764C70;
+  color: #764c70;
 }
 
-a:hover, a:active {
-    color: #AF7FA8;
+a:hover,
+a:active {
+  color: #af7fa8;
 }
 
 input {
-    font-family: 'Ubuntu Mono';
-    color: #2E2E2B;
-    font-size: 16px;
-    margin: 0 auto;
-    padding: 3px 0.5rem;
-    border-radius: 0.2rem;
-    background-color: #E4E4E4;
-    border: 1px solid #2E2E2B;
-    /* width: 90%; */
-    /* display: block; */
-    /* border-bottom: 0.3rem solid transparent; */
-    transition: all 0.3s;
+  font-family: "Ubuntu Mono";
+  color: #2e2e2b;
+  font-size: 16px;
+  margin: 0 auto;
+  padding: 3px 0.5rem;
+  border-radius: 0.2rem;
+  background-color: #e4e4e4;
+  border: 1px solid #2e2e2b;
+  /* width: 90%; */
+  /* display: block; */
+  /* border-bottom: 0.3rem solid transparent; */
+  transition: all 0.3s;
 }
 
 select {
-    font-family: 'Ubuntu Mono';
-    color: #2E2E2B;
-    font-size: 16px;
-    margin: 0 auto;
-    padding: 3px 0.5rem;
-    border-radius: 0.2rem;
-    background-color: #E4E4E4;
-    border: 1px solid #2E2E2B;
-    /* width: 90%; */
-    /* display: block; */
-    /* border-bottom: 0.3rem solid transparent; */
-    transition: all 0.3s;
+  font-family: "Ubuntu Mono";
+  color: #2e2e2b;
+  font-size: 16px;
+  margin: 0 auto;
+  padding: 3px 0.5rem;
+  border-radius: 0.2rem;
+  background-color: #e4e4e4;
+  border: 1px solid #2e2e2b;
+  /* width: 90%; */
+  /* display: block; */
+  /* border-bottom: 0.3rem solid transparent; */
+  transition: all 0.3s;
 }
 
 button {
-    --p: 0;
-    --q: calc(1 - var(--p));
-    overflow: hidden;
-    position: relative;
-    z-index: 1;
-    /* width: $btn-w; */
-    background: #764C70;
-    color: #E4E4E4;
-    /* font: 700 1.125em/ #{$btn-lh} trebuchet ms, sans-serif; */
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    border: none;
-    height: 32px;
-    padding: 3px 0.5rem;
+  --p: 0;
+  --q: calc(1 - var(--p));
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  /* width: $btn-w; */
+  background: #764c70;
+  color: #e4e4e4;
+  /* font: 700 1.125em/ #{$btn-lh} trebuchet ms, sans-serif; */
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: none;
+  height: 32px;
+  padding: 3px 0.5rem;
 }
 
 button:active {
-    background: #AF7FA8;
+  background: #af7fa8;
 }
 
-table, th, td {
-    border: none;
-    width: 100%;
+table {
+  width: 100%;
 }
 
-
-tr:nth-child(even) {
-    /* background-color: #333333; */
+.table-container {
+  padding: 20px;
 }
 
-tr:nth-child(odd) {
-    background-color: #292828;
+table,
+th,
+td {
+  border: none;
+  border-collapse: collapse;
 }
 
-tr:hover {
-    background-color: #333333;
+tr:nth-child(even).table-content {
+  background-color: #292828;
 }
 
+tr:nth-child(odd).table-content {
+  /* background-color: #333333; */
+}
+
+tr:hover.table-content {
+  background-color: #333333;
+}
 
 .text-green {
-    color: #8FD637;
+  color: #8fd637;
 }
 
 .text-blue {
-    color: #719ED4;
+  color: #719ed4;
 }
 
 .text-green-dull {
-    color: #568A21;
+  color: #568a21;
 }
 
 .text-blue-dull {
-    color: #4F70A3;
+  color: #4f70a3;
 }
 
 .text-grey {
-    color: #5B5B55;
+  color: #5b5b55;
 }
 
 .text-red {
-    color: #BF2020;
+  color: #bf2020;
+}
+
+.text-main {
+  color: #764c70;
+}
+
+col.border,
+td.border {
+  width: 1em;
+}
+
+.border {
+  text-align: center;
+  color: #5b5b55;
 }

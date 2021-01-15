@@ -8,6 +8,7 @@ import { TraceComponent } from './trace/trace.component';
 import { HttpClientModule } from '@angular/common/http';
 import { WordsComponent } from './words/words.component';
 import { LoadingComponent } from './loading/loading.component';
+import { TranslationsComponent } from './translations/translations.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { LoadingComponent } from './loading/loading.component';
     AppComponent,
     TraceComponent,
     WordsComponent,
-    LoadingComponent
+    LoadingComponent,
+    TranslationsComponent
   ],
   imports: [
     BrowserModule,
