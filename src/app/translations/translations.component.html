@@ -33,7 +33,10 @@
             </tbody>
             <tbody *ngIf="!loadingWords">
                 <tr class="table-content" *ngFor="let word of words">
-                    <td class="border">|</td>
+                    <td class="border">|
+                        <span *ngFor="let translation of translations.get(word.id); let i = index"><span
+                                *ngIf="i>0"><br>|</span></span>
+                    </td>
                     <td class="text-main nowrap">/<a routerLink="/words/{{word.word}}"
                             [queryParams]="{lang: selectedLanguage}">{{ word.word }}</a>/&nbsp;</td>
                     <td>
@@ -44,9 +47,13 @@
                                 (<b>{{ translation[1].name.toLowerCase().substr(0,3) }}</b>) <br>
                             </span>
                         </div>
+                        <div *ngIf="translations.has(word.id) && translations.get(word.id).length == 0" class="text-red">---</div>
                         <app-loading *ngIf="!translations.has(word.id)"></app-loading>
                     </td>
-                    <td class="border">|</td>
+                    <td class="border">|
+                        <span *ngFor="let translation of translations.get(word.id); let i = index"><span
+                                *ngIf="i>0"><br>|</span></span>
+                    </td>
                 </tr>
             </tbody>
             <tbody>
