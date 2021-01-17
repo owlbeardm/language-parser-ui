@@ -17,6 +17,22 @@ export interface Language {
     name: String
 }
 
+export interface AddWordJSON {
+    lang: String,
+    pos: String,
+    wordText: String,
+    forgotten: Boolean
+}
+
+export interface AddWordTranslationJSON { 
+    translation?: AddWordJSON,
+    wordFromId: number,
+    langTo: String,
+    altTranslation?: String,
+    isAltTranslation: Boolean,
+    comment?: String
+}
+
 // export interface WordDescriptionAPI {
 //     (Word, [Language], [WordTranslation], [WordSource])
 // }
@@ -27,7 +43,7 @@ export type WordAndLang = [
 ]
 
 export type WordSource = [
-    wordNadLang: WordAndLang, 
+    wordNadLang: WordAndLang,
     translations: WordTranslation[]
 ]
 
@@ -43,3 +59,4 @@ export type WordDescriptionAPI = [
     translations: WordTranslation[],
     source: WordSource[]
 ];
+

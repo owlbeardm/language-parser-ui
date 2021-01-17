@@ -21,7 +21,6 @@ export class LoadingComponent implements OnInit {
     this.subscribe = this.numbers.subscribe(() => {
       const l = (this.dots.length + 1) % 4;
       this.dots = "...".substr(0, l);
-      console.log("l", l);
     })
   }
 
@@ -29,7 +28,6 @@ export class LoadingComponent implements OnInit {
     if (this.subscribe) {
       this.subscribe.unsubscribe();
     }
-    console.log("destroy loading")
   }
 
 }

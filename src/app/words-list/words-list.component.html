@@ -1,0 +1,19 @@
+<form [formGroup]="newWordForm" (ngSubmit)="submit(newWordForm.value)">
+    <label for="langs">Language: </label>
+    <select formControlName="lang">
+        <option *ngFor="let l of langs" [value]="l.name">{{ l.name }}</option>
+    </select>
+    <br />
+    <label for="pos">Part of speech: </label>
+    <select formControlName="pos">
+        <option *ngFor="let p of pos" [value]="p">{{ p }}</option>
+    </select>
+    <br />
+    <label for="wordText">Word: </label>
+    <input id="wordText" type="text" formControlName="wordText">
+    <br />
+    <label for="forgotten">Forgotten: </label>
+    <input id="forgotten" type="checkbox" formControlName="forgotten">
+    <br />
+    <button class="button" type="submit">Submit</button>
+</form>

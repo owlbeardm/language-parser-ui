@@ -138,3 +138,9 @@ td.border {
 .nowrap{
   white-space:nowrap;
 }
+
+.whole-line {
+  display: block;
+  margin-top: -8px;
+  width: 100%;
+}

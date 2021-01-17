@@ -1,0 +1,9 @@
+<form [formGroup]="newTranslationForm" (ngSubmit)="submit(newTranslationForm.value)">
+    <span formGroupName="translation">
+        <input type="text" formControlName="wordText" placeholder="Translation" required>
+    </span>
+    <input type="text" formControlName="comment" placeholder="Comment">
+    <label for="isAltTranslation"> alt: </label>
+    <input type="checkbox" formControlName="isAltTranslation" >
+    <button class="button" type="submit" hidden>Submit</button>
+</form>

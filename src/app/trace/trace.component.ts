@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { TraceWordReq, TraceWordForm } from '../models/trace-word-req';
 import { ApiService } from '../api.service';
 
@@ -10,10 +10,10 @@ import { ApiService } from '../api.service';
 })
 export class TraceComponent implements OnInit {
 
-  checkoutForm;
   wordText: String = "";
   langs: String[];
   words: String[];
+  checkoutForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,10 +37,9 @@ export class TraceComponent implements OnInit {
     this.langs = traceData.langs.split(",").map((lang: String) => { return new String(lang.trim()) });
     this.wordText = traceData.wordText.trim();
     // window.alert(`${this.wordText} in ${this.langs} langs`);
-    const req: TraceWordReq = { langs: this.langs, word: this.wordText };
+    const req: TraceWordReq = { langs: this.langs, wordTrace: this.wordText };
     this.apiService.traceWords(req).subscribe((words) => {
       this.words = words;
     })
-
   }
 }

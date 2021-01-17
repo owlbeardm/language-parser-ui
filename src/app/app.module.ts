@@ -9,6 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { WordsComponent } from './words/words.component';
 import { LoadingComponent } from './loading/loading.component';
 import { TranslationsComponent } from './translations/translations.component';
+import { WordsListComponent } from './words-list/words-list.component';
+import { AppServiceModule } from './service/app-service.module';
+import { AddTranslationComponent } from './translations/add-translation/add-translation.component';
 
 
 @NgModule({
@@ -17,14 +20,17 @@ import { TranslationsComponent } from './translations/translations.component';
     TraceComponent,
     WordsComponent,
     LoadingComponent,
-    TranslationsComponent
+    TranslationsComponent,
+    WordsListComponent,
+    AddTranslationComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppServiceModule
   ],
   providers: [],
   bootstrap: [AppComponent]

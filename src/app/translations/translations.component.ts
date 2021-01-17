@@ -1,6 +1,7 @@
 import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Word, WordTranslation } from '../models/word';
+import { LangService } from '../service/lang.service';
 
 @Component({
   selector: 'app-translations',
@@ -26,16 +27,19 @@ export class TranslationsComponent implements OnInit, AfterViewChecked {
 
 
   constructor(private cdRef: ChangeDetectorRef,
-    private apiService: ApiService) {
+    private apiService: ApiService,
+    private langService: LangService) {
     this.bcol1 = "";
     this.bcol2 = "";
     this.words = [];
     this.langs = [];
-    this.selectedLanguage = "";
+    this.selectedLanguage = "Sylvan";
     this.loadingPage = true;
     this.loadingWords = true;
     this.translations = new Map();
   }
+
+  shortPOS = this.langService.shortPOS;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -52,18 +56,21 @@ export class TranslationsComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    console.log("translations ngAfterViewInit ");
     this.resizeTable();
   }
 
   resizeTable() {
     const d = "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
     const col1l = Math.floor((this.col1.nativeElement.offsetWidth - 2) / 8);
+    const bcol1 = this.bcol1;
     this.bcol1 = d.substr(0, col1l);
     const col2l = Math.floor((this.col2.nativeElement.offsetWidth - 2) / 8);
+    const bcol2 = this.bcol2;
     this.bcol2 = d.substr(0, col2l);
-    console.log(this.col2.nativeElement.offsetWidth, col2l);
-    this.cdRef.detectChanges();
+    if (bcol1 != this.bcol1 || bcol2 != this.bcol2) {
+      console.log("refresh")
+      this.cdRef.detectChanges();
+    }
   }
 
   changeLang(): void {
@@ -74,14 +81,17 @@ export class TranslationsComponent implements OnInit, AfterViewChecked {
     this.loadingWords = true;
     this.apiService.getWordsByLang(this.selectedLanguage).subscribe((words) => {
       this.words = words;
-      words.forEach((word)=>{
-        this.apiService.getTranslationsByWordKey(word.id).subscribe((translations) => {
-          this.translations.set(word.id, translations);
-          this.cdRef.detectChanges();
-        });
-      });
+      words.forEach((word) => this.refreshWord(word));
       this.loadingWords = false;
       this.resizeTable();
+    });
+  }
+
+  refreshWord(word: Word) {
+    this.translations.delete(word.id);
+    this.apiService.getTranslationsByWordKey(word.id).subscribe((translations) => {
+      this.translations.set(word.id, translations);
+      this.cdRef.detectChanges();
     });
   }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TraceWordReq } from './models/trace-word-req';
-import { WordDescriptionAPI, Language, Word, WordTranslation } from './models/word';
+import { WordDescriptionAPI, Language, Word, WordTranslation, AddWordJSON, AddWordTranslationJSON } from './models/word';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -41,5 +41,25 @@ export class ApiService {
   getLanguages(): Observable<Language[]> {
     const url = `http://api.lang.lo/api/langs`;
     return this.http.get<Language[]>(url, this.httpOptions);
+  }
+
+  getPartsOfSpeech(): Observable<String[]> {
+    const url = `http://api.lang.lo/api/words/pos`;
+    return this.http.get<String[]>(url, this.httpOptions);
+  }
+
+  addNewWord(newWord: AddWordJSON): Observable<Boolean> {
+    const url = `http://api.lang.lo/api/words`;
+    return this.http.post<Boolean>(url, newWord, this.httpOptions);
+  }
+
+  existsWord(word: AddWordJSON): Observable<Boolean> {
+    const url = `http://api.lang.lo/api/words/exists`;
+    return this.http.post<Boolean>(url, word, this.httpOptions);
+  }
+
+  addNewTranslation(newWord: AddWordTranslationJSON): Observable<Boolean> {
+    const url = `http://api.lang.lo/api/translation`;
+    return this.http.post<Boolean>(url, newWord, this.httpOptions);
   }
 }
