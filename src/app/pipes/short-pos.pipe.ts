@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { LangService } from '../service/lang.service';
+import { LangService } from '../services/lang.service';
 
 @Pipe({
   name: 'shortPos'

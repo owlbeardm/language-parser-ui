@@ -9,4 +9,6 @@
 .footer {
     margin-left: 10px;
     margin-right: 10px;
+    z-index: 100;
+    background-color: #252525;
 }

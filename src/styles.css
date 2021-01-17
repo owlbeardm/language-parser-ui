@@ -7,41 +7,30 @@ html {
   background-color: #252525;
 }
 
+:focus {
+  outline-color: #e4e4e4;
+  outline-style: auto;
+  outline-width: 1px;
+}
+
 a {
   color: #764c70;
+  cursor: pointer;
 }
 
 a:hover, a:active {
   color: #af7fa8;
 }
 
-/* input {
-  font-family: "Ubuntu Mono";
-  color: #2e2e2b;
-  font-size: 16px;
-  margin: 0 auto;
-  padding: 3px 0.5rem;
-  border-radius: 0.2rem;
-  background-color: #e4e4e4;
-  border: 1px solid #2e2e2b;
-  /* width: 90%; */
-
-/* display: block; */
-
-/* border-bottom: 0.3rem solid transparent; */
-
-/* transition: all 0.3s; */
-
-/* } */
-
 input {
+  caret-color: #e4e4e4;
   font-family: "Ubuntu Mono";
   color: #e4e4e4;
   font-size: 16px;
   margin: 0 auto;
   padding: 3px 0.5rem;
   border-radius: 0.2rem;
-  background-color: #252525;
+  background-color: transparent;
   border: 1px solid #5b5b55;
   transition: all 0.3s;
 }
@@ -56,11 +45,11 @@ input {
 }
 
 .regular-checkbox:checked:after {
-  content: '\2714';
+  content: '*';
   font-size: 16px;
   position: absolute;
-  top: 0px;
-  left: 3px;
+  top: 3px;
+  left: 5px;
 }
 
 select {
@@ -79,25 +68,28 @@ select {
 }
 
 button {
-  --p: 0;
-  --q: calc(1 - var(--p));
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
-  /* width: $btn-w; */
-  background: #764c70;
-  color: #e4e4e4;
-  /* font: 700 1.125em/ #{$btn-lh} trebuchet ms, sans-serif; */
+  cursor: pointer;
   text-align: center;
   text-decoration: none;
-  text-transform: uppercase;
   border: none;
-  height: 32px;
-  padding: 3px 0.5rem;
+  background: transparent;
 }
 
 button:active {
   background: #af7fa8;
+}
+
+.btn-red {
+  color: #BF2020;
+}
+
+button:focus.btn-red {
+  outline-color: #BF2020;
+}
+
+button:active.btn-red {
+  background: #BF2020;
+  color: #252525;
 }
 
 .link-btn {
@@ -180,6 +172,7 @@ col.border, td.border {
 .border {
   text-align: center;
   color: #5b5b55;
+  font-weight: bold;
 }
 
 .nowrap {

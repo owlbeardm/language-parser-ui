@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { TraceWordReq } from './models/trace-word-req';
 import { WordDescriptionAPI, Language, Word, WordTranslation, AddWordJSON, AddWordTranslationJSON } from './models/word';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  constructor(private http: HttpClient,) {
+  constructor(private http: HttpClient, ) {
     this.http = http;
   }
 
@@ -62,4 +63,6 @@ export class ApiService {
     const url = `http://api.lang.lo/api/translation`;
     return this.http.post<Boolean>(url, newWord, this.httpOptions);
   }
+
+
 }

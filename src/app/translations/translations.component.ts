@@ -1,7 +1,6 @@
 import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Word, WordTranslation } from '../models/word';
-import { LangService } from '../service/lang.service';
 
 @Component({
   selector: 'app-translations',
@@ -25,8 +24,7 @@ export class TranslationsComponent implements OnInit, AfterViewChecked {
 
 
   constructor(private cdRef: ChangeDetectorRef,
-    private apiService: ApiService,
-    private langService: LangService) {
+    private apiService: ApiService) {
     this.bcol1 = "";
     this.bcol2 = "";
     this.words = [];
@@ -36,8 +34,6 @@ export class TranslationsComponent implements OnInit, AfterViewChecked {
     this.loadingWords = true;
     this.translations = new Map();
   }
-
-  shortPOS = this.langService.shortPOS;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -59,14 +55,13 @@ export class TranslationsComponent implements OnInit, AfterViewChecked {
 
   resizeTable() {
     const d = "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
-    const col1l = Math.floor((this.col1.nativeElement.offsetWidth - 2) / 8);
+    const col1l = Math.floor((this.col1?.nativeElement.offsetWidth - 2) / 8);
     const bcol1 = this.bcol1;
     this.bcol1 = d.substr(0, col1l);
-    const col2l = Math.floor((this.col2.nativeElement.offsetWidth - 2) / 8);
+    const col2l = Math.floor((this.col2?.nativeElement.offsetWidth - 2) / 8);
     const bcol2 = this.bcol2;
     this.bcol2 = d.substr(0, col2l);
     if (bcol1 != this.bcol1 || bcol2 != this.bcol2) {
-      console.log("refresh")
       this.cdRef.detectChanges();
     }
   }
