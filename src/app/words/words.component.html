@@ -14,7 +14,7 @@
                     <div>
                         <span class="text-green">/{{ word[0].word }}/</span> {{ word[0].partOfSpeech }} from <span
                             *ngFor="let lang of word[1]"><b>{{ lang.name }}</b> </span>
-                        <small *ngIf="word[0].forgotten" class="text-red"> forgotten </small>
+                        <small *ngIf="word[0].forgotten" class="text-red-dull"> forgotten </small>
                         <br />
                     </div>
                     <div *ngIf="word[2].length>0" class="word-description">

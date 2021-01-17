@@ -1,19 +1,115 @@
-<form [formGroup]="newWordForm" (ngSubmit)="submit(newWordForm.value)">
-    <label for="langs">Language:&nbsp;&nbsp;&nbsp; </label>
-    <select formControlName="lang">
+<div *ngIf="!loadingPage; then thenPage else elsePage"></div>
+<ng-template #thenPage>
+    <label for="cars">Language: </label>
+    <select [(ngModel)]="selectedLanguage" (change)="changeLang()">
+        <option [value]=""> --- Select Language --- </option>
         <option *ngFor="let l of langs" [value]="l.name">{{ l.name }}</option>
     </select>
-    <br />
-    <label for="pos">Part of speech: </label>
-    <select formControlName="pos">
-        <option *ngFor="let p of pos" [value]="p">{{ p }}</option>
-    </select>
-    <br />
-    <label for="wordText">Word:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-    <input id="wordText" type="text" formControlName="wordText">
-    <br />
-    <label for="forgotten">Forgotten: </label>
-    <input id="forgotten" type="checkbox" formControlName="forgotten">
-    <br />
-    <button class="button" type="submit">Submit</button>
-</form>
+    <app-hr class="text-grey"></app-hr>
+    <!-- <span class="text-grey" *ngFor="let item of Array(8)">-</span> -->
+    <form [formGroup]="newWordForm" (ngSubmit)="submit(newWordForm.value)">
+        <label for="pos">Part of speech: </label>
+        <select formControlName="pos">
+            <option *ngFor="let p of pos" [value]="p">{{ p }}</option>
+        </select>
+        <br />
+        <label for="wordText">Word:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <input id="wordText" type="text" formControlName="wordText">
+        <br />
+        <label for="forgotten">Forgotten: </label>
+        <input id="forgotten" type="checkbox" class="regular-checkbox" formControlName="forgotten">
+        <br />
+        <button class="button" type="submit" hidden>Submit</button>
+    </form>
+    <app-hr class="text-grey"></app-hr>
+    <div class="table-container">
+        <table>
+            <colgroup>
+                <col span="1" class="border">
+                <col span="1" style="width: max-content;">
+                <col span="1" style="width: auto;">
+                <col span="1" class="border">
+                <col span="1" style="width: max-content;">
+                <col span="1" class="border">
+                <col span="1" style="width: max-content;">
+                <col span="1" class="border">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th class="border">+</th>
+                    <th #col1 class="border">{{ bcol1 }}</th>
+                    <th #col2 class="border">{{ bcol2 }}</th>
+                    <th class="border">+</th>
+                    <th #col3 class="border">{{ bcol3 }}</th>
+                    <th class="border">+</th>
+                    <th #col4 class="border">{{ bcol4 }}</th>
+                    <th class="border">+</th>
+                </tr>
+            </tbody>
+            <tbody *ngIf="loadingWords">
+                <tr class="table-content">
+                    <td class="border">|</td>
+                    <td colspan="2">
+                        <app-loading></app-loading>
+                    </td>
+                    <td class="border">|</td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="!loadingWords">
+                <tr class="table-content" *ngFor="let word of words">
+                    <td class="border">|<br>|
+                    </td>
+                    <td class="text-main nowrap">/<a routerLink="/words/{{word.word}}"
+                            [queryParams]="{lang: selectedLanguage}">{{ word.word }}</a>/
+                        <span class="text-grey">[{{ word.partOfSpeech | shortPos }}]</span>&nbsp;</td>
+                    <td>
+                        <!-- <div *ngIf="translations.has(word.id)">
+                            <span class="text-grey" *ngFor="let translation of translations.get(word.id)">
+                                <span class="text-blue">{{
+                                    translation[2]?.word?translation[2]?.word:translation[0].altTranslation }}</span>
+                                    <span> {{translation[0].comment}}</span>
+                                    (<b>{{ translation[1].name.toLowerCase().substr(0,3) }}</b>) <br>
+                                </span>
+                            </div>
+                            <div>
+                                <span *ngIf="translations.get(word.id)?.length == 0" class="text-red">---</span>
+                                <div class="whole-line" align="right">
+                                    <span>
+                                        <app-add-translation [word]="word" (translationCreated)="refreshWord(word)">
+                                        </app-add-translation>
+                                    </span>
+                                </div>
+                            </div>
+                            <app-loading *ngIf="!translations.has(word.id)"></app-loading> -->
+                    </td>
+                    <td class="border">|<br>|</td>
+                    <td>
+                        <div *ngIf="!word.forgotten; then thenForget else elseForget"></div>
+                        <ng-template #thenForget><a href="#" class="text-yellow-dull link-btn">forget</a></ng-template>
+                        <ng-template #elseForget><a href="#" class="text-green-dull link-btn">unforget</a></ng-template>
+                    </td>
+                    <td class="border">|<br>|</td>
+                    <td>
+                        <a href="#" class="text-red-dull link-btn">x</a>
+                    </td>
+                    <td class="border">|<br>|</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <th class="border">+</th>
+                    <th class="border">{{ bcol1 }}</th>
+                    <th class="border">{{ bcol2 }}</th>
+                    <th class="border">+</th>
+                    <th class="border">{{ bcol3 }}</th>
+                    <th class="border">+</th>
+                    <th class="border">{{ bcol4 }}</th>
+                    <th class="border">+</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-template>
+<ng-template #elsePage>
+    <app-loading></app-loading>
+</ng-template>

@@ -1,0 +1,12 @@
+.footer-wrapper {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: fit-content;
+}
+
+.footer {
+    margin-left: 10px;
+    margin-right: 10px;
+}

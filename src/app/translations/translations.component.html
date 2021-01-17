@@ -39,7 +39,7 @@
                     </td>
                     <td class="text-main nowrap">/<a routerLink="/words/{{word.word}}"
                             [queryParams]="{lang: selectedLanguage}">{{ word.word }}</a>/ <span
-                            class="text-grey">[{{ shortPOS(word.partOfSpeech) }}]</span>&nbsp;</td>
+                            class="text-grey">[{{ word.partOfSpeech | shortPos }}]</span>&nbsp;</td>
                     <td>
                         <div *ngIf="translations.has(word.id)">
                             <span class="text-grey" *ngFor="let translation of translations.get(word.id)">
@@ -51,7 +51,7 @@
                         </div>
                         <!-- <div *ngIf="translations.get(word.id)?.length == 0"> -->
                         <div>
-                            <span *ngIf="translations.get(word.id)?.length == 0" class="text-red">---</span>
+                            <span *ngIf="translations.get(word.id)?.length == 0" class="text-red-dull">---</span>
                             <div class="whole-line" align="right">
                                 <span>
                                     <app-add-translation [word]="word" (translationCreated)="refreshWord(word)">

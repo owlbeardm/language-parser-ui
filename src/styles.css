@@ -9,15 +9,13 @@ html {
 
 a {
   color: #764c70;
-  
 }
 
-a:hover,
-a:active {
+a:hover, a:active {
   color: #af7fa8;
 }
 
-input {
+/* input {
   font-family: "Ubuntu Mono";
   color: #2e2e2b;
   font-size: 16px;
@@ -27,20 +25,53 @@ input {
   background-color: #e4e4e4;
   border: 1px solid #2e2e2b;
   /* width: 90%; */
-  /* display: block; */
-  /* border-bottom: 0.3rem solid transparent; */
-  transition: all 0.3s;
-}
 
-select {
+/* display: block; */
+
+/* border-bottom: 0.3rem solid transparent; */
+
+/* transition: all 0.3s; */
+
+/* } */
+
+input {
   font-family: "Ubuntu Mono";
-  color: #2e2e2b;
+  color: #e4e4e4;
   font-size: 16px;
   margin: 0 auto;
   padding: 3px 0.5rem;
   border-radius: 0.2rem;
-  background-color: #e4e4e4;
-  border: 1px solid #2e2e2b;
+  background-color: #252525;
+  border: 1px solid #5b5b55;
+  transition: all 0.3s;
+}
+
+.regular-checkbox {
+  -webkit-appearance: none;
+  border-radius: 0.2rem;
+  display: inline-block;
+  padding: 9px;
+  position: relative;
+  margin-bottom: -4px;
+}
+
+.regular-checkbox:checked:after {
+  content: '\2714';
+  font-size: 16px;
+  position: absolute;
+  top: 0px;
+  left: 3px;
+}
+
+select {
+  font-family: "Ubuntu Mono";
+  color: #e4e4e4;
+  font-size: 16px;
+  margin: 0 auto;
+  padding: 3px 0.5rem;
+  border-radius: 0.2rem;
+  background-color: #252525;
+  border: 1px solid #5b5b55;
   /* width: 90%; */
   /* display: block; */
   /* border-bottom: 0.3rem solid transparent; */
@@ -69,6 +100,10 @@ button:active {
   background: #af7fa8;
 }
 
+.link-btn {
+  text-decoration: none;
+}
+
 table {
   width: 100%;
 }
@@ -77,9 +112,7 @@ table {
   padding: 20px;
 }
 
-table,
-th,
-td {
+table, th, td {
   border: none;
   border-collapse: collapse;
 }
@@ -96,7 +129,6 @@ tr:hover.table-content {
   background-color: #333333;
 } */
 
-
 .text-green {
   color: #8fd637;
 }
@@ -109,6 +141,10 @@ tr:hover.table-content {
   color: #568a21;
 }
 
+a.text-green-dull:hover {
+  color: #8fd637;
+}
+
 .text-blue-dull {
   color: #4f70a3;
 }
@@ -117,16 +153,27 @@ tr:hover.table-content {
   color: #5b5b55;
 }
 
-.text-red {
-  color: #bf2020;
+.text-red-dull {
+  color: #BF2020;
+}
+
+a.text-red-dull:hover {
+  color: #EE2D2D;
+}
+
+.text-yellow-dull {
+  color: #B7A036
+}
+
+a.text-yellow-dull:hover {
+  color: #F6E44D;
 }
 
 .text-main {
   color: #764c70;
 }
 
-col.border,
-td.border {
+col.border, td.border {
   width: 1em;
 }
 
@@ -135,8 +182,12 @@ td.border {
   color: #5b5b55;
 }
 
-.nowrap{
-  white-space:nowrap;
+.nowrap {
+  white-space: nowrap;
+}
+
+.break-word {
+  word-break: break-word;
 }
 
 .whole-line {

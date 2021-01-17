@@ -13,8 +13,6 @@ export class TranslationsComponent implements OnInit, AfterViewChecked {
   //   <input #myname>
   @ViewChild('col1') col1: any;
   @ViewChild('col2') col2: any;
-  @ViewChild('dash') dash: any;
-  @ViewChild('ddash') ddash: any;
   bcol1: String;
   bcol2: String;
   // element

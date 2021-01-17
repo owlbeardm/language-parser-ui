@@ -12,6 +12,9 @@ import { TranslationsComponent } from './translations/translations.component';
 import { WordsListComponent } from './words-list/words-list.component';
 import { AppServiceModule } from './service/app-service.module';
 import { AddTranslationComponent } from './translations/add-translation/add-translation.component';
+import { ShortPosPipe } from './pipes/short-pos.pipe';
+import { HrComponent } from './components/hr/hr.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -22,7 +25,10 @@ import { AddTranslationComponent } from './translations/add-translation/add-tran
     LoadingComponent,
     TranslationsComponent,
     WordsListComponent,
-    AddTranslationComponent
+    AddTranslationComponent,
+    ShortPosPipe,
+    HrComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

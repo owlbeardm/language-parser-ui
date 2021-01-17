@@ -1,6 +1,7 @@
 <h1>Trace a word!</h1>
 <span>Titan,SlaveRunic,ProtoHuman,Queran,NitholanEmpire,OldNitholan,<b>Nitholan</b></span>
-<hr>
+<app-hr class="text-grey"></app-hr>
+
 <form [formGroup]="checkoutForm" (ngSubmit)="submit(checkoutForm.value)">
     <div>
         <label for="langs">
@@ -16,7 +17,7 @@
         <input id="wordText" type="text" formControlName="wordText">
     </div>
     <br/>
-    <button class="button" type="submit">Submit</button>
+    <button class="button" type="submit" hidden>Submit</button>
 </form>
 
 <h2>Evolved Words</h2>

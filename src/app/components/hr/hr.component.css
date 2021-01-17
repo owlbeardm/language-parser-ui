@@ -1,0 +1,10 @@
+.hr-crop {
+    width: 100%;
+    overflow: hidden;
+}
+
+.hr {
+    width: 110%;
+    position: relative;
+    left: -10px;
+}
