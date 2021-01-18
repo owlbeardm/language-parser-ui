@@ -26,7 +26,7 @@ export class WordsListComponent implements OnInit, AfterViewChecked {
   newWordForm: FormGroup;
   loadingPage: Boolean;
   loadingWords = false;
-  selectedLanguage: LanguageName;
+  selectedLanguage?: LanguageName;
 
   constructor(private cdRef: ChangeDetectorRef,
     private formBuilder: FormBuilder,
@@ -34,12 +34,11 @@ export class WordsListComponent implements OnInit, AfterViewChecked {
     this.langs = [];
     this.pos = [];
     this.loadingPage = true;
-    this.selectedLanguage = "Sylvan";
     this.newWordForm = this.formBuilder.group({
       lang: "",
       pos: "",
       wordText: "",
-      forgotten: true
+      makeForgotten: true
     });
   }
 
@@ -54,16 +53,16 @@ export class WordsListComponent implements OnInit, AfterViewChecked {
 
   resizeTable() {
     const d = "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
-    const col1l = Math.floor((this.col1?.nativeElement.offsetWidth - 2) / 8);
+    const col1l = Math.floor((this.col1 ?.nativeElement.offsetWidth - 2) / 8);
     const bcol1 = this.bcol1;
     this.bcol1 = d.substr(0, col1l);
-    const col2l = Math.floor((this.col2?.nativeElement.offsetWidth - 2) / 8);
+    const col2l = Math.floor((this.col2 ?.nativeElement.offsetWidth - 2) / 8);
     const bcol2 = this.bcol2;
     this.bcol2 = d.substr(0, col2l);
-    const col3l = Math.floor((this.col3?.nativeElement.offsetWidth - 2) / 8);
+    const col3l = Math.floor((this.col3 ?.nativeElement.offsetWidth - 2) / 8);
     const bcol3 = this.bcol3;
     this.bcol3 = d.substr(0, col3l);
-    const col4l = Math.floor((this.col4?.nativeElement.offsetWidth - 2) / 8);
+    const col4l = Math.floor((this.col4 ?.nativeElement.offsetWidth - 2) / 8);
     const bcol4 = this.bcol4;
     this.bcol4 = d.substr(0, col4l);
     if (bcol1 != this.bcol1 || bcol2 != this.bcol2) {
@@ -86,25 +85,28 @@ export class WordsListComponent implements OnInit, AfterViewChecked {
 
   refreshAll() {
     this.loadingWords = true;
-    this.apiService.getApiWordsLangLang(this.selectedLanguage).subscribe((words) => {
-      this.words = words;
-      // words.forEach((word) => this.refreshWord(word));
-      this.loadingWords = false;
-      this.resizeTable();
-    });
+    if (this.selectedLanguage)
+      this.apiService.getApiWordsLangLang(this.selectedLanguage).subscribe((words) => {
+        this.words = words;
+        // words.forEach((word) => this.refreshWord(word));
+        this.loadingWords = false;
+        this.resizeTable();
+      });
   }
 
   submit(newWordData: AddWordJSON) {
     // this.checkoutForm.reset();
     console.log("this.selectedLanguage ", this.selectedLanguage);
-    newWordData.lang = this.selectedLanguage;
-    console.log(newWordData);
-    this.apiService.postApiWords(newWordData).subscribe((added) => {
-      console.log("new  word added ", added);
-      if (added) {
-        this.refreshAll();
-      }
-    })
+    if (this.selectedLanguage) {
+      newWordData.lang = this.selectedLanguage;
+      console.log(newWordData);
+      this.apiService.postApiWords(newWordData).subscribe((added) => {
+        console.log("new  word added ", added);
+        if (added) {
+          this.refreshAll();
+        }
+      })
+    }
   }
 
 }

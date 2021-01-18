@@ -24,7 +24,7 @@ export class TraceComponent implements OnInit {
     private apiService: ApiService,
     private langService: LangService,
     private errorService: ErrorService) {
-    this.words = [""];
+    this.words = [];
     this.langs = [];
     this.apiService = apiService;
     this.checkoutForm = this.formBuilder.group({
@@ -40,7 +40,7 @@ export class TraceComponent implements OnInit {
   submit(traceData: TraceWordForm) {
     // this.checkoutForm.reset();
     console.log(traceData);
-    const langs = traceData.langs.split(",").map((lang) => lang.trim().toUpperCase());
+    const langs = traceData.langs.split(",").map((lang) => lang.trim());
     if (!this.langService.isValidLanguageNameSequence(langs)) {
       this.errorService.addError({
         message: `Wrong language name in post trace word.`,

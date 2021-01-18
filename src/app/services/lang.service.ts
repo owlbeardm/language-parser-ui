@@ -35,7 +35,11 @@ export class LangService implements OnDestroy, OnInit {
   }
 
   isValidLanguageName(value: string): value is LanguageName {
-    return true;
+    if (value as LanguageName) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   isValidLanguageNameSequence(values: string[]): values is Array<LanguageName> {

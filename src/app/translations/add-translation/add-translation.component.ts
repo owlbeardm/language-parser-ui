@@ -30,7 +30,7 @@ export class AddTranslationComponent implements OnInit {
         wordText: [undefined, Validators.required],
         pos: word ?.partOfSpeech,
         lang: "English",
-        forgotten: false,
+        makeForgotten: false,
       }),
       wordFromId: word ?.id,
       langTo: "English",
