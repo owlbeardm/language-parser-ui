@@ -34,11 +34,11 @@ export class LangService implements OnDestroy, OnInit {
     return pos;
   }
 
-  isValidLanguageName(value: string): value is keyof typeof LanguageName {
-    return value in LanguageName;
+  isValidLanguageName(value: string): value is LanguageName {
+    return true;
   }
 
-  isValidLanguageNameSequence(values: string[]): values is Array<keyof typeof LanguageName> {
+  isValidLanguageNameSequence(values: string[]): values is Array<LanguageName> {
     return values.every(this.isValidLanguageName);
   }
 }

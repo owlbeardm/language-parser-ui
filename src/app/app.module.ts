@@ -17,6 +17,7 @@ import { HrComponent } from './components/hr/hr.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { ErrorService } from './services/error.service';
+import { ApiModule } from './api/api.module';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { ErrorService } from './services/error.service';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AppServiceModule
+    AppServiceModule,
+    ApiModule.forRoot({rootUrl: 'http://api.lang.lo'}),
   ],
   providers: [
     {

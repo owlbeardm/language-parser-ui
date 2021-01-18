@@ -50,8 +50,7 @@ export class TraceComponent implements OnInit {
       });
       throw Error('Invalid LanguageName sequence');
     }
-    this.langs = LanguageName.values().filter(ln => langs.map(l => l.toString()).includes(ln.toString()))
-
+    this.langs = langs;
     this.wordText = traceData.wordText.trim();
     const req: TraceWordReq = { langs: this.langs, wordTrace: this.wordText.toString() };
     this.apiService.postApiLangsTraceWord(req).subscribe((words) => {

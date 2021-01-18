@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { LanguageName } from '../api/models';
 import { ApiService } from '../api/services';
+import { LangService } from '../services/lang.service';
 
 @Component({
   selector: 'app-words',
@@ -18,6 +19,7 @@ export class WordsComponent implements OnInit {
   loadingWords: Boolean;
 
   constructor(private apiService: ApiService,
+    private langService: LangService,
     private route: ActivatedRoute,
     private router: Router) {
 
@@ -33,10 +35,10 @@ export class WordsComponent implements OnInit {
 
   ngOnInit(): void {
     this.word = String(this.route.snapshot.paramMap.get('word'));
-    const lang = LanguageName.values().find(ln => ln.toString() == this.route.snapshot.queryParamMap.get('lang'));
+    const lang = this.route.snapshot.queryParamMap.get('lang');
     this.apiService.getApiLangs().subscribe((langs) => {
       this.langs = langs;
-      if (lang && this.langs.includes(lang)) {
+      if (lang && this.langService.isValidLanguageName(lang) && this.langs.includes(lang)) {
         this.selectedLanguage = lang;
       } else {
         this.router.navigate([], {
