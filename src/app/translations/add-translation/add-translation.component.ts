@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService } from 'src/app/api.service';
-import { AddWordTranslationJSON, Word } from 'src/app/models/word';
+import { AddWordTranslationJSON, WordJSON } from 'src/app/api/models';
+import { ApiService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-add-translation',
@@ -11,7 +11,7 @@ import { AddWordTranslationJSON, Word } from 'src/app/models/word';
 export class AddTranslationComponent implements OnInit {
 
   newTranslationForm: FormGroup;
-  @Input() word?: Word;
+  @Input() word?: WordJSON;
   @Output() translationCreated = new EventEmitter<Object>();
 
   constructor(private fb: FormBuilder,
@@ -44,14 +44,14 @@ export class AddTranslationComponent implements OnInit {
     if (newTranslationForm.isAltTranslation) {
       newTranslationForm.altTranslation = newTranslationForm ?.translation ?.wordText;
     } else if (newTranslationForm ?.translation) {
-      const exists = await this.apiService.existsWord(newTranslationForm ?.translation).toPromise();
+      const exists = await this.apiService.postApiWordsExists(newTranslationForm ?.translation).toPromise();
       console.log("new translation exists ", exists);
       if (!exists) {
-        const newWord = await this.apiService.addNewWord(newTranslationForm ?.translation).toPromise();
+        const newWord = await this.apiService.postApiWords(newTranslationForm ?.translation).toPromise();
         console.log("new translation word added", exists);
       }
     }
-    this.apiService.addNewTranslation(newTranslationForm).subscribe((added) => {
+    this.apiService.postApiTranslation(newTranslationForm).subscribe((added) => {
       console.log("new translation added ", added);
       this.translationCreated.emit();
     });

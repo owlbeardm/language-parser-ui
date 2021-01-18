@@ -3,7 +3,7 @@
     <label for="cars">Language: </label>
     <select [(ngModel)]="selectedLanguage" (change)="changeLang()">
         <option [value]=""> --- Select Language --- </option>
-        <option *ngFor="let l of langs" [value]="l.name">{{ l.name }}</option>
+        <option *ngFor="let l of langs" [value]="l">{{ l }}</option>
     </select>
     <app-hr class="text-grey"></app-hr>
     <!-- <span class="text-grey" *ngFor="let item of Array(8)">-</span> -->

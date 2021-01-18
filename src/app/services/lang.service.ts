@@ -1,20 +1,14 @@
 import { Injectable, OnInit, OnDestroy } from '@angular/core';
-import { ApiService } from '../api.service';
-import { Language } from '../models/word';
+import { LanguageName } from '../api/models';
+import { ApiService } from '../api/services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LangService implements OnDestroy, OnInit {
 
-  langs: Language[];
-  pos: String[];
 
   constructor(apiService: ApiService) {
-    this.langs = [];
-    apiService.getLanguages().subscribe((langs) => this.langs = langs);
-    this.pos = [];
-    apiService.getPartsOfSpeech().subscribe((pos) => this.pos = pos);
   }
 
   ngOnInit(): void {
@@ -38,5 +32,13 @@ export class LangService implements OnDestroy, OnInit {
     if (pos == "Prefix") return "prefix";
     if (pos == "Suffix") return "suffix";
     return pos;
+  }
+
+  isValidLanguageName(value: string): value is keyof typeof LanguageName {
+    return value in LanguageName;
+  }
+
+  isValidLanguageNameSequence(values: string[]): values is Array<keyof typeof LanguageName> {
+    return values.every(this.isValidLanguageName);
   }
 }

@@ -1,6 +1,6 @@
 import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { ApiService } from '../api.service';
-import { Word, WordTranslation } from '../models/word';
+import { LanguageName, TranslationAPI, WordJSON } from '../api/models';
+import { ApiService } from '../api/services';
 
 @Component({
   selector: 'app-translations',
@@ -15,12 +15,12 @@ export class TranslationsComponent implements OnInit, AfterViewChecked {
   bcol1: String;
   bcol2: String;
   // element
-  words: Word[];
-  langs: String[];
+  words: WordJSON[];
+  langs: Array<LanguageName>;
   selectedLanguage: String;
   loadingPage: Boolean;
   loadingWords: Boolean;
-  translations: Map<number, WordTranslation[]>;
+  translations: Map<number | undefined, [TranslationAPI, LanguageName, WordJSON][]>;
 
 
   constructor(private cdRef: ChangeDetectorRef,
@@ -42,8 +42,9 @@ export class TranslationsComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     console.log("translations ngOnInit ");
-    this.apiService.getLanguages().subscribe((langs) => {
-      this.langs = langs.map((lang) => lang.name);
+    this.apiService.getApiLangs().subscribe((langs) => {
+      console.log(typeof langs);
+      this.langs = langs;
       this.refreshAll();
       this.loadingPage = false;
     });
@@ -72,7 +73,7 @@ export class TranslationsComponent implements OnInit, AfterViewChecked {
 
   refreshAll() {
     this.loadingWords = true;
-    this.apiService.getWordsByLang(this.selectedLanguage).subscribe((words) => {
+    this.apiService.getApiWordsLangLang("Sylvan").subscribe((words) => {
       this.words = words;
       words.forEach((word) => this.refreshWord(word));
       this.loadingWords = false;
@@ -80,12 +81,15 @@ export class TranslationsComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  refreshWord(word: Word) {
-    this.translations.delete(word.id);
-    this.apiService.getTranslationsByWordKey(word.id).subscribe((translations) => {
-      this.translations.set(word.id, translations);
-      this.cdRef.detectChanges();
-    });
+  refreshWord(word: WordJSON) {
+    if (word.id) {
+      this.translations.delete(word.id);
+      this.apiService.getApiTranslationBywordkeyWordId(word.id).subscribe((translations) => {
+        if (word.id)
+          this.translations.set(word.id, translations);
+        this.cdRef.detectChanges();
+      });
+    }
   }
 
 }

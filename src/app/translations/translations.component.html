@@ -3,7 +3,7 @@
     <label for="cars">Language: </label>
     <select [(ngModel)]="selectedLanguage" (change)="changeLang()">
         <option value=""> --- Select Language --- </option>
-        <option *ngFor="let l of langs" [value]="l">{{ l }}</option>
+        <option *ngFor="let l of langs" [value]="l">{{ l.toString() }}</option>
     </select>
 
     <div class="table-container">
@@ -44,14 +44,14 @@
                         <div *ngIf="translations.has(word.id)">
                             <span class="text-grey" *ngFor="let translation of translations.get(word.id)">
                                 <span class="text-blue">{{
-                                    translation[2]?.word?translation[2]?.word:translation[0].altTranslation }}</span>
-                                <span> {{translation[0].comment}}</span>
-                                (<b>{{ translation[1].name.toLowerCase().substr(0,3) }}</b>) <br>
+                                    translation[2]?.word?translation[2]?.word:translation[0].translationAltTranslation }}</span>
+                                <span> {{translation[0].translationComment}}</span>
+                                (<b>{{ translation[1].toLowerCase().substr(0,3) }}</b>) <br>
                             </span>
                         </div>
                         <!-- <div *ngIf="translations.get(word.id)?.length == 0"> -->
                         <div>
-                            <span *ngIf="translations.get(word.id)?.length == 0" class="text-red-dull">---</span>
+                            <span *ngIf="word.id && translations.get(word.id)?.length == 0" class="text-red-dull">---</span>
                             <div class="whole-line" align="right">
                                 <span>
                                     <app-add-translation [word]="word" (translationCreated)="refreshWord(word)">

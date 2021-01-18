@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, HostListener, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
-import { Language, AddWordJSON, Word } from '../models/word';
-import { ApiService } from '../api.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AddWordJSON, LanguageName, PartOfSpeech, WordJSON } from '../api/models';
+import { ApiService } from '../api/services';
 
 @Component({
   selector: 'app-words-list',
@@ -20,13 +20,13 @@ export class WordsListComponent implements OnInit, AfterViewChecked {
   bcol3: String = "";
   bcol4: String = "";
   // element
-  pos: String[];
-  langs: Language[];
-  words: Word[] = [];
+  pos: PartOfSpeech[];
+  langs: LanguageName[];
+  words: WordJSON[] = [];
   newWordForm: FormGroup;
   loadingPage: Boolean;
   loadingWords = false;
-  selectedLanguage: String;
+  selectedLanguage: LanguageName;
 
   constructor(private cdRef: ChangeDetectorRef,
     private formBuilder: FormBuilder,
@@ -34,7 +34,7 @@ export class WordsListComponent implements OnInit, AfterViewChecked {
     this.langs = [];
     this.pos = [];
     this.loadingPage = true;
-    this.selectedLanguage = "";
+    this.selectedLanguage = "Sylvan";
     this.newWordForm = this.formBuilder.group({
       lang: "",
       pos: "",
@@ -72,11 +72,11 @@ export class WordsListComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit(): void {
-    this.apiService.getLanguages().subscribe((langs) => {
+    this.apiService.getApiLangs().subscribe((langs) => {
       this.langs = langs;
       this.loadingPage = false;
     });
-    this.apiService.getPartsOfSpeech().subscribe((pos) => this.pos = pos);
+    this.apiService.getApiWordsPos().subscribe((pos) => this.pos = pos);
   }
 
   changeLang(): void {
@@ -86,7 +86,7 @@ export class WordsListComponent implements OnInit, AfterViewChecked {
 
   refreshAll() {
     this.loadingWords = true;
-    this.apiService.getWordsByLang(this.selectedLanguage).subscribe((words) => {
+    this.apiService.getApiWordsLangLang(this.selectedLanguage).subscribe((words) => {
       this.words = words;
       // words.forEach((word) => this.refreshWord(word));
       this.loadingWords = false;
@@ -99,9 +99,9 @@ export class WordsListComponent implements OnInit, AfterViewChecked {
     console.log("this.selectedLanguage ", this.selectedLanguage);
     newWordData.lang = this.selectedLanguage;
     console.log(newWordData);
-    this.apiService.addNewWord(newWordData).subscribe((added) => {
+    this.apiService.postApiWords(newWordData).subscribe((added) => {
       console.log("new  word added ", added);
-      if(added){
+      if (added) {
         this.refreshAll();
       }
     })

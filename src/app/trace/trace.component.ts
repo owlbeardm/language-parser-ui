@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { TraceWordReq, TraceWordForm } from '../models/trace-word-req';
-import { ApiService } from '../api.service';
+import { throwError } from 'rxjs';
+import { LanguageName, TraceWordReq } from '../api/models';
+import { ApiService } from '../api/services';
+import { TraceWordForm } from '../models/trace-word-req';
+import { ErrorService } from '../services/error.service';
+import { LangService } from '../services/lang.service';
 
 @Component({
   selector: 'app-trace',
@@ -11,15 +15,17 @@ import { ApiService } from '../api.service';
 export class TraceComponent implements OnInit {
 
   wordText: String = "";
-  langs: String[];
+  langs: LanguageName[];
   words: String[];
   checkoutForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService:ApiService) {
+    private apiService: ApiService,
+    private langService: LangService,
+    private errorService: ErrorService) {
     this.words = [""];
-    this.langs = [""];
+    this.langs = [];
     this.apiService = apiService;
     this.checkoutForm = this.formBuilder.group({
       wordText: '',
@@ -34,11 +40,21 @@ export class TraceComponent implements OnInit {
   submit(traceData: TraceWordForm) {
     // this.checkoutForm.reset();
     console.log(traceData);
-    this.langs = traceData.langs.split(",").map((lang: String) => { return new String(lang.trim()) });
+    const langs = traceData.langs.split(",").map((lang) => lang.trim().toUpperCase());
+    if (!this.langService.isValidLanguageNameSequence(langs)) {
+      this.errorService.addError({
+        message: `Wrong language name in post trace word.`,
+        details: `Lang names: ${langs
+          .filter((lang) => !this.langService.isValidLanguageName(lang))
+          .reduce((p, c, i) => `${p}${i > 0 ? ', ' : ''}${c}`)}.`
+      });
+      throw Error('Invalid LanguageName sequence');
+    }
+    this.langs = LanguageName.values().filter(ln => langs.map(l => l.toString()).includes(ln.toString()))
+
     this.wordText = traceData.wordText.trim();
-    // window.alert(`${this.wordText} in ${this.langs} langs`);
-    const req: TraceWordReq = { langs: this.langs, wordTrace: this.wordText };
-    this.apiService.traceWords(req).subscribe((words) => {
+    const req: TraceWordReq = { langs: this.langs, wordTrace: this.wordText.toString() };
+    this.apiService.postApiLangsTraceWord(req).subscribe((words) => {
       this.words = words;
     })
   }

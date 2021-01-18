@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
-import { WordDescriptionAPI } from '../models/word';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { LanguageName } from '../api/models';
+import { ApiService } from '../api/services';
 
 @Component({
   selector: 'app-words',
@@ -10,9 +10,9 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class WordsComponent implements OnInit {
 
-  words: WordDescriptionAPI[];
-  word: String;
-  langs: String[];
+  words: any;
+  word: string;
+  langs: LanguageName[];
   selectedLanguage: String;
   loadingPage: Boolean;
   loadingWords: Boolean;
@@ -33,10 +33,10 @@ export class WordsComponent implements OnInit {
 
   ngOnInit(): void {
     this.word = String(this.route.snapshot.paramMap.get('word'));
-    const lang = String(this.route.snapshot.queryParamMap.get('lang'));
-    this.apiService.getLanguages().subscribe((langs) => {
-      this.langs = langs.map((lang) => lang.name);
-      if (this.langs.includes(lang)) {
+    const lang = LanguageName.values().find(ln => ln.toString() == this.route.snapshot.queryParamMap.get('lang'));
+    this.apiService.getApiLangs().subscribe((langs) => {
+      this.langs = langs;
+      if (lang && this.langs.includes(lang)) {
         this.selectedLanguage = lang;
       } else {
         this.router.navigate([], {
@@ -47,7 +47,7 @@ export class WordsComponent implements OnInit {
       this.refresh();
       this.loadingPage = false;
     });
-    
+
   }
 
   changeLang(): void {
@@ -60,7 +60,7 @@ export class WordsComponent implements OnInit {
 
   refresh(): void {
     this.loadingWords = true;
-    this.apiService.getWord(this.word, this.selectedLanguage).subscribe((words) => {
+    this.apiService.getApiWordsWord({ word: this.word/*, lang: this.selectedLanguage.toString()*/ }).subscribe((words) => {
       this.words = words;
       this.loadingWords = false;
     });
