@@ -17,8 +17,8 @@
             <tbody>
                 <tr>
                     <th class="border">+</th>
-                    <th app-vertical-dash class="border"></th>
-                    <th app-vertical-dash class="border"></th>
+                    <th app-horizontal-dash class="border"></th>
+                    <th app-horizontal-dash class="border"></th>
                     <th class="border">+</th>
                 </tr>
             </tbody>
@@ -32,11 +32,8 @@
                 </tr>
             </tbody>
             <tbody *ngIf="!loadingWords">
-                <tr class="table-content" *ngFor="let word of words">
-                    <td class="border">|<br>|
-                        <span *ngFor="let translation of translations.get(word.id); let i = index"><span
-                                *ngIf="i>0"><br>|</span></span>
-                    </td>
+                <tr #trrow class="table-content" *ngFor="let word of words">
+                    <td app-vertical-dash class="border"></td>
                     <td class="text-main nowrap">/<a routerLink="/words/{{word.word}}"
                             [queryParams]="{lang: selectedLanguage}">{{ word.word }}</a>/ <span
                             class="text-grey">[{{ word.partOfSpeech | shortPos }}]</span>&nbsp;</td>
@@ -61,17 +58,14 @@
                         </div>
                         <app-loading *ngIf="!translations.has(word.id)"></app-loading>
                     </td>
-                    <td class="border">|<br>|
-                        <span *ngFor="let translation of translations.get(word.id); let i = index"><span
-                                *ngIf="i>0"><br>|</span></span>
-                    </td>
+                    <td app-vertical-dash class="border"></td>
                 </tr>
             </tbody>
             <tbody>
                 <tr>
                     <th class="border">+</th>
-                    <th app-vertical-dash class="border"></th>
-                    <th app-vertical-dash class="border"></th>
+                    <th app-horizontal-dash class="border"></th>
+                    <th app-horizontal-dash class="border"></th>
                     <th class="border">+</th>
                 </tr>
             </tbody>

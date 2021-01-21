@@ -37,28 +37,27 @@
             <tbody>
                 <tr>
                     <th class="border">+</th>
-                    <th app-vertical-dash class="border"></th>
-                    <th app-vertical-dash class="border"></th>
+                    <th app-horizontal-dash class="border"></th>
+                    <th app-horizontal-dash class="border"></th>
                     <th class="border">+</th>
-                    <th app-vertical-dash class="border"></th>
+                    <th app-horizontal-dash class="border"></th>
                     <th class="border">+</th>
-                    <th app-vertical-dash class="border"></th>
+                    <th app-horizontal-dash class="border"></th>
                     <th class="border">+</th>
                 </tr>
             </tbody>
             <tbody *ngIf="loadingWords">
                 <tr class="table-content">
-                    <td class="border">|</td>
+                    <td app-vertical-dash class="border"></td>
                     <td colspan="2">
                         <app-loading></app-loading>
                     </td>
-                    <td class="border">|</td>
+                    <td app-vertical-dash class="border"></td>
                 </tr>
             </tbody>
             <tbody *ngIf="!loadingWords">
                 <tr class="table-content" *ngFor="let word of words">
-                    <td class="border">|<br>|
-                    </td>
+                    <td app-vertical-dash class="border"></td>
                     <td class="text-main nowrap">/<a routerLink="/words/{{word.word}}"
                             [queryParams]="{lang: selectedLanguage}">{{ word.word }}</a>/
                         <span class="text-grey">[{{ word.partOfSpeech | shortPos }}]</span>&nbsp;</td>
@@ -82,28 +81,28 @@
                             </div>
                             <app-loading *ngIf="!translations.has(word.id)"></app-loading> -->
                     </td>
-                    <td class="border">|<br>|</td>
+                    <td app-vertical-dash class="border"></td>
                     <td>
                         <div *ngIf="!word.forgotten; then thenForget else elseForget"></div>
                         <ng-template #thenForget><a href="#" class="text-yellow-dull link-btn">forget</a></ng-template>
                         <ng-template #elseForget><a href="#" class="text-green-dull link-btn">unforget</a></ng-template>
                     </td>
-                    <td class="border">|<br>|</td>
+                    <td app-vertical-dash class="border"></td>
                     <td>
                         <a href="#" class="text-red-dull link-btn">x</a>
                     </td>
-                    <td class="border">|<br>|</td>
+                    <td app-vertical-dash class="border"></td>
                 </tr>
             </tbody>
             <tbody>
                 <tr>
                     <th class="border">+</th>
-                    <th app-vertical-dash class="border"></th>
-                    <th app-vertical-dash class="border"></th>
+                    <th app-horizontal-dash class="border"></th>
+                    <th app-horizontal-dash class="border"></th>
                     <th class="border">+</th>
-                    <th app-vertical-dash class="border"></th>
+                    <th app-horizontal-dash class="border"></th>
                     <th class="border">+</th>
-                    <th app-vertical-dash class="border"></th>
+                    <th app-horizontal-dash class="border"></th>
                     <th class="border">+</th>
                 </tr>
             </tbody>

@@ -18,7 +18,8 @@ a {
   cursor: pointer;
 }
 
-a:hover, a:active {
+a:hover,
+a:active {
   color: #af7fa8;
 }
 
@@ -45,7 +46,7 @@ input {
 }
 
 .regular-checkbox:checked:after {
-  content: '*';
+  content: "*";
   font-size: 16px;
   position: absolute;
   top: 3px;
@@ -80,15 +81,15 @@ button:active {
 }
 
 .btn-red {
-  color: #BF2020;
+  color: #bf2020;
 }
 
 button:focus.btn-red {
-  outline-color: #BF2020;
+  outline-color: #bf2020;
 }
 
 button:active.btn-red {
-  background: #BF2020;
+  background: #bf2020;
   color: #252525;
 }
 
@@ -104,7 +105,9 @@ table {
   padding: 20px;
 }
 
-table, th, td {
+table,
+th,
+td {
   border: none;
   border-collapse: collapse;
 }
@@ -146,26 +149,27 @@ a.text-green-dull:hover {
 }
 
 .text-red-dull {
-  color: #BF2020;
+  color: #bf2020;
 }
 
 a.text-red-dull:hover {
-  color: #EE2D2D;
+  color: #ee2d2d;
 }
 
 .text-yellow-dull {
-  color: #B7A036
+  color: #b7a036;
 }
 
 a.text-yellow-dull:hover {
-  color: #F6E44D;
+  color: #f6e44d;
 }
 
 .text-main {
   color: #764c70;
 }
 
-col.border, td.border {
+col.border,
+td.border {
   width: 1em;
 }
 
@@ -174,6 +178,11 @@ col.border, td.border {
   color: #5b5b55;
   font-weight: bold;
   padding: 0px;
+}
+
+td.border {
+  padding: 0px;
+  height: 100%;
 }
 
 .nowrap {
@@ -191,5 +200,9 @@ col.border, td.border {
 }
 
 app-vertical-dash {
+  height: 100%;
+}
+
+app-horizontal-dash {
   width: 100%;
 }

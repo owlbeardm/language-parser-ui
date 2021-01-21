@@ -11,7 +11,7 @@
             <tbody>
                 <tr>
                     <th class="border">+</th>
-                    <th app-vertical-dash class="border"></th>
+                    <th app-horizontal-dash class="border"></th>
                     <th class="border">+</th>
                     <th class="border">--</th>
                     <th class="border">+</th>
@@ -25,7 +25,7 @@
                 </tr>
                 <tr>
                     <th class="border">+</th>
-                    <th app-vertical-dash class="border"></th>
+                    <th app-horizontal-dash class="border"></th>
                     <th class="border">+</th>
                     <th class="border">--</th>
                     <th class="border">+</th>
@@ -33,18 +33,16 @@
             </tbody>
             <tbody>
                 <tr *ngFor="let e of errors">
-                    <td class="border">|<br>|<br>|<br>|<br>|<br>|</td>
+                    <td app-vertical-dash class="border"></td>
                     <td class="break-word text-grey" colspan="3"><span class="text-red-dull">{{e.message}}. </span><span>{{e.details}}</span></td>
-                    <td class="border">|<br>|<br>|<br>|<br>|<br>|</td>
+                    <td app-vertical-dash class="border"></td>
+                </tr>
+                <tr>
+                    <td class="border">|</td>
+                    <td class="break-word text-grey" colspan="3"></td>
+                    <td class="border">|</td>
                 </tr>
             </tbody>
-            <!-- <tbody>
-                <tr class="">
-                    <td class="border">|</td>
-                    <td colspan="3"></td>
-                    <td class="border">|</td>
-                </tr>
-            </tbody> -->
         </table>
 
     </div>

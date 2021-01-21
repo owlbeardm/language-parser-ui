@@ -1,4 +1,8 @@
-.th-span {
+.td-span {
+  /* display: flex; */
+  /* align-items: stretch; */
   width: 100%;
-  min-width: 10px;
+
+  height: 100%;
+  min-height: 10px;
 }

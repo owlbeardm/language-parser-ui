@@ -18,6 +18,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { ErrorService } from './services/error.service';
 import { ApiModule } from './api/api.module';
+import { HorizontalDashComponent } from './components/horizontal-dash/horizontal-dash.component';
 import { VerticalDashComponent } from './components/vertical-dash/vertical-dash.component';
 
 
@@ -33,6 +34,7 @@ import { VerticalDashComponent } from './components/vertical-dash/vertical-dash.
     ShortPosPipe,
     HrComponent,
     FooterComponent,
+    HorizontalDashComponent,
     VerticalDashComponent
   ],
   imports: [

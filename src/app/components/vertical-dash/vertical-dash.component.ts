@@ -1,14 +1,14 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'th[app-vertical-dash]',
+  selector: 'td[app-vertical-dash]',
   templateUrl: './vertical-dash.component.html',
   styleUrls: ['./vertical-dash.component.css']
 })
 export class VerticalDashComponent implements OnInit, AfterViewChecked {
 
-  @ViewChild('col') col: any;
-  bcol: String = "";
+  @ViewChild('row') row: any;
+  brow: String = "";
 
   constructor(private cdRef: ChangeDetectorRef) { }
 
@@ -24,10 +24,10 @@ export class VerticalDashComponent implements OnInit, AfterViewChecked {
   }
 
   resizeDash() {
-    const colLength = Math.floor((this.col?.nativeElement.offsetWidth ) / 8);
-    const bcol = this.bcol;
-    this.bcol = colLength?"-".repeat(colLength):"";
-    if (bcol != this.bcol) {
+    const rowLength = Math.min(10,Math.ceil((this.row?.nativeElement.parentNode.offsetHeight) / 16));
+    const brow = this.brow;
+    this.brow = rowLength?"|\n".repeat(rowLength):"";
+    if (brow != this.brow) {
       this.cdRef.detectChanges();
     }
   }
