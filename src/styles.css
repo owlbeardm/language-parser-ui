@@ -173,6 +173,7 @@ col.border, td.border {
   text-align: center;
   color: #5b5b55;
   font-weight: bold;
+  padding: 0px;
 }
 
 .nowrap {
@@ -186,5 +187,9 @@ col.border, td.border {
 .whole-line {
   display: block;
   margin-top: -8px;
+  width: 100%;
+}
+
+app-vertical-dash {
   width: 100%;
 }

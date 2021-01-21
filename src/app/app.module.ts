@@ -18,6 +18,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { ErrorService } from './services/error.service';
 import { ApiModule } from './api/api.module';
+import { VerticalDashComponent } from './components/vertical-dash/vertical-dash.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { ApiModule } from './api/api.module';
     AddTranslationComponent,
     ShortPosPipe,
     HrComponent,
-    FooterComponent
+    FooterComponent,
+    VerticalDashComponent
   ],
   imports: [
     BrowserModule,
