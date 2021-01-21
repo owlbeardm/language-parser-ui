@@ -17,7 +17,7 @@ export class TranslationsComponent implements OnInit, AfterViewChecked {
   // element
   words: WordJSON[];
   langs: Array<LanguageName>;
-  selectedLanguage: String;
+  selectedLanguage?: LanguageName;
   loadingPage: Boolean;
   loadingWords: Boolean;
   translations: Map<number | undefined, [TranslationAPI, LanguageName, WordJSON][]>;
@@ -29,7 +29,6 @@ export class TranslationsComponent implements OnInit, AfterViewChecked {
     this.bcol2 = "";
     this.words = [];
     this.langs = [];
-    this.selectedLanguage = "Sylvan";
     this.loadingPage = true;
     this.loadingWords = true;
     this.translations = new Map();
@@ -73,12 +72,13 @@ export class TranslationsComponent implements OnInit, AfterViewChecked {
 
   refreshAll() {
     this.loadingWords = true;
-    this.apiService.getApiWordsLangLang("Sylvan").subscribe((words) => {
-      this.words = words;
-      words.forEach((word) => this.refreshWord(word));
-      this.loadingWords = false;
-      this.resizeTable();
-    });
+    if (this.selectedLanguage)
+      this.apiService.getApiWordsLangLang(this.selectedLanguage).subscribe((words) => {
+        this.words = words;
+        words.forEach((word) => this.refreshWord(word));
+        this.loadingWords = false;
+        this.resizeTable();
+      });
   }
 
   refreshWord(word: WordJSON) {

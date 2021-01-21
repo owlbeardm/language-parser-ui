@@ -24,7 +24,7 @@ export class VerticalDashComponent implements OnInit, AfterViewChecked {
   }
 
   resizeDash() {
-    const rowLength = Math.min(10,Math.ceil((this.row?.nativeElement.parentNode.offsetHeight) / 16));
+    const rowLength = Math.min(10,Math.floor((this.row?.nativeElement.parentNode.offsetHeight) / 16));
     const brow = this.brow;
     this.brow = rowLength?"|\n".repeat(rowLength):"";
     if (brow != this.brow) {
