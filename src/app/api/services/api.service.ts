@@ -23,6 +23,8 @@ class ApiService extends __BaseService {
   static readonly postApiLangsTraceWordPath = '/api/langs/traceWord';
   static readonly getApiWordsLangLangPath = '/api/words/lang/{lang}';
   static readonly postApiWordsPath = '/api/words';
+  static readonly postApiWordsWordIdPath = '/api/words/{wordId}';
+  static readonly deleteApiWordsWordIdPath = '/api/words/{wordId}';
   static readonly getApiWordsPosPath = '/api/words/pos';
   static readonly getApiWordsWordPath = '/api/words/{word}';
   static readonly postApiWordsExistsPath = '/api/words/exists';
@@ -185,6 +187,83 @@ class ApiService extends __BaseService {
   postApiWords(body: AddWordJSON): __Observable<boolean> {
     return this.postApiWordsResponse(body).pipe(
       __map(_r => _r.body as boolean)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.PostApiWordsWordIdParams` containing the following parameters:
+   *
+   * - `wordId`:
+   *
+   * - `body`:
+   */
+  postApiWordsWordIdResponse(params: ApiService.PostApiWordsWordIdParams): __Observable<__StrictHttpResponse<Array<any>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    __body = params.body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `/api/words/${encodeURIComponent(params.wordId)}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<any>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.PostApiWordsWordIdParams` containing the following parameters:
+   *
+   * - `wordId`:
+   *
+   * - `body`:
+   */
+  postApiWordsWordId(params: ApiService.PostApiWordsWordIdParams): __Observable<Array<any>> {
+    return this.postApiWordsWordIdResponse(params).pipe(
+      __map(_r => _r.body as Array<any>)
+    );
+  }
+
+  /**
+   * @param wordId undefined
+   */
+  deleteApiWordsWordIdResponse(wordId: number): __Observable<__StrictHttpResponse<Array<any>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'DELETE',
+      this.rootUrl + `/api/words/${encodeURIComponent(wordId)}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<any>>;
+      })
+    );
+  }
+  /**
+   * @param wordId undefined
+   */
+  deleteApiWordsWordId(wordId: number): __Observable<Array<any>> {
+    return this.deleteApiWordsWordIdResponse(wordId).pipe(
+      __map(_r => _r.body as Array<any>)
     );
   }
   getApiWordsPosResponse(): __Observable<__StrictHttpResponse<Array<PartOfSpeech>>> {
@@ -360,6 +439,14 @@ class ApiService extends __BaseService {
 }
 
 module ApiService {
+
+  /**
+   * Parameters for postApiWordsWordId
+   */
+  export interface PostApiWordsWordIdParams {
+    wordId: number;
+    body: AddWordJSON;
+  }
 
   /**
    * Parameters for getApiWordsWord

@@ -62,34 +62,15 @@
                             [queryParams]="{lang: selectedLanguage}">{{ word.word }}</a>/
                         <span class="text-grey">[{{ word.partOfSpeech | shortPos }}]</span>&nbsp;</td>
                     <td>
-                        <!-- <div *ngIf="translations.has(word.id)">
-                            <span class="text-grey" *ngFor="let translation of translations.get(word.id)">
-                                <span class="text-blue">{{
-                                    translation[2]?.word?translation[2]?.word:translation[0].altTranslation }}</span>
-                                    <span> {{translation[0].comment}}</span>
-                                    (<b>{{ translation[1].name.toLowerCase().substr(0,3) }}</b>) <br>
-                                </span>
-                            </div>
-                            <div>
-                                <span *ngIf="translations.get(word.id)?.length == 0" class="text-red">---</span>
-                                <div class="whole-line" align="right">
-                                    <span>
-                                        <app-add-translation [word]="word" (translationCreated)="refreshWord(word)">
-                                        </app-add-translation>
-                                    </span>
-                                </div>
-                            </div>
-                            <app-loading *ngIf="!translations.has(word.id)"></app-loading> -->
                     </td>
                     <td app-vertical-dash class="border"></td>
                     <td>
-                        <div *ngIf="!word.forgotten; then thenForget else elseForget"></div>
-                        <ng-template #thenForget><a href="#" class="text-yellow-dull link-btn">forget</a></ng-template>
-                        <ng-template #elseForget><a href="#" class="text-green-dull link-btn">unforget</a></ng-template>
+                        <!-- <div *ngIf="!word.forgotten; then thenForget else elseForget"></div> -->
+                        <a [ngClass]="!word.forgotten ? 'text-yellow-dull' : 'text-green-dull'" class=" link-btn" (click)="forgetWord(word)">{{!word.forgotten?'forget':'unforget'}}</a>
                     </td>
                     <td app-vertical-dash class="border"></td>
                     <td>
-                        <a href="#" class="text-red-dull link-btn">x</a>
+                        <a class="text-red-dull link-btn" (click)="deleteWord(word)">x</a>
                     </td>
                     <td app-vertical-dash class="border"></td>
                 </tr>

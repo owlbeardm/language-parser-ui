@@ -2,31 +2,22 @@ import { Component, OnInit, ViewChild, HostListener, ChangeDetectorRef, AfterVie
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AddWordJSON, LanguageName, PartOfSpeech, WordJSON } from '../api/models';
 import { ApiService } from '../api/services';
+import { WebDriver } from 'protractor';
 
 @Component({
   selector: 'app-words-list',
   templateUrl: './words-list.component.html',
   styleUrls: ['./words-list.component.css']
 })
-export class WordsListComponent implements OnInit, AfterViewChecked {
+export class WordsListComponent implements OnInit {
 
-  //   <input #myname>
-  @ViewChild('col1') col1: any;
-  @ViewChild('col2') col2: any;
-  @ViewChild('col3') col3: any;
-  @ViewChild('col4') col4: any;
-  bcol1: String = "";
-  bcol2: String = "";
-  bcol3: String = "";
-  bcol4: String = "";
-  // element
   pos: PartOfSpeech[];
   langs: LanguageName[];
   words: WordJSON[] = [];
   newWordForm: FormGroup;
   loadingPage: Boolean;
   loadingWords = false;
-  selectedLanguage?: LanguageName;
+  selectedLanguage?: LanguageName = 'ProtoHuman';
 
   constructor(private cdRef: ChangeDetectorRef,
     private formBuilder: FormBuilder,
@@ -40,34 +31,7 @@ export class WordsListComponent implements OnInit, AfterViewChecked {
       wordText: "",
       makeForgotten: true
     });
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.resizeTable();
-  }
-
-  ngAfterViewChecked() {
-    this.resizeTable();
-  }
-
-  resizeTable() {
-    const d = "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
-    const col1l = Math.floor((this.col1 ?.nativeElement.offsetWidth - 2) / 8);
-    const bcol1 = this.bcol1;
-    this.bcol1 = d.substr(0, col1l);
-    const col2l = Math.floor((this.col2 ?.nativeElement.offsetWidth - 2) / 8);
-    const bcol2 = this.bcol2;
-    this.bcol2 = d.substr(0, col2l);
-    const col3l = Math.floor((this.col3 ?.nativeElement.offsetWidth - 2) / 8);
-    const bcol3 = this.bcol3;
-    this.bcol3 = d.substr(0, col3l);
-    const col4l = Math.floor((this.col4 ?.nativeElement.offsetWidth - 2) / 8);
-    const bcol4 = this.bcol4;
-    this.bcol4 = d.substr(0, col4l);
-    if (bcol1 != this.bcol1 || bcol2 != this.bcol2) {
-      this.cdRef.detectChanges();
-    }
+    this.refreshAll()
   }
 
   ngOnInit(): void {
@@ -88,9 +52,7 @@ export class WordsListComponent implements OnInit, AfterViewChecked {
     if (this.selectedLanguage)
       this.apiService.getApiWordsLangLang(this.selectedLanguage).subscribe((words) => {
         this.words = words;
-        // words.forEach((word) => this.refreshWord(word));
         this.loadingWords = false;
-        this.resizeTable();
       });
   }
 
@@ -107,6 +69,32 @@ export class WordsListComponent implements OnInit, AfterViewChecked {
         }
       })
     }
+  }
+
+  deleteWord(word: WordJSON) {
+    console.log("Delete word", word);
+    if (word.id)
+      this.apiService.deleteApiWordsWordId(word.id).subscribe(() => {
+        console.log("deleted", word);
+        this.refreshAll();
+      });
+  }
+
+  forgetWord(word: WordJSON) {
+    console.log("Delete word", word);
+    if (word.id && this.selectedLanguage)
+      this.apiService.postApiWordsWordId({
+        wordId: word.id,
+        body: {
+          lang: this.selectedLanguage,
+          makeForgotten: !word.forgotten,
+          pos: word.partOfSpeech,
+          wordText: word.word
+        }
+      }).subscribe(() => {
+        console.log("updated", word);
+        this.refreshAll();
+      });
   }
 
 }
