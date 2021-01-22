@@ -8,17 +8,46 @@
     <app-hr class="text-grey"></app-hr>
     <!-- <span class="text-grey" *ngFor="let item of Array(8)">-</span> -->
     <form [formGroup]="newWordForm" (ngSubmit)="submit(newWordForm.value)">
-        <label for="pos">Part of speech: </label>
-        <select formControlName="pos">
-            <option *ngFor="let p of pos" [value]="p">{{ p }}</option>
-        </select>
-        <br />
-        <label for="wordText">New Word:</label>
-        <input id="wordText" type="text" formControlName="wordText">
-        <br />
-        <label for="makeForgotten">Forgotten: </label>
-        <input id="makeForgotten" type="checkbox" class="regular-checkbox" formControlName="makeForgotten">
-        <br />
+        <table style="width: max-content;">
+            <colgroup>
+                <col span="1" style="width: 300px;">
+                <col span="1" style="width: 270px;">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td><label for="pos">Part of speech: </label>
+                        <select formControlName="pos">
+                            <option *ngFor="let p of pos" [value]="p">{{ p }}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="radio" class="regular-radio" id="male" name="gender" value="male">
+                        <label for="male"> New</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="wordText">New Word:</label>
+                        <input id="wordText" type="text" formControlName="wordText">
+                    </td>
+                    <td>
+                        <input type="radio" class="regular-radio" id="female" name="gender" value="female">
+                        <label for="female"> Derivated</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="makeForgotten">Forgotten: </label>
+                        <input id="makeForgotten" type="checkbox" class="regular-checkbox"
+                            formControlName="makeForgotten">
+                    </td>
+                    <td>
+                        <input type="radio" class="regular-radio" id="other" name="gender" value="other">
+                        <label for="other"> Combined</label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <button class="button" type="submit" hidden>Submit</button>
     </form>
     <app-hr class="text-grey"></app-hr>
@@ -60,13 +89,15 @@
                     <td app-vertical-dash class="border"></td>
                     <td class="text-main nowrap">/<a routerLink="/words/{{word.word}}"
                             [queryParams]="{lang: selectedLanguage}">{{ word.word }}</a>/
-                        <span class="text-grey">[{{ word.partOfSpeech | shortPos }}]</span>&nbsp;</td>
+                        <span class="text-grey">[{{ word.partOfSpeech | shortPos }}]</span>&nbsp;
+                    </td>
                     <td>
                     </td>
                     <td app-vertical-dash class="border"></td>
                     <td>
                         <!-- <div *ngIf="!word.forgotten; then thenForget else elseForget"></div> -->
-                        <a [ngClass]="!word.forgotten ? 'text-yellow-dull' : 'text-green-dull'" class=" link-btn" (click)="forgetWord(word)">{{!word.forgotten?'forget':'unforget'}}</a>
+                        <a [ngClass]="!word.forgotten ? 'text-yellow-dull' : 'text-green-dull'" class=" link-btn"
+                            (click)="forgetWord(word)">{{!word.forgotten?'forget':'unforget'}}</a>
                     </td>
                     <td app-vertical-dash class="border"></td>
                     <td>

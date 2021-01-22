@@ -33,7 +33,7 @@ input {
   border-radius: 0.2rem;
   background-color: transparent;
   border: 1px solid #5b5b55;
-  transition: all 0.3s;
+  /* transition: all 0.3s; */
 }
 
 .regular-checkbox {
@@ -51,6 +51,27 @@ input {
   position: absolute;
   top: 3px;
   left: 5px;
+}
+
+.regular-radio {
+  -webkit-appearance: none;
+  border-radius: 1rem;
+  display: inline-block;
+  padding: 9px;
+  position: relative;
+  margin-bottom: -4px;
+}
+
+.regular-radio:checked:after {
+  content: "*";
+  font-size: 16px;
+  position: absolute;
+  top: 3px;
+  left: 5px;
+}
+
+.regular-radio:focus{
+  outline-width: 0px;
 }
 
 select {
