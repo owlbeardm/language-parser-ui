@@ -1,8 +1,11 @@
+<!-- <div class="footer-wrapper" > -->
 <div class="footer-wrapper" *ngIf="errors.length > 0">
     <div class="footer">
         <table>
             <colgroup>
                 <col span="1" class="border">
+                <col span="1" style="width: 16px;">
+                <col span="1" style="width: 112px;">
                 <col span="1" style="width: auto;">
                 <col span="1" class="border">
                 <col span="1" style="width: 18px;">
@@ -11,6 +14,8 @@
             <tbody>
                 <tr>
                     <th class="border">+</th>
+                    <th class="border">--</th>
+                    <th class="border">[ <div class="text-yellow-dull" style="display: inline;">Esc</div> ] Close </th>
                     <th app-horizontal-dash class="border"></th>
                     <th class="border">+</th>
                     <th class="border">--</th>
@@ -18,14 +23,14 @@
                 </tr>
                 <tr>
                     <th class="border">|</th>
-                    <th class="text-grey"> WARNING </th>
+                    <th class="text-grey" colspan="3"> WARNING </th>
                     <th class="border">|</th>
                     <th><a class="text-red-dull link-btn" (click)="clear($event)">x</a></th>
                     <th class="border">|</th>
                 </tr>
                 <tr>
                     <th class="border">+</th>
-                    <th app-horizontal-dash class="border"></th>
+                    <th app-horizontal-dash class="border" colspan="3"></th>
                     <th class="border">+</th>
                     <th class="border">--</th>
                     <th class="border">+</th>
@@ -34,12 +39,13 @@
             <tbody>
                 <tr *ngFor="let e of errors">
                     <td app-vertical-dash class="border"></td>
-                    <td class="break-word text-grey" colspan="3"><span class="text-red-dull">{{e.message}}. </span><span>{{e.details}}</span></td>
+                    <td class="break-word text-grey" colspan="5"><span class="text-red-dull">{{e.message}}.
+                        </span><span>{{e.details}}</span></td>
                     <td app-vertical-dash class="border"></td>
                 </tr>
                 <tr>
                     <td class="border">|</td>
-                    <td class="break-word text-grey" colspan="3"></td>
+                    <td class="break-word text-grey" colspan="5"></td>
                     <td class="border">|</td>
                 </tr>
             </tbody>
