@@ -1,0 +1,8 @@
+<div [formGroup]="parentForm">
+    <select id="langgg" [(ngModel)]="selectedLanguageName" name="langgg" [formControlName]="'langgg'">
+        <option [value]="undefined" disabled> --- Select Language --- </option>
+        <option [value]="undefined"> --- All languages --- </option>
+        <option *ngFor="let l of languagesSelect" [value]="l">{{ l.toString() }}</option>
+    </select>
+</div>
+

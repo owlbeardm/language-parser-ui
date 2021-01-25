@@ -33,7 +33,8 @@ export class TraceComponent implements OnInit {
     this.apiService = apiService;
     this.checkoutForm = this.formBuilder.group({
       wordText: '',
-      langs: ''
+      langs: '',
+      langgg: undefined
     });
     const binding$ = this.keybind.match(["T"], ['altKey']).subscribe(() => {
       this.wordInput?.nativeElement.focus();
@@ -47,6 +48,7 @@ export class TraceComponent implements OnInit {
   submit(traceData: TraceWordForm) {
     // this.checkoutForm.reset();
     console.log(traceData);
+    // return;
     const langs = traceData.langs.split(",").map((lang) => lang.trim());
     if (!this.langService.isValidLanguageNameSequence(langs)) {
       this.errorService.addError({

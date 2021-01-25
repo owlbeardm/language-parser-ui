@@ -17,6 +17,7 @@
         <input #wordInput id="wordText" type="text" formControlName="wordText">
     </div>
     <br />
+    <app-language-select id="wordText" type="text" [fieldName]="'lang'" [parentForm]="checkoutForm"></app-language-select>
     <button class="button" type="submit" hidden>Submit</button>
 </form>
 
