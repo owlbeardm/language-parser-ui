@@ -1,54 +1,70 @@
 <label for="cars">Language: </label>
 <app-language-select [(selectedLanguage)]="selectedLanguage" (selectedLanguageChange)="changeLang()">
 </app-language-select>
-<app-hr class="text-grey"></app-hr>
-<!-- <span class="text-grey" *ngFor="let item of Array(8)">-</span> -->
-<form [formGroup]="newWordForm" (ngSubmit)="submit(newWordForm.value)">
-    <table style="width: max-content;">
-        <colgroup>
-            <col span="1" style="width: 300px;">
-            <col span="1" style="width: 270px;">
-        </colgroup>
-        <tbody>
-            <tr>
-                <td><label for="pos">Part of speech: </label>
-                    <select formControlName="pos">
-                        <option *ngFor="let p of pos" [value]="p">{{ p }}</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="radio" class="regular-radio" id="male" name="gender" value="male">
-                    <label for="male"> New</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="wordText">New Word:</label>
-                    <input id="wordText" type="text" formControlName="wordText">
-                </td>
-                <td>
-                    <input type="radio" class="regular-radio" id="female" name="gender" value="female">
-                    <label for="female"> Derivated</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="makeForgotten">Forgotten: </label>
-                    <input id="makeForgotten" type="checkbox" class="regular-checkbox" formControlName="makeForgotten">
-                </td>
-                <td>
-                    <input type="radio" class="regular-radio" id="other" name="gender" value="other">
-                    <label for="other"> Combined</label>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <button class="button" type="submit" hidden>Submit</button>
-</form>
-<app-hr class="text-grey"></app-hr>
+<app-hr class="text-grey-dull"></app-hr>
+
+<table>
+    <td>
+        <form [formGroup]="newWordForm" (ngSubmit)="submit(newWordForm.value)">
+            <table style="width: 450px;">
+                <colgroup>
+                    <col span="1" style="width: 300px;">
+                    <col span="1" style="width: 150px;">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td><label for="pos">Part of speech: </label>
+                            <select formControlName="pos">
+                                <option *ngFor="let p of pos" [value]="p">{{ p }}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="radio" class="regular-radio" id="new" value="New"
+                                formControlName="creatingType" (change)="changeCreatingType()">
+                            <label for="male"> New</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="wordText">New Word:</label>
+                            <input id="wordText" type="text" formControlName="wordText">
+                        </td>
+                        <td>
+                            <input type="radio" class="regular-radio" id="derivated" value="Derivated"
+                                formControlName="creatingType" (change)="changeCreatingType()">
+                            <label for="female"> Derivated</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="makeForgotten">Forgotten: </label>
+                            <input id="makeForgotten" type="checkbox" class="regular-checkbox"
+                                formControlName="makeForgotten">
+                        </td>
+                        <td>
+                            <input type="radio" class="regular-radio" id="combined" value="Combined"
+                                formControlName="creatingType" (change)="changeCreatingType()">
+                            <label for="other"> Combined</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="button" type="submit" hidden>Submit</button>
+        </form>
+    </td>
+    <td *ngIf="creatingType!='New'">
+        <span *ngFor="let fw of fromWords; let i = index" class="text-grey"
+            style="display: inline-block;">{{words.get(fw)?.word}} [<a class="text-red-dull link-btn"
+                (click)="removeFromWord(fw)">x</a>]<span *ngIf="i+1<fromWords.length">,&nbsp;</span></span>
+    </td>
+</table>
+<app-hr class="text-grey-dull"></app-hr>
+
 <div class="table-container">
     <table>
         <colgroup>
+            <col span="1" class="border" *ngIf="creatingType!='New'">
+            <col span="1" style="width: max-content;" *ngIf="creatingType!='New'">
             <col span="1" class="border">
             <col span="1" style="width: max-content;">
             <col span="1" style="width: auto;">
@@ -60,6 +76,8 @@
         </colgroup>
         <tbody>
             <tr>
+                <th class="border" *ngIf="creatingType!='New'">+</th>
+                <th class="border" *ngIf="creatingType!='New'">-</th>
                 <th class="border">+</th>
                 <th app-horizontal-dash class="border"></th>
                 <th app-horizontal-dash class="border"></th>
@@ -80,29 +98,40 @@
             </tr>
         </tbody>
         <tbody *ngIf="!loadingWords">
-            <tr class="table-content" *ngFor="let word of words">
+            <tr class="table-content" *ngFor="let wordId of wordsKeys">
+                <td app-vertical-dash class="border" *ngIf="creatingType!='New'"></td>
+                <td *ngIf="creatingType!='New'">
+                    <a class="text-green-dull link-btn" *ngIf="!fromWords.includes(wordId)"
+                        (click)="addFromWord(wordId)">+</a>
+                    <a class="text-grey-dull link-btn" *ngIf="fromWords.includes(wordId)"
+                        (click)="removeFromWord(wordId)">x</a>
+                </td>
                 <td app-vertical-dash class="border"></td>
-                <td class="text-main nowrap">/<a routerLink="/words/{{word.word}}"
-                        [queryParams]="{lang: selectedLanguage}">{{ word.word }}</a>/
-                    <span class="text-grey">[{{ word.partOfSpeech | shortPos }}]</span>&nbsp;
+                <td class="text-main nowrap">/<a routerLink="/words/{{words.get(wordId)?.word}}"
+                        [queryParams]="{lang: selectedLanguage}">{{ words.get(wordId)?.word }}</a>/
+                    <span class="text-grey">[{{ words.get(wordId)?.partOfSpeech?words.get(wordId)?.partOfSpeech:'' |
+                        shortPos }}]</span>&nbsp;
                 </td>
                 <td>
                 </td>
                 <td app-vertical-dash class="border"></td>
                 <td>
                     <!-- <div *ngIf="!word.forgotten; then thenForget else elseForget"></div> -->
-                    <a [ngClass]="!word.forgotten ? 'text-yellow-dull' : 'text-green-dull'" class=" link-btn"
-                        (click)="forgetWord(word)">{{!word.forgotten?'forget':'unforget'}}</a>
+                    <a [ngClass]="!words.get(wordId)?.forgotten ? 'text-yellow-dull' : 'text-green-dull'"
+                        class=" link-btn"
+                        (click)="forgetWord(wordId)">{{!words.get(wordId)?.forgotten?'forget':'unforget'}}</a>
                 </td>
                 <td app-vertical-dash class="border"></td>
                 <td>
-                    <a class="text-red-dull link-btn" (click)="deleteWord(word)">x</a>
+                    <a class="text-red-dull link-btn" (click)="deleteWord(wordId)">x</a>
                 </td>
                 <td app-vertical-dash class="border"></td>
             </tr>
         </tbody>
         <tbody>
             <tr>
+                <th class="border" *ngIf="creatingType!='New'">+</th>
+                <th app-horizontal-dash class="border" *ngIf="creatingType!='New'"></th>
                 <th class="border">+</th>
                 <th app-horizontal-dash class="border"></th>
                 <th app-horizontal-dash class="border"></th>

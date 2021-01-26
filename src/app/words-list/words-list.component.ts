@@ -11,10 +11,13 @@ import { ApiService } from '../api/services';
 export class WordsListComponent implements OnInit {
 
   pos: PartOfSpeech[];
-  words: WordJSON[] = [];
+  words: Map<number, WordJSON> = new Map();
+  wordsKeys: number[] = [];
+  fromWords: number[] = [];
   newWordForm: FormGroup;
   loadingWords = false;
-  selectedLanguage?: LanguageName;
+  creatingType?: 'New' | 'Derivated' | 'Combined' = 'New';
+  selectedLanguage?: LanguageName = "Queran";
 
   constructor(private cdRef: ChangeDetectorRef,
     private formBuilder: FormBuilder,
@@ -24,7 +27,8 @@ export class WordsListComponent implements OnInit {
       lang: "",
       pos: "",
       wordText: "",
-      makeForgotten: true
+      makeForgotten: true,
+      creatingType: this.creatingType
     });
     this.refreshAll()
   }
@@ -33,8 +37,27 @@ export class WordsListComponent implements OnInit {
     this.apiService.getApiWordsPos().subscribe((pos) => this.pos = pos);
   }
 
+  addFromWord(wordId: number) {
+    // if (this.creatingType == 'Derivated')
+    //   this.fromWords = [];
+    this.fromWords.push(wordId)
+  }
+
+  removeFromWord(wordId: number) {
+    const i = this.fromWords.indexOf(wordId);
+    console.log(this.fromWords, i);
+    if (i > -1) {
+      this.fromWords.splice(i, 1);
+    }
+  }
+
   changeLang(): void {
     this.refreshAll();
+  }
+
+  changeCreatingType(): void {
+    this.fromWords = [];
+    this.creatingType = this.newWordForm.value.creatingType;
   }
 
 
@@ -42,9 +65,15 @@ export class WordsListComponent implements OnInit {
     this.loadingWords = true;
     if (this.selectedLanguage)
       this.apiService.getApiWordsLangLang(this.selectedLanguage).subscribe((words) => {
-        this.words = words;
+        this.words.clear();
+        words.forEach((word) => { if (word.id) this.words.set(word.id, word) });
+        this.refreshKeys();
         this.loadingWords = false;
       });
+  }
+
+  refreshKeys() {
+    this.wordsKeys = Array.from(this.words.keys());
   }
 
   submit(newWordData: AddWordJSON) {
@@ -62,20 +91,22 @@ export class WordsListComponent implements OnInit {
     }
   }
 
-  deleteWord(word: WordJSON) {
-    console.log("Delete word", word);
-    if (word.id)
-      this.apiService.deleteApiWordsWordId(word.id).subscribe(() => {
-        console.log("deleted", word);
-        this.refreshAll();
-      });
+  deleteWord(wordId: number) {
+    console.log("Delete word", wordId);
+    this.apiService.deleteApiWordsWordId(wordId).subscribe(() => {
+      console.log("deleted", wordId);
+      // this.refreshAll();
+      this.words.delete(wordId);
+      this.refreshKeys();
+    });
   }
 
-  forgetWord(word: WordJSON) {
-    console.log("Delete word", word);
-    if (word.id && this.selectedLanguage)
+  forgetWord(wordId: number) {
+    console.log("Delete word", wordId);
+    const word = this.words.get(wordId);
+    if (this.selectedLanguage && word)
       this.apiService.postApiWordsWordId({
-        wordId: word.id,
+        wordId: wordId,
         body: {
           lang: this.selectedLanguage,
           makeForgotten: !word.forgotten,

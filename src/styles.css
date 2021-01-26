@@ -32,7 +32,7 @@ input {
   padding: 3px 0.5rem;
   border-radius: 0.2rem;
   background-color: transparent;
-  border: 1px solid #5b5b55;
+  border: 1px solid #3D3D3D;
   /* transition: all 0.3s; */
 }
 
@@ -82,7 +82,7 @@ select {
   padding: 3px 0.5rem;
   border-radius: 0.2rem;
   background-color: #252525;
-  border: 1px solid #5b5b55;
+  border: 1px solid #3D3D3D;
   /* width: 90%; */
   /* display: block; */
   /* border-bottom: 0.3rem solid transparent; */
@@ -166,7 +166,19 @@ a.text-green-dull:hover {
 }
 
 .text-grey {
-  color: #5b5b55;
+  color: #555555;
+}
+
+.text-grey-dull {
+  color: #3D3D3D;
+}
+
+a.text-grey:hover {
+  color: #B5B5B5;
+}
+
+a.text-grey-dull:hover {
+  color: #B5B5B5;
 }
 
 .text-red-dull {
@@ -196,7 +208,7 @@ td.border {
 
 .border {
   text-align: center;
-  color: #5b5b55;
+  color: #3D3D3D;
   font-weight: bold;
   padding: 0px;
 }

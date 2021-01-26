@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { PartOfSpeech } from '../api/models';
 import { LangService } from '../services/lang.service';
 
 @Pipe({
@@ -10,8 +11,12 @@ export class ShortPosPipe implements PipeTransform {
 
   }
 
-  transform(value: String, ...args: unknown[]): String {
+  transform(value: String | PartOfSpeech, ...args: unknown[]): String {
     return this.langService.shortPOS(value);
   }
+
+  // transform(value: PartOfSpeech, ...args: unknown[]): String {
+  //   return this.langService.shortPOS(value.toString());
+  // }
 
 }

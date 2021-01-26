@@ -1,5 +1,5 @@
 import { Injectable, OnInit, OnDestroy } from '@angular/core';
-import { LanguageName } from '../api/models';
+import { LanguageName, PartOfSpeech } from '../api/models';
 import { ApiService } from '../api/services';
 
 @Injectable({
@@ -19,7 +19,8 @@ export class LangService implements OnDestroy, OnInit {
     console.log("LangService onDestroy")
   }
 
-  shortPOS(pos: String) {
+  shortPOS(pos: String | PartOfSpeech) {
+    console.log(pos);
     if (pos == "Adjective") return "adj.";
     if (pos == "Adverb") return "adv.";
     if (pos == "Conjunction") return "cnj.";
