@@ -13,9 +13,7 @@ export class WordsComponent implements OnInit {
 
   words: any;
   word: string;
-  langs: LanguageName[];
-  selectedLanguage: String;
-  loadingPage: Boolean;
+  selectedLanguage?: LanguageName;
   loadingWords: Boolean;
 
   constructor(private apiService: ApiService,
@@ -26,30 +24,22 @@ export class WordsComponent implements OnInit {
     this.apiService = apiService;
     this.words = [];
     // this.langs = ["Titan", "SlaveRunic", "ProtoHuman", "Queran", "NitholanEmpire", "OldNitholan", "Nitholan"];
-    this.langs = [];
-    this.selectedLanguage = "";
     this.word = "";
-    this.loadingPage = true;
     this.loadingWords = true;
   }
 
   ngOnInit(): void {
     this.word = String(this.route.snapshot.paramMap.get('word'));
     const lang = this.route.snapshot.queryParamMap.get('lang');
-    this.apiService.getApiLangs().subscribe((langs) => {
-      this.langs = langs;
-      if (lang && this.langService.isValidLanguageName(lang) && this.langs.includes(lang)) {
-        this.selectedLanguage = lang;
-      } else {
-        this.router.navigate([], {
-          queryParams: {},
-          relativeTo: this.route
-        });
-      }
-      this.refresh();
-      this.loadingPage = false;
-    });
-
+    if (lang && this.langService.isValidLanguageName(lang)) {
+      this.selectedLanguage = lang;
+    } else {
+      this.router.navigate([], {
+        queryParams: {},
+        relativeTo: this.route
+      });
+    }
+    this.refresh();
   }
 
   changeLang(): void {
@@ -62,10 +52,13 @@ export class WordsComponent implements OnInit {
 
   refresh(): void {
     this.loadingWords = true;
-    this.apiService.getApiWordsWord({ word: this.word/*, lang: this.selectedLanguage.toString()*/ }).subscribe((words) => {
+    const param : ApiService.GetApiWordsWordParams = { word: this.word } ;
+    if(this.selectedLanguage){
+      param["lang"] = this.selectedLanguage;
+    }
+    this.apiService.getApiWordsWord(param).subscribe((words) => {
       this.words = words;
       this.loadingWords = false;
     });
   }
-
 }

@@ -1,77 +1,70 @@
-<div *ngIf="!loadingPage; then thenPage else elsePage"></div>
-<ng-template #thenPage>
-    <label for="cars">Language: </label>
-    <select [(ngModel)]="selectedLanguage" (change)="changeLang()">
-        <option [value]="undefined" disabled> --- Select Language --- </option>
-        <option *ngFor="let l of langs" [value]="l">{{ l.toString() }}</option>
-    </select>
+<label for="cars">Language: </label>
+<app-language-select [(selectedLanguage)]="selectedLanguage" (selectedLanguageChange)="changeLang()">
+</app-language-select>
 
-    <div class="table-container">
-        <table>
-            <colgroup>
-                <col span="1" class="border">
-                <col span="1" style="width: max-content;">
-                <col span="1" style="width: auto;">
-                <col span="1" class="border">
-            </colgroup>
-            <tbody>
-                <tr>
-                    <th class="border">+</th>
-                    <th app-horizontal-dash class="border"></th>
-                    <th app-horizontal-dash class="border"></th>
-                    <th class="border">+</th>
-                </tr>
-            </tbody>
-            <tbody *ngIf="loadingWords">
-                <tr class="table-content">
-                    <td class="border">|</td>
-                    <td colspan="2">
-                        <app-loading></app-loading>
-                    </td>
-                    <td class="border">|</td>
-                </tr>
-            </tbody>
-            <tbody *ngIf="!loadingWords">
-                <tr #trrow class="table-content" *ngFor="let word of words">
-                    <td app-vertical-dash class="border"></td>
-                    <td class="text-main nowrap">/<a routerLink="/words/{{word.word}}"
-                            [queryParams]="{lang: selectedLanguage}">{{ word.word }}</a>/ <span
-                            class="text-grey">[{{ word.partOfSpeech | shortPos }}]</span>&nbsp;</td>
-                    <td>
-                        <div *ngIf="translations.has(word.id)">
-                            <span class="text-grey" *ngFor="let translation of translations.get(word.id)">
-                                <span class="text-blue">{{
-                                    translation[2]?.word?translation[2]?.word:translation[0].translationAltTranslation }}</span>
-                                <span> {{translation[0].translationComment}}</span>
-                                (<b>{{ translation[1].toLowerCase().substr(0,3) }}</b>) <br>
+<div class="table-container">
+    <table>
+        <colgroup>
+            <col span="1" class="border">
+            <col span="1" style="width: max-content;">
+            <col span="1" style="width: auto;">
+            <col span="1" class="border">
+        </colgroup>
+        <tbody>
+            <tr>
+                <th class="border">+</th>
+                <th app-horizontal-dash class="border"></th>
+                <th app-horizontal-dash class="border"></th>
+                <th class="border">+</th>
+            </tr>
+        </tbody>
+        <tbody *ngIf="loadingWords">
+            <tr class="table-content">
+                <td class="border">|</td>
+                <td colspan="2">
+                    <app-loading></app-loading>
+                </td>
+                <td class="border">|</td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="!loadingWords">
+            <tr #trrow class="table-content" *ngFor="let word of words">
+                <td app-vertical-dash class="border"></td>
+                <td class="text-main nowrap">/<a routerLink="/words/{{word.word}}"
+                        [queryParams]="{lang: selectedLanguage}">{{ word.word }}</a>/ <span class="text-grey">[{{
+                        word.partOfSpeech | shortPos }}]</span>&nbsp;</td>
+                <td>
+                    <div *ngIf="translations.has(word.id)">
+                        <span class="text-grey" *ngFor="let translation of translations.get(word.id)">
+                            <span class="text-blue">{{
+                                translation[2]?.word?translation[2]?.word:translation[0].translationAltTranslation
+                                }}</span>
+                            <span> {{translation[0].translationComment}}</span>
+                            (<b>{{ translation[1].toLowerCase().substr(0,3) }}</b>) <br>
+                        </span>
+                    </div>
+                    <!-- <div *ngIf="translations.get(word.id)?.length == 0"> -->
+                    <div>
+                        <span *ngIf="word.id && translations.get(word.id)?.length == 0" class="text-red-dull">---</span>
+                        <div class="whole-line" align="right">
+                            <span>
+                                <app-add-translation [word]="word" (translationCreated)="refreshWord(word)">
+                                </app-add-translation>
                             </span>
                         </div>
-                        <!-- <div *ngIf="translations.get(word.id)?.length == 0"> -->
-                        <div>
-                            <span *ngIf="word.id && translations.get(word.id)?.length == 0" class="text-red-dull">---</span>
-                            <div class="whole-line" align="right">
-                                <span>
-                                    <app-add-translation [word]="word" (translationCreated)="refreshWord(word)">
-                                    </app-add-translation>
-                                </span>
-                            </div>
-                        </div>
-                        <app-loading *ngIf="!translations.has(word.id)"></app-loading>
-                    </td>
-                    <td app-vertical-dash class="border"></td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <th class="border">+</th>
-                    <th app-horizontal-dash class="border"></th>
-                    <th app-horizontal-dash class="border"></th>
-                    <th class="border">+</th>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</ng-template>
-<ng-template #elsePage>
-    <app-loading></app-loading>
-</ng-template>
+                    </div>
+                    <app-loading *ngIf="!translations.has(word.id)"></app-loading>
+                </td>
+                <td app-vertical-dash class="border"></td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <th class="border">+</th>
+                <th app-horizontal-dash class="border"></th>
+                <th app-horizontal-dash class="border"></th>
+                <th class="border">+</th>
+            </tr>
+        </tbody>
+    </table>
+</div>

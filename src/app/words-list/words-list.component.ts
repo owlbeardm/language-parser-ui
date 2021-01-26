@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, HostListener, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AddWordJSON, LanguageName, PartOfSpeech, WordJSON } from '../api/models';
 import { ApiService } from '../api/services';
-import { WebDriver } from 'protractor';
 
 @Component({
   selector: 'app-words-list',
@@ -12,19 +11,15 @@ import { WebDriver } from 'protractor';
 export class WordsListComponent implements OnInit {
 
   pos: PartOfSpeech[];
-  langs: LanguageName[];
   words: WordJSON[] = [];
   newWordForm: FormGroup;
-  loadingPage: Boolean;
   loadingWords = false;
-  selectedLanguage?: LanguageName = 'ProtoHuman';
+  selectedLanguage?: LanguageName;
 
   constructor(private cdRef: ChangeDetectorRef,
     private formBuilder: FormBuilder,
     private apiService: ApiService) {
-    this.langs = [];
     this.pos = [];
-    this.loadingPage = true;
     this.newWordForm = this.formBuilder.group({
       lang: "",
       pos: "",
@@ -35,10 +30,6 @@ export class WordsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiService.getApiLangs().subscribe((langs) => {
-      this.langs = langs;
-      this.loadingPage = false;
-    });
     this.apiService.getApiWordsPos().subscribe((pos) => this.pos = pos);
   }
 
