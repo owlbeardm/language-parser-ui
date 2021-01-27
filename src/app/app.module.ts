@@ -21,6 +21,9 @@ import { ApiModule } from './api/api.module';
 import { HorizontalDashComponent } from './components/horizontal-dash/horizontal-dash.component';
 import { VerticalDashComponent } from './components/vertical-dash/vertical-dash.component';
 import { LanguageSelectComponent } from './components/forms/language-select/language-select.component';
+import { HeaderComponent } from './components/header/header.component';
+import { NavLinkComponent } from './components/header/nav-link/nav-link.component';
+import { KeySymbolsPipe } from './pipes/key-symbols.pipe';
 
 
 @NgModule({
@@ -37,7 +40,10 @@ import { LanguageSelectComponent } from './components/forms/language-select/lang
     FooterComponent,
     HorizontalDashComponent,
     VerticalDashComponent,
-    LanguageSelectComponent
+    LanguageSelectComponent,
+    HeaderComponent,
+    NavLinkComponent,
+    KeySymbolsPipe
   ],
   imports: [
     BrowserModule,

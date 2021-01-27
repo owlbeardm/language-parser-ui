@@ -145,6 +145,10 @@ tr:hover.table-content {
   background-color: #333333;
 } */
 
+.text-white {
+  color: #e4e4e4;
+}
+
 .text-green {
   color: #8fd637;
 }
