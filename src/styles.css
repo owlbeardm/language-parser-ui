@@ -177,11 +177,11 @@ a.text-green-dull:hover {
   color: #3D3D3D;
 }
 
-a.text-grey:hover {
+a.text-grey:hover,a>.text-grey:hover {
   color: #B5B5B5;
 }
 
-a.text-grey-dull:hover {
+a.text-grey-dull:hover,a>.text-grey-dull:hover {
   color: #B5B5B5;
 }
 

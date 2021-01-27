@@ -1,7 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddWordJSON, LanguageName, PartOfSpeech, WordJSON } from '../api/models';
 import { ApiService } from '../api/services';
+import { LangService } from '../services/lang.service';
 
 @Component({
   selector: 'app-words-list',
@@ -17,11 +19,14 @@ export class WordsListComponent implements OnInit {
   newWordForm: FormGroup;
   loadingWords = false;
   creatingType?: 'New' | 'Derivated' | 'Combined' = 'New';
-  selectedLanguage?: LanguageName = "Queran";
+  selectedLanguage?: LanguageName;
 
   constructor(private cdRef: ChangeDetectorRef,
     private formBuilder: FormBuilder,
-    private apiService: ApiService) {
+    private apiService: ApiService,
+    private langService: LangService,
+    private route: ActivatedRoute,
+    private router: Router) {
     this.pos = [];
     this.newWordForm = this.formBuilder.group({
       lang: "",
@@ -35,6 +40,16 @@ export class WordsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.apiService.getApiWordsPos().subscribe((pos) => this.pos = pos);
+    const lang = this.route.snapshot.queryParamMap.get('lang');
+    if (lang && this.langService.isValidLanguageName(lang)) {
+      this.selectedLanguage = lang;
+    } else {
+      this.router.navigate([], {
+        queryParams: {},
+        relativeTo: this.route
+      });
+    }
+    this.refreshAll();
   }
 
   addFromWord(wordId: number) {
@@ -52,6 +67,10 @@ export class WordsListComponent implements OnInit {
   }
 
   changeLang(): void {
+    this.router.navigate([], {
+      queryParams: this.selectedLanguage ? { lang: this.selectedLanguage } : {},
+      relativeTo: this.route
+    });
     this.refreshAll();
   }
 

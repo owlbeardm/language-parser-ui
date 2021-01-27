@@ -1,6 +1,8 @@
 import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LanguageName, TranslationAPI, WordJSON } from '../api/models';
 import { ApiService } from '../api/services';
+import { LangService } from '../services/lang.service';
 
 @Component({
   selector: 'app-translations',
@@ -16,7 +18,10 @@ export class TranslationsComponent implements OnInit {
 
 
   constructor(private cdRef: ChangeDetectorRef,
-    private apiService: ApiService) {
+    private apiService: ApiService,
+    private langService: LangService,
+    private route: ActivatedRoute,
+    private router: Router) {
     this.words = [];
     this.loadingWords = true;
     this.translations = new Map();
@@ -24,9 +29,23 @@ export class TranslationsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("translations ngOnInit ");
+    const lang = this.route.snapshot.queryParamMap.get('lang');
+    if (lang && this.langService.isValidLanguageName(lang)) {
+      this.selectedLanguage = lang;
+    } else {
+      this.router.navigate([], {
+        queryParams: {},
+        relativeTo: this.route
+      });
+    }
+    this.refreshAll();
   }
 
   changeLang(): void {
+    this.router.navigate([], {
+      queryParams: this.selectedLanguage ? { lang: this.selectedLanguage } : {},
+      relativeTo: this.route
+    });
     this.refreshAll();
   }
 

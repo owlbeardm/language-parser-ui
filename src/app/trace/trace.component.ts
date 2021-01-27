@@ -33,8 +33,7 @@ export class TraceComponent implements OnInit {
     this.apiService = apiService;
     this.checkoutForm = this.formBuilder.group({
       wordText: '',
-      langs: '',
-      langgg: undefined
+      langs: ''
     });
     const binding$ = this.keybind.match(["T"], ['altKey']).subscribe(() => {
       this.wordInput?.nativeElement.focus();
