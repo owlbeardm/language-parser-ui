@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/api/services';
 import { AbstractHasLanguage } from 'src/app/components/abstract/abstract-has-language/abstract-has-language';
 import { LangService } from 'src/app/services/lang.service';
-import { AddWordJSON, LanguageName, PartOfSpeech, WordJSON } from '../../api/models';
+import { PartOfSpeech, WordJSON, AddWordJSON } from 'src/app/api/models';
 
 @Component({
   selector: 'app-words-list',
