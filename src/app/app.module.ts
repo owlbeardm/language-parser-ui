@@ -18,12 +18,17 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { ErrorService } from './services/error.service';
 import { ApiModule } from './api/api.module';
-import { HorizontalDashComponent } from './components/horizontal-dash/horizontal-dash.component';
-import { VerticalDashComponent } from './components/vertical-dash/vertical-dash.component';
+import { HorizontalDashComponent } from './components/spacer/horizontal-dash/horizontal-dash.component';
+import { VerticalDashComponent } from './components/spacer/vertical-dash/vertical-dash.component';
 import { LanguageSelectComponent } from './components/forms/language-select/language-select.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NavLinkComponent } from './components/header/nav-link/nav-link.component';
 import { KeySymbolsPipe } from './pipes/key-symbols.pipe';
+import { LanguagesComponent } from './languages/languages.component';
+import { TabRoutesComponent } from './components/tab-routes/tab-routes.component';
+import { ClustersComponent } from './languages/clusters/clusters.component';
+import { EvolutionComponent } from './evolution/evolution.component';
+import { LawsComponent } from './evolution/laws/laws.component';
 
 
 @NgModule({
@@ -43,7 +48,12 @@ import { KeySymbolsPipe } from './pipes/key-symbols.pipe';
     LanguageSelectComponent,
     HeaderComponent,
     NavLinkComponent,
-    KeySymbolsPipe
+    KeySymbolsPipe,
+    LanguagesComponent,
+    TabRoutesComponent,
+    ClustersComponent,
+    EvolutionComponent,
+    LawsComponent
   ],
   imports: [
     BrowserModule,
