@@ -4,14 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TraceComponent } from './trace/trace.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { WordsComponent } from './words/words.component';
 import { LoadingComponent } from './components/loading/loading.component';
-import { TranslationsComponent } from './translations/translations.component';
-import { WordsListComponent } from './words-list/words-list.component';
 import { AppServiceModule } from './services/app-service.module';
-import { AddTranslationComponent } from './translations/add-translation/add-translation.component';
 import { ShortPosPipe } from './pipes/short-pos.pipe';
 import { HrComponent } from './components/hr/hr.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -24,11 +19,16 @@ import { LanguageSelectComponent } from './components/forms/language-select/lang
 import { HeaderComponent } from './components/header/header.component';
 import { NavLinkComponent } from './components/header/nav-link/nav-link.component';
 import { KeySymbolsPipe } from './pipes/key-symbols.pipe';
-import { LanguagesComponent } from './languages/languages.component';
 import { TabRoutesComponent } from './components/tab-routes/tab-routes.component';
-import { ClustersComponent } from './languages/clusters/clusters.component';
-import { EvolutionComponent } from './evolution/evolution.component';
-import { LawsComponent } from './evolution/laws/laws.component';
+import { TraceComponent } from './pages/trace/trace.component';
+import { WordsComponent } from './pages/words/words.component';
+import { TranslationsComponent } from './pages/translations/translations.component';
+import { WordsListComponent } from './pages/words-list/words-list.component';
+import { AddTranslationComponent } from './pages/translations/add-translation/add-translation.component';
+import { LanguagesComponent } from './pages/languages/languages.component';
+import { ClustersComponent } from './pages/languages/clusters/clusters.component';
+import { EvolutionComponent } from './pages/evolution/evolution.component';
+import { LawsComponent } from './pages/evolution/laws/laws.component';
 
 
 @NgModule({
@@ -62,7 +62,7 @@ import { LawsComponent } from './evolution/laws/laws.component';
     FormsModule,
     ReactiveFormsModule,
     AppServiceModule,
-    ApiModule.forRoot({rootUrl: 'http://api.lang.lo'}),
+    ApiModule.forRoot({ rootUrl: 'http://api.lang.lo' }),
   ],
   providers: [
     {

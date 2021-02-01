@@ -1,8 +1,8 @@
 import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LanguageName, TranslationAPI, WordJSON } from '../api/models';
-import { ApiService } from '../api/services';
-import { LangService } from '../services/lang.service';
+import { LanguageName, TranslationAPI, WordJSON } from 'src/app/api/models';
+import { ApiService } from 'src/app/api/services';
+import { LangService } from 'src/app/services/lang.service';
 
 @Component({
   selector: 'app-translations',

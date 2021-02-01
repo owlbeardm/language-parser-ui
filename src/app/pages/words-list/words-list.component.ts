@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddWordJSON, LanguageName, PartOfSpeech, WordJSON } from '../api/models';
-import { ApiService } from '../api/services';
-import { LangService } from '../services/lang.service';
+import { ApiService } from 'src/app/api/services';
+import { LangService } from 'src/app/services/lang.service';
+import { AddWordJSON, LanguageName, PartOfSpeech, WordJSON } from '../../api/models';
 
 @Component({
   selector: 'app-words-list',

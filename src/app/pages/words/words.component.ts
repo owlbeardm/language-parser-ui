@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { LanguageName } from '../api/models';
-import { ApiService } from '../api/services';
-import { LangService } from '../services/lang.service';
+import { LanguageName } from 'src/app/api/models';
+import { ApiService } from 'src/app/api/services';
+import { LangService } from 'src/app/services/lang.service';
 
 @Component({
   selector: 'app-words',

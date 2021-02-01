@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { throwError } from 'rxjs';
-import { KeyBindService } from '../services/key-bind.service';
-import { LanguageName, TraceWordReq } from '../api/models';
-import { ApiService } from '../api/services';
-import { TraceWordForm } from '../models/trace-word-req';
-import { ErrorService } from '../services/error.service';
-import { LangService } from '../services/lang.service';
+import { LanguageName, TraceWordReq } from 'src/app/api/models';
+import { ApiService } from 'src/app/api/services';
+import { TraceWordForm } from 'src/app/models/trace-word-req';
+import { ErrorService } from 'src/app/services/error.service';
+import { KeyBindService } from 'src/app/services/key-bind.service';
+import { LangService } from 'src/app/services/lang.service';
 
 @Component({
   selector: 'app-trace',
