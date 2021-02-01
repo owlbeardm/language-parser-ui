@@ -1,4 +1,5 @@
 import { Injectable, OnInit, OnDestroy } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { LanguageName, PartOfSpeech } from '../api/models';
 import { ApiService } from '../api/services';
 
@@ -7,8 +8,17 @@ import { ApiService } from '../api/services';
 })
 export class LangService implements OnDestroy, OnInit {
 
+  private _selectedLanguage = new BehaviorSubject<LanguageName | undefined>(undefined);
+  private dataStore: { selectedLanguage: LanguageName | undefined } = { selectedLanguage: undefined };
+  readonly selectedLanguage = this._selectedLanguage.asObservable();
+
 
   constructor(apiService: ApiService) {
+  }
+
+  changeSelectedLanguage(selectedLanguage?: LanguageName) {
+    this.dataStore.selectedLanguage = selectedLanguage;
+    this._selectedLanguage.next(Object.assign({}, this.dataStore).selectedLanguage);
   }
 
   ngOnInit(): void {

@@ -1,27 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LanguageName } from 'src/app/api/models';
+import { Component } from '@angular/core';
+import { AbstractHasLanguage } from 'src/app/components/abstract/abstract-has-language/abstract-has-language';
 
 @Component({
   selector: 'app-languages',
   templateUrl: './languages.component.html',
   styleUrls: ['./languages.component.css']
 })
-export class LanguagesComponent implements OnInit {
-
-  selectedLanguage?: LanguageName;
-
-  constructor(private router: Router, private route: ActivatedRoute) { }
+export class LanguagesComponent extends AbstractHasLanguage {
 
   ngOnInit(): void {
+    super.ngOnInit();
   }
 
-  changeLang(): void {
-    this.router.navigate([], {
-      queryParams: this.selectedLanguage ? { lang: this.selectedLanguage } : {},
-      relativeTo: this.route
-    });
-    // this.refreshAll();
+  refreshAll() {
+    console.log("LanguagesComponent", this.selectedLanguage);
   }
 
+  changeLang() {
+    super.changeLang(this.selectedLanguage);
+  }
 }

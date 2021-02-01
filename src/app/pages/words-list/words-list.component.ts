@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/api/services';
+import { AbstractHasLanguage } from 'src/app/components/abstract/abstract-has-language/abstract-has-language';
 import { LangService } from 'src/app/services/lang.service';
 import { AddWordJSON, LanguageName, PartOfSpeech, WordJSON } from '../../api/models';
 
@@ -10,7 +11,7 @@ import { AddWordJSON, LanguageName, PartOfSpeech, WordJSON } from '../../api/mod
   templateUrl: './words-list.component.html',
   styleUrls: ['./words-list.component.css']
 })
-export class WordsListComponent implements OnInit {
+export class WordsListComponent extends AbstractHasLanguage {
 
   pos: PartOfSpeech[];
   words: Map<number, WordJSON> = new Map();
@@ -19,14 +20,14 @@ export class WordsListComponent implements OnInit {
   newWordForm: FormGroup;
   loadingWords = false;
   creatingType?: 'New' | 'Derivated' | 'Combined' = 'New';
-  selectedLanguage?: LanguageName;
 
   constructor(private cdRef: ChangeDetectorRef,
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    private langService: LangService,
-    private route: ActivatedRoute,
-    private router: Router) {
+    langService: LangService,
+    route: ActivatedRoute,
+    router: Router) {
+    super(langService, route, router)
     this.pos = [];
     this.newWordForm = this.formBuilder.group({
       lang: "",
@@ -35,21 +36,11 @@ export class WordsListComponent implements OnInit {
       makeForgotten: true,
       creatingType: this.creatingType
     });
-    this.refreshAll()
   }
 
   ngOnInit(): void {
+    super.ngOnInit();
     this.apiService.getApiWordsPos().subscribe((pos) => this.pos = pos);
-    const lang = this.route.snapshot.queryParamMap.get('lang');
-    if (lang && this.langService.isValidLanguageName(lang)) {
-      this.selectedLanguage = lang;
-    } else {
-      this.router.navigate([], {
-        queryParams: {},
-        relativeTo: this.route
-      });
-    }
-    this.refreshAll();
   }
 
   addFromWord(wordId: number) {
@@ -67,11 +58,7 @@ export class WordsListComponent implements OnInit {
   }
 
   changeLang(): void {
-    this.router.navigate([], {
-      queryParams: this.selectedLanguage ? { lang: this.selectedLanguage } : {},
-      relativeTo: this.route
-    });
-    this.refreshAll();
+    super.changeLang(this.selectedLanguage);
   }
 
   changeCreatingType(): void {

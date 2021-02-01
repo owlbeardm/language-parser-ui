@@ -2,6 +2,7 @@ import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, HostList
 import { ActivatedRoute, Router } from '@angular/router';
 import { LanguageName, TranslationAPI, WordJSON } from 'src/app/api/models';
 import { ApiService } from 'src/app/api/services';
+import { AbstractHasLanguage } from 'src/app/components/abstract/abstract-has-language/abstract-has-language';
 import { LangService } from 'src/app/services/lang.service';
 
 @Component({
@@ -9,44 +10,30 @@ import { LangService } from 'src/app/services/lang.service';
   templateUrl: './translations.component.html',
   styleUrls: ['./translations.component.css']
 })
-export class TranslationsComponent implements OnInit {
+export class TranslationsComponent extends AbstractHasLanguage {
 
   words: WordJSON[];
-  selectedLanguage?: LanguageName;
   loadingWords: Boolean;
   translations: Map<number | undefined, [TranslationAPI, LanguageName, WordJSON][]>;
 
-
   constructor(private cdRef: ChangeDetectorRef,
     private apiService: ApiService,
-    private langService: LangService,
-    private route: ActivatedRoute,
-    private router: Router) {
+    langService: LangService,
+    route: ActivatedRoute,
+    router: Router) {
+    super(langService, route, router)
     this.words = [];
     this.loadingWords = true;
     this.translations = new Map();
   }
 
   ngOnInit(): void {
+    super.ngOnInit();
     console.log("translations ngOnInit ");
-    const lang = this.route.snapshot.queryParamMap.get('lang');
-    if (lang && this.langService.isValidLanguageName(lang)) {
-      this.selectedLanguage = lang;
-    } else {
-      this.router.navigate([], {
-        queryParams: {},
-        relativeTo: this.route
-      });
-    }
-    this.refreshAll();
   }
 
   changeLang(): void {
-    this.router.navigate([], {
-      queryParams: this.selectedLanguage ? { lang: this.selectedLanguage } : {},
-      relativeTo: this.route
-    });
-    this.refreshAll();
+    super.changeLang(this.selectedLanguage);
   }
 
   refreshAll() {
