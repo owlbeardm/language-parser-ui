@@ -1,7 +1,3 @@
-<label for="cars">Language: </label>
-<app-language-select [(selectedLanguage)]="selectedLanguage" (selectedLanguageChange)="changeLang()" [selectAll]="true">
-</app-language-select>
-
 <div *ngIf="!loadingWords; then thenWords else elseWords"></div>
 <ng-template #thenWords>
     <div class="text-grey">

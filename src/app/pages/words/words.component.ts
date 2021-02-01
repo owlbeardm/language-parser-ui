@@ -10,10 +10,12 @@ export class WordsComponent extends AbstractHasLanguage {
 
   tabs = [{
     name: "List",
-    route: "list"
+    route: "list",
+    enabled: true
   }, {
     name: "Details",
-    route: "parsed"
+    route: ":word",
+    enabled: false
   }]
 
   ngOnInit(): void {

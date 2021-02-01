@@ -10,10 +10,12 @@ export class LanguagesComponent extends AbstractHasLanguage {
 
   tabs = [{
     name: "Clusters",
-    route: "clusters"
+    route: "clusters",
+    enabled: true
   }, {
     name: "Sound changes",
-    route: "laws"
+    route: "laws",
+    enabled: true
   }]
 
   ngOnInit(): void {

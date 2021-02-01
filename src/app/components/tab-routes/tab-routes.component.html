@@ -22,7 +22,7 @@
                     <th class="border">|</th>
                     <ng-container *ngFor="let tab of tabs; let i = index">
                         <th><a class="link-btn" [ngClass]="i==selectedIndex?'':'text-grey-dull'"
-                                [routerLink]="tab.route" (click)="select(i)">{{tab.name}}</a></th>
+                                [routerLink]="tab.route" (click)="select(i)" [attr.disabled]="tab.enabled? true : null">{{tab.name}}</a></th>
                         <th class="border">|</th>
                     </ng-container>
                     <th class="border"></th>

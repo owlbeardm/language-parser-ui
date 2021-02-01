@@ -30,7 +30,6 @@ export class LangService implements OnDestroy, OnInit {
   }
 
   shortPOS(pos: String | PartOfSpeech) {
-    console.log(pos);
     if (pos == "Adjective") return "adj.";
     if (pos == "Adverb") return "adv.";
     if (pos == "Conjunction") return "cnj.";
