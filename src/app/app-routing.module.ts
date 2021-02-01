@@ -6,12 +6,17 @@ import { LanguagesComponent } from './pages/languages/languages.component';
 import { TraceComponent } from './pages/trace/trace.component';
 import { TranslationsComponent } from './pages/translations/translations.component';
 import { WordsListComponent } from './pages/words-list/words-list.component';
+import { WordsDetailComponent } from './pages/words-detail/words-detail.component';
 import { WordsComponent } from './pages/words/words.component';
 
 const routes: Routes = [
   { path: 'trace', component: TraceComponent },
-  { path: 'words/:word', component: WordsComponent },
-  { path: 'words', component: WordsListComponent },
+  {
+    path: 'words', component: WordsComponent,
+    children: [
+      { path: 'list', component: WordsListComponent },
+      { path: ':word', component: WordsDetailComponent }]
+  },
   { path: 'translations', component: TranslationsComponent },
   {
     path: 'language', component: LanguagesComponent,

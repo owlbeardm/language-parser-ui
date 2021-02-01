@@ -1,0 +1,42 @@
+<label for="cars">Language: </label>
+<app-language-select [(selectedLanguage)]="selectedLanguage" (selectedLanguageChange)="changeLang()" [selectAll]="true">
+</app-language-select>
+
+<div *ngIf="!loadingWords; then thenWords else elseWords"></div>
+<ng-template #thenWords>
+    <div class="text-grey">
+        <ol>
+            <li *ngFor="let word of words">
+                <div>
+                    <span class="text-green">/{{ word[0].word }}/</span> {{ word[0].partOfSpeech }} from <span
+                        *ngFor="let lang of word[1]"><b>{{ lang.toString() }}</b> </span>
+                    <small *ngIf="word[0].forgotten" class="text-red-dull"> forgotten </small>
+                    <br />
+                </div>
+                <div *ngIf="word[2].length>0" class="word-description">
+                    <span *ngFor="let translation of word[2]"><span class="text-blue">{{
+                            translation[2]?.word?translation[2]?.word:translation[0].translationAltTranslation }}</span>
+                        from <b>{{ translation[1].toString() }}</b>, </span>
+                    <br />
+                </div>
+                <div *ngIf="word[3].length>0" class="word-description">
+                    <span *ngFor="let wordSource of word[3]">
+                        from <b>{{ wordSource[0][1].toString() }}</b>
+                        <span class="text-green-dull"> /{{ wordSource[0][0].word }}/</span>
+                        <span *ngIf="wordSource[1].length>0"> (<span
+                                *ngFor="let translation of wordSource[1]; let i = index"><span *ngIf="i>0">,
+                                </span><span class="text-blue-dull">{{
+                                    translation[2]?.word?translation[2]?.word:translation[0].translationAltTranslation
+                                    }}</span>
+                            </span>)</span>;
+                    </span>
+                    <br />
+                </div>
+                <br />
+            </li>
+        </ol>
+    </div>
+</ng-template>
+<ng-template #elseWords>
+    <app-loading></app-loading>
+</ng-template>

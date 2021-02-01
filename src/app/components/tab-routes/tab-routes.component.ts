@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { KeyBindService } from 'src/app/services/key-bind.service';
 
@@ -9,22 +9,12 @@ import { KeyBindService } from 'src/app/services/key-bind.service';
 })
 export class TabRoutesComponent implements OnInit {
 
-  tabs: Array<any>;
+  @Input() tabs!: Array<any>;
   selectedIndex: number = 0;
 
   constructor(private activeRoute: ActivatedRoute,
     private router: Router,
     private keybind: KeyBindService) {
-    this.tabs = [{
-      name: "Clusters",
-      route: "clusters"
-    }, {
-      name: "Sound changes",
-      route: "laws"
-    }, {
-      name: "Third tab",
-      route: "clusters"
-    }]
   }
 
   ngOnInit(): void {

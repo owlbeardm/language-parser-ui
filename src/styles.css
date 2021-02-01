@@ -116,6 +116,7 @@ button:active.btn-red {
 
 .link-btn {
   text-decoration: none;
+  white-space: nowrap;
 }
 
 table {

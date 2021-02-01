@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { LanguageName } from 'src/app/api/models';
-import { ApiService } from 'src/app/api/services';
 import { AbstractHasLanguage } from 'src/app/components/abstract/abstract-has-language/abstract-has-language';
-import { LangService } from 'src/app/services/lang.service';
 
 @Component({
   selector: 'app-words',
@@ -12,39 +8,23 @@ import { LangService } from 'src/app/services/lang.service';
 })
 export class WordsComponent extends AbstractHasLanguage {
 
-  words: any;
-  word: string;
-  loadingWords: Boolean;
-
-  constructor(private apiService: ApiService,
-    _langService: LangService,
-    private route: ActivatedRoute,
-    _router: Router) {
-    super(_langService, route, _router);
-    this.apiService = apiService;
-    this.words = [];
-    this.word = "";
-    this.loadingWords = true;
-  }
+  tabs = [{
+    name: "List",
+    route: "list"
+  }, {
+    name: "Details",
+    route: "parsed"
+  }]
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.word = String(this.route.snapshot.paramMap.get('word'));
   }
 
-  changeLang(): void {
+  refreshAll() {
+    console.log("WordsComponent", this.selectedLanguage);
+  }
+
+  changeLang() {
     super.changeLang(this.selectedLanguage);
-  }
-
-  refreshAll(): void {
-    this.loadingWords = true;
-    const param: ApiService.GetApiWordsWordParams = { word: this.word };
-    if (this.selectedLanguage) {
-      param["lang"] = this.selectedLanguage;
-    }
-    this.apiService.getApiWordsWord(param).subscribe((words) => {
-      this.words = words;
-      this.loadingWords = false;
-    });
   }
 }

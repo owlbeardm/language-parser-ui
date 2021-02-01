@@ -8,6 +8,14 @@ import { AbstractHasLanguage } from 'src/app/components/abstract/abstract-has-la
 })
 export class LanguagesComponent extends AbstractHasLanguage {
 
+  tabs = [{
+    name: "Clusters",
+    route: "clusters"
+  }, {
+    name: "Sound changes",
+    route: "laws"
+  }]
+
   ngOnInit(): void {
     super.ngOnInit();
   }

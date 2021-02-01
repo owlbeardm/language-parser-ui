@@ -28,6 +28,7 @@ class ApiService extends __BaseService {
   static readonly getApiWordsPosPath = '/api/words/pos';
   static readonly getApiWordsWordPath = '/api/words/{word}';
   static readonly postApiWordsExistsPath = '/api/words/exists';
+  static readonly getApiWordsConstclustersLangPath = '/api/words/constclusters/{lang}';
   static readonly getApiTranslationBywordkeyWordIdPath = '/api/translation/bywordkey/{wordId}';
   static readonly postApiTranslationPath = '/api/translation';
 
@@ -370,6 +371,49 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param params The `ApiService.GetApiWordsConstclustersLangParams` containing the following parameters:
+   *
+   * - `lang`:
+   *
+   * - `clusterType`:
+   */
+  getApiWordsConstclustersLangResponse(params: ApiService.GetApiWordsConstclustersLangParams): __Observable<__StrictHttpResponse<Array<string>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    if (params.clusterType != null) __params = __params.set('clusterType', params.clusterType.toString());
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/words/constclusters/${encodeURIComponent(params.lang)}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<string>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.GetApiWordsConstclustersLangParams` containing the following parameters:
+   *
+   * - `lang`:
+   *
+   * - `clusterType`:
+   */
+  getApiWordsConstclustersLang(params: ApiService.GetApiWordsConstclustersLangParams): __Observable<Array<string>> {
+    return this.getApiWordsConstclustersLangResponse(params).pipe(
+      __map(_r => _r.body as Array<string>)
+    );
+  }
+
+  /**
    * @param wordId undefined
    */
   getApiTranslationBywordkeyWordIdResponse(wordId: number): __Observable<__StrictHttpResponse<Array<[TranslationAPI, LanguageName, WordJSON]>>> {
@@ -454,6 +498,14 @@ module ApiService {
   export interface GetApiWordsWordParams {
     word: string;
     lang?: 'Aboleth' | 'Alko' | 'ClassicalArcane' | 'Dragon' | 'Dwarven' | 'Edhellen' | 'English' | 'Halfling' | 'Infernal' | 'Khuzdûl' | 'Kobold' | 'LizardFolk' | 'Necril' | 'Nerlendic' | 'Nitholan' | 'NitholanEmpire' | 'OldDragon' | 'OldNerlendic' | 'OldNitholan' | 'OldRunic' | 'Orkish' | 'PrimalMagic' | 'ProtoCreation' | 'ProtoDragon' | 'ProtoDwarven' | 'ProtoElven' | 'ProtoHuman' | 'ProtoMaterial' | 'ProtoMonster' | 'ProtoOrk' | 'ProtoTengu' | 'Queran' | 'SlaveRunic' | 'Sylvan' | 'Titan';
+  }
+
+  /**
+   * Parameters for getApiWordsConstclustersLang
+   */
+  export interface GetApiWordsConstclustersLangParams {
+    lang: 'Aboleth' | 'Alko' | 'ClassicalArcane' | 'Dragon' | 'Dwarven' | 'Edhellen' | 'English' | 'Halfling' | 'Infernal' | 'Khuzdûl' | 'Kobold' | 'LizardFolk' | 'Necril' | 'Nerlendic' | 'Nitholan' | 'NitholanEmpire' | 'OldDragon' | 'OldNerlendic' | 'OldNitholan' | 'OldRunic' | 'Orkish' | 'PrimalMagic' | 'ProtoCreation' | 'ProtoDragon' | 'ProtoDwarven' | 'ProtoElven' | 'ProtoHuman' | 'ProtoMaterial' | 'ProtoMonster' | 'ProtoOrk' | 'ProtoTengu' | 'Queran' | 'SlaveRunic' | 'Sylvan' | 'Titan';
+    clusterType?: 'AllClusters' | 'StartingCluster' | 'LastClusters';
   }
 }
 
