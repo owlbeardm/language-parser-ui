@@ -20,7 +20,8 @@ export class NavLinkComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const binding$ = this.keybind.match([this.key], ['altKey']).subscribe(() => {
+    const binding$ = this.keybind.match([this.key], ['altKey']).subscribe((event) => {
+      event.preventDefault();
       const lang = this.activeRoute.snapshot.queryParamMap.get('lang');
       this.router.navigate([this.route,], { queryParams: { lang: lang } });
     });

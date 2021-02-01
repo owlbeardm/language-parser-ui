@@ -30,7 +30,8 @@ export class TabRoutesComponent implements OnInit {
       }
     });
     this.navigateIndex(this.selectedIndex);
-    const binding$ = this.keybind.match(['TAB'], ['altKey']).subscribe(() => {
+    const binding$ = this.keybind.match(['TAB'], []).subscribe((event) => {
+      event.preventDefault();
       this.selectedIndex = (this.selectedIndex + 1) % this.tabs.length;
       this.navigateIndex(this.selectedIndex);
     });
