@@ -43,11 +43,12 @@ export class AddTranslationComponent implements OnInit {
     // this.checkoutForm.reset();
     if (newTranslationForm.isAltTranslation) {
       newTranslationForm.altTranslation = newTranslationForm ?.translation ?.wordText;
-    } else if (newTranslationForm ?.translation) {
-      const exists = await this.apiService.postApiWordsExists(newTranslationForm ?.translation).toPromise();
+    } else if (newTranslationForm.translation) {
+      newTranslationForm.translation["originIds"] = [];
+      const exists = await this.apiService.postApiWordsExists(newTranslationForm.translation).toPromise();
       console.log("new translation exists ", exists);
       if (!exists) {
-        const newWord = await this.apiService.postApiWords(newTranslationForm ?.translation).toPromise();
+        const newWord = await this.apiService.postApiWords(newTranslationForm.translation).toPromise();
         console.log("new translation word added", exists);
       }
     }

@@ -3,5 +3,6 @@ export { TraceWordReq } from './models/trace-word-req';
 export { WordJSON } from './models/word-json';
 export { PartOfSpeech } from './models/part-of-speech';
 export { AddWordJSON } from './models/add-word-json';
+export { WordOriginType } from './models/word-origin-type';
 export { TranslationAPI } from './models/translation-api';
 export { AddWordTranslationJSON } from './models/add-word-translation-json';

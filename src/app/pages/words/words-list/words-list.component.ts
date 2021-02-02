@@ -34,7 +34,8 @@ export class WordsListComponent extends AbstractHasLanguage {
       pos: "",
       wordText: "",
       makeForgotten: true,
-      creatingType: this.creatingType
+      creatingType: this.creatingType,
+      originIds: this.fromWords
     });
   }
 
@@ -83,11 +84,19 @@ export class WordsListComponent extends AbstractHasLanguage {
   }
 
   submit(newWordData: AddWordJSON) {
-    // this.checkoutForm.reset();
-    console.log("this.selectedLanguage ", this.selectedLanguage);
     if (this.selectedLanguage) {
       newWordData.lang = this.selectedLanguage;
-      console.log(newWordData);
+      newWordData.originIds = this.fromWords;
+      switch (this.creatingType) {
+        case 'Combined':
+          newWordData.originType = "Combined";
+          break;
+        case 'Derivated':
+          newWordData.originType = "Derivated";
+          break;
+        default:
+          delete newWordData.originType;
+      }
       this.apiService.postApiWords(newWordData).subscribe((added) => {
         console.log("new  word added ", added);
         if (added) {
@@ -117,7 +126,8 @@ export class WordsListComponent extends AbstractHasLanguage {
           lang: this.selectedLanguage,
           makeForgotten: !word.forgotten,
           pos: word.partOfSpeech,
-          wordText: word.word
+          wordText: word.word,
+          originIds: []
         }
       }).subscribe(() => {
         console.log("updated", word);
