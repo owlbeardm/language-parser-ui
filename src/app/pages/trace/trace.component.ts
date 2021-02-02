@@ -6,6 +6,7 @@ import { TraceWordForm } from 'src/app/models/trace-word-req';
 import { ErrorService } from 'src/app/services/error.service';
 import { KeyBindService } from 'src/app/services/key-bind.service';
 import { LangService } from 'src/app/services/lang.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trace',
@@ -26,7 +27,8 @@ export class TraceComponent implements OnInit {
     private apiService: ApiService,
     private langService: LangService,
     private errorService: ErrorService,
-    private keybind: KeyBindService) {
+    private keybind: KeyBindService,
+    private router: Router) {
     this.words = [];
     this.langs = [];
     this.apiService = apiService;
@@ -35,7 +37,7 @@ export class TraceComponent implements OnInit {
       langs: ''
     });
     const binding$ = this.keybind.match(["T"], ['altKey']).subscribe(() => {
-      this.wordInput?.nativeElement.focus();
+      this.wordInput ?.nativeElement.focus();
     });
   }
 
@@ -82,7 +84,14 @@ export class TraceComponent implements OnInit {
       wordText: this.checkoutForm.getRawValue().wordText,
       langs: langs
     });
-    this.wordInput?.nativeElement.focus();
+    this.wordInput ?.nativeElement.focus();
+  }
+
+  addWord(wl: WordLang) {
+    if (this.langService.isValidLanguageName(wl.lang)) {
+      this.langService.changeSelectedLanguage(wl.lang);
+      this.router.navigate(['/words/list', { newWordText: wl.word }]);
+    }
   }
 }
 

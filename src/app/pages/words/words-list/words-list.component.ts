@@ -18,6 +18,7 @@ export class WordsListComponent extends AbstractHasLanguage {
   wordsKeys: number[] = [];
   fromWords: number[] = [];
   newWordForm: FormGroup;
+  route: ActivatedRoute
   loadingWords = false;
   creatingType?: 'New' | 'Derivated' | 'Combined' = 'New';
 
@@ -25,15 +26,16 @@ export class WordsListComponent extends AbstractHasLanguage {
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     langService: LangService,
-    route: ActivatedRoute,
+    _route: ActivatedRoute,
     router: Router) {
-    super(langService, route, router)
+    super(langService, _route, router)
+    this.route = _route;
     this.pos = [];
     this.newWordForm = this.formBuilder.group({
       lang: "",
       pos: "",
-      wordText: "",
-      makeForgotten: true,
+      wordText: this.route.snapshot.paramMap.get('newWordText'),
+      makeForgotten: !this.route.snapshot.paramMap.get('newWordText'),
       creatingType: this.creatingType,
       originIds: this.fromWords
     });

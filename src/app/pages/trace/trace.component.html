@@ -25,7 +25,7 @@
 <div *ngIf="words.length">
     <ol>
         <li *ngFor="let wl of words">
-            <span>{{ wl.word }}</span> <span class="text-grey"> ({{ wl.lang }})</span>
+            <span>{{ wl.word }}</span> <span class="text-grey"> ({{ wl.lang }})</span> <a class="link-btn" (click)="addWord(wl)"> ></a>
         </li>
     </ol>
     <app-hr></app-hr>
