@@ -43,6 +43,7 @@ export class EvolutionComponent extends AbstractHasLanguage {
 
   changeLang(): void {
     super.changeLang(this.selectedLanguage);
+
   }
 
   updateLangTo(): void {
@@ -77,6 +78,8 @@ export class EvolutionComponent extends AbstractHasLanguage {
         });
     } else {
       this.wordsToEvolve = [];
+      this.wordsToReEvolve = [];
+      this.evolvedWords = [];
     }
   }
 
