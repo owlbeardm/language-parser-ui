@@ -8,6 +8,7 @@ import { TranslationsComponent } from './pages/translations/translations.compone
 import { WordsComponent } from './pages/words/words.component';
 import { WordsListComponent } from './pages/words/words-list/words-list.component';
 import { WordsDetailComponent } from './pages/words/words-detail/words-detail.component';
+import { EvolutionComponent } from './pages/evolution/evolution.component';
 
 const routes: Routes = [
   { path: 'trace', component: TraceComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: ':word', component: WordsDetailComponent }]
   },
   { path: 'translations', component: TranslationsComponent },
+  { path: 'evolutions', component: EvolutionComponent },
   {
     path: 'language', component: LanguagesComponent,
     children: [
