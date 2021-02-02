@@ -9,6 +9,7 @@ import { map as __map, filter as __filter } from 'rxjs/operators';
 
 import { LanguageName } from '../models/language-name';
 import { TraceWordReq } from '../models/trace-word-req';
+import { WordToEvolveJSON } from '../models/word-to-evolve-json';
 import { WordJSON } from '../models/word-json';
 import { AddWordJSON } from '../models/add-word-json';
 import { PartOfSpeech } from '../models/part-of-speech';
@@ -21,6 +22,8 @@ class ApiService extends __BaseService {
   static readonly getApiHelloPath = '/api/hello';
   static readonly getApiLangsPath = '/api/langs';
   static readonly postApiLangsTraceWordPath = '/api/langs/traceWord';
+  static readonly getApiLangsEvolvefromLangPath = '/api/langs/evolvefrom/{lang}';
+  static readonly getApiLangsWordstoevolveFromToPath = '/api/langs/wordstoevolve/{from}/{to}';
   static readonly getApiWordsLangLangPath = '/api/words/lang/{lang}';
   static readonly postApiWordsPath = '/api/words';
   static readonly postApiWordsWordIdPath = '/api/words/{wordId}';
@@ -120,6 +123,83 @@ class ApiService extends __BaseService {
   postApiLangsTraceWord(body: TraceWordReq): __Observable<Array<string>> {
     return this.postApiLangsTraceWordResponse(body).pipe(
       __map(_r => _r.body as Array<string>)
+    );
+  }
+
+  /**
+   * @param lang undefined
+   */
+  getApiLangsEvolvefromLangResponse(lang: 'Aboleth' | 'Alko' | 'ClassicalArcane' | 'Dragon' | 'Dwarven' | 'Edhellen' | 'English' | 'Halfling' | 'Infernal' | 'Khuzdûl' | 'Kobold' | 'LizardFolk' | 'Necril' | 'Nerlendic' | 'Nitholan' | 'NitholanEmpire' | 'OldDragon' | 'OldNerlendic' | 'OldNitholan' | 'OldRunic' | 'Orkish' | 'PrimalMagic' | 'ProtoCreation' | 'ProtoDragon' | 'ProtoDwarven' | 'ProtoElven' | 'ProtoHuman' | 'ProtoMaterial' | 'ProtoMonster' | 'ProtoOrk' | 'ProtoTengu' | 'Queran' | 'SlaveRunic' | 'Sylvan' | 'Titan'): __Observable<__StrictHttpResponse<Array<LanguageName>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/langs/evolvefrom/${encodeURIComponent(lang)}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<LanguageName>>;
+      })
+    );
+  }
+  /**
+   * @param lang undefined
+   */
+  getApiLangsEvolvefromLang(lang: 'Aboleth' | 'Alko' | 'ClassicalArcane' | 'Dragon' | 'Dwarven' | 'Edhellen' | 'English' | 'Halfling' | 'Infernal' | 'Khuzdûl' | 'Kobold' | 'LizardFolk' | 'Necril' | 'Nerlendic' | 'Nitholan' | 'NitholanEmpire' | 'OldDragon' | 'OldNerlendic' | 'OldNitholan' | 'OldRunic' | 'Orkish' | 'PrimalMagic' | 'ProtoCreation' | 'ProtoDragon' | 'ProtoDwarven' | 'ProtoElven' | 'ProtoHuman' | 'ProtoMaterial' | 'ProtoMonster' | 'ProtoOrk' | 'ProtoTengu' | 'Queran' | 'SlaveRunic' | 'Sylvan' | 'Titan'): __Observable<Array<LanguageName>> {
+    return this.getApiLangsEvolvefromLangResponse(lang).pipe(
+      __map(_r => _r.body as Array<LanguageName>)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.GetApiLangsWordstoevolveFromToParams` containing the following parameters:
+   *
+   * - `to`:
+   *
+   * - `from`:
+   */
+  getApiLangsWordstoevolveFromToResponse(params: ApiService.GetApiLangsWordstoevolveFromToParams): __Observable<__StrictHttpResponse<Array<WordToEvolveJSON>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/langs/wordstoevolve/${encodeURIComponent(params.from)}/${encodeURIComponent(params.to)}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<WordToEvolveJSON>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.GetApiLangsWordstoevolveFromToParams` containing the following parameters:
+   *
+   * - `to`:
+   *
+   * - `from`:
+   */
+  getApiLangsWordstoevolveFromTo(params: ApiService.GetApiLangsWordstoevolveFromToParams): __Observable<Array<WordToEvolveJSON>> {
+    return this.getApiLangsWordstoevolveFromToResponse(params).pipe(
+      __map(_r => _r.body as Array<WordToEvolveJSON>)
     );
   }
 
@@ -483,6 +563,14 @@ class ApiService extends __BaseService {
 }
 
 module ApiService {
+
+  /**
+   * Parameters for getApiLangsWordstoevolveFromTo
+   */
+  export interface GetApiLangsWordstoevolveFromToParams {
+    to: 'Aboleth' | 'Alko' | 'ClassicalArcane' | 'Dragon' | 'Dwarven' | 'Edhellen' | 'English' | 'Halfling' | 'Infernal' | 'Khuzdûl' | 'Kobold' | 'LizardFolk' | 'Necril' | 'Nerlendic' | 'Nitholan' | 'NitholanEmpire' | 'OldDragon' | 'OldNerlendic' | 'OldNitholan' | 'OldRunic' | 'Orkish' | 'PrimalMagic' | 'ProtoCreation' | 'ProtoDragon' | 'ProtoDwarven' | 'ProtoElven' | 'ProtoHuman' | 'ProtoMaterial' | 'ProtoMonster' | 'ProtoOrk' | 'ProtoTengu' | 'Queran' | 'SlaveRunic' | 'Sylvan' | 'Titan';
+    from: 'Aboleth' | 'Alko' | 'ClassicalArcane' | 'Dragon' | 'Dwarven' | 'Edhellen' | 'English' | 'Halfling' | 'Infernal' | 'Khuzdûl' | 'Kobold' | 'LizardFolk' | 'Necril' | 'Nerlendic' | 'Nitholan' | 'NitholanEmpire' | 'OldDragon' | 'OldNerlendic' | 'OldNitholan' | 'OldRunic' | 'Orkish' | 'PrimalMagic' | 'ProtoCreation' | 'ProtoDragon' | 'ProtoDwarven' | 'ProtoElven' | 'ProtoHuman' | 'ProtoMaterial' | 'ProtoMonster' | 'ProtoOrk' | 'ProtoTengu' | 'Queran' | 'SlaveRunic' | 'Sylvan' | 'Titan';
+  }
 
   /**
    * Parameters for postApiWordsWordId
