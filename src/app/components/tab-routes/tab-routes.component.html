@@ -22,13 +22,15 @@
                     <th class="border">|</th>
                     <ng-container *ngFor="let tab of tabs; let i = index">
                         <th><a class="link-btn" [ngClass]="i==selectedIndex?'':'text-grey-dull'"
-                                [routerLink]="tab.route" (click)="select(i)" [attr.disabled]="tab.enabled? true : null">{{tab.name}}</a></th>
+                                [routerLink]="tab.route" (click)="select(i)"
+                                [attr.disabled]="tab.enabled? true : null">{{tab.name}}</a></th>
                         <th class="border">|</th>
                     </ng-container>
                     <th class="border"></th>
                 </tr>
                 <tr>
-                    <th *ngIf="0<selectedIndex" app-horizontal-dash class="border" [attr.colspan]="selectedIndex*2"></th>
+                    <th *ngIf="0<selectedIndex" app-horizontal-dash class="border" [attr.colspan]="selectedIndex*2">
+                    </th>
                     <th class="border">+</th>
                     <th class="border"></th>
                     <th class="border">+</th>
@@ -37,11 +39,9 @@
             </tbody>
             <tbody>
                 <tr>
-                    <td class="border"></td>
-                    <td class="break-word text-grey" colspan="5">
+                    <td class="break-word text-grey" [attr.colspan]="(tabs.length+1)*2">
                         <router-outlet></router-outlet>
                     </td>
-                    <td class="border"></td>
                 </tr>
             </tbody>
         </table>

@@ -32,10 +32,6 @@ export class TranslationsComponent extends AbstractHasLanguage {
     console.log("translations ngOnInit ");
   }
 
-  changeLang(): void {
-    super.changeLang(this.selectedLanguage);
-  }
-
   refreshAll() {
     this.loadingWords = true;
     if (this.selectedLanguage)

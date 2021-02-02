@@ -13,6 +13,10 @@ export class WordsComponent extends AbstractHasLanguage {
     route: "list",
     enabled: true
   }, {
+    name: "Translations",
+    route: "translations",
+    enabled: true
+  }, {
     name: "Details",
     route: ":word",
     enabled: false
