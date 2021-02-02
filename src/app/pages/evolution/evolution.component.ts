@@ -49,7 +49,32 @@ export class EvolutionComponent extends AbstractHasLanguage {
     if (this.selectedLanguage && this.selectedLanguageTo) {
       this.apiService
         .getApiLangsWordstoevolveFromTo({ from: this.selectedLanguage, to: this.selectedLanguageTo })
-        .subscribe((words) => this.wordsToEvolve = words.sort((w1, w2) => w1 > w2 ? -1 : 1));
+        .subscribe((words) => {
+          this.wordsToEvolve = words
+            // .filter((w) => w.wordToEvolve.word!=w.evolvedText)
+            .sort((w1, w2) => w1 > w2 ? -1 : 1)
+        });
+      this.apiService
+        .getApiLangsWordsevolvedFromTo({ from: this.selectedLanguage, to: this.selectedLanguageTo })
+        .subscribe((words) => {
+          this.evolvedWords = words
+            .filter((w) => {
+              if (w.evolvedWords) {
+                return w.evolvedWords.map((we) => we.word == w.evolvedText).reduce((p, c) => p && c, true);
+              }
+              return false;
+            })
+            .sort((w1, w2) => w1 > w2 ? -1 : 1);
+          this.wordsToReEvolve = words
+            .filter((w) => {
+              if (w.evolvedWords) {
+                return w.evolvedWords.map((we) => we.word != w.evolvedText).reduce((p, c) => p && c, true);
+              }
+              return false;
+            })
+            .sort((w1, w2) => w1 > w2 ? -1 : 1);
+          // this.wordsToEvolve = words.sort((w1, w2) => w1 > w2 ? -1 : 1)
+        });
     } else {
       this.wordsToEvolve = [];
     }
@@ -73,5 +98,17 @@ export class EvolutionComponent extends AbstractHasLanguage {
         this.updateLangTo();
       });
   }
+
+  evolveAllWords() {
+    if (this.selectedLanguage && this.selectedLanguageTo)
+      this.apiService.postApiLangsEvolveFromTo({ from: this.selectedLanguage, to: this.selectedLanguageTo }).subscribe((i) => { console.log(i); this.updateLangTo(); });
+  }
+  reEvolveAllWords() {
+    if (this.selectedLanguage && this.selectedLanguageTo)
+      this.apiService.postApiLangsReevolveFromTo({ from: this.selectedLanguage, to: this.selectedLanguageTo }).subscribe((i) => { console.log(i); this.updateLangTo(); });
+  }
+
+  evolveWord(wordToEvolve: WordToEvolveJSON) { alert("not implemented") }
+  reEvolveWord(wordToEvolve: WordToEvolveJSON) { alert("not implemented") }
 
 }

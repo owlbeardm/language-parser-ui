@@ -56,7 +56,9 @@
                         class="text-grey">[{{
                         wordToEvolve.wordToEvolve.partOfSpeech | shortPos }}]</span>&nbsp;</td>
                 <td></td>
-                <td>{{ wordToEvolve.evolvedText }}</td>
+                <td><span
+                        [ngClass]="wordToEvolve.wordToEvolve.word==wordToEvolve.evolvedText?'text-grey':''">{{ wordToEvolve.evolvedText }}</span>
+                </td>
                 <td app-vertical-dash class="border"></td>
                 <td><a class="link-btn" (click)="evolveWord(wordToEvolve)">evolve</a></td>
                 <td app-vertical-dash class="border"></td>
@@ -109,7 +111,8 @@
                         [queryParams]="{lang: selectedLanguage}">{{ wordToEvolve.wordToEvolve.word }}</a>/ <span
                         class="text-grey">[{{
                         wordToEvolve.wordToEvolve.partOfSpeech | shortPos }}]</span>&nbsp;</td>
-                <td><span class="text-grey">{{ wordToEvolve.evolvedText }}</span></td>
+                <td><span class="text-grey"
+                        *ngIf="wordToEvolve.evolvedWords">{{ wordToEvolve.evolvedWords[0].word }}</span></td>
                 <td>{{ wordToEvolve.evolvedText }}</td>
                 <td app-vertical-dash class="border"></td>
                 <td><a class="link-btn" (click)="reEvolveWord(wordToEvolve)">reevolve</a></td>
@@ -158,7 +161,8 @@
                         [queryParams]="{lang: selectedLanguage}">{{ wordToEvolve.wordToEvolve.word }}</a>/ <span
                         class="text-grey">[{{
                         wordToEvolve.wordToEvolve.partOfSpeech | shortPos }}]</span>&nbsp;</td>
-                <td><span class="text-grey">{{ wordToEvolve.evolvedText }}</span></td>
+                <td><span class="text-grey"
+                        *ngIf="wordToEvolve.evolvedWords">{{ wordToEvolve.evolvedWords[0].word }}</span></td>
                 <td></td>
                 <td></td>
                 <td></td>
