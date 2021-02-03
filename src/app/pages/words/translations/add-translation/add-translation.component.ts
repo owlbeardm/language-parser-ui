@@ -43,6 +43,7 @@ export class AddTranslationComponent implements OnInit {
     // this.checkoutForm.reset();
     if (newTranslationForm.isAltTranslation) {
       newTranslationForm.altTranslation = newTranslationForm ?.translation ?.wordText;
+      delete newTranslationForm.translation;
     } else if (newTranslationForm.translation) {
       newTranslationForm.translation["originIds"] = [];
       const exists = await this.apiService.postApiWordsExists(newTranslationForm.translation).toPromise();
