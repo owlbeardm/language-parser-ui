@@ -1,9 +1,14 @@
 <nav>
-    <div class="nav text-grey-dull">
-        <app-header-nav-link [route]="'trace'" [name]="'Trace'" [key]="'ONE'"></app-header-nav-link>
-        <app-header-nav-link [route]="'words/list'" [name]="'Words'" [key]="'TWO'"></app-header-nav-link>
-        <app-header-nav-link [route]="'evolutions'" [name]="'Evolutions'" [key]="'THREE'"></app-header-nav-link>
-        <app-header-nav-link [route]="'language/clusters'" [name]="'Languages'" [key]="'FOUR'"></app-header-nav-link>
-        -
-    </div>
+  <div class="nav text-grey-dull">
+    <app-header-nav-link [key]="'ONE'" [name]="'Trace'" [route]="'trace'"></app-header-nav-link>
+    -
+    <app-header-nav-link [key]="'TWO'" [name]="'Words'" [route]="'words/list'"></app-header-nav-link>
+    -
+    <app-header-nav-link [key]="'THREE'" [name]="'Evolutions'" [route]="'evolutions'"></app-header-nav-link>
+    -
+    <app-header-nav-link [key]="'FOUR'" [name]="'Languages'" [route]="'language/clusters'"></app-header-nav-link>
+  </div>
+  <div class="nav-login">
+    <a href="#" class="link-btn">Login</a>
+  </div>
 </nav>

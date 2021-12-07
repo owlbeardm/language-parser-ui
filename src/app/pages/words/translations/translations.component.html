@@ -42,12 +42,12 @@
                     <!-- <div *ngIf="translations.get(word.id)?.length == 0"> -->
                     <div>
                         <span *ngIf="word.id && translations.get(word.id)?.length == 0" class="text-red-dull">---</span>
-                        <div class="whole-line" align="right">
+                        <!-- <div class="whole-line" align="right">
                             <span>
                                 <app-add-translation [word]="word" (translationCreated)="refreshWord(word)">
                                 </app-add-translation>
                             </span>
-                        </div>
+                        </div> -->
                     </div>
                     <app-loading *ngIf="!translations.has(word.id)"></app-loading>
                 </td>
