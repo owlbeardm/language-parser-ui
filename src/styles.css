@@ -7,6 +7,23 @@ html {
   background-color: #252525;
 }
 
+body::-webkit-scrollbar {
+  background: #252525;
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  margin: 10px;
+  background: #252525;
+  border-radius: none;
+}
+
+body::-webkit-scrollbar-thumb {
+  margin: 10px;
+  background-color: #3D3D3D;
+  border-radius: none;
+}
+
 :focus {
   outline-color: #e4e4e4;
   outline-style: auto;
@@ -70,7 +87,7 @@ input {
   left: 5px;
 }
 
-.regular-radio:focus{
+.regular-radio:focus {
   outline-width: 0px;
 }
 
@@ -178,11 +195,13 @@ a.text-green-dull:hover {
   color: #3D3D3D;
 }
 
-a.text-grey:hover,a>.text-grey:hover {
+a.text-grey:hover,
+a>.text-grey:hover {
   color: #B5B5B5;
 }
 
-a.text-grey-dull:hover,a>.text-grey-dull:hover {
+a.text-grey-dull:hover,
+a>.text-grey-dull:hover {
   color: #B5B5B5;
 }
 
