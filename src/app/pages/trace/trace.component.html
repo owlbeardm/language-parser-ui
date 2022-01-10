@@ -1,92 +1,95 @@
 <!-- <h1>Trace a word!</h1> -->
-<app-hr></app-hr>
+
 
 <form [formGroup]="checkoutForm" (ngSubmit)="submit(checkoutForm.value)">
-    <div>
-        <label for="langs">
-            Langs
-        </label>
-        <input id="langs" type="text" formControlName="langs">
+    <div class="row">
+      <div>
+        <label for="plazaTokenAmount">Language from:</label>
+        <div class="input-group">
+          <app-language-select [(selectedLanguage)]="selectedLanguage" (selectedLanguageChange)="changeLang()" id="langs" type="text" formControlName="langs">
+          </app-language-select>
+        </div>
+      </div>
+      <div>
+        <div>------></div>
+        <a class="text-yellow-dull">Titan -> Empire</a>
+      </div>
+      <div>
+        <label for="plazaTokenAmount">Language from:</label>
+        <div class="input-group">
+          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
+        </div>
+      </div>
+      <div>
+        <label for="plazaTokenAmount">Language to:</label>
+        <div class="input-group">
+          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
+        </div>
+      </div>
+      <div>
+        <label for="plazaTokenAmount">Language to:</label>
+        <div class="input-group">
+          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
+        </div>
+      </div>
+      <div>
+        <label for="plazaTokenAmount">Language to:</label>
+        <div class="input-group">
+          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
+        </div>
+      </div>
+      <div>
+        <label for="plazaTokenAmount">Language to:</label>
+        <div class="input-group">
+          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
+        </div>
+      </div>
+      <div>
+        <label for="plazaTokenAmount">Language to:</label>
+        <div class="input-group">
+          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
+        </div>
+      </div>
+      <div>
+        <label for="plazaTokenAmount">Language to:</label>
+        <div class="input-group">
+          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
+        </div>
+      </div>
+      <div>
+        <label for="plazaTokenAmount">Language to:</label>
+        <div class="input-group">
+          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
+        </div>
+      </div>
+      <div>
+        <label for="plazaTokenAmount">Language to:</label>
+        <div class="input-group">
+          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
+        </div>
+      </div>
+      <div>
+        <label for="plazaTokenAmount">Language to:</label>
+        <div class="input-group">
+          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
+        </div>
+      </div>
     </div>
 
-    <div>
-        <label for="wordText">
-            Word&nbsp;
-        </label>
-        <input #wordInput id="wordText" type="text" formControlName="wordText">
-    </div>
-    <br />
-    <button class="button" type="submit" hidden>Submit</button>
+<!--    <div>-->
+<!--        <label for="langs">-->
+<!--            Langs-->
+<!--        </label>-->
+<!--        <app-language-select [(selectedLanguage)]="selectedLanguage" (selectedLanguageChange)="changeLang()" id="langs" type="text" formControlName="langs">-->
+<!--        </app-language-select>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <label for="wordText">-->
+<!--            Word&nbsp;-->
+<!--        </label>-->
+<!--        <input #wordInput id="wordText" type="text" formControlName="wordText">-->
+<!--    </div>-->
+<!--    <br />-->
+<!--    <button class="button" type="submit" hidden>Submit</button>-->
 </form>
-
-<!-- <h2>Evolved Words</h2> -->
-<app-hr></app-hr>
-
-<div *ngIf="words.length">
-    <ol>
-        <li *ngFor="let wl of words">
-            <span>{{ wl.word }}</span> <span class="text-grey"> ({{ wl.lang }})</span> <a class="link-btn" (click)="addWord(wl)"> ></a>
-        </li>
-    </ol>
-    <app-hr></app-hr>
-</div>
-
-
-<div class="table-container">
-    <table>
-        <colgroup>
-            <col span="1" class="border">
-            <!-- <col span="1" style="width: max-content;"> -->
-            <col span="1" style="width: 50%;">
-            <col span="1" class="border">
-            <col span="1" style="width: 50%;">
-            <col span="1" class="border">
-        </colgroup>
-        <thead>
-            <tr>
-                <th class="border">+</th>
-                <th app-horizontal-dash class="border"></th>
-                <th class="border">+</th>
-                <th app-horizontal-dash class="border"></th>
-                <th class="border">+</th>
-            </tr>
-            <tr>
-                <td app-vertical-dash class="border"></td>
-                <th class="text-grey">Queran</th>
-                <td app-vertical-dash class="border"></td>
-                <th class="text-grey">Nitholan</th>
-                <td app-vertical-dash class="border"></td>
-            </tr>
-            <tr>
-                <th class="border">+</th>
-                <th app-horizontal-dash class="border"></th>
-                <th class="border">+</th>
-                <th app-horizontal-dash class="border"></th>
-                <th class="border">+</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td app-vertical-dash class="border"></td>
-                <th><a class="link-btn" (click)="titanToQueran()">Titan -> Queran</a></th>
-                <td app-vertical-dash class="border"></td>
-                <th><a class="link-btn" (click)="titanToNitholan()">Titan -> Nitholan</a></th>
-                <td app-vertical-dash class="border"></td>
-            </tr>
-            <tr>
-                <td app-vertical-dash class="border"></td>
-                <th></th>
-                <td app-vertical-dash class="border"></td>
-                <th><a class="link-btn" (click)="queranToNitholan()">Queran -> Nitholan</a></th>
-                <td app-vertical-dash class="border"></td>
-            </tr>
-            <tr>
-                <th class="border">+</th>
-                <th app-horizontal-dash class="border"></th>
-                <th class="border">+</th>
-                <th app-horizontal-dash class="border"></th>
-                <th class="border">+</th>
-            </tr>
-        </tbody>
-    </table>
-</div>
