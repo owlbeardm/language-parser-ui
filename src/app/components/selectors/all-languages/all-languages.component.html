@@ -1,0 +1,9 @@
+<div class="selector">
+  <label for="languageSelector" class="languageSelectorLabel">{{label}}</label>
+  <div class="input-group">
+    <select id="languageSelector" [(ngModel)]="selectedLanguage" (change)="changeLanguage()" name="languageSelector" [formControlName]="'languageSelector'" class="languageSelector">
+      <option [value]="undefined" disabled> --- Select Language --- </option>
+      <option *ngFor="let lang of allLanguages" [value]="lang">{{ lang.displayName }}</option>
+    </select>
+  </div>
+</div>

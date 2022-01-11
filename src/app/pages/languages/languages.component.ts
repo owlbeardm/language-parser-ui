@@ -23,10 +23,10 @@ export class LanguagesComponent extends AbstractHasLanguage {
   }
 
   refreshAll() {
-    console.log("LanguagesComponent", this.selectedLanguage);
+    // console.log("LanguagesComponent", this.selectedLanguage);
   }
 
   changeLang() {
-    super.changeLang(this.selectedLanguage);
+    // super.changeLang(this.selectedLanguage);
   }
 }

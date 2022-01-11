@@ -1,24 +1,27 @@
 import { Injectable, OnInit, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { LanguageName, PartOfSpeech } from '../api/models';
-import { ApiService } from '../api/services';
+//TODO: Add language files
+// import { LanguageName, PartOfSpeech } from '../api/models';
+// import { ApiService } from '../api/services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LangService implements OnDestroy, OnInit {
 
-  private _selectedLanguage = new BehaviorSubject<LanguageName | undefined>(undefined);
-  private dataStore: { selectedLanguage: LanguageName | undefined } = { selectedLanguage: undefined };
-  readonly selectedLanguage = this._selectedLanguage.asObservable();
+  //TODO: Add language files
+  // private _selectedLanguage = new BehaviorSubject<LanguageName | undefined>(undefined);
+  private dataStore: { selectedLanguage: any | undefined } = { selectedLanguage: undefined };
+  //TODO: Add language files
+  // readonly selectedLanguage = this._selectedLanguage.asObservable();
 
 
-  constructor(apiService: ApiService) {
+  constructor(/*private api: ApiService*/) {
   }
 
-  changeSelectedLanguage(selectedLanguage?: LanguageName) {
+  changeSelectedLanguage(selectedLanguage?: any) {
     this.dataStore.selectedLanguage = selectedLanguage;
-    this._selectedLanguage.next(Object.assign({}, this.dataStore).selectedLanguage);
+    // this._selectedLanguage.next(Object.assign({}, this.dataStore).selectedLanguage);
   }
 
   ngOnInit(): void {
@@ -29,7 +32,7 @@ export class LangService implements OnDestroy, OnInit {
     console.log("LangService onDestroy")
   }
 
-  shortPOS(pos: String | PartOfSpeech) {
+  shortPOS(pos: string): string {
     if (pos == "Adjective") return "adj.";
     if (pos == "Adverb") return "adv.";
     if (pos == "Conjunction") return "cnj.";
@@ -44,15 +47,15 @@ export class LangService implements OnDestroy, OnInit {
     return pos;
   }
 
-  isValidLanguageName(value: string): value is LanguageName {
-    if (value as LanguageName) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // isValidLanguageName(value: string): value is LanguageName {
+  //   if (value as LanguageName) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
-  isValidLanguageNameSequence(values: string[]): values is Array<LanguageName> {
-    return values.every(this.isValidLanguageName);
-  }
+  // isValidLanguageNameSequence(values: string[]): values is Array<LanguageName> {
+  //   return values.every(this.isValidLanguageName);
+  // }
 }

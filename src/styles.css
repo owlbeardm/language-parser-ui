@@ -263,3 +263,7 @@ app-vertical-dash {
 app-horizontal-dash {
   width: 100%;
 }
+
+.selector {
+  margin: 8px;
+}

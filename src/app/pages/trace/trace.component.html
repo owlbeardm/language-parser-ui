@@ -1,95 +1,29 @@
 <!-- <h1>Trace a word!</h1> -->
 
 
-<form [formGroup]="checkoutForm" (ngSubmit)="submit(checkoutForm.value)">
-    <div class="row">
-      <div>
-        <label for="plazaTokenAmount">Language from:</label>
-        <div class="input-group">
-          <app-language-select [(selectedLanguage)]="selectedLanguage" (selectedLanguageChange)="changeLang()" id="langs" type="text" formControlName="langs">
-          </app-language-select>
-        </div>
-      </div>
-      <div>
-        <div>------></div>
-        <a class="text-yellow-dull">Titan -> Empire</a>
-      </div>
-      <div>
-        <label for="plazaTokenAmount">Language from:</label>
-        <div class="input-group">
-          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
-        </div>
-      </div>
-      <div>
-        <label for="plazaTokenAmount">Language to:</label>
-        <div class="input-group">
-          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
-        </div>
-      </div>
-      <div>
-        <label for="plazaTokenAmount">Language to:</label>
-        <div class="input-group">
-          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
-        </div>
-      </div>
-      <div>
-        <label for="plazaTokenAmount">Language to:</label>
-        <div class="input-group">
-          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
-        </div>
-      </div>
-      <div>
-        <label for="plazaTokenAmount">Language to:</label>
-        <div class="input-group">
-          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
-        </div>
-      </div>
-      <div>
-        <label for="plazaTokenAmount">Language to:</label>
-        <div class="input-group">
-          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
-        </div>
-      </div>
-      <div>
-        <label for="plazaTokenAmount">Language to:</label>
-        <div class="input-group">
-          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
-        </div>
-      </div>
-      <div>
-        <label for="plazaTokenAmount">Language to:</label>
-        <div class="input-group">
-          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
-        </div>
-      </div>
-      <div>
-        <label for="plazaTokenAmount">Language to:</label>
-        <div class="input-group">
-          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
-        </div>
-      </div>
-      <div>
-        <label for="plazaTokenAmount">Language to:</label>
-        <div class="input-group">
-          <input id="plazaTokenAmount" class="form-control" formControlName="plazaTokenAmount" autofocus>
-        </div>
-      </div>
+<form (ngSubmit)="submit(checkoutForm.value)" [formGroup]="checkoutForm">
+  <div class="row">
+    <div>
+      <app-all-languages [label]="'Language from:'"></app-all-languages>
     </div>
+    <app-trace-language-recursive></app-trace-language-recursive>
 
-<!--    <div>-->
-<!--        <label for="langs">-->
-<!--            Langs-->
-<!--        </label>-->
-<!--        <app-language-select [(selectedLanguage)]="selectedLanguage" (selectedLanguageChange)="changeLang()" id="langs" type="text" formControlName="langs">-->
-<!--        </app-language-select>-->
-<!--    </div>-->
+  </div>
 
-<!--    <div>-->
-<!--        <label for="wordText">-->
-<!--            Word&nbsp;-->
-<!--        </label>-->
-<!--        <input #wordInput id="wordText" type="text" formControlName="wordText">-->
-<!--    </div>-->
-<!--    <br />-->
-<!--    <button class="button" type="submit" hidden>Submit</button>-->
+  <!--    <div>-->
+  <!--        <label for="langs">-->
+  <!--            Langs-->
+  <!--        </label>-->
+  <!--        <app-language-select [(selectedLanguage)]="selectedLanguage" (selectedLanguageChange)="changeLang()" id="langs" type="text" formControlName="langs">-->
+  <!--        </app-language-select>-->
+  <!--    </div>-->
+
+  <!--    <div>-->
+  <!--        <label for="wordText">-->
+  <!--            Word&nbsp;-->
+  <!--        </label>-->
+  <!--        <input #wordInput id="wordText" type="text" formControlName="wordText">-->
+  <!--    </div>-->
+  <!--    <br />-->
+  <!--    <button class="button" type="submit" hidden>Submit</button>-->
 </form>

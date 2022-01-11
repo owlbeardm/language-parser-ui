@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from 'src/app/api/services';
+//TODO: add new api
+// import { ApiService } from 'src/app/api/services';
 import { AbstractHasLanguage } from 'src/app/components/abstract/abstract-has-language/abstract-has-language';
 import { LangService } from 'src/app/services/lang.service';
-import { PartOfSpeech, WordJSON, AddWordJSON } from 'src/app/api/models';
+// import { PartOfSpeech, WordJSON, AddWordJSON } from 'src/app/api/models';
 
 @Component({
   selector: 'app-words-list',
@@ -13,8 +14,8 @@ import { PartOfSpeech, WordJSON, AddWordJSON } from 'src/app/api/models';
 })
 export class WordsListComponent extends AbstractHasLanguage {
 
-  pos: PartOfSpeech[];
-  words: Map<number, WordJSON> = new Map();
+  // pos: PartOfSpeech[];
+  // words: Map<number, WordJSON> = new Map();
   wordsKeys: number[] = [];
   fromWords: number[] = [];
   newWordForm: FormGroup;
@@ -24,13 +25,13 @@ export class WordsListComponent extends AbstractHasLanguage {
 
   constructor(private cdRef: ChangeDetectorRef,
     private formBuilder: FormBuilder,
-    private apiService: ApiService,
+    // private apiService: ApiService,
     langService: LangService,
     _route: ActivatedRoute,
     router: Router) {
     super(langService, _route, router)
     this.route = _route;
-    this.pos = [];
+    // this.pos = [];
     this.newWordForm = this.formBuilder.group({
       lang: "",
       pos: "",
@@ -43,7 +44,7 @@ export class WordsListComponent extends AbstractHasLanguage {
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.apiService.getApiWordsPos().subscribe((pos) => this.pos = pos);
+    // this.apiService.getApiWordsPos().subscribe((pos) => this.pos = pos);
   }
 
   addFromWord(wordId: number) {
@@ -61,7 +62,7 @@ export class WordsListComponent extends AbstractHasLanguage {
   }
 
   changeLang(): void {
-    super.changeLang(this.selectedLanguage);
+    // super.changeLang(this.selectedLanguage);
   }
 
   changeCreatingType(): void {
@@ -72,69 +73,69 @@ export class WordsListComponent extends AbstractHasLanguage {
 
   refreshAll() {
     this.loadingWords = true;
-    if (this.selectedLanguage)
-      this.apiService.getApiWordsLangLang(this.selectedLanguage).subscribe((words) => {
-        this.words.clear();
-        words.forEach((word) => { if (word.id) this.words.set(word.id, word) });
-        this.refreshKeys();
-        this.loadingWords = false;
-      });
+    // if (this.selectedLanguage)
+      // this.apiService.getApiWordsLangLang(this.selectedLanguage).subscribe((words) => {
+      //   this.words.clear();
+      //   words.forEach((word) => { if (word.id) this.words.set(word.id, word) });
+      //   this.refreshKeys();
+      //   this.loadingWords = false;
+      // });
   }
 
   refreshKeys() {
-    this.wordsKeys = Array.from(this.words.keys());
+    // this.wordsKeys = Array.from(this.words.keys());
   }
 
-  submit(newWordData: AddWordJSON) {
-    if (this.selectedLanguage) {
-      newWordData.lang = this.selectedLanguage;
-      newWordData.originIds = this.fromWords;
-      switch (this.creatingType) {
-        case 'Combined':
-          newWordData.originType = "Combined";
-          break;
-        case 'Derivated':
-          newWordData.originType = "Derivated";
-          break;
-        default:
-          delete newWordData.originType;
-      }
-      this.apiService.postApiWords(newWordData).subscribe((added) => {
-        console.log("new  word added ", added);
-        if (added) {
-          this.refreshAll();
-        }
-      })
-    }
+  submit(newWordData: any) {
+    // if (this.selectedLanguage) {
+    //   // newWordData.lang = this.selectedLanguage;
+    //   newWordData.originIds = this.fromWords;
+    //   switch (this.creatingType) {
+    //     case 'Combined':
+    //       newWordData.originType = "Combined";
+    //       break;
+    //     case 'Derivated':
+    //       newWordData.originType = "Derivated";
+    //       break;
+    //     default:
+    //       delete newWordData.originType;
+    //   }
+    //   // this.apiService.postApiWords(newWordData).subscribe((added) => {
+    //   //   console.log("new  word added ", added);
+    //   //   if (added) {
+    //   //     this.refreshAll();
+    //   //   }
+    //   // })
+    // }
   }
 
   deleteWord(wordId: number) {
     console.log("Delete word", wordId);
-    this.apiService.deleteApiWordsWordId(wordId).subscribe(() => {
-      console.log("deleted", wordId);
-      // this.refreshAll();
-      this.words.delete(wordId);
-      this.refreshKeys();
-    });
+    // this.apiService.deleteApiWordsWordId(wordId).subscribe(() => {
+    //   console.log("deleted", wordId);
+    //   // this.refreshAll();
+    //   this.words.delete(wordId);
+    //   this.refreshKeys();
+    // });
   }
 
   forgetWord(wordId: number) {
     console.log("Delete word", wordId);
-    const word = this.words.get(wordId);
-    if (this.selectedLanguage && word)
-      this.apiService.postApiWordsWordId({
-        wordId: wordId,
-        body: {
-          lang: this.selectedLanguage,
-          makeForgotten: !word.forgotten,
-          pos: word.partOfSpeech,
-          wordText: word.word,
-          originIds: []
-        }
-      }).subscribe(() => {
-        console.log("updated", word);
-        this.refreshAll();
-      });
+    // const word = this.words.get(wordId);
+    // if (this.selectedLanguage && word)
+    //   this.apiService.postApiWordsWordId({
+    //     wordId: wordId,
+    //     body: {
+    //       // lang: this.selectedLanguage,
+    //       makeForgotten: !word.forgotten,
+    //       pos: word.partOfSpeech,
+    //       wordText: word.word,
+    //       originIds: []
+    //     }
+    //   }).subscribe(() => {
+    //     console.log("updated", word);
+    //     this.refreshAll();
+    //   });
   }
 
 }

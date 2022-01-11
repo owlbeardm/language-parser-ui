@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {LanguageName, TraceWordReq} from 'src/app/api/models';
-import {ApiService} from 'src/app/api/services';
+//TODO: add new api
+// import {LanguageName, TraceWordReq} from 'src/app/api/models';
+// import {ApiService} from 'src/app/api/services';
 import {TraceWordForm} from 'src/app/models/trace-word-req';
 import {ErrorService} from 'src/app/services/error.service';
 import {KeyBindService} from 'src/app/services/key-bind.service';
@@ -17,22 +18,22 @@ export class TraceComponent implements OnInit {
 
   @ViewChild('wordInput') wordInput: any;
 
-  wordText: String = '';
-  langs: LanguageName[];
+  wordText: string = '';
+  // langs: LanguageName[];
   words: WordLang[];
   checkoutForm: FormGroup;
-  selectedLanguage?: LanguageName;
+  // selectedLanguage?: LanguageName;
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiService,
+    // private apiService: ApiService,
     private langService: LangService,
     private errorService: ErrorService,
     private keybind: KeyBindService,
     private router: Router) {
     this.words = [];
-    this.langs = [];
-    this.apiService = apiService;
+    // this.langs = [];
+    // this.apiService = apiService;
     this.checkoutForm = this.formBuilder.group({
       wordText: '',
       langs: ''
@@ -51,23 +52,23 @@ export class TraceComponent implements OnInit {
     console.log(traceData);
     // return;
     const langs = traceData.langs.split(',').map((lang) => lang.trim());
-    if (!this.langService.isValidLanguageNameSequence(langs)) {
-      this.errorService.addError({
-        message: `Wrong language name in post trace word.`,
-        details: `Lang names: ${langs
-          .filter((lang) => !this.langService.isValidLanguageName(lang))
-          .reduce((p, c, i) => `${p}${i > 0 ? ', ' : ''}${c}`)}.`
-      });
-      throw Error('Invalid LanguageName sequence');
-    }
-    this.langs = langs;
+    // if (!this.langService.isValidLanguageNameSequence(langs)) {
+    //   this.errorService.addError({
+    //     message: `Wrong language name in post trace word.`,
+    //     // details: `Lang names: ${langs
+    //     //   .filter((lang:any) => !this.langService.isValidLanguageName(lang))
+    //     //   .reduce((p:any, c:any, i:any) => `${p}${i > 0 ? ', ' : ''}${c}`)}.`
+    //   });
+    //   throw Error('Invalid LanguageName sequence');
+    // }
+    // this.langs = langs;
     this.wordText = traceData.wordText.trim();
-    const req: TraceWordReq = {langs: this.langs, wordTrace: this.wordText.toString()};
-    this.apiService.postApiLangsTraceWord(req).subscribe((words) => {
-      this.words = words.map((wrd, i) => {
-        return {lang: langs[i], word: wrd};
-      });
-    });
+    // const req: TraceWordReq = {langs: this.langs, wordTrace: this.wordText.toString()};
+    // this.apiService.postApiLangsTraceWord(req:any).subscribe((words:any) => {
+    //   this.words = words.map((wrd:any, i:any) => {
+    //     return {lang: langs[i], word: wrd};
+    //   });
+    // });
   }
 
   titanToQueran() {
@@ -85,16 +86,16 @@ export class TraceComponent implements OnInit {
   setLangs(langs: String) {
     this.checkoutForm.setValue({
       wordText: this.checkoutForm.getRawValue().wordText,
-      langs: langs
+      // langs: langs
     });
     this.wordInput?.nativeElement.focus();
   }
 
   addWord(wl: WordLang) {
-    if (this.langService.isValidLanguageName(wl.lang)) {
-      this.langService.changeSelectedLanguage(wl.lang);
-      this.router.navigate(['/words/list', {newWordText: wl.word}]);
-    }
+    // if (this.langService.isValidLanguageName(wl.lang)) {
+    //   this.langService.changeSelectedLanguage(wl.lang);
+    //   this.router.navigate(['/words/list', {newWordText: wl.word}]);
+    // }
   }
 
   changeLang(): void {

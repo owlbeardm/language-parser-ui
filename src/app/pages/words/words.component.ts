@@ -27,10 +27,10 @@ export class WordsComponent extends AbstractHasLanguage {
   }
 
   refreshAll() {
-    console.log("WordsComponent", this.selectedLanguage);
+    // console.log("WordsComponent", this.selectedLanguage);
   }
 
   changeLang() {
-    super.changeLang(this.selectedLanguage);
+    // super.changeLang(this.selectedLanguage);
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from 'src/app/api/services';
+//TODO: add new api
+// import { ApiService } from 'src/app/api/services';
 import { AbstractHasLanguage } from 'src/app/components/abstract/abstract-has-language/abstract-has-language';
 import { LangService } from 'src/app/services/lang.service';
 
@@ -16,7 +17,8 @@ export class ClustersComponent extends AbstractHasLanguage {
   startClusters?: string[];
   lastClusters?: string[];
 
-  constructor(private apiService: ApiService,
+  constructor(
+    // private apiService: ApiService,
     _langService: LangService,
     _route: ActivatedRoute,
     _router: Router) {
@@ -28,10 +30,11 @@ export class ClustersComponent extends AbstractHasLanguage {
   }
 
   refreshAll() {
-    if (this.selectedLanguage) {
-      this.apiService.getApiWordsConstclustersLang({ lang: this.selectedLanguage }).subscribe((clusters) => this.clusters = clusters.filter((c) => !!c));
-      this.apiService.getApiWordsConstclustersLang({ lang: this.selectedLanguage, clusterType: 'StartingCluster' }).subscribe((clusters) => this.startClusters = clusters);
-      this.apiService.getApiWordsConstclustersLang({ lang: this.selectedLanguage, clusterType: 'LastClusters' }).subscribe((clusters) => this.lastClusters = clusters);
-    }
+    // if (this.selectedLanguage) {
+      //TODO: add new api
+      // this.apiService.getApiWordsConstclustersLang({ lang: this.selectedLanguage }).subscribe((clusters) => this.clusters = clusters.filter((c) => !!c));
+      // this.apiService.getApiWordsConstclustersLang({ lang: this.selectedLanguage, clusterType: 'StartingCluster' }).subscribe((clusters) => this.startClusters = clusters);
+      // this.apiService.getApiWordsConstclustersLang({ lang: this.selectedLanguage, clusterType: 'LastClusters' }).subscribe((clusters) => this.lastClusters = clusters);
+    // }
   }
 }
