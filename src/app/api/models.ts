@@ -1,9 +1,3 @@
-export { LanguageName } from './models/language-name';
-export { TraceWordReq } from './models/trace-word-req';
-export { WordToEvolveJSON } from './models/word-to-evolve-json';
-export { WordJSON } from './models/word-json';
-export { PartOfSpeech } from './models/part-of-speech';
-export { AddWordJSON } from './models/add-word-json';
-export { WordOriginType } from './models/word-origin-type';
-export { TranslationAPI } from './models/translation-api';
-export { AddWordTranslationJSON } from './models/add-word-translation-json';
+export { Language } from './models/language';
+export { Word } from './models/word';
+export { WordTraceResult } from './models/word-trace-result';
