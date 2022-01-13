@@ -9,26 +9,19 @@ import {LanguagesService} from '../../../api/services/languages.service';
 })
 export class TraceLanguageRecursiveComponent implements OnInit {
 
-  @Input() label: string | undefined;
-  @Input() languageFrom?: Language;
-  @Input() selectedLanguage?: Language;
-  @Output() selectedLanguageChange: EventEmitter<Language> = new EventEmitter<Language>();
-  allLanguages: Language[] = [];
+  languages: Language[] = [];
+  availableLanguagesTo: Language[][] = [];
+  @Output() routeChanged: EventEmitter<Language[]> = new EventEmitter<Language[]>();
+
 
   constructor(private languagesService: LanguagesService) {
   }
 
   ngOnInit(): void {
-    if (!!this.languageFrom) {
-      this.languagesService.getAllLanguagesFrom({from: this.languageFrom}).subscribe(
-        (languages: Language[]) => {
-          this.allLanguages = languages;
-        }
-      );
-    }
+
   }
 
-  changeLanguage(): void {
+  changeLanguage(langId: number, newLang: Language): void {
     this.selectedLanguageChange.emit(this.selectedLanguage);
   }
 
