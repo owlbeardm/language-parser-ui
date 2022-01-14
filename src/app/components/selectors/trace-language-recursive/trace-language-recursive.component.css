@@ -1,3 +1,9 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
 .languageSelector {
   margin-top: 4px;
 }

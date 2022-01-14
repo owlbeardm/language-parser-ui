@@ -80,7 +80,7 @@ export class LanguagesService extends BaseService {
   /**
    * Path part for operation getAllLanguagesFrom
    */
-  static readonly GetAllLanguagesFromPath = '/api/language/all/{from}';
+  static readonly GetAllLanguagesFromPath = '/api/language/allfrom/{fromId}';
 
   /**
    * Get all languages to which path from the given language is possible.
@@ -93,12 +93,12 @@ export class LanguagesService extends BaseService {
    * This method doesn't expect any request body.
    */
   getAllLanguagesFrom$Response(params: {
-    from: Language;
+    fromId: number;
   }): Observable<StrictHttpResponse<Array<Language>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetAllLanguagesFromPath, 'get');
     if (params) {
-      rb.path('from', params.from, {});
+      rb.path('fromId', params.fromId, {});
     }
 
     return this.http.request(rb.build({
@@ -123,7 +123,7 @@ export class LanguagesService extends BaseService {
    * This method doesn't expect any request body.
    */
   getAllLanguagesFrom(params: {
-    from: Language;
+    fromId: number;
   }): Observable<Array<Language>> {
 
     return this.getAllLanguagesFrom$Response(params).pipe(
@@ -134,7 +134,7 @@ export class LanguagesService extends BaseService {
   /**
    * Path part for operation getAllPaths
    */
-  static readonly GetAllPathsPath = '/api/language/paths/{from}/{to}';
+  static readonly GetAllPathsPath = '/api/language/paths/{fromId}/{toId}';
 
   /**
    * Get all paths from language to other given language.
@@ -147,14 +147,14 @@ export class LanguagesService extends BaseService {
    * This method doesn't expect any request body.
    */
   getAllPaths$Response(params: {
-    from: Language;
-    to: Language;
+    fromId: number;
+    toId: number;
   }): Observable<StrictHttpResponse<Array<Array<Language>>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetAllPathsPath, 'get');
     if (params) {
-      rb.path('from', params.from, {});
-      rb.path('to', params.to, {});
+      rb.path('fromId', params.fromId, {});
+      rb.path('toId', params.toId, {});
     }
 
     return this.http.request(rb.build({
@@ -179,8 +179,8 @@ export class LanguagesService extends BaseService {
    * This method doesn't expect any request body.
    */
   getAllPaths(params: {
-    from: Language;
-    to: Language;
+    fromId: number;
+    toId: number;
   }): Observable<Array<Array<Language>>> {
 
     return this.getAllPaths$Response(params).pipe(

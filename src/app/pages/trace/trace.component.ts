@@ -21,7 +21,7 @@ export class TraceComponent implements OnInit {
   wordText: string = '';
   // langs: LanguageName[];
   words: WordLang[];
-  checkoutForm: FormGroup;
+  languageSelector: FormGroup;
   // selectedLanguage?: LanguageName;
 
   constructor(
@@ -34,7 +34,7 @@ export class TraceComponent implements OnInit {
     this.words = [];
     // this.langs = [];
     // this.apiService = apiService;
-    this.checkoutForm = this.formBuilder.group({
+    this.languageSelector = this.formBuilder.group({
       wordText: '',
       langs: ''
     });
@@ -84,8 +84,8 @@ export class TraceComponent implements OnInit {
   }
 
   setLangs(langs: String) {
-    this.checkoutForm.setValue({
-      wordText: this.checkoutForm.getRawValue().wordText,
+    this.languageSelector.setValue({
+      wordText: this.languageSelector.getRawValue().wordText,
       // langs: langs
     });
     this.wordInput?.nativeElement.focus();

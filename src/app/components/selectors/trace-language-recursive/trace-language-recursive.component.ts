@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Language} from '../../../api/models/language';
 import {LanguagesService} from '../../../api/services/languages.service';
 
@@ -18,11 +18,20 @@ export class TraceLanguageRecursiveComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.availableLanguagesTo = [];
+    this.languagesService.getAllLanguages().subscribe(languages => {
+      this.availableLanguagesTo.push(languages);
+    });
   }
 
   changeLanguage(langId: number, newLang: Language): void {
-    this.selectedLanguageChange.emit(this.selectedLanguage);
+    console.log('changeLanguage', langId, newLang, this.availableLanguagesTo);
+    this.availableLanguagesTo.splice(langId + 1, this.availableLanguagesTo.length - langId - 1);
+    this.languages.splice(langId + 1, this.availableLanguagesTo.length - langId - 1);
+    console.log('changeLanguage', langId, newLang, this.availableLanguagesTo);
+    this.languagesService.getAllLanguagesFrom({fromId: newLang.id}).subscribe(languages => {
+      this.availableLanguagesTo[langId + 1] = languages;
+    });
   }
 
 }

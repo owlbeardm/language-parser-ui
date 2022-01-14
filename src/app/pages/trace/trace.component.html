@@ -1,14 +1,9 @@
 <!-- <h1>Trace a word!</h1> -->
 
 
-<form (ngSubmit)="submit(checkoutForm.value)" [formGroup]="checkoutForm">
-  <div class="row">
-    <div>
-      <app-all-languages [label]="'Language from:'"></app-all-languages>
-    </div>
-    <app-trace-language-recursive></app-trace-language-recursive>
+<!--<form (ngSubmit)="submit(languageSelector.value)" [formGroup]="languageSelector">-->
 
-  </div>
+    <app-trace-language-recursive></app-trace-language-recursive>
 
   <!--    <div>-->
   <!--        <label for="langs">-->
@@ -26,4 +21,4 @@
   <!--    </div>-->
   <!--    <br />-->
   <!--    <button class="button" type="submit" hidden>Submit</button>-->
-</form>
+<!--</form>-->
