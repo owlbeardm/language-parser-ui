@@ -1,21 +1,25 @@
 <div class="row">
   <div *ngFor="let langs of availableLanguagesTo; index as i" class="selector">
     <div *ngIf="langs.length">
-      <label class="languageSelectorLabel"
-             for="languageSelector">{{
-        (i == 0)
-          ? 'Language from:'
-          : (i + 1 == availableLanguagesTo.length) || ((i + 2 == availableLanguagesTo.length) && !availableLanguagesTo[i + 1].length)
-            ? 'Language to:'
-            : 'Language:'
-        }}</label>
-      <div class="input-group">
-        <select (ngModelChange)="changeLanguage(i,$event)" [(ngModel)]="languages[i]"
-                class="languageSelector" id="languageSelector" name="languageSelector">
-          <option [ngValue]="undefined" disabled>-Select Language-</option>
-          <option *ngFor="let lang of langs" [ngValue]="lang">{{ lang.displayName }}</option>
-        </select>
+      <div *ngFor="let lnr of languagesRoutes[i]">
+        <span *ngFor="let ln of lnr; index as j"><span *ngIf="j != 0"> -> {{ln.displayName}}</span></span>
       </div>
+      <span>
+        <label *ngIf="!languages[i] || i == 0" class="languageSelectorLabel"
+               for="languageSelector">{{
+          (i == 0)
+            ? (languages[0]) ? languages[0].displayName : 'Language from:'
+            : 'Language:'
+          }}</label>
+        <div class="input-group">
+          <select (ngModelChange)="changeLanguage(i,$event)" [(ngModel)]="languages[i]"
+                  class="languageSelector" id="languageSelector" name="languageSelector">
+            <option [ngValue]="undefined" disabled>-Select Language-</option>
+            <option *ngFor="let lang of langs" [ngValue]="lang">{{ lang.displayName }}</option>
+          </select>
+        </div>
+      </span>
+
     </div>
   </div>
 </div>
