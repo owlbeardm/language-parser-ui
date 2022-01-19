@@ -9,6 +9,7 @@ import {KeyBindService} from 'src/app/services/key-bind.service';
 import {LangService} from 'src/app/services/lang.service';
 import {Router} from '@angular/router';
 import {Language} from '../../api/models/language';
+import {LanguagesEvolutionService} from '../../api/services/languages-evolution.service';
 
 @Component({
   selector: 'app-trace',
@@ -20,9 +21,9 @@ export class TraceComponent implements OnInit {
   @ViewChild('wordInput') wordInput: any;
 
   fullRoute: Language[] = [];
-
-  wordText: string = '';
+  wordText = '';
   word = '';
+  wordsTraced: string[] = [];
   // langs: LanguageName[];
   words: WordLang[];
   languageSelector: FormGroup;
@@ -30,6 +31,7 @@ export class TraceComponent implements OnInit {
   // selectedLanguage?: LanguageName;
 
   constructor(
+    private languagesEvolutionService: LanguagesEvolutionService,
     private formBuilder: FormBuilder,
     // private apiService: ApiService,
     private langService: LangService,
@@ -55,6 +57,12 @@ export class TraceComponent implements OnInit {
   changeWord(event: string): void {
     console.log('changeWord', event);
     this.word = event;
+    this.languagesEvolutionService.trace({word: this.word.trim(), body: this.fullRoute}).subscribe((data) => {
+      this.wordsTraced = [];
+      data.forEach((wordTraced) => {
+        this.wordsTraced.push(wordTraced?.word ? wordTraced?.word : '');
+      });
+    });
   }
 
   ngOnInit(): void {
@@ -76,7 +84,6 @@ export class TraceComponent implements OnInit {
     //   throw Error('Invalid LanguageName sequence');
     // }
     // this.langs = langs;
-    this.wordText = traceData.wordText.trim();
     // const req: TraceWordReq = {langs: this.langs, wordTrace: this.wordText.toString()};
     // this.apiService.postApiLangsTraceWord(req:any).subscribe((words:any) => {
     //   this.words = words.map((wrd:any, i:any) => {

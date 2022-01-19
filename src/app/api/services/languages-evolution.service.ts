@@ -144,24 +144,24 @@ export class LanguagesEvolutionService extends BaseService {
   static readonly TracePath = '/api/evolve/trace/{word}';
 
   /**
-   * Trace word by list of languages.
+   * Trace word changes by list of languages.
    *
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `trace()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   trace$Response(params: {
     word: string;
-    languages: Array<Language>;
+    body: Array<Language>
   }): Observable<StrictHttpResponse<Array<WordTraceResult>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.TracePath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.TracePath, 'post');
     if (params) {
       rb.path('word', params.word, {});
-      rb.query('languages', params.languages, {});
+      rb.body(params.body, 'application/json');
     }
 
     return this.http.request(rb.build({
@@ -176,18 +176,18 @@ export class LanguagesEvolutionService extends BaseService {
   }
 
   /**
-   * Trace word by list of languages.
+   * Trace word changes by list of languages.
    *
    *
    *
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `trace$Response()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   trace(params: {
     word: string;
-    languages: Array<Language>;
+    body: Array<Language>
   }): Observable<Array<WordTraceResult>> {
 
     return this.trace$Response(params).pipe(
