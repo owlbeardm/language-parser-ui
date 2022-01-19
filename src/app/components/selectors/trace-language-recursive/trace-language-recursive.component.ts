@@ -39,6 +39,9 @@ export class TraceLanguageRecursiveComponent implements OnInit {
       this.languagesEvolutionService.getAllRoutes({fromId: this.languages[langId - 1].id, toId: newLang.id}).subscribe(languages => {
         console.log('changeLanguage', languages);
         this.languagesRoutes[langId] = languages;
+        const fullRoute = this.languagesRoutes.reduce((acc, curr, idx) =>
+          idx > langId ? acc : acc.concat(curr[0].slice(1)), [this.languages[0]]);
+        this.routeChanged.emit(fullRoute);
       });
     }
   }

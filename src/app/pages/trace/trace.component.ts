@@ -8,6 +8,7 @@ import {ErrorService} from 'src/app/services/error.service';
 import {KeyBindService} from 'src/app/services/key-bind.service';
 import {LangService} from 'src/app/services/lang.service';
 import {Router} from '@angular/router';
+import {Language} from '../../api/models/language';
 
 @Component({
   selector: 'app-trace',
@@ -18,10 +19,14 @@ export class TraceComponent implements OnInit {
 
   @ViewChild('wordInput') wordInput: any;
 
+  fullRoute: Language[] = [];
+
   wordText: string = '';
+  word = '';
   // langs: LanguageName[];
   words: WordLang[];
   languageSelector: FormGroup;
+
   // selectedLanguage?: LanguageName;
 
   constructor(
@@ -41,6 +46,15 @@ export class TraceComponent implements OnInit {
     const binding$ = this.keybind.match(['T'], ['altKey']).subscribe(() => {
       this.wordInput?.nativeElement.focus();
     });
+  }
+
+  routeChanged(event: Language[]): void {
+    this.fullRoute = event;
+  }
+
+  changeWord(event: string): void {
+    console.log('changeWord', event);
+    this.word = event;
   }
 
   ngOnInit(): void {
