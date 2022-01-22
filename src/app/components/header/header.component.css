@@ -14,3 +14,7 @@
 nav {
   display: flex;
 }
+
+.hr-header {
+  margin-top: -15px;
+}
