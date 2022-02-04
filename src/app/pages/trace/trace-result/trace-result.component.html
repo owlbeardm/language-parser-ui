@@ -1,0 +1,73 @@
+<div class="table-container">
+  <table>
+    <colgroup>
+      <col class="border" span="1" style="width: 8px;">
+      <col class="border" span="1" style="width: 8px;">
+      <col class="border" span="1" style="width: 8px;">
+      <col span="1" style="width: auto;">
+      <col class="border" span="1" style="width: 8px;">
+      <col span="1" style="width: max-content;">
+      <col class="border" span="1" style="width: 8px;">
+    </colgroup>
+    <tbody>
+    <tr>
+      <th class="border">+</th>
+      <th app-horizontal-dash class="border" colspan="3"></th>
+      <th class="border">+</th>
+      <th app-horizontal-dash class="border"></th>
+      <th class="border">+</th>
+    </tr>
+    <tr>
+      <th class="border">|<br>|<br>|<br>|</th>
+      <th colspan="3" style="text-align: left">
+        <div class="selector">
+          <label class="wordSelectorLabel" for="wordSelector">Select Word:</label>
+          <div class="input-group">
+            <input (ngModelChange)="changeWord($event)" [(ngModel)]="word" class="wordSelector"
+                   id="wordSelector" name="wordSelector" type="text"/>
+          </div>
+        </div>
+      </th>
+      <th class="border">|<br>|<br>|<br>|</th>
+      <th [attr.rowspan]="3+wordsTraced.length*2" class="border">
+        <div *ngIf="wordsTraced[wordSelected]">More info about word "<span class="text-white">{{wordsTraced[wordSelected]}}</span>" from {{fullRoute[wordSelected].displayName}} language.
+        </div>
+      </th>
+      <th [attr.rowspan]="3+wordsTraced.length*2" app-vertical-dash class="border">|<br>|<br>|<br>|<br>|<br>|
+        <ng-container *ngFor="let word of wordsTraced;"><br>|<br>|</ng-container>
+      </th>
+    </tr>
+    <tr>
+      <th class="border">+</th>
+      <th app-horizontal-dash class="border" colspan="3"></th>
+      <th class="border">+</th>
+    </tr>
+    <ng-container *ngFor="let word of wordsTraced; let i = index">
+      <tr>
+        <th class="border"></th>
+        <th class="border">{{i == wordSelected ? '|' : ''}}</th>
+        <th class="border">{{i == wordSelected ? '' : '|'}}</th>
+        <th><a [ngClass]="i == wordSelected?'text-main':'text-grey-dull'" (click)="selectWord(i)" class="link-btn">{{word}}</a></th>
+        <th class="border"><span *ngIf="i != wordSelected">|</span></th>
+      </tr>
+      <tr>
+        <th class="border"></th>
+        <th class="border">{{i == wordSelected || i == wordSelected - 1 ? '+' : ''}}</th>
+        <th class="border">{{i == wordSelected || i == wordSelected - 1  ? '-' : ''}}</th>
+        <th app-horizontal-dash class="border"></th>
+        <th class="border">{{i == wordSelected || i == wordSelected - 1  ? '+' : '|'}}</th>
+      </tr>
+    </ng-container>
+    <tr>
+      <th class="border" colspan="4"></th>
+      <th class="border">|</th>
+    </tr>
+    <tr>
+      <th class="border" colspan="4"></th>
+      <th class="border">+</th>
+      <th app-horizontal-dash class="border"></th>
+      <th class="border">+</th>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -27,29 +27,27 @@ export class WordsService extends BaseService {
   }
 
   /**
-   * Path part for operation getAllWords
+   * Path part for operation getAllWordsFromLang
    */
-  static readonly GetAllWordsPath = '/api/words/all/{from}/{text}';
+  static readonly GetAllWordsFromLangPath = '/api/words/all/{from}';
 
   /**
-   * Get all words from language by text.
+   * Get all words from language.
    *
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getAllWords()` instead.
+   * To access only the response body, use `getAllWordsFromLang()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getAllWords$Response(params: {
-    from: string;
-    text: string;
+  getAllWordsFromLang$Response(params: {
+    from: number;
   }): Observable<StrictHttpResponse<Array<Word>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, WordsService.GetAllWordsPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, WordsService.GetAllWordsFromLangPath, 'get');
     if (params) {
       rb.path('from', params.from, {});
-      rb.path('text', params.text, {});
     }
 
     return this.http.request(rb.build({
@@ -64,21 +62,20 @@ export class WordsService extends BaseService {
   }
 
   /**
-   * Get all words from language by text.
+   * Get all words from language.
    *
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `getAllWords$Response()` instead.
+   * To access the full response (for headers, for example), `getAllWordsFromLang$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getAllWords(params: {
-    from: string;
-    text: string;
+  getAllWordsFromLang(params: {
+    from: number;
   }): Observable<Array<Word>> {
 
-    return this.getAllWords$Response(params).pipe(
+    return this.getAllWordsFromLang$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Word>>) => r.body as Array<Word>)
     );
   }
