@@ -32,6 +32,7 @@ import {TranslationsComponent} from './pages/words/translations/translations.com
 import {AddTranslationComponent} from './pages/words/translations/add-translation/add-translation.component';
 import { AllLanguagesComponent } from './components/selectors/all-languages/all-languages.component';
 import { TraceLanguageRecursiveComponent } from './components/selectors/trace-language-recursive/trace-language-recursive.component';
+import { TraceResultComponent } from './pages/trace/trace-result/trace-result.component';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { TraceLanguageRecursiveComponent } from './components/selectors/trace-la
     WordsComponent,
     AllLanguagesComponent,
     TraceLanguageRecursiveComponent,
+    TraceResultComponent,
   ],
   imports: [
     BrowserModule,
