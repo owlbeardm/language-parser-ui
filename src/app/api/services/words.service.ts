@@ -9,6 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { PageResultWordWithTranslations } from '../models/page-result-word-with-translations';
 import { Word } from '../models/word';
 
 
@@ -77,6 +78,60 @@ export class WordsService extends BaseService {
 
     return this.getAllWordsFromLang$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Word>>) => r.body as Array<Word>)
+    );
+  }
+
+  /**
+   * Path part for operation getAllWordsWithTranslationsFromLang
+   */
+  static readonly GetAllWordsWithTranslationsFromLangPath = '/api/words/page/{from}';
+
+  /**
+   * Get page of words with translations from language.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllWordsWithTranslationsFromLang()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllWordsWithTranslationsFromLang$Response(params: {
+    from: number;
+  }): Observable<StrictHttpResponse<PageResultWordWithTranslations>> {
+
+    const rb = new RequestBuilder(this.rootUrl, WordsService.GetAllWordsWithTranslationsFromLangPath, 'get');
+    if (params) {
+      rb.path('from', params.from, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<PageResultWordWithTranslations>;
+      })
+    );
+  }
+
+  /**
+   * Get page of words with translations from language.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getAllWordsWithTranslationsFromLang$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllWordsWithTranslationsFromLang(params: {
+    from: number;
+  }): Observable<PageResultWordWithTranslations> {
+
+    return this.getAllWordsWithTranslationsFromLang$Response(params).pipe(
+      map((r: StrictHttpResponse<PageResultWordWithTranslations>) => r.body as PageResultWordWithTranslations)
     );
   }
 

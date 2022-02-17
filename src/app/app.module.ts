@@ -33,6 +33,7 @@ import {AddTranslationComponent} from './pages/words/translations/add-translatio
 import { AllLanguagesComponent } from './components/selectors/all-languages/all-languages.component';
 import { TraceLanguageRecursiveComponent } from './components/selectors/trace-language-recursive/trace-language-recursive.component';
 import { TraceResultComponent } from './pages/trace/trace-result/trace-result.component';
+import { LanguageConnectionsComponent } from './pages/evolution/language-connections/language-connections.component';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { TraceResultComponent } from './pages/trace/trace-result/trace-result.co
     AllLanguagesComponent,
     TraceLanguageRecursiveComponent,
     TraceResultComponent,
+    LanguageConnectionsComponent,
   ],
   imports: [
     BrowserModule,

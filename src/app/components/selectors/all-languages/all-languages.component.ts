@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Language} from '../../../api/models/language';
 import {LanguagesService} from '../../../api/services/languages.service';
+import {Language} from '../../../api/models/language';
 
 @Component({
   selector: 'app-all-languages',
@@ -28,6 +28,7 @@ export class AllLanguagesComponent implements OnInit {
   }
 
   changeLanguage(): void {
+    console.log('changeLanguage', this.selectedLanguage);
     this.selectedLanguageChange.emit(this.selectedLanguage);
   }
 
