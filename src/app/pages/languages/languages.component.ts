@@ -1,32 +1,25 @@
-import { Component } from '@angular/core';
-import { AbstractHasLanguage } from 'src/app/components/abstract/abstract-has-language/abstract-has-language';
+import {Component, OnInit} from '@angular/core';
+import {RefreshAll} from '../../interface/refresh-all';
 
 @Component({
   selector: 'app-languages',
   templateUrl: './languages.component.html',
   styleUrls: ['./languages.component.css']
 })
-export class LanguagesComponent extends AbstractHasLanguage {
+export class LanguagesComponent implements OnInit, RefreshAll {
 
   tabs = [{
-    name: "Clusters",
-    route: "clusters",
+    name: 'List',
+    route: 'list',
     enabled: true
-  }, {
-    name: "Sound changes",
-    route: "laws",
-    enabled: true
-  }]
+  }];
 
   ngOnInit(): void {
-    super.ngOnInit();
   }
 
-  refreshAll() {
-    // console.log("LanguagesComponent", this.selectedLanguage);
+  refreshAll(): void {
   }
 
-  changeLang() {
-    // super.changeLang(this.selectedLanguage);
+  changeLang(): void {
   }
 }
