@@ -25,4 +25,4 @@
   </tbody>
 </table>
 <app-sound-changes-table *ngIf="!editMode" [soundChanges]="soundChanges"></app-sound-changes-table>
-<app-sound-changes-edit *ngIf="editMode" [(soundChangesRaw)]="soundChangesRaw"></app-sound-changes-edit>
+<app-sound-changes-edit *ngIf="editMode" [(soundChangesRaw)]="soundChangesRaw" (soundChangesRawChange)="soundChangesRawChange()"></app-sound-changes-edit>

@@ -24,6 +24,10 @@ body::-webkit-scrollbar-thumb {
   border-radius: none;
 }
 
+th {
+  font-weight: 400;
+}
+
 :focus {
   outline-color: #e4e4e4;
   outline-style: auto;

@@ -13,12 +13,17 @@ export class SoundChangesEditComponent implements OnInit {
 
   math = Math;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
-  print() {
+  print(): void {
     console.log(this.soundChangesRaw);
+  }
+
+  soundChangesRawChangeFn(): void {
+    this.soundChangesRawChange.emit(this.soundChangesRaw);
   }
 }

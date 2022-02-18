@@ -77,4 +77,8 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
     this.editMode = false;
     this.refresh();
   }
+
+  soundChangesRawChange(): void {
+  }
+
 }

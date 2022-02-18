@@ -18,8 +18,8 @@
     <th class="text-white">{{sc.soundFrom}}</th>
     <th class="border">
       <span *ngIf="sc.type == 'REPLACE_ALL'">></span>
-      <span *ngIf="sc.type == 'REPLACE_FIRST'">«</span>
-      <span *ngIf="sc.type == 'REPLACE_LAST'">»</span>
+      <span *ngIf="sc.type == 'REPLACE_FIRST'">»</span>
+      <span *ngIf="sc.type == 'REPLACE_LAST'">«</span>
     </th>
     <th class="text-white">{{sc.soundTo}}</th>
     <th *ngIf="!sc.environmentAfter || !sc.environmentBefore"></th>

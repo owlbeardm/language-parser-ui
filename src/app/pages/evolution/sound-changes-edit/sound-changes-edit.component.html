@@ -8,7 +8,7 @@
   <tr>
     <th app-vertical-dash class="border"></th>
     <th style="text-align: left">
-      <textarea [rows]="math.min(30,110)" [(ngModel)]="soundChangesRaw"></textarea>
+      <textarea [rows]="math.min(30,110)" [(ngModel)]="soundChangesRaw" (ngModelChange)="soundChangesRawChangeFn()"></textarea>
     </th>
     <th app-vertical-dash class="border">|</th>
   </tr>
