@@ -1,33 +1,39 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 
 @Component({
-  selector: 'td[app-vertical-dash]',
+  selector: 'th[app-vertical-dash]',
   templateUrl: './vertical-dash.component.html',
   styleUrls: ['./vertical-dash.component.css']
 })
 export class VerticalDashComponent implements OnInit, AfterViewChecked {
 
   @ViewChild('row') row: any;
-  brow: String = "";
+  brow: String = '';
+  @Input() symbol?: String;
 
-  constructor(private cdRef: ChangeDetectorRef) { }
+  constructor(private cdRef: ChangeDetectorRef) {
+  }
 
   ngOnInit(): void {
+    console.log('VerticalDashComponent.ngOnInit()');
   }
 
   @HostListener('window:resize', ['$event'])
   onResize() {
+    console.log('VerticalDashComponent.onResize()');
     this.resizeDash();
   }
+
   ngAfterViewChecked() {
     this.resizeDash();
   }
 
   resizeDash() {
-    const rowLength = Math.min(10,Math.floor((this.row?.nativeElement.parentNode.offsetHeight) / 16));
+    console.log('VerticalDashComponent.resizeDash()', this.row?.nativeElement.parentNode.offsetHeight);
+    const rowLength = Math.floor((this.row?.nativeElement.parentNode.offsetHeight) / 16);
     const brow = this.brow;
-    this.brow = rowLength?"|\n".repeat(rowLength):"";
-    if (brow != this.brow) {
+    this.brow = rowLength ? '|\n'.repeat(rowLength) : '';
+    if (brow !== this.brow) {
       this.cdRef.detectChanges();
     }
   }

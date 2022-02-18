@@ -19,8 +19,10 @@
     <th class="border">+</th>
     <th app-horizontal-dash class="border"></th>
     <th *ngIf="!editMode" class="border">[ <a class="text-yellow-dull" (click)="editSoundChanges()"><b>E</b>dit</a> ]-</th>
-    <th *ngIf="editMode" class="border">[ <a class="text-green-dull"><b>S</b>ave</a> ]-</th>
+    <th *ngIf="editMode" class="border">[ <a class="text-green-dull" (click)="saveSoundChanges()"><b>S</b>ave</a> ]-</th>
     <th class="border">+</th>
   </tr>
   </tbody>
 </table>
+<app-sound-changes-table *ngIf="!editMode" [soundChanges]="soundChanges"></app-sound-changes-table>
+<app-sound-changes-edit *ngIf="editMode" [(soundChangesRaw)]="soundChangesRaw"></app-sound-changes-edit>

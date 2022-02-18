@@ -34,6 +34,8 @@ import { AllLanguagesComponent } from './components/selectors/all-languages/all-
 import { TraceLanguageRecursiveComponent } from './components/selectors/trace-language-recursive/trace-language-recursive.component';
 import { TraceResultComponent } from './pages/trace/trace-result/trace-result.component';
 import { LanguageConnectionsComponent } from './pages/evolution/language-connections/language-connections.component';
+import { SoundChangesTableComponent } from './pages/evolution/sound-changes-table/sound-changes-table.component';
+import { SoundChangesEditComponent } from './pages/evolution/sound-changes-edit/sound-changes-edit.component';
 
 
 @NgModule({
@@ -64,6 +66,8 @@ import { LanguageConnectionsComponent } from './pages/evolution/language-connect
     TraceLanguageRecursiveComponent,
     TraceResultComponent,
     LanguageConnectionsComponent,
+    SoundChangesTableComponent,
+    SoundChangesEditComponent,
   ],
   imports: [
     BrowserModule,
