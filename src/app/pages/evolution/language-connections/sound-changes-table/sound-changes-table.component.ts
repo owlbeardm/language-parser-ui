@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SoundChange} from '../../../api/models/sound-change';
+import {SoundChange} from '../../../../api/models/sound-change';
 
 @Component({
   selector: 'app-sound-changes-table',
@@ -10,9 +10,17 @@ export class SoundChangesTableComponent implements OnInit {
 
   @Input() soundChanges!: SoundChange[];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  editSoundChange(sc: SoundChange): void {
+    console.log(sc);
+  }
+
+  deleteSoundChanges(sc: SoundChange): void {
+    console.log(sc);
+  }
 }

@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { Language } from '../models/language';
+import { LanguageConnection } from '../models/language-connection';
+import { LanguageConnectionType } from '../models/language-connection-type';
 import { SoundChange } from '../models/sound-change';
 import { WordTraceResult } from '../models/word-trace-result';
 
@@ -79,6 +81,180 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.getAllLanguagesFrom$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Language>>) => r.body as Array<Language>)
+    );
+  }
+
+  /**
+   * Path part for operation getConnectionByLangs
+   */
+  static readonly GetConnectionByLangsPath = '/api/evolve/connection/{fromLangId}/{toLangId}';
+
+  /**
+   * Get connection between two languages.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getConnectionByLangs()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getConnectionByLangs$Response(params: {
+    fromLangId: number;
+    toLangId: number;
+  }): Observable<StrictHttpResponse<LanguageConnection>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetConnectionByLangsPath, 'get');
+    if (params) {
+      rb.path('fromLangId', params.fromLangId, {});
+      rb.path('toLangId', params.toLangId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<LanguageConnection>;
+      })
+    );
+  }
+
+  /**
+   * Get connection between two languages.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getConnectionByLangs$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getConnectionByLangs(params: {
+    fromLangId: number;
+    toLangId: number;
+  }): Observable<LanguageConnection> {
+
+    return this.getConnectionByLangs$Response(params).pipe(
+      map((r: StrictHttpResponse<LanguageConnection>) => r.body as LanguageConnection)
+    );
+  }
+
+  /**
+   * Path part for operation updateConnectionByLangs
+   */
+  static readonly UpdateConnectionByLangsPath = '/api/evolve/connection/{fromLangId}/{toLangId}';
+
+  /**
+   * Update connection between two languages.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateConnectionByLangs()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  updateConnectionByLangs$Response(params: {
+    fromLangId: number;
+    toLangId: number;
+    body: LanguageConnectionType
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.UpdateConnectionByLangsPath, 'post');
+    if (params) {
+      rb.path('fromLangId', params.fromLangId, {});
+      rb.path('toLangId', params.toLangId, {});
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Update connection between two languages.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `updateConnectionByLangs$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  updateConnectionByLangs(params: {
+    fromLangId: number;
+    toLangId: number;
+    body: LanguageConnectionType
+  }): Observable<void> {
+
+    return this.updateConnectionByLangs$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation deleteConnectionByLangs
+   */
+  static readonly DeleteConnectionByLangsPath = '/api/evolve/connection/{fromLangId}/{toLangId}';
+
+  /**
+   * Delete connection between two languages.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteConnectionByLangs()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteConnectionByLangs$Response(params: {
+    fromLangId: number;
+    toLangId: number;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.DeleteConnectionByLangsPath, 'delete');
+    if (params) {
+      rb.path('fromLangId', params.fromLangId, {});
+      rb.path('toLangId', params.toLangId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Delete connection between two languages.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `deleteConnectionByLangs$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteConnectionByLangs(params: {
+    fromLangId: number;
+    toLangId: number;
+  }): Observable<void> {
+
+    return this.deleteConnectionByLangs$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
 

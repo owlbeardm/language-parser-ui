@@ -27,7 +27,8 @@ export class AllLanguagesComponent implements OnInit {
     );
   }
 
-  changeLanguage(): void {
+  changeLanguage(event:any): void {
+    console.log("change lang event", event);
     console.log('changeLanguage', this.selectedLanguage);
     this.selectedLanguageChange.emit(this.selectedLanguage);
   }

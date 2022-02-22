@@ -7,9 +7,9 @@
     <col class="border" span="1" style="width: 8px;">
     <col span="1" style="width: auto;">
     <col class="border" span="1" style="width: 8px;">
-    <col span="1" style="width: 8px;">
+    <col span="1" style="width: 16px;">
     <col class="border" span="1" style="width: 8px;">
-    <col span="1" style="width: 8px;">
+    <col span="1" style="width: 16px;">
     <col class="border" span="1" style="width: 8px;">
   </colgroup>
   <tbody>
@@ -29,9 +29,9 @@
       {{sc.environmentBefore}}_{{sc.environmentAfter}}
     </th>
     <th class="border">|</th>
-    <th class="border">e</th>
+    <th class="border"><a class="text-yellow-dull" (click)="editSoundChange(sc)">e</a></th>
     <th class="border">|</th>
-    <th class="border">x</th>
+    <th class="border"><a class="text-red-dull" (click)="deleteSoundChanges(sc)">x</a></th>
     <th class="border">|</th>
   </tr>
   <tr *ngIf="soundChanges.length">

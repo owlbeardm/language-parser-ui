@@ -1,7 +1,7 @@
 <div class="selector">
   <label for="languageSelector" class="languageSelectorLabel">{{label}}</label>
   <div class="input-group">
-    <select id="languageSelector" [(ngModel)]="selectedLanguage" (change)="changeLanguage()" name="languageSelector" class="languageSelector">
+    <select id="languageSelector" [(ngModel)]="selectedLanguage" (change)="changeLanguage($event)" name="languageSelector" class="languageSelector">
       <option [ngValue]="undefined"> --- Select Language --- </option>
       <option *ngFor="let lang of allLanguages" [ngValue]="lang">{{ lang.displayName }}</option>
     </select>

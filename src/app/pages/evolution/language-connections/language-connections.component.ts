@@ -2,6 +2,8 @@ import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {LanguagesEvolutionService} from '../../../api/services/languages-evolution.service';
 import {Language} from '../../../api/models/language';
 import {SoundChange} from '../../../api/models/sound-change';
+import {LanguageConnectionType} from '../../../api/models/language-connection-type';
+import {LanguageConnection} from '../../../api/models/language-connection';
 
 @Component({
   selector: 'app-language-connections',
@@ -15,6 +17,7 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
   soundChanges: SoundChange[] = [];
   languageFrom?: Language;
   languageTo?: Language;
+  connectionType?: LanguageConnectionType;
 
 
   constructor(private languagesEvolutionService: LanguagesEvolutionService) {
@@ -61,6 +64,7 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
   }
 
   refresh(): void {
+    this.connectionType = undefined;
     if (this.languageFrom && this.languageTo) {
       this.languagesEvolutionService.getSoundChangesByLangs({
         fromLangId: this.languageFrom.id,
@@ -68,6 +72,7 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
       }).subscribe(
         (data: SoundChange[]) => {
           this.soundChanges = data;
+          this.refreshConnectionType();
         }
       );
     }
@@ -81,4 +86,58 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
   soundChangesRawChange(): void {
   }
 
+  languageFromChanged($event: Language): void {
+    this.languageFrom = $event;
+    this.languageChanged();
+  }
+
+  languageToChanged($event: Language): void {
+    this.languageTo = $event;
+    this.languageChanged();
+  }
+
+  cancelSoundChanges(): void {
+    this.editMode = false;
+  }
+
+  languagesConnectionTypeChanged(event?: LanguageConnectionType): void {
+    console.log('languagesConnectionTypeChanged', event);
+    this.connectionType = event;
+    if (this.languageFrom && this.languageTo) {
+      if (this.connectionType) {
+        this.languagesEvolutionService.updateConnectionByLangs({
+          fromLangId: this.languageFrom.id,
+          toLangId: this.languageTo.id,
+          body: this.connectionType
+        }).subscribe(
+          () => {
+            this.refresh();
+          }
+        );
+      } else {
+        this.languagesEvolutionService.deleteConnectionByLangs({
+          fromLangId: this.languageFrom.id,
+          toLangId: this.languageTo.id
+        }).subscribe(
+          () => {
+            this.refresh();
+          }
+        );
+      }
+    }
+  }
+
+  private refreshConnectionType(): void {
+    this.connectionType = undefined;
+    if (this.languageFrom && this.languageTo) {
+      this.languagesEvolutionService.getConnectionByLangs({
+        fromLangId: this.languageFrom.id,
+        toLangId: this.languageTo.id
+      }).subscribe(
+        (data: LanguageConnection) => {
+          this.connectionType = data.connectionType;
+        }
+      );
+    }
+  }
 }

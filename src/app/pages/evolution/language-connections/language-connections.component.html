@@ -9,8 +9,9 @@
   <tr>
     <th class="border">|<br>|<br>|<br>|</th>
     <th style="text-align: left; display: flex">
-      <span><app-all-languages [label]="'From'" (selectedLanguageChange)="languageChanged()" [(selectedLanguage)]="languageFrom"></app-all-languages></span>
-      <span><app-all-languages [label]="'To'" (selectedLanguageChange)="languageChanged()"  [(selectedLanguage)]="languageTo"></app-all-languages></span>
+      <span><app-all-languages [label]="'From'" (selectedLanguageChange)="languageFromChanged($event)" [selectedLanguage]="languageFrom"></app-all-languages></span>
+      <span><app-all-languages [label]="'To'" (selectedLanguageChange)="languageToChanged($event)"  [selectedLanguage]="languageTo"></app-all-languages></span>
+      <span *ngIf="languageFrom && languageTo && !editMode"><app-language-connection [label]="'Type'" (selectedLanguageConnectionChange)="languagesConnectionTypeChanged($event)"  [selectedLanguageConnection]="connectionType"></app-language-connection></span>
     </th>
     <th class="border"></th>
     <th class="border">|<br>|<br>|<br>|</th>
@@ -18,11 +19,12 @@
   <tr>
     <th class="border">+</th>
     <th app-horizontal-dash class="border"></th>
-    <th *ngIf="!editMode" class="border">[ <a class="text-yellow-dull" (click)="editSoundChanges()"><b>E</b>dit</a> ]-</th>
-    <th *ngIf="editMode" class="border">[ <a class="text-green-dull" (click)="saveSoundChanges()"><b>S</b>ave</a> ]-</th>
+    <th *ngIf="!connectionType" app-horizontal-dash class="border"></th>
+    <th *ngIf="!editMode && connectionType" class="border">[ <a class="text-yellow-dull" (click)="editSoundChanges()"><b>E</b>dit</a> ]-</th>
+    <th *ngIf="editMode && connectionType" class="border">[ <a class="text-green-dull" (click)="saveSoundChanges()"><b>S</b>ave</a>  ]-[<a class="text-red-dull" (click)="cancelSoundChanges()"> x </a>]-</th>
     <th class="border">+</th>
   </tr>
   </tbody>
 </table>
-<app-sound-changes-table *ngIf="!editMode" [soundChanges]="soundChanges"></app-sound-changes-table>
-<app-sound-changes-edit *ngIf="editMode" [(soundChangesRaw)]="soundChangesRaw" (soundChangesRawChange)="soundChangesRawChange()"></app-sound-changes-edit>
+<app-sound-changes-table *ngIf="!editMode && connectionType" [soundChanges]="soundChanges"></app-sound-changes-table>
+<app-sound-changes-edit *ngIf="editMode && connectionType" [(soundChangesRaw)]="soundChangesRaw" (soundChangesRawChange)="soundChangesRawChange()"></app-sound-changes-edit>

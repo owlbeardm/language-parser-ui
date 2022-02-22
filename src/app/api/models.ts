@@ -1,4 +1,6 @@
 export { Language } from './models/language';
+export { LanguageConnection } from './models/language-connection';
+export { LanguageConnectionType } from './models/language-connection-type';
 export { Pos } from './models/pos';
 export { PageResultWordWithTranslations } from './models/page-result-word-with-translations';
 export { SoundChange } from './models/sound-change';

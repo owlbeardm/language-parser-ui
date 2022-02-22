@@ -1,0 +1,9 @@
+<div class="selector">
+  <label for="languageConnectionSelector" class="languageConnectionSelectorLabel">{{label}}</label>
+  <div class="input-group">
+    <select id="languageConnectionSelector" [(ngModel)]="selectedLanguageConnection" (change)="changeConnection()" name="languageConnectionSelector" class="languageConnectionSelector">
+      <option [ngValue]="undefined">No connection</option>
+      <option *ngFor="let con of allConnectionTypes" [ngValue]="con">{{ con }}</option>
+    </select>
+  </div>
+</div>
