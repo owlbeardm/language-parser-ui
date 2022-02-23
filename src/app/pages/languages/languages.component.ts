@@ -12,7 +12,7 @@ export class LanguagesComponent implements OnInit, RefreshAll {
 
   tabs = [{
     name: 'Description',
-    route: 'clusters',
+    route: 'description',
     enabled: true
   }, {
     name: 'Laws',

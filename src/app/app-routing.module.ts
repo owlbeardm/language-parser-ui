@@ -10,6 +10,7 @@ import {WordsDetailComponent} from './pages/words/words-detail/words-detail.comp
 import {EvolutionComponent} from './pages/evolution/evolution.component';
 import {TranslationsComponent} from './pages/words/translations/translations.component';
 import {LanguageConnectionsComponent} from './pages/evolution/language-connections/language-connections.component';
+import {LanguageDescriptionComponent} from './pages/languages/language-description/language-description.component';
 
 const routes: Routes = [
   {path: 'trace', component: TraceComponent},
@@ -28,7 +29,7 @@ const routes: Routes = [
   {
     path: 'language', component: LanguagesComponent,
     children: [
-      {path: 'list', component: ClustersComponent},
+      {path: 'description', component: LanguageDescriptionComponent},
       {path: 'clusters', component: ClustersComponent},
       {path: 'laws', component: LawsComponent}]
   },
