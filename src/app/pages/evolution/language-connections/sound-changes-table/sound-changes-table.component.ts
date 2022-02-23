@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SoundChange} from '../../../../api/models/sound-change';
 
 @Component({
@@ -9,6 +9,7 @@ import {SoundChange} from '../../../../api/models/sound-change';
 export class SoundChangesTableComponent implements OnInit {
 
   @Input() soundChanges!: SoundChange[];
+  @Output() soundChangesChanges = new EventEmitter<SoundChange>();
 
   constructor() {
   }
@@ -16,11 +17,9 @@ export class SoundChangesTableComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  editSoundChange(sc: SoundChange): void {
-    console.log(sc);
-  }
-
-  deleteSoundChanges(sc: SoundChange): void {
-    console.log(sc);
+  deleteSoundChange(soundChange: SoundChange): void {
+    console.log('deleteSoundChange', soundChange);
+    this.soundChanges = this.soundChanges.filter(s => s.id !== soundChange.id);
+    this.soundChangesChanges.emit(soundChange);
   }
 }

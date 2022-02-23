@@ -29,7 +29,7 @@ export class HorizontalDashComponent implements OnInit, AfterViewChecked {
   }
 
   resizeDash() {
-    const colLength = Math.floor((this.col?.nativeElement.offsetWidth) / 8);
+    const colLength = Math.floor((this.col?.nativeElement.offsetWidth - 1) / 8);
     const bcol = this.bcol;
     const symbol = this.symbol ? this.symbol : '-';
     this.bcol = colLength ? symbol.repeat(colLength) : '';

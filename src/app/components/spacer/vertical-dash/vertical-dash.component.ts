@@ -10,6 +10,7 @@ export class VerticalDashComponent implements OnInit, AfterViewChecked {
   @ViewChild('row') row: any;
   brow: String = '';
   @Input() symbol?: String;
+  deleted = false;
 
   constructor(private cdRef: ChangeDetectorRef) {
   }
@@ -29,7 +30,7 @@ export class VerticalDashComponent implements OnInit, AfterViewChecked {
   }
 
   resizeDash() {
-    console.log('VerticalDashComponent.resizeDash()', this.row?.nativeElement.parentNode.offsetHeight);
+
     const rowLength = Math.floor((this.row?.nativeElement.parentNode.offsetHeight) / 16);
     const brow = this.brow;
     this.brow = rowLength ? '|\n'.repeat(rowLength) : '';

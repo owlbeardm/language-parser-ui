@@ -13,30 +13,10 @@
     <col class="border" span="1" style="width: 8px;">
   </colgroup>
   <tbody>
-  <tr *ngFor="let sc of soundChanges; index as i">
-    <th class="border">|</th>
-    <th class="text-white">{{sc.soundFrom}}</th>
-    <th class="border">
-      <span *ngIf="sc.type == 'REPLACE_ALL'">></span>
-      <span *ngIf="sc.type == 'REPLACE_FIRST'">»</span>
-      <span *ngIf="sc.type == 'REPLACE_LAST'">«</span>
-    </th>
-    <th class="text-white">{{sc.soundTo}}</th>
-    <th *ngIf="!sc.environmentAfter || !sc.environmentBefore"></th>
-    <th *ngIf="!sc.environmentAfter || !sc.environmentBefore"></th>
-    <th class="border" *ngIf="sc.environmentAfter && sc.environmentBefore">/</th>
-    <th style="text-align: left; padding-left: 8px;" *ngIf="sc.environmentAfter && sc.environmentBefore" class="text-white">
-      {{sc.environmentBefore}}_{{sc.environmentAfter}}
-    </th>
-    <th class="border">|</th>
-    <th class="border"><a class="text-yellow-dull" (click)="editSoundChange(sc)">e</a></th>
-    <th class="border">|</th>
-    <th class="border"><a class="text-red-dull" (click)="deleteSoundChanges(sc)">x</a></th>
-    <th class="border">|</th>
-  </tr>
+  <tr *ngFor="let sc of soundChanges; index as i" [soundChange]="sc" (soundChangeDeleted)="deleteSoundChange($event)" app-sound-changes-table-row></tr>
   <tr *ngIf="soundChanges.length">
     <th class="border">+</th>
-    <th colspan="5" app-horizontal-dash class="border"></th>
+    <th app-horizontal-dash class="border" colspan="5"></th>
     <th class="border">+</th>
     <th app-horizontal-dash class="border"></th>
     <th class="border">+</th>

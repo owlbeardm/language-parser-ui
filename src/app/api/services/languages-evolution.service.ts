@@ -11,7 +11,7 @@ import { map, filter } from 'rxjs/operators';
 
 import { Language } from '../models/language';
 import { LanguageConnection } from '../models/language-connection';
-import { LanguageConnectionType } from '../models/language-connection-type';
+import { LanguageConnectionTypeModel } from '../models/language-connection-type-model';
 import { SoundChange } from '../models/sound-change';
 import { WordTraceResult } from '../models/word-trace-result';
 
@@ -159,7 +159,7 @@ export class LanguagesEvolutionService extends BaseService {
   updateConnectionByLangs$Response(params: {
     fromLangId: number;
     toLangId: number;
-    body: LanguageConnectionType
+    body: LanguageConnectionTypeModel
   }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.UpdateConnectionByLangsPath, 'post');
@@ -193,7 +193,7 @@ export class LanguagesEvolutionService extends BaseService {
   updateConnectionByLangs(params: {
     fromLangId: number;
     toLangId: number;
-    body: LanguageConnectionType
+    body: LanguageConnectionTypeModel
   }): Observable<void> {
 
     return this.updateConnectionByLangs$Response(params).pipe(
@@ -490,6 +490,60 @@ export class LanguagesEvolutionService extends BaseService {
   }
 
   /**
+   * Path part for operation getSoundChangeRaw
+   */
+  static readonly GetSoundChangeRawPath = '/api/evolve/sc/raw/{id}';
+
+  /**
+   * Get sound change raw.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getSoundChangeRaw()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSoundChangeRaw$Response(params: {
+    id: number;
+  }): Observable<StrictHttpResponse<string>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetSoundChangeRawPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: 'text/plain'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<string>;
+      })
+    );
+  }
+
+  /**
+   * Get sound change raw.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getSoundChangeRaw$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSoundChangeRaw(params: {
+    id: number;
+  }): Observable<string> {
+
+    return this.getSoundChangeRaw$Response(params).pipe(
+      map((r: StrictHttpResponse<string>) => r.body as string)
+    );
+  }
+
+  /**
    * Path part for operation updateSoundChange
    */
   static readonly UpdateSoundChangePath = '/api/evolve/sc/raw/{id}';
@@ -543,6 +597,60 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.updateSoundChange$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation getSoundChange
+   */
+  static readonly GetSoundChangePath = '/api/evolve/sc/{id}';
+
+  /**
+   * Get sound change.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getSoundChange()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSoundChange$Response(params: {
+    id: number;
+  }): Observable<StrictHttpResponse<SoundChange>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetSoundChangePath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<SoundChange>;
+      })
+    );
+  }
+
+  /**
+   * Get sound change.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getSoundChange$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSoundChange(params: {
+    id: number;
+  }): Observable<SoundChange> {
+
+    return this.getSoundChange$Response(params).pipe(
+      map((r: StrictHttpResponse<SoundChange>) => r.body as SoundChange)
     );
   }
 

@@ -26,5 +26,5 @@
   </tr>
   </tbody>
 </table>
-<app-sound-changes-table *ngIf="!editMode && connectionType" [soundChanges]="soundChanges"></app-sound-changes-table>
+<app-sound-changes-table *ngIf="!editMode && connectionType" [soundChanges]="soundChanges" (soundChangesChanges)="soundChangesChanges"></app-sound-changes-table>
 <app-sound-changes-edit *ngIf="editMode && connectionType" [(soundChangesRaw)]="soundChangesRaw" (soundChangesRawChange)="soundChangesRawChange()"></app-sound-changes-edit>

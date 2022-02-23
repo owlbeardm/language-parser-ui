@@ -37,6 +37,7 @@ import { LanguageConnectionsComponent } from './pages/evolution/language-connect
 import { SoundChangesTableComponent } from './pages/evolution/language-connections/sound-changes-table/sound-changes-table.component';
 import { SoundChangesEditComponent } from './pages/evolution/language-connections/sound-changes-edit/sound-changes-edit.component';
 import { LanguageConnectionComponent } from './components/selectors/language-connection/language-connection.component';
+import { SoundChangesTableRowComponent } from './pages/evolution/language-connections/sound-changes-table/sound-changes-table-row/sound-changes-table-row.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { LanguageConnectionComponent } from './components/selectors/language-con
     SoundChangesTableComponent,
     SoundChangesEditComponent,
     LanguageConnectionComponent,
+    SoundChangesTableRowComponent,
   ],
   imports: [
     BrowserModule,

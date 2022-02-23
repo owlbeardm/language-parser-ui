@@ -108,7 +108,9 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
         this.languagesEvolutionService.updateConnectionByLangs({
           fromLangId: this.languageFrom.id,
           toLangId: this.languageTo.id,
-          body: this.connectionType
+          body: {
+            languageConnectionType: this.connectionType
+          }
         }).subscribe(
           () => {
             this.refresh();
@@ -139,5 +141,10 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
         }
       );
     }
+  }
+
+  soundChangesChanges(newSoundChanges: SoundChange[]): void {
+    console.log('soundChangesChanges', newSoundChanges);
+    this.soundChanges = newSoundChanges;
   }
 }

@@ -2,26 +2,26 @@
     <div class="tab-routes">
         <table>
             <colgroup>
-                <col span="1" class="border">
+                <col *ngIf="!removeBorder" span="1" class="border">
                 <ng-container *ngFor="let tab of tabs">
                     <col span="1" style="width: 150px;">
                     <col span="1" class="border">
                 </ng-container>
-                <col span="1" style="width: auto;">
-                <col span="1" class="border">
+                <col span="1" style="width: max-content;">
+                <col *ngIf="!removeBorder" span="1" class="border">
             </colgroup>
             <tbody>
                 <tr>
-                    <th class="border">{{0==selectedIndex?'+':''}}</th>
+                    <th class="border" *ngIf="!removeBorder">{{0==selectedIndex?'+':''}}</th>
                     <ng-container *ngFor="let tab of tabs; let i = index">
                         <th app-horizontal-dash [symbol]="i==selectedIndex?'-':'_'" class="border"></th>
                         <th class="border">{{i==selectedIndex||i+1==selectedIndex?'+':''}}</th>
                     </ng-container>
                   <th class="border"></th>
-                  <th class="border"></th>
+                  <th *ngIf="!removeBorder" class="border"></th>
                 </tr>
                 <tr>
-                    <th class="border">|</th>
+                    <th class="border" *ngIf="!removeBorder">|</th>
                     <ng-container *ngFor="let tab of tabs; let i = index">
                         <th><a class="link-btn" [ngClass]="i==selectedIndex?'':'text-grey-dull'"
                                 [routerLink]="tab.route" (click)="select(i)"
@@ -29,21 +29,20 @@
                         <th class="border">|</th>
                     </ng-container>
                     <th class="border"></th>
-                    <th class="border"></th>
+                    <th *ngIf="!removeBorder" class="border"></th>
                 </tr>
                 <tr>
-                    <th *ngIf="0<selectedIndex" app-horizontal-dash class="border" [attr.colspan]="selectedIndex*2">
-                    </th>
-                    <th class="border">+</th>
+                    <th *ngIf="0<selectedIndex" app-horizontal-dash class="border" [attr.colspan]="selectedIndex*2-((selectedIndex>0&&removeBorder)?1:0)"></th>
+                    <th class="border" *ngIf="!removeBorder || selectedIndex!=0">+</th>
                     <th class="border"></th>
                     <th class="border">+</th>
                     <th app-horizontal-dash class="border" [attr.colspan]="(tabs.length-selectedIndex-1)*2+1"></th>
-                    <th class="border">+</th>
+                    <th *ngIf="!removeBorder" class="border">+</th>
                 </tr>
             </tbody>
             <tbody>
                 <tr>
-                    <td class="break-word text-grey" [attr.colspan]="(tabs.length+1)*2+1">
+                    <td class="break-word text-grey" [attr.colspan]="(tabs.length+1)*2+(!removeBorder?1:0)">
                         <router-outlet></router-outlet>
                     </td>
                 </tr>
