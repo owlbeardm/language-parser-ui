@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { Language } from '../models/language';
+import { Pos } from '../models/pos';
 
 
 /**
@@ -128,6 +129,111 @@ export class LanguagesService extends BaseService {
 
     return this.getAllLanguages$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Language>>) => r.body as Array<Language>)
+    );
+  }
+
+  /**
+   * Path part for operation getAllPartsOfSpeech
+   */
+  static readonly GetAllPartsOfSpeechPath = '/api/language/pos';
+
+  /**
+   * Get all parts of speech.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllPartsOfSpeech()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllPartsOfSpeech$Response(params?: {
+  }): Observable<StrictHttpResponse<Array<Pos>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetAllPartsOfSpeechPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<Pos>>;
+      })
+    );
+  }
+
+  /**
+   * Get all parts of speech.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getAllPartsOfSpeech$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllPartsOfSpeech(params?: {
+  }): Observable<Array<Pos>> {
+
+    return this.getAllPartsOfSpeech$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<Pos>>) => r.body as Array<Pos>)
+    );
+  }
+
+  /**
+   * Path part for operation getAllPartsOfSpeechByLanguage
+   */
+  static readonly GetAllPartsOfSpeechByLanguagePath = '/api/language/pos/{languageId}';
+
+  /**
+   * Get all parts of speech by language.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllPartsOfSpeechByLanguage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllPartsOfSpeechByLanguage$Response(params: {
+    languageId: number;
+  }): Observable<StrictHttpResponse<Array<Pos>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetAllPartsOfSpeechByLanguagePath, 'get');
+    if (params) {
+      rb.path('languageId', params.languageId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<Pos>>;
+      })
+    );
+  }
+
+  /**
+   * Get all parts of speech by language.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getAllPartsOfSpeechByLanguage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllPartsOfSpeechByLanguage(params: {
+    languageId: number;
+  }): Observable<Array<Pos>> {
+
+    return this.getAllPartsOfSpeechByLanguage$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<Pos>>) => r.body as Array<Pos>)
     );
   }
 

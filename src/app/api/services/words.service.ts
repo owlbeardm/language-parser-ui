@@ -9,7 +9,9 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { PageResultWord } from '../models/page-result-word';
 import { PageResultWordWithTranslations } from '../models/page-result-word-with-translations';
+import { PaginationFilter } from '../models/pagination-filter';
 import { Word } from '../models/word';
 
 
@@ -25,6 +27,60 @@ export class WordsService extends BaseService {
     http: HttpClient
   ) {
     super(config, http);
+  }
+
+  /**
+   * Path part for operation getAllWords
+   */
+  static readonly GetAllWordsPath = '/api/words/all';
+
+  /**
+   * Get all words.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllWords()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllWords$Response(params: {
+    filter: PaginationFilter;
+  }): Observable<StrictHttpResponse<PageResultWord>> {
+
+    const rb = new RequestBuilder(this.rootUrl, WordsService.GetAllWordsPath, 'get');
+    if (params) {
+      rb.query('filter', params.filter, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<PageResultWord>;
+      })
+    );
+  }
+
+  /**
+   * Get all words.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getAllWords$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllWords(params: {
+    filter: PaginationFilter;
+  }): Observable<PageResultWord> {
+
+    return this.getAllWords$Response(params).pipe(
+      map((r: StrictHttpResponse<PageResultWord>) => r.body as PageResultWord)
+    );
   }
 
   /**

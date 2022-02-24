@@ -10,15 +10,7 @@ import {Language} from '../../api/models/language';
 })
 export class LanguagesComponent implements OnInit, RefreshAll {
 
-  tabs = [{
-    name: 'Description',
-    route: 'description',
-    enabled: true
-  }, {
-    name: 'Laws',
-    route: 'laws',
-    enabled: true
-  }];
+
   allLanguages: Language[] = [];
   selectedLanguage: Language;
 

@@ -1,0 +1,4 @@
+<div>
+  page: {{page}}, <a (click)="page=page-1;load()"> < </a> <a (click)="page=page+1;load()"> > </a>
+</div>
+<p *ngFor="let word of words">{{word.word}}</p>

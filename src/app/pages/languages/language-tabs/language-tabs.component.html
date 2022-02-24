@@ -44,7 +44,8 @@
       <tr>
         <td class="break-word text-grey" [attr.colspan]="(tabs.length+1)*2+(!removeBorder?1:0)">
           <app-language-description *ngIf="selectedIndex == 0" [selectedLanguage]="selectedLanguage"></app-language-description>
-          <app-laws *ngIf="selectedIndex == 1"></app-laws>
+          <app-language-pos *ngIf="selectedIndex == 1" [selectedLanguage]="selectedLanguage"></app-language-pos>
+          <app-laws *ngIf="selectedIndex == 3"></app-laws>
         </td>
       </tr>
       </tbody>

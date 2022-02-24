@@ -42,6 +42,7 @@ import { LanguageConnectionComponent } from './components/selectors/language-con
 import { SoundChangesTableRowComponent } from './pages/evolution/language-connections/sound-changes-table/sound-changes-table-row/sound-changes-table-row.component';
 import { LanguageDescriptionComponent } from './pages/languages/language-description/language-description.component';
 import { LanguageTabsComponent } from './pages/languages/language-tabs/language-tabs.component';
+import { LanguagePosComponent } from './pages/languages/language-pos/language-pos.component';
 
 
 @NgModule({
@@ -79,6 +80,7 @@ import { LanguageTabsComponent } from './pages/languages/language-tabs/language-
     LanguageDescriptionComponent,
     AbstractHasLanguageComponent,
     LanguageTabsComponent,
+    LanguagePosComponent,
   ],
   imports: [
     BrowserModule,

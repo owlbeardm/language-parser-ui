@@ -13,11 +13,15 @@ export class LanguageTabsComponent implements OnInit {
 
   tabs = [{
     name: 'Description',
-    route: 'description',
+    enabled: true
+  }, {
+    name: 'Parts of Speech',
+    enabled: true
+  }, {
+    name: 'Clusters',
     enabled: true
   }, {
     name: 'Laws',
-    route: 'laws',
     enabled: true
   }];
   removeBorder = true;
@@ -29,6 +33,7 @@ export class LanguageTabsComponent implements OnInit {
 
   ngOnInit(): void {
     this.correctIndex();
+    this.tabs[2].enabled = !!this.selectedLanguage;
   }
 
   correctIndex(): void {
