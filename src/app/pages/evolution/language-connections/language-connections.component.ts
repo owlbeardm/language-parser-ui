@@ -34,7 +34,7 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
 
   editSoundChanges(): void {
     console.log('hello', this.languageFrom?.displayName);
-    if (this.languageFrom && this.languageTo) {
+    if (this.languageFrom && this.languageTo && this.languageFrom.id && this.languageTo.id) {
       this.languagesEvolutionService.getSoundChangesRawLinesByLangs({
         fromLangId: this.languageFrom.id,
         toLangId: this.languageTo.id
@@ -49,7 +49,7 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
   }
 
   saveSoundChanges(): void {
-    if (this.languageFrom && this.languageTo) {
+    if (this.languageFrom && this.languageTo && this.languageFrom.id && this.languageTo.id) {
       this.languagesEvolutionService.saveSoundChangesRawLinesByLangs({
         fromLangId: this.languageFrom.id,
         toLangId: this.languageTo.id,
@@ -65,7 +65,7 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
 
   refresh(): void {
     this.connectionType = undefined;
-    if (this.languageFrom && this.languageTo) {
+    if (this.languageFrom && this.languageTo && this.languageFrom.id && this.languageTo.id) {
       this.languagesEvolutionService.getSoundChangesByLangs({
         fromLangId: this.languageFrom.id,
         toLangId: this.languageTo.id
@@ -103,7 +103,7 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
   languagesConnectionTypeChanged(event?: LanguageConnectionType): void {
     console.log('languagesConnectionTypeChanged', event);
     this.connectionType = event;
-    if (this.languageFrom && this.languageTo) {
+    if (this.languageFrom && this.languageTo && this.languageFrom.id && this.languageTo.id) {
       if (this.connectionType) {
         this.languagesEvolutionService.updateConnectionByLangs({
           fromLangId: this.languageFrom.id,
@@ -131,7 +131,7 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
 
   private refreshConnectionType(): void {
     this.connectionType = undefined;
-    if (this.languageFrom && this.languageTo) {
+    if (this.languageFrom && this.languageTo && this.languageFrom.id && this.languageTo.id) {
       this.languagesEvolutionService.getConnectionByLangs({
         fromLangId: this.languageFrom.id,
         toLangId: this.languageTo.id

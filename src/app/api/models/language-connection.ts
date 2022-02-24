@@ -4,8 +4,8 @@ import { Language } from './language';
 import { LanguageConnectionType } from './language-connection-type';
 export interface LanguageConnection {
   connectionType?: LanguageConnectionType;
-  id: number;
+  id?: number;
   langFrom?: Language;
   langTo?: Language;
-  version: number;
+  version?: number;
 }

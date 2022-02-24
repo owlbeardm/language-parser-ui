@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 //TODO: add new api
 // import { ApiService } from 'src/app/api/services';
-import { AbstractHasLanguage } from 'src/app/components/abstract/abstract-has-language/abstract-has-language';
 import { LangService } from 'src/app/services/lang.service';
 // import { PartOfSpeech, WordJSON, AddWordJSON } from 'src/app/api/models';
 
@@ -12,7 +11,7 @@ import { LangService } from 'src/app/services/lang.service';
   templateUrl: './words-list.component.html',
   styleUrls: ['./words-list.component.css']
 })
-export class WordsListComponent extends AbstractHasLanguage {
+export class WordsListComponent  {
 
   // pos: PartOfSpeech[];
   // words: Map<number, WordJSON> = new Map();
@@ -29,7 +28,6 @@ export class WordsListComponent extends AbstractHasLanguage {
     langService: LangService,
     _route: ActivatedRoute,
     router: Router) {
-    super(langService, _route, router)
     this.route = _route;
     // this.pos = [];
     this.newWordForm = this.formBuilder.group({
@@ -43,7 +41,6 @@ export class WordsListComponent extends AbstractHasLanguage {
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
     // this.apiService.getApiWordsPos().subscribe((pos) => this.pos = pos);
   }
 

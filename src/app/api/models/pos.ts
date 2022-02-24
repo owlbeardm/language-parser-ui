@@ -2,7 +2,7 @@
 /* eslint-disable */
 export interface Pos {
   abbreviation?: string;
-  id: number;
+  id?: number;
   name?: string;
-  version: number;
+  version?: number;
 }

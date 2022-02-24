@@ -14,6 +14,7 @@ export class TabRoutesComponent implements OnInit {
     name: string,
     enabled: boolean
   }>;
+  @Input() queryParams?: any;
   @Input() removeBorder = false;
   selectedIndex: number = 0;
 

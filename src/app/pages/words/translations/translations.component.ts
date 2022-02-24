@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 // TODO: add new api
 // import { LanguageName, TranslationAPI, WordJSON } from 'src/app/api/models';
 // import { ApiService } from 'src/app/api/services';
-import { AbstractHasLanguage } from 'src/app/components/abstract/abstract-has-language/abstract-has-language';
 import { LangService } from 'src/app/services/lang.service';
 
 @Component({
@@ -11,7 +10,7 @@ import { LangService } from 'src/app/services/lang.service';
   templateUrl: './translations.component.html',
   styleUrls: ['./translations.component.css']
 })
-export class TranslationsComponent extends AbstractHasLanguage {
+export class TranslationsComponent  {
 
   // words: WordJSON[];
   loadingWords: Boolean;
@@ -22,14 +21,12 @@ export class TranslationsComponent extends AbstractHasLanguage {
     langService: LangService,
     route: ActivatedRoute,
     router: Router) {
-    super(langService, route, router)
     // this.words = [];
     this.loadingWords = true;
     // this.translations = new Map();
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
     console.log("translations ngOnInit ");
   }
 

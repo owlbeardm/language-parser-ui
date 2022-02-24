@@ -1,1 +1,43 @@
-<p>language-description works!</p>
+<table *ngIf="selectedLanguage && selectedLanguage.id" style="width: 100%; height: 100%">
+  <colgroup>
+    <col span="1" style="width: 200px; text-align: right">
+    <col class="border" span="1" style="width: 32px;">
+    <col span="1" style="width: auto;">
+    <col span="1" style="width: auto;">
+  </colgroup>
+  <tbody>
+  <tr>
+    <th style="text-align: right">Display Name</th>
+    <th class="border">|<br/>|</th>
+    <th style="text-align: left"><input (ngModelChange)="canUpdate = true" [(ngModel)]="selectedLanguage.displayName"/>
+    </th>
+    <th class="border" style="text-align: right">|<br/>|</th>
+  </tr>
+  <tr>
+    <th style="text-align: right">Native Name</th>
+    <th class="border">|<br/>|</th>
+    <th style="text-align: left"><input (ngModelChange)="canUpdate = true" [(ngModel)]="selectedLanguage.nativeName"/>
+    </th>
+    <th class="border" style="text-align: right">|<br/>|</th>
+  </tr>
+  <tr>
+    <th style="text-align: right">Description</th>
+    <th class="border">|<br/>|</th>
+    <th *ngIf="!editComment" style="text-align: left">{{selectedLanguage.comment}}</th>
+    <th *ngIf="editComment" style="text-align: left"><textarea (ngModelChange)="canUpdate = true"
+                                                               [(ngModel)]="selectedLanguage.comment"
+                                                               [cols]="20" [rows]="2" style="width: 100%"></textarea>
+    </th>
+    <th class="border" style="text-align: right">
+      <span *ngIf="!editComment">[ <a (click)="editComment = true" class="text-yellow-dull" style>edit</a> ] |</span>
+      <span *ngIf="editComment">[ <a (click)="clickSaveComment()" class="text-green-dull" style>save</a> ] |</span>
+      <br/>|
+    </th>
+  </tr>
+  <tr>
+  <tr>
+    <th app-horizontal-dash class="border" [attr.colspan]="3 + (canUpdate ? 0 : 1)"></th>
+    <th *ngIf="canUpdate" class="border">[ <a (click)="saveChanges()" class="text-green-dull">Update</a> ]-+</th>
+  </tr>
+  </tbody>
+</table>

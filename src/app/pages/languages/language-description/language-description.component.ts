@@ -1,15 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
+import {AbstractHasLanguageComponent} from '../../../components/abstract/abstract-has-language/abstract-has-language.component';
+import {LanguagesService} from '../../../api/services/languages.service';
 
 @Component({
   selector: 'app-language-description',
   templateUrl: './language-description.component.html',
   styleUrls: ['./language-description.component.css']
 })
-export class LanguageDescriptionComponent implements OnInit {
+export class LanguageDescriptionComponent extends AbstractHasLanguageComponent {
+  editComment = false;
+  canUpdate = false;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private languagesService: LanguagesService) {
+    super();
   }
 
+  saveChanges(): void {
+    if (this.selectedLanguage) {
+      this.languagesService.saveLanguage({body: this.selectedLanguage}).subscribe((langResponse) => {
+        this.canUpdate = false;
+      });
+    }
+  }
+
+  clickEditComment(): void {
+    this.editComment = true;
+  }
+
+  clickSaveComment(): void {
+    this.editComment = false;
+  }
 }

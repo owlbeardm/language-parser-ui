@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 //TODO: add new api
 // import { ApiService } from 'src/app/api/services';
-import { AbstractHasLanguage } from 'src/app/components/abstract/abstract-has-language/abstract-has-language';
+import { AbstractHasLanguageComponent } from 'src/app/components/abstract/abstract-has-language/abstract-has-language.component';
 import { LangService } from 'src/app/services/lang.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { LangService } from 'src/app/services/lang.service';
   templateUrl: './clusters.component.html',
   styleUrls: ['./clusters.component.css']
 })
-export class ClustersComponent extends AbstractHasLanguage {
+export class ClustersComponent extends AbstractHasLanguageComponent {
 
 
   clusters?: string[];
@@ -22,11 +22,10 @@ export class ClustersComponent extends AbstractHasLanguage {
     _langService: LangService,
     _route: ActivatedRoute,
     _router: Router) {
-    super(_langService, _route, _router);
+    super();
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
   }
 
   refreshAll() {

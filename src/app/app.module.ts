@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -13,6 +14,7 @@ import {FooterComponent} from './components/footer/footer.component';
 import {HttpErrorInterceptor} from './interceptors/http-error.interceptor';
 import {ErrorService} from './services/error.service';
 import {ApiModule} from './api/api.module';
+import {AbstractHasLanguageComponent} from './components/abstract/abstract-has-language/abstract-has-language.component';
 import {HorizontalDashComponent} from './components/spacer/horizontal-dash/horizontal-dash.component';
 import {VerticalDashComponent} from './components/spacer/vertical-dash/vertical-dash.component';
 import {LanguageSelectComponent} from './components/forms/language-select/language-select.component';
@@ -39,6 +41,7 @@ import { SoundChangesEditComponent } from './pages/evolution/language-connection
 import { LanguageConnectionComponent } from './components/selectors/language-connection/language-connection.component';
 import { SoundChangesTableRowComponent } from './pages/evolution/language-connections/sound-changes-table/sound-changes-table-row/sound-changes-table-row.component';
 import { LanguageDescriptionComponent } from './pages/languages/language-description/language-description.component';
+import { LanguageTabsComponent } from './pages/languages/language-tabs/language-tabs.component';
 
 
 @NgModule({
@@ -74,6 +77,8 @@ import { LanguageDescriptionComponent } from './pages/languages/language-descrip
     LanguageConnectionComponent,
     SoundChangesTableRowComponent,
     LanguageDescriptionComponent,
+    AbstractHasLanguageComponent,
+    LanguageTabsComponent,
   ],
   imports: [
     BrowserModule,

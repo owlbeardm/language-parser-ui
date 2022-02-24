@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 //TODO: add new api
 // import { ApiService } from 'src/app/api/services';
-import { AbstractHasLanguage } from 'src/app/components/abstract/abstract-has-language/abstract-has-language';
 import { LangService } from 'src/app/services/lang.service';
 
 @Component({
@@ -10,7 +9,7 @@ import { LangService } from 'src/app/services/lang.service';
   templateUrl: './words-detail.component.html',
   styleUrls: ['./words-detail.component.css']
 })
-export class WordsDetailComponent extends AbstractHasLanguage {
+export class WordsDetailComponent {
 
   words: any;
   word: string;
@@ -21,7 +20,6 @@ export class WordsDetailComponent extends AbstractHasLanguage {
     _langService: LangService,
     private route: ActivatedRoute,
     _router: Router) {
-    super(_langService, route, _router);
     // this.apiService = apiService;
     this.words = [];
     this.word = "";
@@ -30,7 +28,6 @@ export class WordsDetailComponent extends AbstractHasLanguage {
 
   ngOnInit(): void {
     this.word = String(this.route.snapshot.paramMap.get('word'));
-    super.ngOnInit();
   }
 
   changeLang(): void {

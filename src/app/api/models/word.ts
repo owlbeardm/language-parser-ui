@@ -4,9 +4,9 @@ import { Language } from './language';
 import { Pos } from './pos';
 export interface Word {
   forgotten?: boolean;
-  id: number;
+  id?: number;
   language?: Language;
   partOfSpeech?: Pos;
-  version: number;
+  version?: number;
   word?: string;
 }

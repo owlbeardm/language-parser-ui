@@ -22,7 +22,7 @@ export class TraceLanguageRecursiveComponent implements OnInit {
   ngOnInit(): void {
     this.availableLanguagesTo = [];
     this.languagesService.getAllLanguages().subscribe(languages => {
-      this.availableLanguagesTo.push(languages);
+      this.availableLanguagesTo.push(languages.sort((a, b) => a.displayName.localeCompare(b.displayName)));
     });
   }
 
@@ -32,11 +32,14 @@ export class TraceLanguageRecursiveComponent implements OnInit {
     this.languages.splice(langId + 1, this.availableLanguagesTo.length - langId - 1);
     this.languagesRoutes.splice(langId + 1, this.availableLanguagesTo.length - langId - 1);
     console.log('changeLanguage', langId, newLang, this.availableLanguagesTo);
-    this.languagesEvolutionService.getAllLanguagesFrom({fromId: newLang.id}).subscribe(languages => {
-      this.availableLanguagesTo[langId + 1] = languages;
-    });
-    if (langId > 0) {
-      this.languagesEvolutionService.getAllRoutes({fromId: this.languages[langId - 1].id, toId: newLang.id}).subscribe(languages => {
+    if (newLang.id) {
+      this.languagesEvolutionService.getAllLanguagesFrom({fromId: newLang.id}).subscribe(languages => {
+        this.availableLanguagesTo[langId + 1] = languages;
+      });
+    }
+    const langprevid = this.languages[langId - 1].id;
+    if (langId > 0 && newLang.id && langprevid) {
+      this.languagesEvolutionService.getAllRoutes({fromId: langprevid, toId: newLang.id}).subscribe(languages => {
         console.log('changeLanguage', languages);
         this.languagesRoutes[langId] = languages;
         const fullRoute = this.languagesRoutes.reduce((acc, curr, idx) =>

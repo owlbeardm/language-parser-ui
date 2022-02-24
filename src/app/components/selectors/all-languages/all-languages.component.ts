@@ -22,13 +22,12 @@ export class AllLanguagesComponent implements OnInit {
     console.log(this.label);
     this.languagesService.getAllLanguages().subscribe(
       (languages: Language[]) => {
-        this.allLanguages = languages;
+        this.allLanguages = languages.sort((a, b) => a.displayName.localeCompare(b.displayName));
       }
     );
   }
 
-  changeLanguage(event:any): void {
-    console.log("change lang event", event);
+  changeLanguage(): void {
     console.log('changeLanguage', this.selectedLanguage);
     this.selectedLanguageChange.emit(this.selectedLanguage);
   }

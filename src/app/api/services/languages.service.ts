@@ -27,6 +27,60 @@ export class LanguagesService extends BaseService {
   }
 
   /**
+   * Path part for operation saveLanguage
+   */
+  static readonly SaveLanguagePath = '/api/language/';
+
+  /**
+   * Save language.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `saveLanguage()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  saveLanguage$Response(params: {
+    body: Language
+  }): Observable<StrictHttpResponse<Language>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesService.SaveLanguagePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Language>;
+      })
+    );
+  }
+
+  /**
+   * Save language.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `saveLanguage$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  saveLanguage(params: {
+    body: Language
+  }): Observable<Language> {
+
+    return this.saveLanguage$Response(params).pipe(
+      map((r: StrictHttpResponse<Language>) => r.body as Language)
+    );
+  }
+
+  /**
    * Path part for operation getAllLanguages
    */
   static readonly GetAllLanguagesPath = '/api/language/all';

@@ -1,4 +1,6 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, HostListener, Input, OnInit, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {timer} from 'rxjs';
 
 @Component({
   selector: 'th[app-horizontal-dash]',
@@ -8,10 +10,17 @@ import {AfterViewChecked, ChangeDetectorRef, Component, HostListener, Input, OnI
 export class HorizontalDashComponent implements OnInit, AfterViewChecked {
 
   @ViewChild('col') col: any;
-  bcol: String = '';
-  @Input() symbol?: String;
+  bcol = '';
+  @Input() symbol?: string;
 
-  constructor(private cdRef: ChangeDetectorRef) {
+  constructor(private cdRef: ChangeDetectorRef, private router: Router) {
+    // router.events.subscribe((val) => {
+    //   this.bcol = '';
+    //   this.cdRef.detectChanges();
+    //   timer(10).subscribe(() => {
+    //     this.resizeDash();
+    //   });
+    // });
   }
 
   ngOnInit(): void {
@@ -19,17 +28,16 @@ export class HorizontalDashComponent implements OnInit, AfterViewChecked {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize() {
-    console.log('resize');
+  onResize(): void {
     this.resizeDash();
   }
 
-  ngAfterViewChecked() {
+  ngAfterViewChecked(): void {
     this.resizeDash();
   }
 
-  resizeDash() {
-    const colLength = Math.floor((this.col?.nativeElement.offsetWidth - 1) / 8);
+  resizeDash(): void {
+    const colLength = Math.max(0, Math.floor((this.col?.nativeElement.offsetWidth - 1) / 8));
     const bcol = this.bcol;
     const symbol = this.symbol ? this.symbol : '-';
     this.bcol = colLength ? symbol.repeat(colLength) : '';

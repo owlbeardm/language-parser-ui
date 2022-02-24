@@ -3,7 +3,7 @@
 export interface Language {
   comment?: string;
   displayName: string;
-  id: number;
+  id?: number;
   nativeName?: string;
-  version: number;
+  version?: number;
 }

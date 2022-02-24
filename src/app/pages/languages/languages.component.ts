@@ -23,7 +23,8 @@ export class LanguagesComponent implements OnInit, RefreshAll {
   selectedLanguage: Language;
 
   constructor(private languagesService: LanguagesService) {
-    this.selectedLanguage = {id: -1, displayName: '', version: -1};
+    this.selectedLanguage = {displayName: ''};
+    this.selectLanguage({displayName: ''});
   }
 
   ngOnInit(): void {
@@ -41,13 +42,18 @@ export class LanguagesComponent implements OnInit, RefreshAll {
   }
 
   addNewLanguage(): void {
-    this.selectedLanguage = {id: -1, displayName: 'New Language', version: -1};
-    this.allLanguages.push(this.selectedLanguage);
-    this.allLanguages = this.allLanguages.sort((a, b) => a.displayName.localeCompare(b.displayName));
+    const newLanguage: Language = {displayName: 'New Language'};
+    this.languagesService.saveLanguage({body: newLanguage}).subscribe(
+      (data) => {
+        this.allLanguages.push(data);
+        this.allLanguages = this.allLanguages.sort((a, b) => a.displayName.localeCompare(b.displayName));
+        this.selectLanguage(data);
+      }
+    );
   }
 
   private refreshLanguages(): void {
-    this.selectedLanguage = {id: -1, displayName: '', version: -1};
+    this.selectLanguage({displayName: ''});
     this.languagesService.getAllLanguages().subscribe(
       data => {
         this.allLanguages = data.sort((a, b) => a.displayName.localeCompare(b.displayName));
