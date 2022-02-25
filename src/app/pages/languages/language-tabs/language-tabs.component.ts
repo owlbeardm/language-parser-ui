@@ -13,20 +13,22 @@ export class LanguageTabsComponent implements OnInit {
 
   tabs = [{
     name: 'Description',
-    enabled: true
+    enabled: true,
   }, {
     name: 'Parts of Speech',
-    enabled: true
+    enabled: true,
+    shortName: 'POS'
   }, {
-    name: 'Clusters',
-    enabled: true
+    name: 'Phonetics',
+    enabled: true,
+    shortName: '/ ȟ /'
   }, {
     name: 'Laws',
     enabled: true
   }];
   removeBorder = true;
   @Input() selectedLanguage?: Language;
-  selectedIndex: number = 0;
+  selectedIndex = 2;
 
   constructor(private keybind: KeyBindService) {
   }

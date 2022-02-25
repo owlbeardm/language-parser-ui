@@ -39,12 +39,12 @@
       <tr>
         <th class="border"></th>
         <th
-          class="border">{{lang.id == selectedLanguage.id || (allLanguages[i + 1] && allLanguages[i + 1].id) == selectedLanguage.id ? '+' : ''}}</th>
+          class="border">{{lang.id == selectedLanguage.id || (allLanguages[i + 1] && allLanguages[i + 1].id) == selectedLanguage.id && selectedLanguage.id ? '+' : ''}}</th>
         <th
-          class="border">{{lang.id == selectedLanguage.id || (allLanguages[i + 1] && allLanguages[i + 1].id) == selectedLanguage.id ? '-' : ''}}</th>
+          class="border">{{lang.id == selectedLanguage.id || (allLanguages[i + 1] && allLanguages[i + 1].id) == selectedLanguage.id && selectedLanguage.id ? '-' : ''}}</th>
         <th app-horizontal-dash class="border"></th>
         <th
-          class="border">{{lang.id == selectedLanguage.id || (allLanguages[i + 1] && allLanguages[i + 1].id) == selectedLanguage.id ? '+' : '|'}}</th>
+          class="border">{{lang.id == selectedLanguage.id || (allLanguages[i + 1] && allLanguages[i + 1].id) == selectedLanguage.id && selectedLanguage.id ? '+' : '|'}}</th>
       </tr>
     </ng-container>
     <tr>
