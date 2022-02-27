@@ -43,6 +43,10 @@ import { SoundChangesTableRowComponent } from './pages/evolution/language-connec
 import { LanguageDescriptionComponent } from './pages/languages/language-description/language-description.component';
 import { LanguageTabsComponent } from './pages/languages/language-tabs/language-tabs.component';
 import { LanguagePosComponent } from './pages/languages/language-pos/language-pos.component';
+import { LanguagePhoneticsComponent } from './pages/languages/language-phonetics/language-phonetics.component';
+import { PulmonicConsonantsComponent } from './pages/languages/language-phonetics/pulmonic-consonants/pulmonic-consonants.component';
+import { PhoneticBtnComponent } from './components/sound/phonetic-btn/phonetic-btn.component';
+import { VowelsComponent } from './pages/languages/language-phonetics/vowels/vowels.component';
 
 
 @NgModule({
@@ -81,6 +85,10 @@ import { LanguagePosComponent } from './pages/languages/language-pos/language-po
     AbstractHasLanguageComponent,
     LanguageTabsComponent,
     LanguagePosComponent,
+    LanguagePhoneticsComponent,
+    PulmonicConsonantsComponent,
+    PhoneticBtnComponent,
+    VowelsComponent,
   ],
   imports: [
     BrowserModule,
