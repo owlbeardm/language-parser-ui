@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-vowels',
@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VowelsComponent implements OnInit {
 
+  @Input() languageSounds!: string[];
+
   constructor() { }
 
   ngOnInit(): void {
@@ -14,14 +16,6 @@ export class VowelsComponent implements OnInit {
 
   clicked(sound: string): void {
     alert(sound);
-  }
-
-  getClass(sound: string): string {
-    // text-grey-dull
-    // text-red-dull
-    // text-yellow-dull
-    // text-green-dull
-    return 'text-red-dull';
   }
 
 }

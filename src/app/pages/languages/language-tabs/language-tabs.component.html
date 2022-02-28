@@ -50,7 +50,7 @@
           <app-language-description *ngIf="selectedIndex == 0"
                                     [selectedLanguage]="selectedLanguage"></app-language-description>
           <app-language-pos *ngIf="selectedIndex == 1" [selectedLanguage]="selectedLanguage"></app-language-pos>
-          <app-language-phonetics *ngIf="selectedIndex == 2"></app-language-phonetics>
+          <app-language-phonetics *ngIf="selectedIndex == 2" [selectedLanguage]="selectedLanguage"></app-language-phonetics>
           <app-laws *ngIf="selectedIndex == 3"></app-laws>
         </td>
       </tr>

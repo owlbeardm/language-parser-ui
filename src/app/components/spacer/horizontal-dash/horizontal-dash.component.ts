@@ -24,7 +24,6 @@ export class HorizontalDashComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit(): void {
-    console.log('HorizontalDashComponent.ngOnInit()');
   }
 
   @HostListener('window:resize', ['$event'])

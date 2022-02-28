@@ -133,6 +133,60 @@ export class LanguagesService extends BaseService {
   }
 
   /**
+   * Path part for operation getLanguagePhonemes
+   */
+  static readonly GetLanguagePhonemesPath = '/api/language/phoneme/{languageId}';
+
+  /**
+   * Get language phonemes by id.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getLanguagePhonemes()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getLanguagePhonemes$Response(params: {
+    languageId: number;
+  }): Observable<StrictHttpResponse<Array<string>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetLanguagePhonemesPath, 'get');
+    if (params) {
+      rb.path('languageId', params.languageId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<string>>;
+      })
+    );
+  }
+
+  /**
+   * Get language phonemes by id.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getLanguagePhonemes$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getLanguagePhonemes(params: {
+    languageId: number;
+  }): Observable<Array<string>> {
+
+    return this.getLanguagePhonemes$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<string>>) => r.body as Array<string>)
+    );
+  }
+
+  /**
    * Path part for operation getAllPartsOfSpeech
    */
   static readonly GetAllPartsOfSpeechPath = '/api/language/pos';

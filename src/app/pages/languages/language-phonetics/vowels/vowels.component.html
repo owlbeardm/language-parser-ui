@@ -2,41 +2,41 @@
   <colgroup>
     <col span="1" style="width: auto;">
     <col span="1" class="border" style="width: 8px;">
-    <col span="1" style="width: 10%;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" class="border" style="width: 9px;">
-    <col span="1" style="width: 45%;">
+    <col span="1" style="width: 5%;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" class="border" style="width: 25px;">
+    <col span="1" style="width: 15%;">
     <col span="1" class="border" style="width: 8px;">
   </colgroup>
   <tbody>
@@ -54,20 +54,23 @@
     <th style="text-align: right;"></th>
     <th>|</th>
     <th></th>
-    <th colspan="10">Front		</th>
+    <th colspan="5">Front</th>
+    <th colspan="3"></th>
     <th>|</th>
-    <th colspan="11">Central</th>
+    <th colspan="12">Central</th>
+    <th colspan="1"></th>
     <th>|</th>
-    <th colspan="10">Back</th>
+    <th colspan="5"></th>
+    <th colspan="5">Back</th>
     <th></th>
     <th>|</th>
   </tr>
   <tr>
     <th app-horizontal-dash></th>
     <th>+</th>
-    <th app-horizontal-dash colspan="11"></th>
+    <th app-horizontal-dash colspan="9"></th>
     <th>+</th>
-    <th app-horizontal-dash colspan="11"></th>
+    <th app-horizontal-dash colspan="13"></th>
     <th>+</th>
     <th app-horizontal-dash colspan="11"></th>
     <th>+</th>
@@ -76,27 +79,15 @@
     <th>Close</th>
     <th>|</th>
     <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'i'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
-    <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'y'"></app-phonetic-btn></th>
+    <th colspan="5"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'i'"></app-phonetic-btn> * <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'y'"></app-phonetic-btn></th>
     <th></th>
     <th colspan="5" app-horizontal-dash></th>
     <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ɨ'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
-    <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ʉ'"></app-phonetic-btn></th>
+    <th colspan="5"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɨ'"></app-phonetic-btn> * <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ʉ'"></app-phonetic-btn></th>
     <th></th>
     <th colspan="9" app-horizontal-dash></th>
     <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ɯ'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
-    <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'u'"></app-phonetic-btn></th>
+    <th colspan="5"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɯ'"></app-phonetic-btn> * <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'u'"></app-phonetic-btn></th>
     <th></th>
     <th>|</th>
   </tr>
@@ -118,17 +109,11 @@
     <th colspan="5"></th>
     <th>\</th>
     <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ɪ'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
-    <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ʏ'"></app-phonetic-btn></th>
+    <th colspan="5"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɪ'"></app-phonetic-btn> * <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ʏ'"></app-phonetic-btn></th>
     <th colspan="5"></th>
     <th>\</th>
     <th colspan="9"></th>
-    <th>*</th>
-    <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ʊ'"></app-phonetic-btn></th>
+    <th colspan="3">* <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ʊ'"></app-phonetic-btn></th>
     <th></th>
     <th>|</th>
     <th colspan="3"></th>
@@ -150,27 +135,15 @@
     <th>Close-mid</th>
     <th>|</th>
     <th colspan="5"></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'e'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
-    <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ø'"></app-phonetic-btn></th>
+    <th colspan="5"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'e'"></app-phonetic-btn> * <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ø'"></app-phonetic-btn></th>
     <th></th>
     <th colspan="5" app-horizontal-dash></th>
     <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ɘ'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
-    <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ɵ'"></app-phonetic-btn></th>
+    <th colspan="5"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɘ'"></app-phonetic-btn> * <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɵ'"></app-phonetic-btn></th>
     <th></th>
     <th colspan="5" app-horizontal-dash></th>
     <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ɤ'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
-    <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'o'"></app-phonetic-btn></th>
+    <th colspan="5"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɤ'"></app-phonetic-btn> * <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'o'"></app-phonetic-btn></th>
     <th></th>
     <th>|</th>
   </tr>
@@ -190,21 +163,13 @@
     <th>Mid</th>
     <th>|</th>
     <th colspan="7"></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'e̞'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
-    <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ø̞'"></app-phonetic-btn></th>
+    <th colspan="5"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'e̞'"></app-phonetic-btn> * <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ø̞'"></app-phonetic-btn></th>
     <th></th>
     <th colspan="7"></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ə'"></app-phonetic-btn></th>
+    <th><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ə'"></app-phonetic-btn></th>
     <th colspan="7"></th>
     <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ɤ̞'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
-    <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'o̞'"></app-phonetic-btn></th>
+    <th colspan="5"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɤ̞'"></app-phonetic-btn> * <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'o̞'"></app-phonetic-btn></th>
     <th></th>
     <th>|</th>
   </tr>
@@ -224,27 +189,15 @@
     <th>Open-mid</th>
     <th>|</th>
     <th colspan="9"></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ɛ'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
-    <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'œ'"></app-phonetic-btn></th>
+    <th colspan="5"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɛ'"></app-phonetic-btn> * <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'œ'"></app-phonetic-btn></th>
     <th></th>
     <th colspan="3" app-horizontal-dash></th>
     <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ɜ'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
-    <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ɞ'"></app-phonetic-btn></th>
+    <th colspan="5"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɜ'"></app-phonetic-btn> * <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɞ'"></app-phonetic-btn></th>
     <th></th>
     <th colspan="3" app-horizontal-dash></th>
     <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ʌ'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
-    <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ɔ'"></app-phonetic-btn></th>
+    <th colspan="5"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ʌ'"></app-phonetic-btn> * <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɔ'"></app-phonetic-btn></th>
     <th></th>
     <th>|</th>
   </tr>
@@ -264,11 +217,9 @@
     <th>Near-open</th>
     <th>|</th>
     <th colspan="11"></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'æ'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
+    <th colspan="3"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'æ'"></app-phonetic-btn> *</th>
     <th colspan="8"></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ɐ'"></app-phonetic-btn></th>
+    <th><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɐ'"></app-phonetic-btn></th>
     <th colspan="8"></th>
     <th>|</th>
     <th colspan="3"></th>
@@ -290,25 +241,14 @@
     <th>Open</th>
     <th>|</th>
     <th colspan="13"></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'a'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
-    <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ɶ'"></app-phonetic-btn></th>
+    <th colspan="5"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'a'"></app-phonetic-btn> * <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɶ'"></app-phonetic-btn></th>
     <th></th>
     <th colspan="1" app-horizontal-dash></th>
     <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ä'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
-    <th></th>
+    <th colspan="4"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ä'"></app-phonetic-btn> * </th>
     <th colspan="3" app-horizontal-dash></th>
     <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ɑ'"></app-phonetic-btn></th>
-    <th></th>
-    <th>*</th>
-    <th></th>
-    <th><app-phonetic-btn (onClick)="clicked($event)" [getSoundClass]="getClass" [phonetic]="'ɒ'"></app-phonetic-btn></th>
+    <th colspan="5"><app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɑ'"></app-phonetic-btn> * <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɒ'"></app-phonetic-btn></th>
     <th></th>
     <th>|</th>
   </tr>
