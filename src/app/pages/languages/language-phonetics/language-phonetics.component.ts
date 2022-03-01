@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Language} from '../../../api/models/language';
 import {LanguagesService} from '../../../api/services/languages.service';
+import {ListOfLanguagePhonemes} from '../../../api/models/list-of-language-phonemes';
 
 @Component({
   selector: 'app-language-phonetics',
@@ -10,7 +11,7 @@ import {LanguagesService} from '../../../api/services/languages.service';
 export class LanguagePhoneticsComponent implements OnInit, OnChanges {
 
   @Input() selectedLanguage?: Language;
-  languageSounds: string[] = [];
+  languageSounds?: ListOfLanguagePhonemes;
 
   constructor(private languagesService: LanguagesService) {
 
@@ -21,7 +22,7 @@ export class LanguagePhoneticsComponent implements OnInit, OnChanges {
   }
 
   private reloadLanguage(): void {
-    this.languageSounds = [];
+    this.languageSounds = undefined;
     if (this.selectedLanguage && this.selectedLanguage.id) {
       this.languagesService.getLanguagePhonemes({languageId: this.selectedLanguage?.id}).subscribe(data => {
         this.languageSounds = data;

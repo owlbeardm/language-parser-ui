@@ -6,6 +6,7 @@ import {Injectable} from '@angular/core';
 export class IpaService {
 
   sounds: string[] = [];
+  private consonantVariants: string[] = ['ʰ', 'ʷ', 'ʲ', 'ʷʰ'];
 
   constructor() {
   }
@@ -14,5 +15,9 @@ export class IpaService {
     if (!this.sounds.includes(phonetic)) {
       this.sounds.push(phonetic);
     }
+  }
+
+  getConsonantVariants(): string[] {
+    return this.consonantVariants;
   }
 }

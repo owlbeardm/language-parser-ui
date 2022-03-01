@@ -1,2 +1,9 @@
 <!--<a (click)="onClick.emit(phonetic)" [ngClass]="languageSounds?.includes(phonetic)?'text-green-dull':'text-grey-dull'">{{phonetic}}</a>-->
-<a (click)="onClick.emit(phonetic)" [ngClass]="getClass()">{{phonetic}}</a>
+<a (click)="onClick.emit(phonetic)" [ngClass]="getClass(phonetic)">{{phonetic}}</a>
+<ng-container *ngIf="consonant">
+  <ng-container *ngFor="let v of constonantVariants">
+    <a (click)="onClick.emit(phonetic+v)" [ngClass]="getClass(phonetic+v)" *ngIf="includesVariant(phonetic+v)">{{v}}</a>
+  </ng-container>
+</ng-container>
+<span *ngIf="vowel" class="text-grey-dull"> (<a (click)="onClick.emit(phonetic+'ː')"
+                                                [ngClass]="getClass(phonetic+'ː')">{{phonetic + 'ː'}}</a>)</span>

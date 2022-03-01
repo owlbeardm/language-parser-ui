@@ -1,5 +1,7 @@
 import {ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {timer} from 'rxjs';
+import {ListOfLanguagePhonemes} from '../../../../api/models/list-of-language-phonemes';
+import {LanguagesService} from '../../../../api/services/languages.service';
 
 @Component({
   selector: 'app-pulmonic-consonants',
@@ -8,9 +10,9 @@ import {timer} from 'rxjs';
 })
 export class PulmonicConsonantsComponent implements OnInit, OnChanges {
 
-  @Input() languageSounds!: string[];
+  @Input() languageSounds?: ListOfLanguagePhonemes;
 
-  constructor(private cdRef: ChangeDetectorRef) {
+  constructor(private cdRef: ChangeDetectorRef, private languagesService: LanguagesService) {
   }
 
   ngOnInit(): void {
@@ -21,7 +23,21 @@ export class PulmonicConsonantsComponent implements OnInit, OnChanges {
   }
 
   clicked(sound: string): void {
-    alert(sound);
+    console.log('clicked', sound);
+    if (this.languageSounds && this.languageSounds.langId) {
+      const find = this.languageSounds?.selectedMainPhonemes?.find(lp => lp.phoneme === sound);
+      if (find && find.id) {
+        this.languagesService.deleteLanguagePhoneme({phonemeId: find.id}).subscribe(() => {
+          if (this.languageSounds) {
+            this.languageSounds.selectedMainPhonemes = this.languageSounds?.selectedMainPhonemes?.filter(lp => lp.id !== find.id);
+          }
+        });
+      } else {
+        this.languagesService.saveLanguagePhoneme({body: sound, languageId: this.languageSounds.langId}).subscribe((data) => {
+          this.languageSounds?.selectedMainPhonemes?.push(data);
+        });
+      }
+    }
   }
 
 }

@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { Language } from '../models/language';
+import { LanguagePhoneme } from '../models/language-phoneme';
+import { ListOfLanguagePhonemes } from '../models/list-of-language-phonemes';
 import { Pos } from '../models/pos';
 
 
@@ -149,7 +151,7 @@ export class LanguagesService extends BaseService {
    */
   getLanguagePhonemes$Response(params: {
     languageId: number;
-  }): Observable<StrictHttpResponse<Array<string>>> {
+  }): Observable<StrictHttpResponse<ListOfLanguagePhonemes>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetLanguagePhonemesPath, 'get');
     if (params) {
@@ -162,7 +164,7 @@ export class LanguagesService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<string>>;
+        return r as StrictHttpResponse<ListOfLanguagePhonemes>;
       })
     );
   }
@@ -179,10 +181,121 @@ export class LanguagesService extends BaseService {
    */
   getLanguagePhonemes(params: {
     languageId: number;
-  }): Observable<Array<string>> {
+  }): Observable<ListOfLanguagePhonemes> {
 
     return this.getLanguagePhonemes$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<string>>) => r.body as Array<string>)
+      map((r: StrictHttpResponse<ListOfLanguagePhonemes>) => r.body as ListOfLanguagePhonemes)
+    );
+  }
+
+  /**
+   * Path part for operation saveLanguagePhoneme
+   */
+  static readonly SaveLanguagePhonemePath = '/api/language/phoneme/{languageId}';
+
+  /**
+   * Save language phoneme.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `saveLanguagePhoneme()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  saveLanguagePhoneme$Response(params: {
+    languageId: number;
+    body: string
+  }): Observable<StrictHttpResponse<LanguagePhoneme>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesService.SaveLanguagePhonemePath, 'post');
+    if (params) {
+      rb.path('languageId', params.languageId, {});
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<LanguagePhoneme>;
+      })
+    );
+  }
+
+  /**
+   * Save language phoneme.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `saveLanguagePhoneme$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  saveLanguagePhoneme(params: {
+    languageId: number;
+    body: string
+  }): Observable<LanguagePhoneme> {
+
+    return this.saveLanguagePhoneme$Response(params).pipe(
+      map((r: StrictHttpResponse<LanguagePhoneme>) => r.body as LanguagePhoneme)
+    );
+  }
+
+  /**
+   * Path part for operation deleteLanguagePhoneme
+   */
+  static readonly DeleteLanguagePhonemePath = '/api/language/phoneme/{phonemeId}';
+
+  /**
+   * Delete language phoneme.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteLanguagePhoneme()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteLanguagePhoneme$Response(params: {
+    phonemeId: number;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesService.DeleteLanguagePhonemePath, 'delete');
+    if (params) {
+      rb.path('phonemeId', params.phonemeId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Delete language phoneme.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `deleteLanguagePhoneme$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteLanguagePhoneme(params: {
+    phonemeId: number;
+  }): Observable<void> {
+
+    return this.deleteLanguagePhoneme$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
 

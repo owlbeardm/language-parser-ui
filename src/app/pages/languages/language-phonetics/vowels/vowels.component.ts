@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {ListOfLanguagePhonemes} from '../../../../api/models/list-of-language-phonemes';
 
 @Component({
   selector: 'app-vowels',
@@ -7,7 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class VowelsComponent implements OnInit {
 
-  @Input() languageSounds!: string[];
+  @Input() languageSounds?: ListOfLanguagePhonemes;
 
   constructor() { }
 
