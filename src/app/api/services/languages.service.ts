@@ -404,4 +404,112 @@ export class LanguagesService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation deleteLanguage
+   */
+  static readonly DeleteLanguagePath = '/api/language/{languageId}';
+
+  /**
+   * Delete language by id.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteLanguage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteLanguage$Response(params: {
+    languageId: number;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesService.DeleteLanguagePath, 'delete');
+    if (params) {
+      rb.path('languageId', params.languageId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Delete language by id.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `deleteLanguage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteLanguage(params: {
+    languageId: number;
+  }): Observable<void> {
+
+    return this.deleteLanguage$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation canDeleteLanguage
+   */
+  static readonly CanDeleteLanguagePath = '/api/language/{languageId}/candelete';
+
+  /**
+   * Can delete language.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `canDeleteLanguage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  canDeleteLanguage$Response(params: {
+    languageId: number;
+  }): Observable<StrictHttpResponse<boolean>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesService.CanDeleteLanguagePath, 'get');
+    if (params) {
+      rb.path('languageId', params.languageId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: String((r as HttpResponse<any>).body) === 'true' }) as StrictHttpResponse<boolean>;
+      })
+    );
+  }
+
+  /**
+   * Can delete language.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `canDeleteLanguage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  canDeleteLanguage(params: {
+    languageId: number;
+  }): Observable<boolean> {
+
+    return this.canDeleteLanguage$Response(params).pipe(
+      map((r: StrictHttpResponse<boolean>) => r.body as boolean)
+    );
+  }
+
 }

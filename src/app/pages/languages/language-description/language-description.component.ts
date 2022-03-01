@@ -30,4 +30,13 @@ export class LanguageDescriptionComponent extends AbstractHasLanguageComponent {
   clickSaveComment(): void {
     this.editComment = false;
   }
+
+  deleteLanguage(): void {
+    console.log(this.selectedLanguage?.id)
+    if (this.selectedLanguage?.id) {
+      this.languagesService.deleteLanguage({languageId: this.selectedLanguage?.id}).subscribe(() => {
+        alert('Language deleted');
+      });
+    }
+  }
 }

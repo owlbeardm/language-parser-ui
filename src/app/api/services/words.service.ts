@@ -191,4 +191,112 @@ export class WordsService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation deleteWord
+   */
+  static readonly DeleteWordPath = '/api/words/{id}';
+
+  /**
+   * Delete word by id.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteWord()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteWord$Response(params: {
+    id: number;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, WordsService.DeleteWordPath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Delete word by id.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `deleteWord$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteWord(params: {
+    id: number;
+  }): Observable<void> {
+
+    return this.deleteWord$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation canDeleteWord
+   */
+  static readonly CanDeleteWordPath = '/api/words/{wordId}/candelete';
+
+  /**
+   * Can delete word.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `canDeleteWord()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  canDeleteWord$Response(params: {
+    wordId: number;
+  }): Observable<StrictHttpResponse<boolean>> {
+
+    const rb = new RequestBuilder(this.rootUrl, WordsService.CanDeleteWordPath, 'get');
+    if (params) {
+      rb.path('wordId', params.wordId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: String((r as HttpResponse<any>).body) === 'true' }) as StrictHttpResponse<boolean>;
+      })
+    );
+  }
+
+  /**
+   * Can delete word.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `canDeleteWord$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  canDeleteWord(params: {
+    wordId: number;
+  }): Observable<boolean> {
+
+    return this.canDeleteWord$Response(params).pipe(
+      map((r: StrictHttpResponse<boolean>) => r.body as boolean)
+    );
+  }
+
 }

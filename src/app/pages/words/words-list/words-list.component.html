@@ -20,7 +20,7 @@
   </tr>
   </tbody>
 </table>
-<table>
+<table class="table-content">
   <colgroup>
     <col class="border" span="1" style="width: 8px;">
     <col span="1" style="width: 20%;">
@@ -31,17 +31,21 @@
     <col class="border" span="1" style="width: 8px;">
     <col span="1" style="width: 64px;">
     <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 17px;">
+    <col class="border" span="1" style="width: 8px;">
   </colgroup>
-  <tbody>
-  <tr *ngFor="let word of words.data">
+  <tbody class="table-content">
+  <tr *ngFor="let word of words.data" class="table-content">
     <th class="border">|</th>
-    <th class="border">{{word.word}}</th>
+    <th class="text-main">{{word.word}}</th>
     <th class="border">|</th>
     <th class="border">{{word.partOfSpeech?.abbreviation}}</th>
     <th class="border">|</th>
     <th class="border">{{word.language?.displayName}}</th>
     <th class="border">|</th>
     <th class="border">{{word.forgotten ? "unforget" : "forget"}}</th>
+    <th class="border">|</th>
+    <th class="border"><a (click)="deleteWord(word)" class="text-red-dull">x</a></th>
     <th class="border">|</th>
   </tr>
   </tbody>

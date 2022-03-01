@@ -14,10 +14,11 @@ export class LanguageTabsComponent implements OnInit {
   tabs = [{
     name: 'Description',
     enabled: true,
+    shortName: 'Descr.'
   }, {
     name: 'Phonetics',
     enabled: true,
-    shortName: '/ ȟ /'
+    shortName: '[pʰ]'
   }, {
     name: 'Parts of Speech',
     enabled: false,

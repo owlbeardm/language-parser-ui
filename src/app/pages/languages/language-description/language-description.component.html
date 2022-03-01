@@ -11,7 +11,10 @@
     <th class="border">|<br/>|</th>
     <th style="text-align: left"><input (ngModelChange)="canUpdate = true" [(ngModel)]="selectedLanguage.displayName"/>
     </th>
-    <th class="border" style="text-align: right">|<br/>|</th>
+    <th class="border" style="text-align: right">
+      <span>[ <a (click)="deleteLanguage()" class="text-red-dull" style>delete</a> ] |</span>
+      <br/>|<br/>|
+    </th>
   </tr>
   <tr>
     <th style="text-align: right">Native Name</th>
@@ -22,7 +25,7 @@
   </tr>
   <tr>
     <th style="text-align: right">Description</th>
-    <th class="border">|<br/>|</th>
+    <th class="border">|<br/>|<br/>|</th>
     <th *ngIf="!editComment" style="text-align: left">{{selectedLanguage.comment}}</th>
     <th *ngIf="editComment" style="text-align: left"><textarea (ngModelChange)="canUpdate = true"
                                                                [(ngModel)]="selectedLanguage.comment"
@@ -31,7 +34,7 @@
     <th class="border" style="text-align: right">
       <span *ngIf="!editComment">[ <a (click)="editComment = true" class="text-yellow-dull" style>edit</a> ] |</span>
       <span *ngIf="editComment">[ <a (click)="clickSaveComment()" class="text-green-dull" style>save</a> ] |</span>
-      <br/>|
+      <br/>|<br/>|
     </th>
   </tr>
   <tr>
