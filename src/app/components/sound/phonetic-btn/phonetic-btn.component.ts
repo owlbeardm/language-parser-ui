@@ -25,7 +25,7 @@ export class PhoneticBtnComponent implements OnInit {
 
   getClass(sound: string): string {
     if (this.languageSounds?.selectedMainPhonemes?.filter(lp => lp.phoneme === sound).length
-      || this.languageSounds?.selectedMainPhonemes?.filter(lp => lp.phoneme === sound).length) {
+      || this.languageSounds?.selectedRestPhonemes?.filter(lp => lp.phoneme === sound).length) {
       if (this.languageSounds?.usedMainPhonemes?.includes(sound) || this.languageSounds?.restUsedPhonemes?.includes(sound)) {
         return 'text-green-dull';
       } else {
@@ -41,6 +41,9 @@ export class PhoneticBtnComponent implements OnInit {
   }
 
   includesVariant(sound: string): boolean {
-    return !!(this.languageSounds?.usedMainPhonemes?.includes(sound) || this.languageSounds?.restUsedPhonemes?.includes(sound));
+    return !!(this.languageSounds?.usedMainPhonemes?.includes(sound)
+      || this.languageSounds?.restUsedPhonemes?.includes(sound)
+      || this.languageSounds?.selectedMainPhonemes?.filter(lp => lp.phoneme === sound).length
+      || this.languageSounds?.selectedRestPhonemes?.filter(lp => lp.phoneme === sound).length);
   }
 }

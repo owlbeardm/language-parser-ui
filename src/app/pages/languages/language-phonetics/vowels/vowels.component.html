@@ -41,7 +41,7 @@
   </colgroup>
   <tbody>
   <tr>
-    <th colspan="37">VOWELS</th>
+    <th colspan="37"> --- VOWELS --- </th>
     <th>|</th>
   </tr>
   <tr>
@@ -246,6 +246,23 @@
     <th></th>
     <th colspan="5"><app-phonetic-btn [vowel]="true" [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɑ'"></app-phonetic-btn> * <app-phonetic-btn [vowel]="true" [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɒ'"></app-phonetic-btn></th>
     <th></th>
+    <th>|</th>
+  </tr>
+  <tr>
+    <th app-horizontal-dash></th>
+    <th>+</th>
+    <th app-horizontal-dash colspan="35"></th>
+    <th>+</th>
+  </tr>
+  <tr>
+    <th>Gliding</th>
+    <th>|</th>
+    <th colspan="35">
+      <span *ngFor="let sound of getRestPhonemes(); let i = index">{{i > 0 ? ', ' : ''}}
+      <app-phonetic-btn (onClick)="clicked($event)"
+                        [languageSounds]="languageSounds"
+                        [phonetic]="sound"></app-phonetic-btn></span>
+    </th>
     <th>|</th>
   </tr>
   <tr>

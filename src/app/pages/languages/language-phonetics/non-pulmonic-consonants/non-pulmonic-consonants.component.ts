@@ -1,14 +1,13 @@
 import {ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {timer} from 'rxjs';
 import {ListOfLanguagePhonemes} from '../../../../api/models/list-of-language-phonemes';
 import {LanguagesService} from '../../../../api/services/languages.service';
 
 @Component({
-  selector: 'app-pulmonic-consonants',
-  templateUrl: './pulmonic-consonants.component.html',
-  styleUrls: ['./pulmonic-consonants.component.css']
+  selector: 'app-non-pulmonic-consonants',
+  templateUrl: './non-pulmonic-consonants.component.html',
+  styleUrls: ['./non-pulmonic-consonants.component.css']
 })
-export class PulmonicConsonantsComponent implements OnInit, OnChanges {
+export class NonPulmonicConsonantsComponent implements OnInit, OnChanges {
 
   @Input() languageSounds?: ListOfLanguagePhonemes;
   @Output() onClick = new EventEmitter<string>();

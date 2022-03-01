@@ -1,0 +1,42 @@
+<table>
+  <colgroup>
+    <col span="1" style="width: 107px;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: auto;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody>
+  <tr>
+    <th colspan="3"> --- OTHER PHONEMES --- </th>
+    <th>|</th>
+  </tr>
+  <tr>
+    <th app-horizontal-dash colspan="3"></th>
+    <th>+</th>
+  </tr>
+  <tr>
+    <th colspan="3"><span *ngFor="let sound of getRestPhonemes(); let i = index">{{i > 0 ? ', ' : ''}}
+      <app-phonetic-btn (onClick)="clicked($event)"
+                        [languageSounds]="languageSounds"
+                        [phonetic]="sound"></app-phonetic-btn></span>
+    </th>
+    <th>|</th>
+  </tr>
+  <tr>
+    <th app-horizontal-dash colspan="3"></th>
+    <th>+</th>
+  </tr>
+  <tr>
+    <th class="text-white">Add phoneme</th>
+    <th>|</th>
+    <th><form [formGroup]="soundForm" (ngSubmit)="addNewSound()"><input formControlName="newSound" type="text"/></form></th>
+    <th>|</th>
+  </tr>
+  <tr>
+    <th app-horizontal-dash colspan="3"></th>
+    <th>+</th>
+  </tr>
+  </tbody>
+</table>
+
+

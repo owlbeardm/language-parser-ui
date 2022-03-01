@@ -41,7 +41,7 @@
   </colgroup>
   <tbody>
   <tr>
-    <th colspan="37">PLUMONIC CONSONANTS</th>
+    <th colspan="37"> --- PLUMONIC CONSONANTS --- </th>
     <th>|</th>
   </tr>
   <tr>
@@ -456,7 +456,7 @@
     <th>+</th>
     <th colspan="2" app-horizontal-dash></th>
     <th>+</th>
-    <th colspan="2" app-horizontal-dash></th>
+    <th colspan="2"></th>
     <th>+</th>
     <th colspan="2" app-horizontal-dash></th>
     <th>+</th>
@@ -758,19 +758,71 @@
     <th>|</th>
   </tr>
   <tr>
+    <th app-horizontal-dash colspan="37"></th>
+    <th>+</th>
+  </tr>
+  <tr>
+    <th colspan="37"> --- CO-ARTICULATED CONSONANTS --- </th>
+    <th>|</th>
+  </tr>
+  <tr>
     <th app-horizontal-dash></th>
     <th>+</th>
-    <th colspan="8" app-horizontal-dash></th>
+    <th app-horizontal-dash colspan="35"></th>
     <th>+</th>
-    <th colspan="8" app-horizontal-dash></th>
+  </tr>
+  <tr>
+    <th>Nasal</th>
+    <th>|</th>
+    <th colspan="35" style="text-align: left">
+      Labial–alveolar <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'n͡m'"></app-phonetic-btn>,
+      Labial–velar <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ŋ͡m'"></app-phonetic-btn></th>
+    <th>|</th>
+  </tr>
+  <tr>
+    <th app-horizontal-dash></th>
     <th>+</th>
-    <th colspan="2" app-horizontal-dash></th>
+    <th app-horizontal-dash colspan="35"></th>
     <th>+</th>
-    <th colspan="2" app-horizontal-dash></th>
+  </tr>
+  <tr>
+    <th>Plosive</th>
+    <th>|</th>
+    <th colspan="35" style="text-align: left">
+      Labial–alveolar <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'t͡p'"></app-phonetic-btn>{{' '}}<app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'d͡b'"></app-phonetic-btn>,
+      Labial–velar <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'k͡p'"> </app-phonetic-btn>{{' '}}<app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɡ͡b'"></app-phonetic-btn>,
+      Uvular–epiglottal <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'q͡ʡ'">{{' '}}</app-phonetic-btn></th>
+    <th>|</th>
+  </tr>
+  <tr>
+    <th app-horizontal-dash></th>
     <th>+</th>
-    <th colspan="2" app-horizontal-dash></th>
+    <th app-horizontal-dash colspan="35"></th>
     <th>+</th>
-    <th colspan="8" app-horizontal-dash></th>
+  </tr>
+  <tr>
+    <th>Fricative/appr.</th>
+    <th>|</th>
+    <th colspan="35" style="text-align: left">
+      Labial–palatal <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɥ̊'"></app-phonetic-btn>{{' '}}<app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɥ'"></app-phonetic-btn>,
+      Labial–velar <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ʍ'"></app-phonetic-btn>{{' '}}<app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'w'"></app-phonetic-btn>,
+      Sj-sound <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɧ'"></app-phonetic-btn></th>
+    <th>|</th>
+  </tr>
+  <tr>
+    <th app-horizontal-dash></th>
+    <th>+</th>
+    <th app-horizontal-dash colspan="35"></th>
+    <th>+</th>
+  </tr>
+  <tr>
+    <th>Lateral appr.</th>
+    <th>|</th>
+    <th colspan="35" style="text-align: left">Velarized alveolar <app-phonetic-btn [languageSounds]="languageSounds" (onClick)="clicked($event)"  [phonetic]="'ɫ'"></app-phonetic-btn></th>
+    <th>|</th>
+  </tr>
+  <tr>
+    <th app-horizontal-dash colspan="37"></th>
     <th>+</th>
   </tr>
   </tbody>

@@ -1,2 +1,5 @@
-<app-pulmonic-consonants [languageSounds]="languageSounds"></app-pulmonic-consonants>
-<app-vowels [languageSounds]="languageSounds"></app-vowels>
+<app-pulmonic-consonants [languageSounds]="languageSounds" (onClick)="clicked($event)"></app-pulmonic-consonants>
+<app-vowels [languageSounds]="languageSounds" (onClick)="clicked($event)"></app-vowels>
+<app-non-pulmonic-consonants [languageSounds]="languageSounds" (onClick)="clicked($event)"></app-non-pulmonic-consonants>
+<app-other-phonemes [languageSounds]="languageSounds" (onClick)="clicked($event)"></app-other-phonemes>
+

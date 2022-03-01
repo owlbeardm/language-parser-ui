@@ -1,17 +1,21 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ListOfLanguagePhonemes} from '../../../../api/models/list-of-language-phonemes';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
-  selector: 'app-vowels',
-  templateUrl: './vowels.component.html',
-  styleUrls: ['./vowels.component.css']
+  selector: 'app-other-phonemes',
+  templateUrl: './other-phonemes.component.html',
+  styleUrls: ['./other-phonemes.component.css']
 })
-export class VowelsComponent implements OnInit {
+export class OtherPhonemesComponent implements OnInit {
 
   @Input() languageSounds?: ListOfLanguagePhonemes;
   @Output() onClick = new EventEmitter<string>();
+  soundForm = this.formBuilder.group({
+    newSound: ''
+  });
 
-  constructor() {
+  constructor(private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -32,11 +36,21 @@ export class VowelsComponent implements OnInit {
       return result
         .sort()
         .filter(sound => sound.trim() !== '')
-        .filter(sound => sound.includes('̯'))
+        .filter(sound => !sound.includes('̯'))
         .filter((value, index, self) => {
           return self.indexOf(value) === index;
         });
     }
     return [];
+  }
+
+  addNewSound(): void {
+    const sound = this.soundForm.value.newSound;
+    this.onClick.emit(sound);
+    // const find = this.languageSounds?.selectedMainPhonemes?.find(value => value.phoneme === sound);
+    // if (find) {
+    //   this.languageSounds?.selectedRestPhonemes?.push(find);
+    // }
+    this.soundForm.reset();
   }
 }

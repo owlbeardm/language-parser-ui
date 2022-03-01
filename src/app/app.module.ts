@@ -47,6 +47,8 @@ import { LanguagePhoneticsComponent } from './pages/languages/language-phonetics
 import { PulmonicConsonantsComponent } from './pages/languages/language-phonetics/pulmonic-consonants/pulmonic-consonants.component';
 import { PhoneticBtnComponent } from './components/sound/phonetic-btn/phonetic-btn.component';
 import { VowelsComponent } from './pages/languages/language-phonetics/vowels/vowels.component';
+import { OtherPhonemesComponent } from './pages/languages/language-phonetics/other-phonemes/other-phonemes.component';
+import { NonPulmonicConsonantsComponent } from './pages/languages/language-phonetics/non-pulmonic-consonants/non-pulmonic-consonants.component';
 
 
 @NgModule({
@@ -89,6 +91,8 @@ import { VowelsComponent } from './pages/languages/language-phonetics/vowels/vow
     PulmonicConsonantsComponent,
     PhoneticBtnComponent,
     VowelsComponent,
+    OtherPhonemesComponent,
+    NonPulmonicConsonantsComponent,
   ],
   imports: [
     BrowserModule,
