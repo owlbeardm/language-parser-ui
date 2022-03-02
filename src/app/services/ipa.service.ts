@@ -6,7 +6,7 @@ import {Injectable} from '@angular/core';
 export class IpaService {
 
   sounds: string[] = [];
-  private consonantVariants: string[] = ['ʰ', 'ʷ', 'ʲ', 'ʷʰ'];
+  private consonantVariants: string[] = ['ʰ', 'ʷ', 'ʲ', 'ʷʰ', 'ː'];
 
   constructor() {
   }
