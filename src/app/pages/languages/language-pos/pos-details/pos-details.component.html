@@ -1,0 +1,29 @@
+<table *ngIf="selectedPos && selectedPos.id" style="width: 100%; height: 100%">
+  <colgroup>
+    <col span="1" style="width: 200px; text-align: right">
+    <col class="border" span="1" style="width: 32px;">
+    <col span="1" style="width: auto;">
+    <col span="1" style="width: 81px;">
+  </colgroup>
+  <tbody>
+  <tr>
+    <th style="text-align: right">Name</th>
+    <th class="border">|<br/>|</th>
+    <th style="text-align: left"><input (ngModelChange)="canUpdate = true" [(ngModel)]="selectedPos.name"/>
+    </th>
+    <th class="border" style="text-align: right">
+      <span *ngIf="canUpdate"> [ <a (click)="saveChanges()" class="text-green-dull">Update</a> ] </span>
+    </th>
+  </tr>
+  <tr>
+    <th style="text-align: right">Abbreviation</th>
+    <th class="border">|<br/>|</th>
+    <th style="text-align: left"><input (ngModelChange)="canUpdate = true" [(ngModel)]="selectedPos.abbreviation"/>
+    </th>
+    <th class="border" style="text-align: right"></th>
+  </tr>
+  <tr>
+    <th app-horizontal-dash class="border" [attr.colspan]="4"></th>
+  </tr>
+  </tbody>
+</table>

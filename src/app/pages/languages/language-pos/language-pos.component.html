@@ -1,1 +1,30 @@
-<p>language-pos works!</p>
+<table>
+  <colgroup>
+    <col class="border" span="1" style="width: 17px;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: calc(30% - 41px);">
+    <col class="border" span="1" style="width: 8px;">
+    <col class="border" span="1" style="width: 70%;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody>
+  <tr>
+    <th colspan="2"></th>
+    <th><a class="text-green-dull">[ + ]</a></th>
+    <th class="border">|</th>
+    <th class="border" rowspan="0"><app-pos-details [selectedLanguage]="selectedLanguage" [selectedPos]="selectedPos"></app-pos-details></th>
+    <th app-vertical-dash class="border" rowspan="0"></th>
+  </tr>
+  <tr>
+    <th app-horizontal-dash colspan="3"></th>
+    <th class="border">+</th>
+  </tr>
+  <tr *ngFor="let p of pos">
+    <th><a class="text-grey-dull">x</a></th>
+    <th class="border">|</th>
+    <th class="border"><a (click)="selectedPos = p"
+                          [ngClass]="selectedPos?.id === p.id ? 'text-main' : 'text-grey-dull'">{{p.name}}</a></th>
+    <th class="border">|</th>
+  </tr>
+  </tbody>
+</table>

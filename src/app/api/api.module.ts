@@ -7,6 +7,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 import { LanguagesEvolutionService } from './services/languages-evolution.service';
 import { LanguagesService } from './services/languages.service';
 import { PingService } from './services/ping.service';
+import { PosService } from './services/pos.service';
 import { WordsService } from './services/words.service';
 
 /**
@@ -20,6 +21,7 @@ import { WordsService } from './services/words.service';
     LanguagesEvolutionService,
     LanguagesService,
     PingService,
+    PosService,
     WordsService,
     ApiConfiguration
   ],
