@@ -9,7 +9,7 @@
   </colgroup>
   <tbody>
   <tr *ngFor="let p of pos; index as i">
-    <th [ngClass]="selectedPos?.id === p.id?'selectedTh':''"><a
+    <th  [ngClass]="selectedPos?.id === p.id?'selectedTh':''"><a
       (click)="connectPosToLanguage(p)"
       [ngClass]="getLanguagePosSymbol(p) ?'text-green-dull':'text-grey-dull'">{{getLanguagePosSymbol(p) ? 'o' : 'x'}}</a>
     </th>
