@@ -2,6 +2,7 @@ export { Language } from './models/language';
 export { LanguageConnection } from './models/language-connection';
 export { LanguageConnectionType } from './models/language-connection-type';
 export { LanguageConnectionTypeModel } from './models/language-connection-type-model';
+export { LanguagePos } from './models/language-pos';
 export { LanguagePhoneme } from './models/language-phoneme';
 export { ListOfLanguagePhonemes } from './models/list-of-language-phonemes';
 export { Pos } from './models/pos';

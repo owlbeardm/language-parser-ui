@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {AbstractHasLanguageComponent} from '../../../../components/abstract/abstract-has-language/abstract-has-language.component';
-import {LanguagesService} from '../../../../api/services/languages.service';
 import {Pos} from '../../../../api/models/pos';
+import {PosService} from '../../../../api/services/pos.service';
 
 @Component({
   selector: 'app-pos-details',
@@ -14,15 +14,17 @@ export class PosDetailsComponent extends AbstractHasLanguageComponent {
   editComment = false;
   canUpdate = false;
 
-  constructor(private languagesService: LanguagesService) {
+  constructor(private posService: PosService) {
     super();
   }
 
   saveChanges(): void {
     if (this.selectedPos) {
-      // this.languagesService.saveLanguage({body: this.selectedLanguage}).subscribe((langResponse) => {
-      //   this.canUpdate = false;
-      // });
+      this.posService.savePos({body: this.selectedPos}).subscribe(
+        (id) => {
+          this.canUpdate = false;
+        }
+      );
     }
   }
 

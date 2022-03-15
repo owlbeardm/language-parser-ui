@@ -8,23 +8,32 @@
     <col class="border" span="1" style="width: 8px;">
   </colgroup>
   <tbody>
-  <tr>
-    <th colspan="2"></th>
-    <th><a class="text-green-dull">[ + ]</a></th>
+  <tr *ngFor="let p of pos; index as i">
+    <th [ngClass]="selectedPos?.id === p.id?'selectedTh':''"><a
+      (click)="connectPosToLanguage(p)"
+      [ngClass]="getLanguagePosSymbol(p) ?'text-green-dull':'text-grey-dull'">{{getLanguagePosSymbol(p) ? 'o' : 'x'}}</a>
+    </th>
     <th class="border">|</th>
-    <th class="border" rowspan="0"><app-pos-details [selectedLanguage]="selectedLanguage" [selectedPos]="selectedPos"></app-pos-details></th>
-    <th app-vertical-dash class="border" rowspan="0"></th>
+    <th [ngClass]="selectedPos?.id === p.id?'selectedTh':''" class="border"><a (click)="selectedPos = p"
+                                                                               [ngClass]="selectedPos?.id === p.id ? 'text-main' : getLanguagePosSymbol(p) ? 'text-grey' : 'text-grey-dull'">{{p.name}}</a>
+    </th>
+    <th [ngClass]="selectedPos?.id === p.id?'selectedTh':''" class="border">{{selectedPos?.id === p.id ?'':'|'}}</th>
+    <th *ngIf="i==0" class="border" rowspan="0" style="vertical-align: top;">
+      <app-pos-details [selectedLanguage]="selectedLanguage" [selectedPos]="selectedPos"></app-pos-details>
+    </th>
+    <th *ngIf="i==0" app-vertical-dash class="border" rowspan="0"></th>
   </tr>
   <tr>
     <th app-horizontal-dash colspan="3"></th>
     <th class="border">+</th>
   </tr>
-  <tr *ngFor="let p of pos">
-    <th><a class="text-grey-dull">x</a></th>
+  <tr>
+    <th colspan="2"></th>
+    <th><a (click)="addNewPOS()" class="text-green-dull">[ + ]</a></th>
     <th class="border">|</th>
-    <th class="border"><a (click)="selectedPos = p"
-                          [ngClass]="selectedPos?.id === p.id ? 'text-main' : 'text-grey-dull'">{{p.name}}</a></th>
-    <th class="border">|</th>
+  </tr>
+  <tr>
+    <th app-horizontal-dash colspan="5"></th>
   </tr>
   </tbody>
 </table>
