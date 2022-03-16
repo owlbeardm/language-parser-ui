@@ -37,7 +37,7 @@
   <tbody class="table-content">
   <tr *ngFor="let word of words.data" class="table-content">
     <th class="border">|</th>
-    <th class="text-main">{{word.word}}</th>
+    <th ><a [routerLink]="['/words', word.word]" class="text-main link-btn">{{word.word}}</a></th>
     <th class="border">|</th>
     <th class="border">{{word.partOfSpeech?.abbreviation}}</th>
     <th class="border">|</th>

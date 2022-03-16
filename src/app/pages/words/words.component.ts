@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractHasLanguageComponent } from 'src/app/components/abstract/abstract-has-language/abstract-has-language.component';
+import {Component} from '@angular/core';
+import {AbstractHasLanguageComponent} from 'src/app/components/abstract/abstract-has-language/abstract-has-language.component';
 
 @Component({
   selector: 'app-words',
@@ -9,18 +9,18 @@ import { AbstractHasLanguageComponent } from 'src/app/components/abstract/abstra
 export class WordsComponent extends AbstractHasLanguageComponent {
 
   tabs = [{
-    name: "List",
-    route: "list",
+    name: 'List',
+    route: 'list',
     enabled: true
   }, {
-    name: "Translations",
-    route: "translations",
+    name: 'Translations',
+    route: 'translations',
     enabled: true
   }, {
-    name: "Details",
-    route: ":word",
+    name: 'Details',
+    route: ':word',
     enabled: false
-  }]
+  }];
 
   ngOnInit(): void {
     super.ngOnInit();
