@@ -14,12 +14,12 @@
       <th app-horizontal-dash colspan="3"></th>
       <th class="border">+</th>
       <th rowspan="0" style="vertical-align: baseline; horiz-align: left;">
-        <app-language-tabs [selectedLanguage]="selectedLanguage"></app-language-tabs>
+        <app-language-tabs [selectedLanguage]="selectedLanguage" (onDeleteLanguage)="deleteLanguage($event)"></app-language-tabs>
       </th>
     </tr>
     <tr>
       <th class="border">|</th>
-      <th colspan="3"><a (click)="addNewLanguage()" class="text-green-dull">New</a></th>
+      <th colspan="3"><a (click)="addNewLanguage()" class="text-green-dull">[ + ]</a></th>
       <th class="border">|</th>
     </tr>
     <tr>

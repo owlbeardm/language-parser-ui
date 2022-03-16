@@ -44,6 +44,12 @@ export class LanguagesComponent implements OnInit, RefreshAll {
     );
   }
 
+  deleteLanguage(id: number): void {
+    this.languagesService.deleteLanguage({languageId: id}).subscribe(() => {
+      this.refreshLanguages();
+    });
+  }
+
   private refreshLanguages(): void {
     this.selectLanguage({displayName: ''});
     this.languagesService.getAllLanguages().subscribe(

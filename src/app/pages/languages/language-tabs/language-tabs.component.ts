@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NavigationEnd} from '@angular/router';
 import {KeyBindService} from '../../../services/key-bind.service';
 import {Language} from '../../../api/models/language';
@@ -29,7 +29,8 @@ export class LanguageTabsComponent implements OnInit {
   }];
   removeBorder = true;
   @Input() selectedLanguage?: Language;
-  selectedIndex = 2;
+  @Output() onDeleteLanguage = new EventEmitter<number>();
+  selectedIndex = 0;
 
   constructor(private keybind: KeyBindService) {
   }
@@ -45,5 +46,4 @@ export class LanguageTabsComponent implements OnInit {
   select(i: number): void {
     this.selectedIndex = i;
   }
-
 }

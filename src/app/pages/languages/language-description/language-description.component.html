@@ -3,7 +3,7 @@
     <col span="1" style="width: 200px; text-align: right">
     <col class="border" span="1" style="width: 32px;">
     <col span="1" style="width: auto;">
-    <col span="1" style="width: auto;">
+    <col span="1" style="width: 169px;">
   </colgroup>
   <tbody>
   <tr>
@@ -12,8 +12,7 @@
     <th style="text-align: left"><input (ngModelChange)="canUpdate = true" [(ngModel)]="selectedLanguage.displayName"/>
     </th>
     <th class="border" style="text-align: right">
-      <span>[ <a (click)="deleteLanguage()" class="text-red-dull" style>delete</a> ] |</span>
-      <br/>|<br/>|
+      |<br/>|
     </th>
   </tr>
   <tr>
@@ -24,23 +23,28 @@
     <th class="border" style="text-align: right">|<br/>|</th>
   </tr>
   <tr>
-    <th style="text-align: right">Description</th>
-    <th class="border">|<br/>|<br/>|</th>
+    <th *ngIf="!editComment" style="text-align: right">[ <a (click)="editComment = true" class="text-yellow-dull" style>Description</a>
+      ]
+    </th>
+    <th *ngIf="editComment" style="text-align: right">Description</th>
+    <th class="border">|<br/>|<br/>|<br/>|<br/>|<br/>|</th>
     <th *ngIf="!editComment" style="text-align: left">{{selectedLanguage.comment}}</th>
     <th *ngIf="editComment" style="text-align: left"><textarea (ngModelChange)="canUpdate = true"
                                                                [(ngModel)]="selectedLanguage.comment"
-                                                               [cols]="20" [rows]="2" style="width: 100%"></textarea>
+                                                               [cols]="20" [rows]="5" style="width: 100%"></textarea>
     </th>
     <th class="border" style="text-align: right">
-      <span *ngIf="!editComment">[ <a (click)="editComment = true" class="text-yellow-dull" style>edit</a> ] |</span>
-      <span *ngIf="editComment">[ <a (click)="clickSaveComment()" class="text-green-dull" style>save</a> ] |</span>
-      <br/>|<br/>|
+      |<br/>|<br/>|<br/>|<br/>|<br/>|
     </th>
   </tr>
   <tr>
   <tr>
-    <th app-horizontal-dash class="border" [attr.colspan]="3 + (canUpdate ? 0 : 1)"></th>
-    <th *ngIf="canUpdate" class="border">[ <a (click)="saveChanges()" class="text-green-dull">Update</a> ]-+</th>
+    <th app-horizontal-dash class="border" colspan="3"></th>
+    <th class="border">
+      <span *ngIf="canUpdate">[ <a (click)="saveChanges()" class="text-green-dull">Save</a> ]</span><span
+      *ngIf="!canUpdate">[ Save ]</span>-<span *ngIf="canDelete">[ <a (click)="deleteLanguage()" class="text-red-dull"
+                                                                      style>Delete</a> ]</span><span *ngIf="!canDelete">[ Delete ]</span>-+
+    </th>
   </tr>
   </tbody>
 </table>
