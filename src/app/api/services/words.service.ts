@@ -46,7 +46,7 @@ export class WordsService extends BaseService {
    */
   addWord$Response(params: {
     body: Word
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<Word>> {
 
     const rb = new RequestBuilder(this.rootUrl, WordsService.AddWordPath, 'post');
     if (params) {
@@ -54,12 +54,12 @@ export class WordsService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<Word>;
       })
     );
   }
@@ -76,10 +76,10 @@ export class WordsService extends BaseService {
    */
   addWord(params: {
     body: Word
-  }): Observable<void> {
+  }): Observable<Word> {
 
     return this.addWord$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<Word>) => r.body as Word)
     );
   }
 

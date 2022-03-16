@@ -300,57 +300,6 @@ export class LanguagesService extends BaseService {
   }
 
   /**
-   * Path part for operation getAllPartsOfSpeech
-   */
-  static readonly GetAllPartsOfSpeechPath = '/api/language/pos';
-
-  /**
-   * Get all parts of speech.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getAllPartsOfSpeech()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getAllPartsOfSpeech$Response(params?: {
-  }): Observable<StrictHttpResponse<Array<Pos>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetAllPartsOfSpeechPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<Pos>>;
-      })
-    );
-  }
-
-  /**
-   * Get all parts of speech.
-   *
-   *
-   *
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `getAllPartsOfSpeech$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getAllPartsOfSpeech(params?: {
-  }): Observable<Array<Pos>> {
-
-    return this.getAllPartsOfSpeech$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<Pos>>) => r.body as Array<Pos>)
-    );
-  }
-
-  /**
    * Path part for operation getAllPartsOfSpeechByLanguage
    */
   static readonly GetAllPartsOfSpeechByLanguagePath = '/api/language/pos/{languageId}';

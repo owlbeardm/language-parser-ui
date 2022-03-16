@@ -133,6 +133,60 @@ export class PosService extends BaseService {
   }
 
   /**
+   * Path part for operation getAllPosByLanguage
+   */
+  static readonly GetAllPosByLanguagePath = '/api/pos/language/{languageId}';
+
+  /**
+   * Get all parts of speech by language.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllPosByLanguage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllPosByLanguage$Response(params: {
+    languageId: number;
+  }): Observable<StrictHttpResponse<Array<Pos>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, PosService.GetAllPosByLanguagePath, 'get');
+    if (params) {
+      rb.path('languageId', params.languageId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<Pos>>;
+      })
+    );
+  }
+
+  /**
+   * Get all parts of speech by language.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getAllPosByLanguage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllPosByLanguage(params: {
+    languageId: number;
+  }): Observable<Array<Pos>> {
+
+    return this.getAllPosByLanguage$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<Pos>>) => r.body as Array<Pos>)
+    );
+  }
+
+  /**
    * Path part for operation saveLanguagePos
    */
   static readonly SaveLanguagePosPath = '/api/pos/languagepos';

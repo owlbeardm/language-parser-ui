@@ -67,4 +67,12 @@ export class WordsListComponent implements OnInit {
       );
     }
   }
+
+  addNewWord(newWord: Word): void {
+    this.wordService.addWord({body: newWord}).subscribe(
+      (word) => {
+        this.words.data?.push(word);
+      }
+    );
+  }
 }
