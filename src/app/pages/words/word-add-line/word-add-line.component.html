@@ -1,7 +1,7 @@
 <table>
   <colgroup>
     <col class="border" span="1" style="width: 8px;">
-    <col span="1" style="width: 110px;">
+    <col span="1" style="width: 70px;">
     <col span="1" style="width: 9px;">
     <col span="1" style="width: auto;">
     <col class="border" span="1" style="width: 8px;">
@@ -10,8 +10,8 @@
   <tr>
     <th class="border">|<br>|</th>
     <th class="border">
-      <a *ngIf="newWord.valid" class="text-green-dull" (click)="addNewWord()">[ Add word ]</a>
-      <span *ngIf="!newWord.valid">[ Add word ]</span>
+      <a *ngIf="newWord.valid" class="text-green-dull" (click)="addNewWord()">[ + ]</a>
+      <span *ngIf="!newWord.valid">[ + ]</span>
     </th>
     <th class="border">|<br>|</th>
     <th class="border" style="text-align: left;">

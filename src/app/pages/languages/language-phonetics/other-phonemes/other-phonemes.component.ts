@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ListOfLanguagePhonemes} from '../../../../api/models/list-of-language-phonemes';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-other-phonemes',
@@ -11,8 +11,8 @@ export class OtherPhonemesComponent implements OnInit {
 
   @Input() languageSounds?: ListOfLanguagePhonemes;
   @Output() onClick = new EventEmitter<string>();
-  soundForm = this.formBuilder.group({
-    newSound: ''
+  soundForm = new FormGroup({
+    newSound: new FormControl('', Validators.required),
   });
 
   constructor(private formBuilder: FormBuilder) {

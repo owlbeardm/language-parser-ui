@@ -1,6 +1,6 @@
 <table>
   <colgroup>
-    <col span="1" style="width: 107px;">
+    <col span="1" style="width: 70px;">
     <col class="border" span="1" style="width: 8px;">
     <col span="1" style="width: auto;">
     <col class="border" span="1" style="width: 8px;">
@@ -27,9 +27,12 @@
     <th>+</th>
   </tr>
   <tr>
-    <th class="text-white">Add phoneme</th>
+    <th>
+      <a *ngIf="soundForm.valid" class="text-green-dull" (click)="addNewSound()">[ + ]</a>
+      <span *ngIf="!soundForm.valid">[ + ]</span>
+    </th>
     <th>|</th>
-    <th><form [formGroup]="soundForm" (ngSubmit)="addNewSound()"><input formControlName="newSound" type="text"/></form></th>
+    <th style="text-align: left;"><form [formGroup]="soundForm" (ngSubmit)="addNewSound()"><input formControlName="newSound" type="text" style="margin-left: 16px;"/></form></th>
     <th>|</th>
   </tr>
   <tr>
