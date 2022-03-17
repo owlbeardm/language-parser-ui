@@ -49,7 +49,7 @@ export class WordAddLineComponent implements OnInit {
   changeLanguage(): void {
     this.newWord.get('pos')?.reset();
     this.posService.getAllPosByLanguage({languageId: this.newWord.value.language.id}).subscribe(poses => {
-      this.poses = poses;
+      this.poses = poses.sort((a, b) => a.name ? a.name.localeCompare(b.name ? b.name : '') : -1);
     });
   }
 }

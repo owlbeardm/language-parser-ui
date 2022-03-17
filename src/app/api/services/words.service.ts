@@ -11,8 +11,8 @@ import { map, filter } from 'rxjs/operators';
 
 import { PageResultWord } from '../models/page-result-word';
 import { PageResultWordWithTranslations } from '../models/page-result-word-with-translations';
-import { PaginationFilter } from '../models/pagination-filter';
 import { Word } from '../models/word';
+import { WordListFilter } from '../models/word-list-filter';
 
 
 /**
@@ -99,7 +99,7 @@ export class WordsService extends BaseService {
    * This method doesn't expect any request body.
    */
   getAllWords$Response(params: {
-    filter: PaginationFilter;
+    filter: WordListFilter;
   }): Observable<StrictHttpResponse<PageResultWord>> {
 
     const rb = new RequestBuilder(this.rootUrl, WordsService.GetAllWordsPath, 'get');
@@ -129,7 +129,7 @@ export class WordsService extends BaseService {
    * This method doesn't expect any request body.
    */
   getAllWords(params: {
-    filter: PaginationFilter;
+    filter: WordListFilter;
   }): Observable<PageResultWord> {
 
     return this.getAllWords$Response(params).pipe(

@@ -2,6 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {WordsService} from '../../../api/services/words.service';
 import {PageResultWord} from '../../../api/models/page-result-word';
 import {Word} from '../../../api/models/word';
+import {WordListFilter} from '../../../api/models/word-list-filter';
+import {Language} from '../../../api/models/language';
+import {Pos} from '../../../api/models/pos';
+import {LanguagesService} from '../../../api/services/languages.service';
+import {PosService} from '../../../api/services/pos.service';
 
 @Component({
   selector: 'app-words-list',
@@ -11,58 +16,55 @@ import {Word} from '../../../api/models/word';
 export class WordsListComponent implements OnInit {
 
   words: PageResultWord = {};
-  page = 0;
-  size = 30;
-  pageBttns: number[] = [];
+  language: Language | undefined;
+  pos: Pos | undefined;
+  wordSearch: string | undefined;
+  languages: Language[] = [];
+  poses: Pos[] = [];
+  pageSize = 30;
 
-  constructor(private wordService: WordsService) {
+  constructor(private wordService: WordsService, private languageService: LanguagesService, private posService: PosService) {
   }
 
   ngOnInit(): void {
-    this.load();
+    this.languageService.getAllLanguages().subscribe(languages => {
+      this.languages = languages.sort((a, b) => a.displayName ? a.displayName.localeCompare(b.displayName ? b.displayName : '') : -1);
+    });
+    this.posService.getAllPos().subscribe(poses => {
+      this.poses = poses.sort((a, b) => a.name ? a.name.localeCompare(b.name ? b.name : '') : -1);
+    });
   }
 
-  load(): void {
-    this.wordService.getAllWords({filter: {page: this.page, size: this.size}}).subscribe(
+  load(filter: WordListFilter): void {
+    this.wordService.getAllWords({filter}).subscribe(
       (words) => {
         if (words.data) {
           this.words = words;
-          this.redrawPageBttns();
         }
       }
     );
   }
 
-  changePage(newpagenmb: number | undefined): void {
-    if (this.words?.totalPages && newpagenmb !== undefined) {
-      const page = Math.min(Math.max(0, newpagenmb), this.words.totalPages - 1);
-      if (page !== this.page) {
-        this.page = page;
-        this.load();
-      }
+  loadDefault(filter: WordListFilter | undefined): void {
+    console.log('loadDefault', filter, this.pos, this.language, this.wordSearch);
+    if (!filter) {
+      filter = {};
     }
-  }
-
-  redrawPageBttns(): void {
-    if (this.words.totalPages) {
-      this.pageBttns = [];
-      for (let i = 0; i < 3; i++) {
-        this.pageBttns.push(i);
-        this.pageBttns.push(this.words.totalPages - 1 - i);
-        this.pageBttns.push(this.page + i);
-        this.pageBttns.push(this.page - i);
-      }
-      this.pageBttns = this.pageBttns
-        .filter((v, i, a) => a.indexOf(v) === i && v >= 0 && this.words.totalPages && v < this.words.totalPages)
-        .sort((a, b) => a - b);
-    }
+    filter = {
+      page: filter.page ? filter.page : undefined,
+      size: filter.size ? filter.size : this.pageSize,
+      word: filter.word ? filter.word : filter.word === '' ? undefined : this.wordSearch,
+      languageId: filter.languageId ? filter.languageId : filter.languageId === null ? undefined : this.language?.id,
+      posId: filter.posId ? filter.posId : filter.posId === null ? undefined : this.pos?.id,
+    };
+    this.load(filter);
   }
 
   deleteWord(word: Word): void {
     if (word.id) {
       this.wordService.deleteWord({id: word.id}).subscribe(
         () => {
-          this.load();
+          this.words.data = this.words.data?.filter(w => w.id !== word.id);
         }
       );
     }
@@ -74,5 +76,12 @@ export class WordsListComponent implements OnInit {
         this.words.data?.push(word);
       }
     );
+  }
+
+  resetFilter(): void {
+    this.language = undefined;
+    this.pos = undefined;
+    this.wordSearch = undefined;
+    this.loadDefault({});
   }
 }

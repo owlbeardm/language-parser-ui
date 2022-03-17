@@ -1,0 +1,53 @@
+<table>
+  <colgroup>
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 240px;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 17px;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 17px;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: auto;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 17px;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 17px;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody>
+  <tr>
+    <th class="border">+</th>
+    <th app-horizontal-dash class="border" colspan="11"></th>
+    <th class="border">+</th>
+  </tr>
+  <tr>
+    <th class="border">|</th>
+    <th class="border">
+      Page {{page + 1}} of {{totalPages}} ({{total}} words)
+    </th>
+    <th class="border">|</th>
+    <th class="border"><a (click)="changePage(0)"> « </a></th>
+    <th class="border">|</th>
+    <th class="border"><a (click)="changePage(page-1)"> < </a></th>
+    <th class="border">|</th>
+    <th class="border">
+      <span *ngFor="let pn of pageBttns; let i = index">
+        <a *ngIf="pn != page" class="text-grey-dull" (click)="changePage(pn)"> {{pn + 1}}</a>
+        <span *ngIf="pn == page" class="text-main"> {{pn + 1}}</span>
+        <span *ngIf="i<pageBttns.length-1 && pn+1 == pageBttns[i+1]">,</span>
+        <span *ngIf="pn+1 != pageBttns[i+1] && i<pageBttns.length-1"> ... </span>
+      </span>
+    </th>
+    <th class="border">|</th>
+    <th class="border"><a (click)="changePage(page+1)"> > </a></th>
+    <th class="border">|</th>
+    <th class="border"><a (click)="changePage(totalPages)"> » </a></th>
+    <th class="border">|</th>
+  </tr>
+  <tr>
+    <th class="border">+</th>
+    <th app-horizontal-dash class="border" colspan="11"></th>
+    <th class="border">+</th>
+  </tr>
+  </tbody>
+</table>

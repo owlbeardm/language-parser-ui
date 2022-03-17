@@ -16,6 +16,10 @@ export class EvolutionComponent implements OnInit, RefreshAll {
     name: 'Conntections',
     route: 'connections',
     enabled: true
+  }, {
+    name: 'List evolve',
+    route: 'list-evolve',
+    enabled: true
   }];
 
   ngOnInit(): void {

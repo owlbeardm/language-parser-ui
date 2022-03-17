@@ -2,20 +2,37 @@
   <colgroup>
     <col class="border" span="1" style="width: 8px;">
     <col span="1" style="width: auto;">
+    <col span="1" style="width: 9px;">
+    <col span="1" style="width: 70px;">
     <col class="border" span="1" style="width: 8px;">
   </colgroup>
   <tbody>
   <tr>
-    <th class="border">|</th>
-    <th class="border">
-      <div>
-      </div>
+    <th class="border">|<br>|</th>
+    <th class="border" style="text-align: left;">
+      <input (ngModelChange)="loadDefault({word:$event})" [(ngModel)]="wordSearch"
+             style="height: 16px; margin-left: 16px;" type="text"/>
+      <span style="margin-left: 8px;">
+        <select (ngModelChange)="loadDefault({languageId:$event?.id})" [(ngModel)]="language" class="languageSelector"
+                id="languageSelector">
+          <option [ngValue]="undefined">All languages</option>
+          <option *ngFor="let lang of languages" [ngValue]="lang">{{ lang.displayName }}</option>
+        </select>
+      </span>
+      <span style="margin-left: 8px;">
+        <select (ngModelChange)="loadDefault({posId:$event?.id})" [(ngModel)]="pos" class="posSelector" id="posSelector">
+          <option [ngValue]="undefined">Any part of speech</option>
+          <option *ngFor="let p of poses" [ngValue]="p">{{ p.name }}</option>
+        </select>
+      </span>
     </th>
-    <th class="border">|</th>
+    <th class="border">|<br>|</th>
+    <th><a class="text-red-dull" (click)="resetFilter()">[ x ]</a></th>
+    <th class="border">|<br>|</th>
   </tr>
   <tr>
     <th class="border">+</th>
-    <th app-horizontal-dash class="border"></th>
+    <th app-horizontal-dash class="border" colspan="3"></th>
     <th class="border">+</th>
   </tr>
   </tbody>
@@ -29,78 +46,29 @@
     <col class="border" span="1" style="width: 8px;">
     <col span="1" style="width: auto;">
     <col class="border" span="1" style="width: 8px;">
-    <col span="1" style="width: 64px;">
-    <col class="border" span="1" style="width: 8px;">
+    <!--    <col span="1" style="width: 64px;">-->
+    <!--    <col class="border" span="1" style="width: 8px;">-->
     <col span="1" style="width: 17px;">
     <col class="border" span="1" style="width: 8px;">
   </colgroup>
   <tbody class="table-content">
   <tr *ngFor="let word of words.data" class="table-content">
     <th class="border">|</th>
-    <th ><a [routerLink]="['/words', word.word]" class="text-main link-btn">{{word.word}}</a></th>
+    <th><a [routerLink]="['/words', word.word]" class="text-main link-btn">{{word.word}}</a></th>
     <th class="border">|</th>
     <th class="border">{{word.partOfSpeech?.abbreviation}}</th>
     <th class="border">|</th>
     <th class="border">{{word.language?.displayName}}</th>
     <th class="border">|</th>
-    <th class="border">{{word.forgotten ? "unforget" : "forget"}}</th>
-    <th class="border">|</th>
+    <!--    <th class="border">{{word.forgotten ? "unforget" : "forget"}}</th>-->
+    <!--    <th class="border">|</th>-->
     <th class="border"><a (click)="deleteWord(word)" class="text-red-dull">x</a></th>
     <th class="border">|</th>
   </tr>
   </tbody>
 </table>
-<table>
-  <colgroup>
-    <col class="border" span="1" style="width: 8px;">
-    <col span="1" style="width: 240px;">
-    <col class="border" span="1" style="width: 8px;">
-    <col span="1" style="width: 17px;">
-    <col class="border" span="1" style="width: 8px;">
-    <col span="1" style="width: 17px;">
-    <col class="border" span="1" style="width: 8px;">
-    <col span="1" style="width: auto;">
-    <col class="border" span="1" style="width: 8px;">
-    <col span="1" style="width: 17px;">
-    <col class="border" span="1" style="width: 8px;">
-    <col span="1" style="width: 17px;">
-    <col class="border" span="1" style="width: 8px;">
-  </colgroup>
-  <tbody>
-  <tr>
-    <th class="border">+</th>
-    <th app-horizontal-dash class="border" colspan="11"></th>
-    <th class="border">+</th>
-  </tr>
-  <tr>
-    <th class="border">|</th>
-    <th class="border">
-      Page {{page + 1}} of {{words.totalPages}} ({{words.total}} words)
-    </th>
-    <th class="border">|</th>
-    <th class="border"><a (click)="changePage(0)"> « </a></th>
-    <th class="border">|</th>
-    <th class="border"><a (click)="changePage(page-1)"> < </a></th>
-    <th class="border">|</th>
-    <th class="border">
-      <span *ngFor="let pn of pageBttns; let i = index">
-        <a *ngIf="pn != page" class="text-grey-dull" (click)="changePage(pn)"> {{pn + 1}}</a>
-        <span *ngIf="pn == page" class="text-main"> {{pn + 1}}</span>
-        <span *ngIf="i<pageBttns.length-1 && pn+1 == pageBttns[i+1]">,</span>
-        <span *ngIf="pn+1 != pageBttns[i+1] && i<pageBttns.length-1"> ... </span>
-      </span>
-    </th>
-    <th class="border">|</th>
-    <th class="border"><a (click)="changePage(page+1)"> > </a></th>
-    <th class="border">|</th>
-    <th class="border"><a (click)="changePage(words.totalPages)"> » </a></th>
-    <th class="border">|</th>
-  </tr>
-  <tr>
-    <th class="border">+</th>
-    <th app-horizontal-dash class="border" colspan="11"></th>
-    <th class="border">+</th>
-  </tr>
-  </tbody>
-</table>
+<app-list-paginator (load)="load($event)" [page]="words.page?words.page:0"
+                    [size]="pageSize"
+                    [totalPages]="words.totalPages?words.totalPages:0"
+                    [total]="words.total?words.total:0"></app-list-paginator>
 <app-word-add-line (onNewWord)="addNewWord($event)"></app-word-add-line>

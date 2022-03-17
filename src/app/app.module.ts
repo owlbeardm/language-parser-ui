@@ -51,6 +51,7 @@ import { OtherPhonemesComponent } from './pages/languages/language-phonetics/oth
 import { NonPulmonicConsonantsComponent } from './pages/languages/language-phonetics/non-pulmonic-consonants/non-pulmonic-consonants.component';
 import { PosDetailsComponent } from './pages/languages/language-pos/pos-details/pos-details.component';
 import { WordAddLineComponent } from './pages/words/word-add-line/word-add-line.component';
+import { ListPaginatorComponent } from './components/list/list-paginator/list-paginator.component';
 
 
 @NgModule({
@@ -97,6 +98,7 @@ import { WordAddLineComponent } from './pages/words/word-add-line/word-add-line.
     NonPulmonicConsonantsComponent,
     PosDetailsComponent,
     WordAddLineComponent,
+    ListPaginatorComponent,
   ],
   imports: [
     BrowserModule,
