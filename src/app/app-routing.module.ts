@@ -11,6 +11,7 @@ import {EvolutionComponent} from './pages/evolution/evolution.component';
 import {TranslationsComponent} from './pages/words/translations/translations.component';
 import {LanguageConnectionsComponent} from './pages/evolution/language-connections/language-connections.component';
 import {LanguageDescriptionComponent} from './pages/languages/language-description/language-description.component';
+import {ListEvolutionComponent} from './pages/evolution/list-evolution/list-evolution.component';
 
 const routes: Routes = [
   {path: 'trace', component: TraceComponent},
@@ -24,7 +25,8 @@ const routes: Routes = [
   {
     path: 'evolutions', component: EvolutionComponent,
     children: [
-      {path: 'connections', component: LanguageConnectionsComponent}]
+      {path: 'connections', component: LanguageConnectionsComponent},
+      {path: 'list', component: ListEvolutionComponent}]
   },
   {
     path: 'language', component: LanguagesComponent,

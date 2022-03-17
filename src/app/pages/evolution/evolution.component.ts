@@ -13,12 +13,12 @@ import {RefreshAll} from '../../interface/refresh-all';
 export class EvolutionComponent implements OnInit, RefreshAll {
 
   tabs = [{
-    name: 'Conntections',
+    name: 'Connections',
     route: 'connections',
     enabled: true
   }, {
     name: 'List evolve',
-    route: 'list-evolve',
+    route: 'list',
     enabled: true
   }];
 

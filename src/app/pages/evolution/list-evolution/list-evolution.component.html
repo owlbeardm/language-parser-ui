@@ -1,0 +1,76 @@
+<table>
+  <colgroup>
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: auto;">
+    <col span="1" style="width: 9px;">
+    <col span="1" style="width: 70px;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody>
+  <tr>
+    <th class="border">|<br>|<br>|<br>|</th>
+    <th class="border" style="text-align: left; display: flex;">
+      <app-all-languages (selectedLanguageChange)="loadDefault({languageId:$event?.id})"
+                         [(selectedLanguage)]="languageFrom"
+                         [label]="'From'"></app-all-languages>
+      <app-all-languages (selectedLanguageChange)="loadDefault({languageId:$event?.id})"
+                         [(selectedLanguage)]="languageTo"
+                         [label]="'To'"></app-all-languages>
+      <input (ngModelChange)="loadDefault({word:$event})" [(ngModel)]="wordSearch"
+             style="height: 16px; margin-left: 8px; margin-top: 30px;" type="text"/>
+    </th>
+    <th class="border">|<br>|<br>|<br>|</th>
+    <th><a (click)="resetFilter()" class="text-red-dull">[ x ]</a></th>
+    <th class="border">|<br>|<br>|<br>|</th>
+  </tr>
+  <tr>
+    <th class="border">+</th>
+    <th app-horizontal-dash class="border" colspan="3"></th>
+    <th class="border">+</th>
+  </tr>
+  </tbody>
+</table>
+<table class="table-content">
+  <colgroup>
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 15%;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: max-content;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: max-content;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: auto;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 65px;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody class="table-content">
+  <tr *ngFor="let word of words.data" class="table-content">
+    <th class="border">|</th>
+    <th [ngClass]="word.forgotten?'text-grey-dull':'text-grey'" style="text-align: left;">
+      {{word.partOfSpeech?.abbreviation}} <i>{{word.language?.displayName}}</i></th>
+    <th class="border">|</th>
+    <th [ngClass]="word.forgotten?'text-grey':'text-white'">{{word.word}}</th>
+    <th class="border">|</th>
+    <ng-container *ngIf="!word.forgotten">
+      <th><span class="text-red-dull">{{word.word}}</span> (<a class="text-yellow-dull">{{word.word}}</a>)</th>
+      <th class="border">|</th>
+      <th class="border" style="text-align: left;">
+        {{word.partOfSpeech?.abbreviation}} <i>{{word.language?.displayName}}</i></th>
+    </ng-container>
+    <ng-container *ngIf="word.forgotten">
+      <th class="border" colspan="3"></th>
+    </ng-container>
+    <th class="border">|</th>
+    <th class="border">
+      <a *ngIf="word.forgotten" class="text-green-dull" (click)="forget(word)">unforget</a>
+      <a *ngIf="!word.forgotten" class="text-yellow-dull" (click)="forget(word)">forget</a>
+    </th>
+    <th class="border">|</th>
+  </tr>
+  </tbody>
+</table>
+<app-list-paginator (load)="load($event)" [page]="words.page?words.page:0"
+                    [size]="pageSize"
+                    [totalPages]="words.totalPages?words.totalPages:0"
+                    [total]="words.total?words.total:0"></app-list-paginator>

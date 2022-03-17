@@ -52,6 +52,7 @@ import { NonPulmonicConsonantsComponent } from './pages/languages/language-phone
 import { PosDetailsComponent } from './pages/languages/language-pos/pos-details/pos-details.component';
 import { WordAddLineComponent } from './pages/words/word-add-line/word-add-line.component';
 import { ListPaginatorComponent } from './components/list/list-paginator/list-paginator.component';
+import { ListEvolutionComponent } from './pages/evolution/list-evolution/list-evolution.component';
 
 
 @NgModule({
@@ -99,6 +100,7 @@ import { ListPaginatorComponent } from './components/list/list-paginator/list-pa
     PosDetailsComponent,
     WordAddLineComponent,
     ListPaginatorComponent,
+    ListEvolutionComponent,
   ],
   imports: [
     BrowserModule,
