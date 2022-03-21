@@ -12,8 +12,10 @@ import { map, filter } from 'rxjs/operators';
 import { Language } from '../models/language';
 import { LanguageConnection } from '../models/language-connection';
 import { LanguageConnectionTypeModel } from '../models/language-connection-type-model';
+import { PageResultWordWithEvolution } from '../models/page-result-word-with-evolution';
 import { SoundChange } from '../models/sound-change';
 import { WordTraceResult } from '../models/word-trace-result';
+import { WordWithEvolutionsListFilter } from '../models/word-with-evolutions-list-filter';
 
 
 /**
@@ -762,6 +764,60 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.trace$Response(params).pipe(
       map((r: StrictHttpResponse<Array<WordTraceResult>>) => r.body as Array<WordTraceResult>)
+    );
+  }
+
+  /**
+   * Path part for operation getAllWordsWithEvolutions
+   */
+  static readonly GetAllWordsWithEvolutionsPath = '/api/evolve/words';
+
+  /**
+   * Get all words with evolutions.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllWordsWithEvolutions()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllWordsWithEvolutions$Response(params: {
+    filter: WordWithEvolutionsListFilter;
+  }): Observable<StrictHttpResponse<PageResultWordWithEvolution>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetAllWordsWithEvolutionsPath, 'get');
+    if (params) {
+      rb.query('filter', params.filter, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<PageResultWordWithEvolution>;
+      })
+    );
+  }
+
+  /**
+   * Get all words with evolutions.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getAllWordsWithEvolutions$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllWordsWithEvolutions(params: {
+    filter: WordWithEvolutionsListFilter;
+  }): Observable<PageResultWordWithEvolution> {
+
+    return this.getAllWordsWithEvolutions$Response(params).pipe(
+      map((r: StrictHttpResponse<PageResultWordWithEvolution>) => r.body as PageResultWordWithEvolution)
     );
   }
 

@@ -10,10 +10,10 @@
   <tr>
     <th class="border">|<br>|<br>|<br>|</th>
     <th class="border" style="text-align: left; display: flex;">
-      <app-all-languages (selectedLanguageChange)="loadDefault({languageId:$event?.id})"
+      <app-all-languages (selectedLanguageChange)="loadDefault({languageFromId:$event?.id})"
                          [(selectedLanguage)]="languageFrom"
                          [label]="'From'"></app-all-languages>
-      <app-all-languages (selectedLanguageChange)="loadDefault({languageId:$event?.id})"
+      <app-all-languages (selectedLanguageChange)="loadDefault({languageToId:$event?.id})"
                          [(selectedLanguage)]="languageTo"
                          [label]="'To'"></app-all-languages>
       <input (ngModelChange)="loadDefault({word:$event})" [(ngModel)]="wordSearch"
@@ -45,26 +45,38 @@
     <col class="border" span="1" style="width: 8px;">
   </colgroup>
   <tbody class="table-content">
-  <tr *ngFor="let word of words.data" class="table-content">
+  <tr *ngFor="let wordWithEvolution of words.data" class="table-content">
     <th class="border">|</th>
-    <th [ngClass]="word.forgotten?'text-grey-dull':'text-grey'" style="text-align: left;">
-      {{word.partOfSpeech?.abbreviation}} <i>{{word.language?.displayName}}</i></th>
+    <th [ngClass]="wordWithEvolution?.word?.forgotten?'text-grey-dull':'text-grey'" style="text-align: left;">
+      {{wordWithEvolution.word?.partOfSpeech?.abbreviation}} <i>{{wordWithEvolution.word?.language?.displayName}}</i>
+    </th>
     <th class="border">|</th>
-    <th [ngClass]="word.forgotten?'text-grey':'text-white'">{{word.word}}</th>
+    <th [ngClass]="wordWithEvolution?.word?.forgotten?'text-grey':'text-white'">{{wordWithEvolution.word?.word}}</th>
     <th class="border">|</th>
-    <ng-container *ngIf="!word.forgotten">
-      <th><span class="text-red-dull">{{word.word}}</span> (<a class="text-yellow-dull">{{word.word}}</a>)</th>
+    <ng-container *ngIf="!wordWithEvolution?.word?.forgotten">
+      <th>
+        <span
+          *ngIf="!!wordWithEvolution.calculatedEvolution && wordWithEvolution.calculatedEvolution === wordWithEvolution.wordEvolved?.word"
+          class="text-green-dull">{{wordWithEvolution.calculatedEvolution}}</span>
+        <span
+          *ngIf="!!wordWithEvolution.wordEvolved?.word && wordWithEvolution.calculatedEvolution != wordWithEvolution.wordEvolved?.word"><span
+          class="text-red-dull">{{wordWithEvolution.wordEvolved?.word}}</span> (<a
+          class="text-yellow-dull">{{wordWithEvolution.calculatedEvolution}}</a>)</span>
+        <span *ngIf="!wordWithEvolution.wordEvolved?.word"><a
+          class="text-yellow-dull">{{wordWithEvolution.calculatedEvolution}}</a></span>
+      </th>
       <th class="border">|</th>
       <th class="border" style="text-align: left;">
-        {{word.partOfSpeech?.abbreviation}} <i>{{word.language?.displayName}}</i></th>
+        {{wordWithEvolution.wordEvolved?.partOfSpeech?.abbreviation}}
+        <i>{{wordWithEvolution.languageConnection?.langTo?.displayName}}</i></th>
     </ng-container>
-    <ng-container *ngIf="word.forgotten">
+    <ng-container *ngIf="wordWithEvolution?.word?.forgotten">
       <th class="border" colspan="3"></th>
     </ng-container>
     <th class="border">|</th>
     <th class="border">
-      <a *ngIf="word.forgotten" class="text-green-dull" (click)="forget(word)">unforget</a>
-      <a *ngIf="!word.forgotten" class="text-yellow-dull" (click)="forget(word)">forget</a>
+      <a (click)="forget(wordWithEvolution.word)" *ngIf="wordWithEvolution?.word?.forgotten" class="text-green-dull">unforget</a>
+      <a (click)="forget(wordWithEvolution.word)" *ngIf="!wordWithEvolution?.word?.forgotten" class="text-yellow-dull">forget</a>
     </th>
     <th class="border">|</th>
   </tr>
