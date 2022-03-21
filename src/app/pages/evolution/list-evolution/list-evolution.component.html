@@ -51,7 +51,7 @@
       {{wordWithEvolution.word?.partOfSpeech?.abbreviation}} <i>{{wordWithEvolution.word?.language?.displayName}}</i>
     </th>
     <th class="border">|</th>
-    <th [ngClass]="wordWithEvolution?.word?.forgotten?'text-grey':'text-white'">{{wordWithEvolution.word?.word}}</th>
+    <th><a [routerLink]="['/words', wordWithEvolution.word?.word]" class="link-btn" [ngClass]="wordWithEvolution?.word?.forgotten?'text-grey':'text-main'">{{wordWithEvolution.word?.word}}</a></th>
     <th class="border">|</th>
     <ng-container *ngIf="!wordWithEvolution?.word?.forgotten">
       <th>
