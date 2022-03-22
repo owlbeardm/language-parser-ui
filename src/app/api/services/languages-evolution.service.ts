@@ -14,7 +14,9 @@ import { LanguageConnection } from '../models/language-connection';
 import { LanguageConnectionTypeModel } from '../models/language-connection-type-model';
 import { PageResultWordWithEvolution } from '../models/page-result-word-with-evolution';
 import { SoundChange } from '../models/sound-change';
+import { WordToEvolve } from '../models/word-to-evolve';
 import { WordTraceResult } from '../models/word-trace-result';
+import { WordWithEvolution } from '../models/word-with-evolution';
 import { WordWithEvolutionsListFilter } from '../models/word-with-evolutions-list-filter';
 
 
@@ -818,6 +820,114 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.getAllWordsWithEvolutions$Response(params).pipe(
       map((r: StrictHttpResponse<PageResultWordWithEvolution>) => r.body as PageResultWordWithEvolution)
+    );
+  }
+
+  /**
+   * Path part for operation addEvolvedWord
+   */
+  static readonly AddEvolvedWordPath = '/api/evolve/words/evolve';
+
+  /**
+   * Evolve word.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addEvolvedWord()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addEvolvedWord$Response(params: {
+    body: WordToEvolve
+  }): Observable<StrictHttpResponse<WordWithEvolution>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.AddEvolvedWordPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<WordWithEvolution>;
+      })
+    );
+  }
+
+  /**
+   * Evolve word.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addEvolvedWord$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addEvolvedWord(params: {
+    body: WordToEvolve
+  }): Observable<WordWithEvolution> {
+
+    return this.addEvolvedWord$Response(params).pipe(
+      map((r: StrictHttpResponse<WordWithEvolution>) => r.body as WordWithEvolution)
+    );
+  }
+
+  /**
+   * Path part for operation addEvolvedWord1
+   */
+  static readonly AddEvolvedWord1Path = '/api/evolve/words/evolve/all';
+
+  /**
+   * Evolve all words.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addEvolvedWord1()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addEvolvedWord1$Response(params: {
+    body: Array<WordToEvolve>
+  }): Observable<StrictHttpResponse<Array<WordWithEvolution>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.AddEvolvedWord1Path, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<WordWithEvolution>>;
+      })
+    );
+  }
+
+  /**
+   * Evolve all words.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addEvolvedWord1$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addEvolvedWord1(params: {
+    body: Array<WordToEvolve>
+  }): Observable<Array<WordWithEvolution>> {
+
+    return this.addEvolvedWord1$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<WordWithEvolution>>) => r.body as Array<WordWithEvolution>)
     );
   }
 

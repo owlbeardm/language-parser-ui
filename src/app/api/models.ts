@@ -13,6 +13,7 @@ export { SortDirection } from './models/sort-direction';
 export { SoundChange } from './models/sound-change';
 export { Word } from './models/word';
 export { WordListFilter } from './models/word-list-filter';
+export { WordToEvolve } from './models/word-to-evolve';
 export { WordTraceResult } from './models/word-trace-result';
 export { WordWithEvolution } from './models/word-with-evolution';
 export { WordWithEvolutionsListFilter } from './models/word-with-evolutions-list-filter';

@@ -51,7 +51,10 @@
       {{wordWithEvolution.word?.partOfSpeech?.abbreviation}} <i>{{wordWithEvolution.word?.language?.displayName}}</i>
     </th>
     <th class="border">|</th>
-    <th><a [routerLink]="['/words', wordWithEvolution.word?.word]" class="link-btn" [ngClass]="wordWithEvolution?.word?.forgotten?'text-grey':'text-main'">{{wordWithEvolution.word?.word}}</a></th>
+    <th><a [ngClass]="wordWithEvolution?.word?.forgotten?'text-grey':'text-main'"
+           [routerLink]="['/words', wordWithEvolution.word?.word]"
+           class="link-btn">{{wordWithEvolution.word?.word}}</a>
+    </th>
     <th class="border">|</th>
     <ng-container *ngIf="!wordWithEvolution?.word?.forgotten">
       <th>
@@ -61,9 +64,10 @@
         <span
           *ngIf="!!wordWithEvolution.wordEvolved?.word && wordWithEvolution.calculatedEvolution != wordWithEvolution.wordEvolved?.word"><span
           class="text-red-dull">{{wordWithEvolution.wordEvolved?.word}}</span> (<a
+          (click)="evolveSingleWord(wordWithEvolution)"
           class="text-yellow-dull">{{wordWithEvolution.calculatedEvolution}}</a>)</span>
-        <span *ngIf="!wordWithEvolution.wordEvolved?.word"><a
-          class="text-yellow-dull">{{wordWithEvolution.calculatedEvolution}}</a></span>
+        <span *ngIf="!wordWithEvolution.wordEvolved?.word"><a (click)="evolveSingleWord(wordWithEvolution)"
+                                                              class="text-yellow-dull">{{wordWithEvolution.calculatedEvolution}}</a></span>
       </th>
       <th class="border">|</th>
       <th class="border" style="text-align: left;">

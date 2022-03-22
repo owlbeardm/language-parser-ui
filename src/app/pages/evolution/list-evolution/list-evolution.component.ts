@@ -6,6 +6,8 @@ import {Word} from '../../../api/models/word';
 import {LanguagesEvolutionService} from '../../../api/services/languages-evolution.service';
 import {WordWithEvolutionsListFilter} from '../../../api/models/word-with-evolutions-list-filter';
 import {PageResultWordWithEvolution} from '../../../api/models/page-result-word-with-evolution';
+import {WordWithEvolution} from '../../../api/models/word-with-evolution';
+import {WordToEvolve} from '../../../api/models';
 
 @Component({
   selector: 'app-list-evolution',
@@ -58,5 +60,19 @@ export class ListEvolutionComponent implements OnInit {
     if (word) {
       word.forgotten = !word.forgotten;
     }
+  }
+
+  evolveSingleWord(wordWithEvolution: WordWithEvolution): void {
+    const body: WordToEvolve = {
+      languageConnection: wordWithEvolution.languageConnection,
+      word: wordWithEvolution.word
+    };
+    this.languagesEvolutionService.addEvolvedWord({body}).subscribe((newWordWithEvolution) => {
+      wordWithEvolution.word = newWordWithEvolution.word;
+      wordWithEvolution.wordEvolved = newWordWithEvolution.wordEvolved;
+      wordWithEvolution.calculatedEvolution = newWordWithEvolution.calculatedEvolution;
+      wordWithEvolution.wordEvolvedType = newWordWithEvolution.wordEvolvedType;
+      wordWithEvolution.languageConnection = newWordWithEvolution.languageConnection;
+    });
   }
 }
