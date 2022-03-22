@@ -17,7 +17,13 @@
                          [(selectedLanguage)]="languageTo"
                          [label]="'To'"></app-all-languages>
       <input (ngModelChange)="loadDefault({word:$event})" [(ngModel)]="wordSearch"
-             style="height: 16px; margin-left: 8px; margin-top: 30px;" type="text"/>
+             style="height: 16px; margin-left: 8px; margin-top: 30px; margin-right: 0px;" type="text"/>
+      <a (click)="filterWithoutForgotten()"
+         [ngClass]="withoutForgotten?'text-green-dull':'text-grey-dull'" style="height: 16px; margin-left: 16px; margin-top: 34px;">[ <span
+        [ngClass]="withoutForgotten?'text-green':'text-grey'">W</span>ithout Forgotten ]</a>
+      <a (click)="filterOnlyUnevolved()"
+         [ngClass]="onlyUnevolved?'text-green-dull':'text-grey-dull'" style="height: 16px; margin-left: 16px; margin-top: 34px;">[ <span
+        [ngClass]="onlyUnevolved?'text-green':'text-grey'">O</span>nly Unevolved ]</a>
     </th>
     <th class="border">|<br>|<br>|<br>|</th>
     <th><a (click)="resetFilter()" class="text-red-dull">[ x ]</a></th>
@@ -86,7 +92,29 @@
   </tr>
   </tbody>
 </table>
-<app-list-paginator (load)="load($event)" [page]="words.page?words.page:0"
+<app-list-paginator (load)="loadDefault($event)" [page]="words.page?words.page:0"
                     [size]="pageSize"
                     [totalPages]="words.totalPages?words.totalPages:0"
                     [total]="words.total?words.total:0"></app-list-paginator>
+<table>
+  <colgroup>
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: auto;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody>
+  <tr>
+    <th class="border">|<br>|</th>
+    <th class="border">
+      <a class="text-green-dull" (click)="evolvePage()">[ Evolve Page ]</a>
+      <a class="text-green-dull" style="margin-left: 16px;">[ Evolve All Words ]</a>
+    </th>
+    <th class="border">|<br>|</th>
+  </tr>
+  <tr>
+    <th class="border">+</th>
+    <th app-horizontal-dash class="border"></th>
+    <th class="border">+</th>
+  </tr>
+  </tbody>
+</table>

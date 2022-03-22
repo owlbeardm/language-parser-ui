@@ -2,6 +2,11 @@
 /* eslint-disable */
 import { SortDirection } from './sort-direction';
 export interface WordWithEvolutionsListFilter {
+
+  /**
+   * The word from to search for
+   */
+  canBeForgotten?: boolean;
   dir?: SortDirection;
 
   /**
