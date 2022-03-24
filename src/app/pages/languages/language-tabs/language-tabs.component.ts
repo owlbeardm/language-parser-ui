@@ -20,9 +20,13 @@ export class LanguageTabsComponent implements OnInit {
     enabled: true,
     shortName: '[pʰ]'
   }, {
+    name: 'Phonotactics',
+    enabled: true,
+    shortName: 'CV(C)'
+  }, {
     name: 'Parts of Speech',
     enabled: false,
-    shortName: 'POS'
+    shortName: 'PoS'
   }, {
     name: 'Laws',
     enabled: false
