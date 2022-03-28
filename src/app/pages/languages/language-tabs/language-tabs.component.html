@@ -47,12 +47,15 @@
       <tbody>
       <tr>
         <td [attr.colspan]="(tabs.length+1)*2+(!removeBorder?1:0)" class="break-word text-grey">
-          <app-language-description *ngIf="selectedIndex == 0"
-                                    [selectedLanguage]="selectedLanguage" (onDeleteLanguage)="onDeleteLanguage.emit($event)"></app-language-description>
-          <app-language-phonetics *ngIf="selectedIndex == 1" [selectedLanguage]="selectedLanguage"></app-language-phonetics>
+          <!-- TODO: Make selected index automatic-->
+          <app-language-description (onDeleteLanguage)="onDeleteLanguage.emit($event)"
+                                    *ngIf="selectedIndex == 0"
+                                    [selectedLanguage]="selectedLanguage"></app-language-description>
+          <app-language-phonetics *ngIf="selectedIndex == 1"
+                                  [selectedLanguage]="selectedLanguage"></app-language-phonetics>
           <app-clusters *ngIf="selectedIndex == 2" [selectedLanguage]="selectedLanguage"></app-clusters>
           <app-language-pos *ngIf="selectedIndex == 3" [selectedLanguage]="selectedLanguage"></app-language-pos>
-          <app-laws *ngIf="selectedIndex == 4"></app-laws>
+          <!--          <app-laws *ngIf="selectedIndex == 4"></app-laws>-->
         </td>
       </tr>
       </tbody>
