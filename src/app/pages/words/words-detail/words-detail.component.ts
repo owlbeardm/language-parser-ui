@@ -1,48 +1,43 @@
-import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-//TODO: add new api
-// import { ApiService } from 'src/app/api/services';
-import { LangService } from 'src/app/services/lang.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {WordsService} from '../../../api/services/words.service';
+import {DetailedWord} from '../../../api/models/detailed-word';
+import {Language} from '../../../api/models/language';
 
 @Component({
   selector: 'app-words',
   templateUrl: './words-detail.component.html',
   styleUrls: ['./words-detail.component.css']
 })
-export class WordsDetailComponent {
+export class WordsDetailComponent implements OnInit {
 
-  words: any;
-  word: string;
-  loadingWords: Boolean;
+  detailedWords = new Map<Language, DetailedWord[]>();
+  languages: Language[] = [];
 
-  constructor(
-    // private apiService: ApiService,
-    _langService: LangService,
-    private route: ActivatedRoute,
-    _router: Router) {
-    // this.apiService = apiService;
-    this.words = [];
-    this.word = "";
-    this.loadingWords = true;
+  constructor(private wordService: WordsService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.word = String(this.route.snapshot.paramMap.get('word'));
+    const word = this.route.snapshot.paramMap.get('word');
+    if (word) {
+      this.wordService.getDetailedWordsByPhonetics({word}).subscribe(data => {
+        console.log(data);
+        const emptyLang: Language = {displayName: ''};
+        this.languages = data.filter(dw => dw.word?.language).map(dw => dw.word?.language ? dw.word.language : emptyLang);
+        data.forEach(dw => {
+            if (dw.word?.language) {
+              const array = this.detailedWords.get(dw.word.language);
+              if (!array) {
+                this.detailedWords.set(dw.word.language, [dw]);
+              } else {
+                array.push(dw);
+              }
+            }
+          }
+        );
+      });
+    }
   }
 
-  changeLang(): void {
-    // super.changeLang(this.selectedLanguage);
-  }
 
-  refreshAll(): void {
-    this.loadingWords = true;
-    // const param: ApiService.GetApiWordsWordParams = { word: this.word };
-    // if (this.selectedLanguage) {
-    //   param["lang"] = this.selectedLanguage;
-    // }
-    // this.apiService.getApiWordsWord(param).subscribe((words:any) => {
-    //   this.words = words;
-    //   this.loadingWords = false;
-    // });
-  }
 }

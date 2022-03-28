@@ -20,14 +20,15 @@
         </select>
       </span>
       <span style="margin-left: 8px;">
-        <select (ngModelChange)="loadDefault({posId:$event?.id})" [(ngModel)]="pos" class="posSelector" id="posSelector">
+        <select (ngModelChange)="loadDefault({posId:$event?.id})" [(ngModel)]="pos" class="posSelector"
+                id="posSelector">
           <option [ngValue]="undefined">Any part of speech</option>
           <option *ngFor="let p of poses" [ngValue]="p">{{ p.name }}</option>
         </select>
       </span>
     </th>
     <th class="border">|<br>|</th>
-    <th><a class="text-red-dull" (click)="resetFilter()">[ x ]</a></th>
+    <th><a (click)="resetFilter()" class="text-red-dull">[ x ]</a></th>
     <th class="border">|<br>|</th>
   </tr>
   <tr>
@@ -54,11 +55,13 @@
   <tbody class="table-content">
   <tr *ngFor="let word of words.data" class="table-content">
     <th class="border">|</th>
-    <th><a [routerLink]="['/words', word.word]" class="text-main link-btn">{{word.word}}</a></th>
+    <th><a [fragment]="word.language.displayName" [routerLink]="['/words/word', word.word]"
+           class="text-main link-btn">{{word.word}}</a></th>
     <th class="border">|</th>
     <th class="border">{{word.partOfSpeech?.abbreviation}}</th>
     <th class="border">|</th>
-    <th class="border" style="text-align: left;"><span style="margin-left: 16px;">{{word.language?.displayName}}</span></th>
+    <th class="border" style="text-align: left;"><span style="margin-left: 16px;">{{word.language?.displayName}}</span>
+    </th>
     <th class="border">|</th>
     <!--    <th class="border">{{word.forgotten ? "unforget" : "forget"}}</th>-->
     <!--    <th class="border">|</th>-->

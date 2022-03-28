@@ -1,3 +1,5 @@
+export { DetailedWord } from './models/detailed-word';
+export { Etymology } from './models/etymology';
 export { Language } from './models/language';
 export { LanguageConnection } from './models/language-connection';
 export { LanguageConnectionType } from './models/language-connection-type';
@@ -18,3 +20,4 @@ export { WordTraceResult } from './models/word-trace-result';
 export { WordWithEvolution } from './models/word-with-evolution';
 export { WordWithEvolutionsListFilter } from './models/word-with-evolutions-list-filter';
 export { WordWithTranslations } from './models/word-with-translations';
+export { WordWithWritten } from './models/word-with-written';

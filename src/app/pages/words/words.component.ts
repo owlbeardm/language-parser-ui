@@ -18,7 +18,7 @@ export class WordsComponent extends AbstractHasLanguageComponent {
     enabled: true
   }, {
     name: 'Details',
-    route: ':word',
+    route: 'word/:word',
     enabled: false
   }];
 

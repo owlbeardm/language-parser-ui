@@ -222,6 +222,16 @@ a>.text-grey-dull:hover {
   color: #B5B5B5;
 }
 
+a.text-blue-dull:hover,
+a>.text-blue-dull:hover {
+  color: #719ed4;
+}
+
+a.text-white:hover,
+a>.text-white:hover {
+  color: #ffffff;
+}
+
 .text-red-dull {
   color: #bf2020;
 }

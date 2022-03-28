@@ -9,6 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { DetailedWord } from '../models/detailed-word';
 import { PageResultWord } from '../models/page-result-word';
 import { PageResultWordWithTranslations } from '../models/page-result-word-with-translations';
 import { Word } from '../models/word';
@@ -350,6 +351,60 @@ export class WordsService extends BaseService {
 
     return this.canDeleteWord$Response(params).pipe(
       map((r: StrictHttpResponse<boolean>) => r.body as boolean)
+    );
+  }
+
+  /**
+   * Path part for operation getDetailedWordsByPhonetics
+   */
+  static readonly GetDetailedWordsByPhoneticsPath = '/api/words/{word}';
+
+  /**
+   * Get detailed words by phonetics.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getDetailedWordsByPhonetics()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getDetailedWordsByPhonetics$Response(params: {
+    word: string;
+  }): Observable<StrictHttpResponse<Array<DetailedWord>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, WordsService.GetDetailedWordsByPhoneticsPath, 'post');
+    if (params) {
+      rb.path('word', params.word, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<DetailedWord>>;
+      })
+    );
+  }
+
+  /**
+   * Get detailed words by phonetics.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getDetailedWordsByPhonetics$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getDetailedWordsByPhonetics(params: {
+    word: string;
+  }): Observable<Array<DetailedWord>> {
+
+    return this.getDetailedWordsByPhonetics$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<DetailedWord>>) => r.body as Array<DetailedWord>)
     );
   }
 

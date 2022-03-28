@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {LawsComponent} from './pages/evolution/laws/laws.component';
 import {ClustersComponent} from './pages/languages/clusters/clusters.component';
 import {LanguagesComponent} from './pages/languages/languages.component';
@@ -13,6 +13,11 @@ import {LanguageConnectionsComponent} from './pages/evolution/language-connectio
 import {LanguageDescriptionComponent} from './pages/languages/language-description/language-description.component';
 import {ListEvolutionComponent} from './pages/evolution/list-evolution/list-evolution.component';
 
+const routerOptions: ExtraOptions = {
+  scrollPositionRestoration: 'enabled',
+  anchorScrolling: 'enabled',
+  // scrollOffset: [0, 64],
+};
 const routes: Routes = [
   {path: 'trace', component: TraceComponent},
   {
@@ -20,7 +25,7 @@ const routes: Routes = [
     children: [
       {path: 'list', component: WordsListComponent},
       {path: 'translations', component: TranslationsComponent},
-      {path: ':word', component: WordsDetailComponent}]
+      {path: 'word/:word', component: WordsDetailComponent}]
   },
   {
     path: 'evolutions', component: EvolutionComponent,
@@ -38,7 +43,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
