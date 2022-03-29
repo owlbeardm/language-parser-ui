@@ -62,214 +62,78 @@
       <th app-horizontal-dash class="border"></th>
       <th class="border">+</th>
     </tr>
+    <tr>
+      <th class="border">|</th>
+      <th class="border"><span style="text-transform: capitalize;">{{wwd.word?.partOfSpeech?.name}}</span></th>
+      <th class="border">|</th>
+    </tr>
+    <tr>
+      <th class="border">+</th>
+      <th app-horizontal-dash class="border"></th>
+      <th class="border">+</th>
+    </tr>
+    <tr>
+      <th class="border">|</th>
+      <th class="border"><span style="text-transform: capitalize;">Translations</span></th>
+      <th class="border">|</th>
+    </tr>
+    <tr>
+      <th class="border">+</th>
+      <th app-horizontal-dash class="border"></th>
+      <th class="border">+</th>
+    </tr>
+    <tr>
+      <th app-vertical-dash class="border"></th>
+      <th style="text-align: left;">
+        <div class="cell-content">
+          <ol>
+            <li *ngFor="let translation of wwd.translations"><a class="text-blue-dull">{{translation}}</a></li>
+          </ol>
+        </div>
+      </th>
+      <th app-vertical-dash class="border"></th>
+    </tr>
+    <tr>
+      <th class="border">+</th>
+      <th app-horizontal-dash class="border"></th>
+      <th class="border">+</th>
+    </tr>
+    <tr>
+      <th class="border">|</th>
+      <th class="border"><span style="text-transform: capitalize;">Dirived</span></th>
+      <th class="border">|</th>
+    </tr>
+    <tr>
+      <th class="border">+</th>
+      <th app-horizontal-dash class="border"></th>
+      <th class="border">+</th>
+    </tr>
+    <tr>
+      <th class="border">|</th>
+      <th class="border"><span style="text-transform: capitalize;">Descendants</span></th>
+      <th class="border">|</th>
+    </tr>
+    <tr>
+      <th class="border">+</th>
+      <th app-horizontal-dash class="border"></th>
+      <th class="border">+</th>
+    </tr>
+    <tr>
+      <th app-vertical-dash class="border"></th>
+      <th style="text-align: left;">
+        <div class="cell-content">
+          <ul>
+            <li *ngFor="let desc of wwd.descendants">{{desc.language?.displayName}}: <a>{{desc.word}} <span class="text-grey">({{desc.writtenWord}})</span></a>.</li>
+          </ul>
+        </div>
+      </th>
+      <th app-vertical-dash class="border"></th>
+    </tr>
+    <tr>
+      <th class="border">+</th>
+      <th app-horizontal-dash class="border"></th>
+      <th class="border">+</th>
+    </tr>
   </ng-container>
-  </tbody>
-</table>
-
-<p>asdsad</p>
-
-<table>
-  <colgroup>
-    <col class="border" span="1" style="width: 8px;">
-    <col span="1" style="width: auto;">
-    <col class="border" span="1" style="width: 8px;">
-  </colgroup>
-  <tbody>
-  <tr>
-    <th class="border">|</th>
-    <th class="border"><span style="text-transform: capitalize;">Verb</span></th>
-    <th class="border">|</th>
-  </tr>
-  <tr>
-    <th class="border">+</th>
-    <th app-horizontal-dash class="border"></th>
-    <th class="border">+</th>
-  </tr>
-  <tr>
-    <th class="border">|</th>
-    <th class="border"><span style="text-transform: capitalize;">Translations</span></th>
-    <th class="border">|</th>
-  </tr>
-  <tr>
-    <th class="border">+</th>
-    <th app-horizontal-dash class="border"></th>
-    <th class="border">+</th>
-  </tr>
-  <tr>
-    <th app-vertical-dash class="border"></th>
-    <th style="text-align: left;">
-      <div class="cell-content">
-        <ol>
-          <li>to <a class="text-blue-dull">sound</a></li>
-          <li>to <a class="text-blue-dull">speak</a></li>
-          <li><a class="text-blue-dull">roar</a></li>
-          <li><a class="text-blue-dull">bark</a></li>
-        </ol>
-      </div>
-    </th>
-    <th app-vertical-dash class="border"></th>
-  </tr>
-  <!--  <tr>-->
-  <!--    <th class="border">+</th>-->
-  <!--    <th app-horizontal-dash class="border"></th>-->
-  <!--    <th class="border">+</th>-->
-  <!--  </tr>-->
-  <!--  <tr>-->
-  <!--    <th class="border">|</th>-->
-  <!--    <th class="border"><span style="text-transform: capitalize;">Dirived</span></th>-->
-  <!--    <th class="border">|</th>-->
-  <!--  </tr>-->
-  <!--  <tr>-->
-  <!--    <th class="border">+</th>-->
-  <!--    <th app-horizontal-dash class="border"></th>-->
-  <!--    <th class="border">+</th>-->
-  <!--  </tr>-->
-  <!--  <tr>-->
-  <!--    <th class="border">|</th>-->
-  <!--    <th class="border"><span style="text-transform: capitalize;">Descendants</span></th>-->
-  <!--    <th class="border">|</th>-->
-  <!--  </tr>-->
-  <tr>
-    <th class="border">+</th>
-    <th app-horizontal-dash class="border"></th>
-    <th class="border">+</th>
-  </tr>
-  </tbody>
-  <tbody>
-  <tr>
-    <th class="border">|</th>
-    <th class="text-white"><a [fragment]="'Queran'" [id]="'Queran'" [routerLink]="'.'"
-                              class="text-white link-btn" style="text-transform: uppercase;">Queran</a></th>
-    <th class="border">|</th>
-  </tr>
-  <tr>
-    <th class="border">+</th>
-    <th app-horizontal-dash class="border"></th>
-    <th class="border">+</th>
-  </tr>
-  <tr>
-    <th class="border">|</th>
-    <th class="border" style="text-align: left;"><a [routerLink]="['/words', 'bal']"
-                                                    class="text-green-dull text-line link-btn">bal</a>:
-      <a [routerLink]="['/words', 'bal']" class="text-main link-btn">/ bal /</a></th>
-    <th class="border">|</th>
-  </tr>
-  <tr>
-    <th class="border">+</th>
-    <th app-horizontal-dash class="border"></th>
-    <th class="border">+</th>
-  </tr>
-  <tr>
-    <th class="border">|</th>
-    <th class="border"><span style="text-transform: capitalize;">Etymology</span></th>
-    <th class="border">|</th>
-  </tr>
-  <tr>
-    <th class="border">+</th>
-    <th app-horizontal-dash class="border"></th>
-    <th class="border">+</th>
-  </tr>
-  <tr>
-    <th app-vertical-dash class="border"></th>
-    <th style="text-align: left;">
-      <div class="cell-content text-cell-content">
-        <p>
-          from <a class="text-grey"><i>Proto-Human</i></a> *<a class="text-main">bol</a>,
-          from <a class="text-grey"><i>Titan</i></a> *<a class="text-main">bʰal</a> ("<a
-          class="text-blue-dull">sound</a>, <a class="text-blue-dull">speak</a>").</p>
-        <p>
-          Cognate with <a class="text-grey"><i>Náirlanska </i></a><a class="text-main">bal</a>.
-        </p>
-      </div>
-    </th>
-    <th app-vertical-dash class="border"></th>
-  </tr>
-  <tr>
-    <th class="border">+</th>
-    <th app-horizontal-dash class="border"></th>
-    <th class="border">+</th>
-  </tr>
-  <tr>
-    <th class="border">|</th>
-    <th class="border"><span style="text-transform: capitalize;">Verb</span></th>
-    <th class="border">|</th>
-  </tr>
-  <tr>
-    <th class="border">+</th>
-    <th app-horizontal-dash class="border"></th>
-    <th class="border">+</th>
-  </tr>
-  <tr>
-    <th class="border">|</th>
-    <th class="border"><span style="text-transform: capitalize;">Translations</span></th>
-    <th class="border">|</th>
-  </tr>
-  <tr>
-    <th class="border">+</th>
-    <th app-horizontal-dash class="border"></th>
-    <th class="border">+</th>
-  </tr>
-  <tr>
-    <th app-vertical-dash class="border"></th>
-    <th style="text-align: left;">
-      <div class="cell-content">
-        <ol>
-          <li>to <a class="text-blue-dull">take</a></li>
-          <li>to <a class="text-blue-dull">seize</a></li>
-        </ol>
-      </div>
-    </th>
-    <th app-vertical-dash class="border"></th>
-  </tr>
-  <tr>
-    <th class="border">+</th>
-    <th app-horizontal-dash class="border"></th>
-    <th class="border">+</th>
-  </tr>
-  <!--  <tr>-->
-  <!--    <th class="border">|</th>-->
-  <!--    <th class="border"><span style="text-transform: capitalize;">Dirived</span></th>-->
-  <!--    <th class="border">|</th>-->
-  <!--  </tr>-->
-  <!--  <tr>-->
-  <!--    <th class="border">+</th>-->
-  <!--    <th app-horizontal-dash class="border"></th>-->
-  <!--    <th class="border">+</th>-->
-  <!--  </tr>-->
-  <tr>
-    <th class="border">|</th>
-    <th class="border"><span style="text-transform: capitalize;">Descendants</span></th>
-    <th class="border">|</th>
-  </tr>
-  <tr>
-    <th class="border">+</th>
-    <th app-horizontal-dash class="border"></th>
-    <th class="border">+</th>
-  </tr>
-  <tr>
-    <th app-vertical-dash class="border"></th>
-    <th style="text-align: left;">
-      <div class="cell-content">
-        <ul>
-          <li>Ñizoles Empire: <a>βal</a>, <a>βalos</a>.
-            <ul>
-              <li>Ñizoles: <a>bal</a>.</li>
-            </ul>
-          </li>
-          <li>Old Náirlanska: <a>bal</a>.
-            <ul>
-              <li>Náirlanska: <a>bal</a>.</li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </th>
-    <th app-vertical-dash class="border"></th>
-  </tr>
-  <tr>
-    <th class="border">+</th>
-    <th app-horizontal-dash class="border"></th>
-    <th class="border">+</th>
-  </tr>
   </tbody>
 </table>
