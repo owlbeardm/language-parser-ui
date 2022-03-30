@@ -70,7 +70,7 @@
   </tr>
   </tbody>
 </table>
-<app-list-paginator (load)="load($event)" [page]="words.page?words.page:0"
+<app-list-paginator (load)="loadDefault($event)" [page]="words.page?words.page:0"
                     [size]="pageSize"
                     [totalPages]="words.totalPages?words.totalPages:0"
                     [total]="words.total?words.total:0"></app-list-paginator>

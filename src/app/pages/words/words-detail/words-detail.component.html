@@ -4,6 +4,22 @@
     <col span="1" style="width: auto;">
     <col class="border" span="1" style="width: 8px;">
   </colgroup>
+  <tbody>
+  <tr>
+    <th class="border">|</th>
+    <th class="text-grey">
+      <span *ngFor="let lang of detailedWords.keys(); let i = index"><span *ngIf="i>0"> - </span><a [fragment]="lang.displayName" [routerLink]="'.'"
+                                                         class="text-main link-btn">{{lang.displayName}}</a></span>
+
+    </th>
+    <th class="border">|</th>
+  </tr>
+  <tr>
+    <th class="border">+</th>
+    <th app-horizontal-dash class="border"></th>
+    <th class="border">+</th>
+  </tr>
+  </tbody>
   <tbody *ngFor="let lang of detailedWords.keys()">
   <tr>
     <th class="border">|</th>
@@ -26,7 +42,7 @@
   </tr>
   <tr>
     <th class="border">+</th>
-    <th app-horizontal-dash class="border"></th>
+    <th app-horizontal-dash class="border-dull"></th>
     <th class="border">+</th>
   </tr>
   <ng-container *ngFor="let wwd of detailedWords.get(lang); let i = index">
@@ -44,14 +60,22 @@
       <th app-vertical-dash class="border"></th>
       <th style="text-align: left;">
         <div class="cell-content text-cell-content">
-          <p>
-            <span *ngFor="let from of wwd.etymology?.from; let number = index">{{number == 0 ? 'F' : ', f'}}rom <a class="text-grey"><i>{{from.language?.displayName}}</i></a> *<a
-              [routerLink]="['/words', from.word]" class="text-main">{{from.word}}</a>
-              ("<span *ngFor="let transl of from.translations; let trlNumbr = index">{{trlNumbr>0?', ':''}}<a class="text-blue-dull">transl</a></span>")</span>.
-          <p>
-          Cognate with <span *ngFor="let from of wwd.etymology?.cognate; let number = index">{{number == 0 ? '' : ', '}}<a class="text-grey"><i>{{from.language?.displayName}}</i></a> *<a
+          <p *ngIf="wwd.etymology?.from?.length">
+            <span *ngFor="let from of wwd.etymology?.from; let number = index">{{number == 0 ? 'F' : ', f'}}rom <a
+              class="text-grey"><i>{{from.language?.displayName}}</i></a> *<a [fragment]="from.language?.displayName"
+                                                                              [routerLink]="['/words/word', from.word]"
+                                                                              class="text-main link-btn">{{from.word}}</a>
+              <span *ngIf="from.translations?.length">("<span *ngFor="let transl of from.translations; let trlNumbr = index">{{trlNumbr > 0 ? ', ' : ''}}<a
+                class="text-blue-dull">transl</a></span>")</span></span>.
+          </p>
+          <p *ngIf="!wwd.etymology?.from?.length">New word.</p>
+          <p *ngIf="wwd.etymology?.cognate?.length">
+            Cognate with <span
+            *ngFor="let from of wwd.etymology?.cognate; let number = index">{{number == 0 ? '' : ', '}}<a
+            class="text-grey"><i>{{from.language?.displayName}}</i></a> *<a
             [routerLink]="['/words', from.word]" class="text-main">{{from.word}}</a>
-              ("<span *ngFor="let transl of from.translations; let trlNumbr = index">{{trlNumbr>0?', ':''}}<a class="text-blue-dull">transl</a></span>")</span>.
+              <span *ngIf="from.translations?.length">("<span *ngFor="let transl of from.translations; let trlNumbr = index">{{trlNumbr > 0 ? ', ' : ''}}<a
+              class="text-blue-dull">transl</a></span>")</span></span>.
           </p>
         </div>
       </th>
@@ -123,7 +147,9 @@
       <th style="text-align: left;">
         <div class="cell-content">
           <ul>
-            <li *ngFor="let desc of wwd.descendants">{{desc.language?.displayName}}: <a>{{desc.word}} <span class="text-grey">({{desc.writtenWord}})</span></a>.</li>
+            <li *ngFor="let desc of wwd.descendants">{{desc.language?.displayName}}: <a>{{desc.word}} <span
+              class="text-grey">({{desc.writtenWord}})</span></a>.
+            </li>
           </ul>
         </div>
       </th>
