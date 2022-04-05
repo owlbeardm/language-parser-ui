@@ -1,0 +1,17 @@
+<app-sound-changes-table *ngIf="!editMode && selectedLanguage && selectedLanguage.id" [soundChanges]="soundChanges" (soundChangesChanges)="soundChangesChanges"></app-sound-changes-table>
+<app-sound-changes-edit *ngIf="editMode && selectedLanguage && selectedLanguage.id" [(soundChangesRaw)]="soundChangesRaw" (soundChangesRawChange)="soundChangesRawChange()"></app-sound-changes-edit>
+<table>
+  <colgroup>
+    <col span="1" style="width: auto;">
+    <col class="border" span="1" style="width: max-content;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody>
+  <tr>
+    <th app-horizontal-dash class="border"></th>
+    <th *ngIf="!editMode" class="border">[ <a class="text-yellow-dull" (click)="editSoundChanges()"><b>E</b>dit</a> ]-</th>
+    <th *ngIf="editMode" class="border">[ <a class="text-green-dull" (click)="saveSoundChanges()"><b>S</b>ave</a>  ]-[<a class="text-red-dull" (click)="cancelSoundChanges()"> x </a>]-</th>
+    <th class="border">+</th>
+  </tr>
+  </tbody>
+</table>

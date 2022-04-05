@@ -1,0 +1,22 @@
+input {
+  width: calc(100% - 20px);
+  border: none;
+}
+
+.sound-change-text {
+  width: 1%;
+  white-space: nowrap;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.sound-change-before {
+  width: 1%;
+  white-space: nowrap;
+  padding-left: 8px;
+  text-align: right;
+}
+
+.sound-change-after {
+  text-align: left;
+}

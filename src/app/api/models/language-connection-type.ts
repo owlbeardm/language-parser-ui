@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 /**
- * The type of contract
+ * The type of language connection
  */
 export enum LanguageConnectionType {
   Evolving = 'EVOLVING',

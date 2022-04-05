@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Language} from '../../../../api/models/language';
+import {Language} from '../../../api/models/language';
 
 @Component({
   selector: 'app-sound-changes-edit',

@@ -27,6 +27,10 @@ export class LanguageTabsComponent implements OnInit {
     name: 'Parts of Speech',
     enabled: false,
     shortName: 'PoS'
+  }, {
+    name: 'Orthography',
+    enabled: false,
+    shortName: 'Aa...'
   }];
   removeBorder = true;
   @Input() selectedLanguage?: Language;

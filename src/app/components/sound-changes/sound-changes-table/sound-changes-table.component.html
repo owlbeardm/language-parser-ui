@@ -1,9 +1,11 @@
 <table>
   <colgroup>
     <col class="border" span="1" style="width: 8px;">
-    <col span="1" style="width: 300px;">
+    <col span="1">
     <col class="border" span="1" style="width: 8px;">
-    <col span="1" style="width: 80px;">
+    <col span="1">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1">
     <col class="border" span="1" style="width: 8px;">
     <col span="1" style="width: auto;">
     <col class="border" span="1" style="width: 8px;">
@@ -13,10 +15,10 @@
     <col class="border" span="1" style="width: 8px;">
   </colgroup>
   <tbody>
-  <tr *ngFor="let sc of soundChanges; index as i" [soundChange]="sc" (soundChangeDeleted)="deleteSoundChange($event)" app-sound-changes-table-row></tr>
+  <tr class="table-content" *ngFor="let sc of soundChanges; index as i" [soundChange]="sc" (soundChangeDeleted)="deleteSoundChange($event)" app-sound-changes-table-row></tr>
   <tr *ngIf="soundChanges.length">
     <th class="border">+</th>
-    <th app-horizontal-dash class="border" colspan="5"></th>
+    <th app-horizontal-dash class="border" colspan="7"></th>
     <th class="border">+</th>
     <th app-horizontal-dash class="border"></th>
     <th class="border">+</th>

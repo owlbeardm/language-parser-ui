@@ -1,26 +1,23 @@
 <th class="border">|</th>
 <ng-container *ngIf="!editMode">
-  <th class="text-white">{{soundChange.soundFrom}}</th>
+  <th class="text-white sound-change-text">{{soundChange.soundFrom}}</th>
   <th class="border">
     <span *ngIf="soundChange.type == 'REPLACE_ALL'">></span>
     <span *ngIf="soundChange.type == 'REPLACE_FIRST'">»</span>
     <span *ngIf="soundChange.type == 'REPLACE_LAST'">«</span>
   </th>
-  <th class="text-white">{{soundChange.soundTo}}</th>
-  <th *ngIf="!soundChange.environmentAfter && !soundChange.environmentBefore"></th>
-  <th *ngIf="!soundChange.environmentAfter && !soundChange.environmentBefore"></th>
-  <th *ngIf="soundChange.environmentAfter || soundChange.environmentBefore" class="border">/</th>
-  <th *ngIf="soundChange.environmentAfter || soundChange.environmentBefore" class="text-white"
-      style="text-align: left; padding-left: 8px;">
-    {{soundChange.environmentBefore}}_{{soundChange.environmentAfter}}
-  </th>
+  <th class="text-white sound-change-text">{{soundChange.soundTo}}</th>
+  <th class="border">{{soundChange.environmentAfter || soundChange.environmentBefore ? '/' : ''}}</th>
+  <th class="text-white sound-change-before">{{soundChange.environmentBefore}}</th>
+  <th class="border">{{soundChange.environmentAfter || soundChange.environmentBefore ? '_' : ''}}</th>
+  <th class="text-white sound-change-after">{{soundChange.environmentAfter}}</th>
   <th class="border">|</th>
   <th class="border"><a (click)="editSoundChange()" class="text-yellow-dull">e</a></th>
   <th class="border">|</th>
   <th class="border"><a (click)="deleteSoundChanges()" class="text-red-dull">x</a></th>
 </ng-container>
 <ng-container *ngIf="editMode">
-  <th colspan="5">
+  <th colspan="7">
     <input [(ngModel)]="soundChangeRaw"/>
   </th>
   <th class="border">|</th>

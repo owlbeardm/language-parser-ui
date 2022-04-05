@@ -18,7 +18,7 @@ export class ListEvolutionComponent implements OnInit {
   languageFrom: Language | undefined;
   languageTo: Language | undefined;
   wordSearch: string | undefined;
-  pageSize = 30;
+  pageSize = 250;
   withoutForgotten = true;
   onlyUnevolved = false;
 

@@ -1,35 +1,30 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, SimpleChanges} from '@angular/core';
 import {LanguagesEvolutionService} from '../../../api/services/languages-evolution.service';
 import {Language} from '../../../api/models/language';
 import {SoundChange} from '../../../api/models/sound-change';
 import {LanguageConnectionType} from '../../../api/models/language-connection-type';
 import {LanguageConnection} from '../../../api/models/language-connection';
+import {AbstractSoundChanges} from '../../../components/sound-changes/sound-chages-abstract.component.spec';
+import {SoundChangePurpose} from '../../../api/models/sound-change-purpose';
 
 @Component({
   selector: 'app-language-connections',
   templateUrl: './language-connections.component.html',
   styleUrls: ['./language-connections.component.css']
 })
-export class LanguageConnectionsComponent implements OnInit, OnChanges {
+export class LanguageConnectionsComponent extends AbstractSoundChanges {
 
-  editMode = false;
-  soundChangesRaw = '';
-  soundChanges: SoundChange[] = [];
   languageFrom?: Language;
   languageTo?: Language;
   connectionType?: LanguageConnectionType;
 
 
   constructor(private languagesEvolutionService: LanguagesEvolutionService) {
-  }
-
-  ngOnInit(): void {
-    this.refresh();
+    super(SoundChangePurpose.SoundChange);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('on changes', changes.languageFrom);
-    // this.refresh();
+
   }
 
   editSoundChanges(): void {
@@ -37,7 +32,8 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
     if (this.languageFrom && this.languageTo && this.languageFrom.id && this.languageTo.id) {
       this.languagesEvolutionService.getSoundChangesRawLinesByLangs({
         fromLangId: this.languageFrom.id,
-        toLangId: this.languageTo.id
+        toLangId: this.languageTo.id,
+        soundChangePurpose: this.soundChangePurpose
       }).subscribe(
         (data: string) => {
           this.soundChangesRaw = data;
@@ -53,7 +49,8 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
       this.languagesEvolutionService.saveSoundChangesRawLinesByLangs({
         fromLangId: this.languageFrom.id,
         toLangId: this.languageTo.id,
-        body: this.soundChangesRaw
+        body: this.soundChangesRaw,
+        soundChangePurpose: this.soundChangePurpose
       }).subscribe(
         () => {
           this.editMode = false;
@@ -68,7 +65,8 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
     if (this.languageFrom && this.languageTo && this.languageFrom.id && this.languageTo.id) {
       this.languagesEvolutionService.getSoundChangesByLangs({
         fromLangId: this.languageFrom.id,
-        toLangId: this.languageTo.id
+        toLangId: this.languageTo.id,
+        soundChangePurpose: this.soundChangePurpose
       }).subscribe(
         (data: SoundChange[]) => {
           this.soundChanges = data;
@@ -83,9 +81,6 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
     this.refresh();
   }
 
-  soundChangesRawChange(): void {
-  }
-
   languageFromChanged($event: Language): void {
     this.languageFrom = $event;
     this.languageChanged();
@@ -94,10 +89,6 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
   languageToChanged($event: Language): void {
     this.languageTo = $event;
     this.languageChanged();
-  }
-
-  cancelSoundChanges(): void {
-    this.editMode = false;
   }
 
   languagesConnectionTypeChanged(event?: LanguageConnectionType): void {
@@ -141,10 +132,5 @@ export class LanguageConnectionsComponent implements OnInit, OnChanges {
         }
       );
     }
-  }
-
-  soundChangesChanges(newSoundChanges: SoundChange[]): void {
-    console.log('soundChangesChanges', newSoundChanges);
-    this.soundChanges = newSoundChanges;
   }
 }

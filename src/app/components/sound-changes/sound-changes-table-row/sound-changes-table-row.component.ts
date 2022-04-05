@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SoundChange} from '../../../../../api/models/sound-change';
-import {LanguagesEvolutionService} from '../../../../../api/services/languages-evolution.service';
+import {SoundChange} from '../../../api/models/sound-change';
+import {LanguagesEvolutionService} from '../../../api/services/languages-evolution.service';
 
 @Component({
   selector: 'tr[app-sound-changes-table-row]',

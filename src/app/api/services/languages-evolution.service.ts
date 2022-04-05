@@ -14,6 +14,7 @@ import { LanguageConnection } from '../models/language-connection';
 import { LanguageConnectionTypeModel } from '../models/language-connection-type-model';
 import { PageResultWordWithEvolution } from '../models/page-result-word-with-evolution';
 import { SoundChange } from '../models/sound-change';
+import { SoundChangePurpose } from '../models/sound-change-purpose';
 import { WordToEvolve } from '../models/word-to-evolve';
 import { WordTraceResult } from '../models/word-trace-result';
 import { WordWithEvolution } from '../models/word-with-evolution';
@@ -320,9 +321,66 @@ export class LanguagesEvolutionService extends BaseService {
   }
 
   /**
+   * Path part for operation getSoundChangesByLang
+   */
+  static readonly GetSoundChangesByLangPath = '/api/evolve/sc/lang/{soundChangePurpose}/{fromLangId}';
+
+  /**
+   * Get all sound changes.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getSoundChangesByLang()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSoundChangesByLang$Response(params: {
+    soundChangePurpose: SoundChangePurpose;
+    fromLangId: number;
+  }): Observable<StrictHttpResponse<Array<SoundChange>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetSoundChangesByLangPath, 'get');
+    if (params) {
+      rb.path('soundChangePurpose', params.soundChangePurpose, {});
+      rb.path('fromLangId', params.fromLangId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<SoundChange>>;
+      })
+    );
+  }
+
+  /**
+   * Get all sound changes.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getSoundChangesByLang$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSoundChangesByLang(params: {
+    soundChangePurpose: SoundChangePurpose;
+    fromLangId: number;
+  }): Observable<Array<SoundChange>> {
+
+    return this.getSoundChangesByLang$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<SoundChange>>) => r.body as Array<SoundChange>)
+    );
+  }
+
+  /**
    * Path part for operation getSoundChangesByLangs
    */
-  static readonly GetSoundChangesByLangsPath = '/api/evolve/sc/lang/{fromLangId}/{toLangId}';
+  static readonly GetSoundChangesByLangsPath = '/api/evolve/sc/lang/{soundChangePurpose}/{fromLangId}/{toLangId}';
 
   /**
    * Get all sound changes.
@@ -335,12 +393,14 @@ export class LanguagesEvolutionService extends BaseService {
    * This method doesn't expect any request body.
    */
   getSoundChangesByLangs$Response(params: {
+    soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
     toLangId: number;
   }): Observable<StrictHttpResponse<Array<SoundChange>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetSoundChangesByLangsPath, 'get');
     if (params) {
+      rb.path('soundChangePurpose', params.soundChangePurpose, {});
       rb.path('fromLangId', params.fromLangId, {});
       rb.path('toLangId', params.toLangId, {});
     }
@@ -367,6 +427,7 @@ export class LanguagesEvolutionService extends BaseService {
    * This method doesn't expect any request body.
    */
   getSoundChangesByLangs(params: {
+    soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
     toLangId: number;
   }): Observable<Array<SoundChange>> {
@@ -377,9 +438,126 @@ export class LanguagesEvolutionService extends BaseService {
   }
 
   /**
+   * Path part for operation getSoundChangesRawLinesByLang
+   */
+  static readonly GetSoundChangesRawLinesByLangPath = '/api/evolve/sc/raw/lang/{soundChangePurpose}/{fromLangId}';
+
+  /**
+   * Get all sound changes in text form.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getSoundChangesRawLinesByLang()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSoundChangesRawLinesByLang$Response(params: {
+    soundChangePurpose: SoundChangePurpose;
+    fromLangId: number;
+  }): Observable<StrictHttpResponse<string>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetSoundChangesRawLinesByLangPath, 'get');
+    if (params) {
+      rb.path('soundChangePurpose', params.soundChangePurpose, {});
+      rb.path('fromLangId', params.fromLangId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: 'text/plain'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<string>;
+      })
+    );
+  }
+
+  /**
+   * Get all sound changes in text form.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getSoundChangesRawLinesByLang$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSoundChangesRawLinesByLang(params: {
+    soundChangePurpose: SoundChangePurpose;
+    fromLangId: number;
+  }): Observable<string> {
+
+    return this.getSoundChangesRawLinesByLang$Response(params).pipe(
+      map((r: StrictHttpResponse<string>) => r.body as string)
+    );
+  }
+
+  /**
+   * Path part for operation saveSoundChangesRawLinesByLang
+   */
+  static readonly SaveSoundChangesRawLinesByLangPath = '/api/evolve/sc/raw/lang/{soundChangePurpose}/{fromLangId}';
+
+  /**
+   * Save all sound changes from text form.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `saveSoundChangesRawLinesByLang()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  saveSoundChangesRawLinesByLang$Response(params: {
+    soundChangePurpose: SoundChangePurpose;
+    fromLangId: number;
+    body: string
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.SaveSoundChangesRawLinesByLangPath, 'post');
+    if (params) {
+      rb.path('soundChangePurpose', params.soundChangePurpose, {});
+      rb.path('fromLangId', params.fromLangId, {});
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Save all sound changes from text form.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `saveSoundChangesRawLinesByLang$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  saveSoundChangesRawLinesByLang(params: {
+    soundChangePurpose: SoundChangePurpose;
+    fromLangId: number;
+    body: string
+  }): Observable<void> {
+
+    return this.saveSoundChangesRawLinesByLang$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
    * Path part for operation getSoundChangesRawLinesByLangs
    */
-  static readonly GetSoundChangesRawLinesByLangsPath = '/api/evolve/sc/raw/lang/{fromLangId}/{toLangId}';
+  static readonly GetSoundChangesRawLinesByLangsPath = '/api/evolve/sc/raw/lang/{soundChangePurpose}/{fromLangId}/{toLangId}';
 
   /**
    * Get all sound changes in text form.
@@ -392,12 +570,14 @@ export class LanguagesEvolutionService extends BaseService {
    * This method doesn't expect any request body.
    */
   getSoundChangesRawLinesByLangs$Response(params: {
+    soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
     toLangId: number;
   }): Observable<StrictHttpResponse<string>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetSoundChangesRawLinesByLangsPath, 'get');
     if (params) {
+      rb.path('soundChangePurpose', params.soundChangePurpose, {});
       rb.path('fromLangId', params.fromLangId, {});
       rb.path('toLangId', params.toLangId, {});
     }
@@ -424,6 +604,7 @@ export class LanguagesEvolutionService extends BaseService {
    * This method doesn't expect any request body.
    */
   getSoundChangesRawLinesByLangs(params: {
+    soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
     toLangId: number;
   }): Observable<string> {
@@ -436,7 +617,7 @@ export class LanguagesEvolutionService extends BaseService {
   /**
    * Path part for operation saveSoundChangesRawLinesByLangs
    */
-  static readonly SaveSoundChangesRawLinesByLangsPath = '/api/evolve/sc/raw/lang/{fromLangId}/{toLangId}';
+  static readonly SaveSoundChangesRawLinesByLangsPath = '/api/evolve/sc/raw/lang/{soundChangePurpose}/{fromLangId}/{toLangId}';
 
   /**
    * Save all sound changes from text form.
@@ -449,6 +630,7 @@ export class LanguagesEvolutionService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   saveSoundChangesRawLinesByLangs$Response(params: {
+    soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
     toLangId: number;
     body: string
@@ -456,6 +638,7 @@ export class LanguagesEvolutionService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.SaveSoundChangesRawLinesByLangsPath, 'post');
     if (params) {
+      rb.path('soundChangePurpose', params.soundChangePurpose, {});
       rb.path('fromLangId', params.fromLangId, {});
       rb.path('toLangId', params.toLangId, {});
       rb.body(params.body, 'application/json');
@@ -483,6 +666,7 @@ export class LanguagesEvolutionService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   saveSoundChangesRawLinesByLangs(params: {
+    soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
     toLangId: number;
     body: string

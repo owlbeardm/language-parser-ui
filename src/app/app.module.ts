@@ -36,10 +36,11 @@ import { AllLanguagesComponent } from './components/selectors/all-languages/all-
 import { TraceLanguageRecursiveComponent } from './components/selectors/trace-language-recursive/trace-language-recursive.component';
 import { TraceResultComponent } from './pages/trace/trace-result/trace-result.component';
 import { LanguageConnectionsComponent } from './pages/evolution/language-connections/language-connections.component';
-import { SoundChangesTableComponent } from './pages/evolution/language-connections/sound-changes-table/sound-changes-table.component';
-import { SoundChangesEditComponent } from './pages/evolution/language-connections/sound-changes-edit/sound-changes-edit.component';
+import { AbstractSoundChanges } from './components/sound-changes/sound-chages-abstract.component.spec';
+import { SoundChangesTableComponent } from './components/sound-changes/sound-changes-table/sound-changes-table.component';
+import { SoundChangesEditComponent } from './components/sound-changes/sound-changes-edit/sound-changes-edit.component';
 import { LanguageConnectionComponent } from './components/selectors/language-connection/language-connection.component';
-import { SoundChangesTableRowComponent } from './pages/evolution/language-connections/sound-changes-table/sound-changes-table-row/sound-changes-table-row.component';
+import { SoundChangesTableRowComponent } from './components/sound-changes/sound-changes-table-row/sound-changes-table-row.component';
 import { LanguageDescriptionComponent } from './pages/languages/language-description/language-description.component';
 import { LanguageTabsComponent } from './pages/languages/language-tabs/language-tabs.component';
 import { LanguagePosComponent } from './pages/languages/language-pos/language-pos.component';
@@ -53,6 +54,7 @@ import { PosDetailsComponent } from './pages/languages/language-pos/pos-details/
 import { WordAddLineComponent } from './pages/words/word-add-line/word-add-line.component';
 import { ListPaginatorComponent } from './components/list/list-paginator/list-paginator.component';
 import { ListEvolutionComponent } from './pages/evolution/list-evolution/list-evolution.component';
+import { LanguageWritingComponent } from './pages/languages/language-writing/language-writing.component';
 
 
 @NgModule({
@@ -101,6 +103,7 @@ import { ListEvolutionComponent } from './pages/evolution/list-evolution/list-ev
     WordAddLineComponent,
     ListPaginatorComponent,
     ListEvolutionComponent,
+    LanguageWritingComponent,
   ],
   imports: [
     BrowserModule,

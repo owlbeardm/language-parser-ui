@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SoundChange} from '../../../../api/models/sound-change';
+import {SoundChange} from '../../../api/models/sound-change';
 
 @Component({
   selector: 'app-sound-changes-table',
@@ -22,4 +22,5 @@ export class SoundChangesTableComponent implements OnInit {
     this.soundChanges = this.soundChanges.filter(s => s.id !== soundChange.id);
     this.soundChangesChanges.emit(soundChange);
   }
+
 }

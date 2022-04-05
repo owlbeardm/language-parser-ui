@@ -10,8 +10,8 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { DetailedWord } from '../models/detailed-word';
-import { PageResultWord } from '../models/page-result-word';
 import { PageResultWordWithTranslations } from '../models/page-result-word-with-translations';
+import { PageResultWordWithWritten } from '../models/page-result-word-with-written';
 import { Word } from '../models/word';
 import { WordListFilter } from '../models/word-list-filter';
 
@@ -101,7 +101,7 @@ export class WordsService extends BaseService {
    */
   getAllWords$Response(params: {
     filter: WordListFilter;
-  }): Observable<StrictHttpResponse<PageResultWord>> {
+  }): Observable<StrictHttpResponse<PageResultWordWithWritten>> {
 
     const rb = new RequestBuilder(this.rootUrl, WordsService.GetAllWordsPath, 'get');
     if (params) {
@@ -114,7 +114,7 @@ export class WordsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<PageResultWord>;
+        return r as StrictHttpResponse<PageResultWordWithWritten>;
       })
     );
   }
@@ -131,10 +131,10 @@ export class WordsService extends BaseService {
    */
   getAllWords(params: {
     filter: WordListFilter;
-  }): Observable<PageResultWord> {
+  }): Observable<PageResultWordWithWritten> {
 
     return this.getAllWords$Response(params).pipe(
-      map((r: StrictHttpResponse<PageResultWord>) => r.body as PageResultWord)
+      map((r: StrictHttpResponse<PageResultWordWithWritten>) => r.body as PageResultWordWithWritten)
     );
   }
 

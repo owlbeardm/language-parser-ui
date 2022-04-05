@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {WordsService} from '../../../api/services/words.service';
-import {PageResultWord} from '../../../api/models/page-result-word';
+import {PageResultWordWithWritten} from '../../../api/models/page-result-word-with-written';
 import {Word} from '../../../api/models/word';
 import {WordListFilter} from '../../../api/models/word-list-filter';
 import {Language} from '../../../api/models/language';
@@ -15,7 +15,7 @@ import {PosService} from '../../../api/services/pos.service';
 })
 export class WordsListComponent implements OnInit {
 
-  words: PageResultWord = {};
+  words: PageResultWordWithWritten = {};
   language: Language | undefined;
   pos: Pos | undefined;
   wordSearch: string | undefined;
