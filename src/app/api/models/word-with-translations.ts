@@ -10,4 +10,5 @@ export interface WordWithTranslations {
   translations?: Array<string>;
   version?: number;
   word?: string;
+  writtenWord?: string;
 }

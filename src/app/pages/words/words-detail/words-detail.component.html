@@ -8,8 +8,9 @@
   <tr>
     <th class="border">|</th>
     <th class="text-grey">
-      <span *ngFor="let lang of detailedWords.keys(); let i = index"><span *ngIf="i>0"> - </span><a [fragment]="lang.displayName" [routerLink]="'.'"
-                                                         class="text-main link-btn">{{lang.displayName}}</a></span>
+      <span *ngFor="let lang of detailedWords.keys(); let i = index"><span *ngIf="i>0"> - </span><a
+        [fragment]="lang.displayName" [routerLink]="'.'"
+        class="text-main link-btn">{{lang.displayName}}</a></span>
 
     </th>
     <th class="border">|</th>
@@ -64,8 +65,10 @@
             <span *ngFor="let from of wwd.etymology?.from; let number = index">{{number == 0 ? 'F' : ', f'}}rom <a
               class="text-grey"><i>{{from.language?.displayName}}</i></a> *<a [fragment]="from.language?.displayName"
                                                                               [routerLink]="['/words/word', from.word]"
-                                                                              class="text-main link-btn">{{from.word}}</a>
-              <span *ngIf="from.translations?.length">("<span *ngFor="let transl of from.translations; let trlNumbr = index">{{trlNumbr > 0 ? ', ' : ''}}<a
+                                                                              class="text-main link-btn">{{from.writtenWord}}</a><span
+              *ngIf="from.word!=from.writtenWord"> /{{from.word}}/</span>
+              <span *ngIf="from.translations?.length">("<span
+                *ngFor="let transl of from.translations; let trlNumbr = index">{{trlNumbr > 0 ? ', ' : ''}}<a
                 class="text-blue-dull">transl</a></span>")</span></span>.
           </p>
           <p *ngIf="!wwd.etymology?.from?.length">New word.</p>
@@ -73,9 +76,11 @@
             Cognate with <span
             *ngFor="let from of wwd.etymology?.cognate; let number = index">{{number == 0 ? '' : ', '}}<a
             class="text-grey"><i>{{from.language?.displayName}}</i></a> *<a
-            [routerLink]="['/words', from.word]" class="text-main">{{from.word}}</a>
-              <span *ngIf="from.translations?.length">("<span *ngFor="let transl of from.translations; let trlNumbr = index">{{trlNumbr > 0 ? ', ' : ''}}<a
-              class="text-blue-dull">transl</a></span>")</span></span>.
+            [routerLink]="['/words', from.word]" class="text-main link-btn">{{from.writtenWord}}</a><span
+            *ngIf="from.word!=from.writtenWord"> /{{from.word}}/</span>
+              <span *ngIf="from.translations?.length">("<span
+                *ngFor="let transl of from.translations; let trlNumbr = index">{{trlNumbr > 0 ? ', ' : ''}}<a
+                class="text-blue-dull">transl</a></span>")</span></span>.
           </p>
         </div>
       </th>

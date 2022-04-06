@@ -41,7 +41,9 @@
 <table class="table-content">
   <colgroup>
     <col class="border" span="1" style="width: 8px;">
-    <col span="1" style="width: 20%;">
+    <col span="1" style="width: 1%;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 1%;">
     <col class="border" span="1" style="width: 8px;">
     <col span="1" style="width: 40px;">
     <col class="border" span="1" style="width: 8px;">
@@ -55,8 +57,10 @@
   <tbody class="table-content">
   <tr *ngFor="let word of words.data" class="table-content">
     <th class="border">|</th>
-    <th><a [fragment]="word.language?.displayName" [routerLink]="['/words/word', word.word]"
-           class="text-main link-btn">{{word.writtenWord}} / {{word.word}}/ </a></th>
+    <th style="padding-left: 8px; padding-right: 8px;"><span style="white-space: nowrap;">{{word.writtenWord}}</span></th>
+    <th class="border">|</th>
+    <th style="padding-left: 8px; padding-right: 8px;"><a [fragment]="word.language?.displayName" [routerLink]="['/words/word', word.word]"
+           class="text-main link-btn">/ {{word.word}} / </a></th>
     <th class="border">|</th>
     <th class="border">{{word.partOfSpeech?.abbreviation}}</th>
     <th class="border">|</th>
