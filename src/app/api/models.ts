@@ -6,6 +6,7 @@ export { LanguageConnectionType } from './models/language-connection-type';
 export { LanguageConnectionTypeModel } from './models/language-connection-type-model';
 export { LanguagePos } from './models/language-pos';
 export { LanguagePhoneme } from './models/language-phoneme';
+export { LanguageSoundClusters } from './models/language-sound-clusters';
 export { ListOfLanguagePhonemes } from './models/list-of-language-phonemes';
 export { Pos } from './models/pos';
 export { PageResultWordWithEvolution } from './models/page-result-word-with-evolution';

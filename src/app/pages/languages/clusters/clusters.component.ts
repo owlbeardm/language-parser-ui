@@ -1,39 +1,38 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-//TODO: add new api
-// import { ApiService } from 'src/app/api/services';
-import { AbstractHasLanguageComponent } from 'src/app/components/abstract/abstract-has-language/abstract-has-language.component';
-import { LangService } from 'src/app/services/lang.service';
+import {Component, OnChanges, SimpleChanges} from '@angular/core';
+import {AbstractHasLanguageComponent} from 'src/app/components/abstract/abstract-has-language/abstract-has-language.component';
+import {LanguagesService} from '../../../api/services/languages.service';
+import {LanguageSoundClusters} from '../../../api/models/language-sound-clusters';
 
 @Component({
   selector: 'app-clusters',
   templateUrl: './clusters.component.html',
   styleUrls: ['./clusters.component.css']
 })
-export class ClustersComponent extends AbstractHasLanguageComponent {
+export class ClustersComponent extends AbstractHasLanguageComponent implements OnChanges {
 
+  langsc: LanguageSoundClusters = {};
 
-  clusters?: string[];
-  startClusters?: string[];
-  lastClusters?: string[];
-
-  constructor(
-    // private apiService: ApiService,
-    _langService: LangService,
-    _route: ActivatedRoute,
-    _router: Router) {
+  constructor(private languagesService: LanguagesService) {
     super();
   }
 
   ngOnInit(): void {
+    super.ngOnInit();
+    this.refresh();
   }
 
-  refreshAll() {
-    // if (this.selectedLanguage) {
-      //TODO: add new api
-      // this.apiService.getApiWordsConstclustersLang({ lang: this.selectedLanguage }).subscribe((clusters) => this.clusters = clusters.filter((c) => !!c));
-      // this.apiService.getApiWordsConstclustersLang({ lang: this.selectedLanguage, clusterType: 'StartingCluster' }).subscribe((clusters) => this.startClusters = clusters);
-      // this.apiService.getApiWordsConstclustersLang({ lang: this.selectedLanguage, clusterType: 'LastClusters' }).subscribe((clusters) => this.lastClusters = clusters);
-    // }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.selectedLanguage.currentValue) {
+      console.log(changes, changes.selectedLanguage.currentValue.id, this.selectedLanguage?.id);
+      this.refresh();
+    }
+  }
+
+  private refresh(): void {
+    if (this.selectedLanguage?.id) {
+      this.languagesService.getLanguageSoundClusters({languageId: this.selectedLanguage?.id}).subscribe((langsc) => {
+        this.langsc = langsc;
+      });
+    }
   }
 }

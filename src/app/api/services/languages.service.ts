@@ -11,6 +11,7 @@ import { map, filter } from 'rxjs/operators';
 
 import { Language } from '../models/language';
 import { LanguagePhoneme } from '../models/language-phoneme';
+import { LanguageSoundClusters } from '../models/language-sound-clusters';
 import { ListOfLanguagePhonemes } from '../models/list-of-language-phonemes';
 import { Pos } from '../models/pos';
 
@@ -131,6 +132,60 @@ export class LanguagesService extends BaseService {
 
     return this.getAllLanguages$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Language>>) => r.body as Array<Language>)
+    );
+  }
+
+  /**
+   * Path part for operation getLanguageSoundClusters
+   */
+  static readonly GetLanguageSoundClustersPath = '/api/language/clusters/{languageId}';
+
+  /**
+   * Get language clusters by id.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getLanguageSoundClusters()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getLanguageSoundClusters$Response(params: {
+    languageId: number;
+  }): Observable<StrictHttpResponse<LanguageSoundClusters>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetLanguageSoundClustersPath, 'get');
+    if (params) {
+      rb.path('languageId', params.languageId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<LanguageSoundClusters>;
+      })
+    );
+  }
+
+  /**
+   * Get language clusters by id.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getLanguageSoundClusters$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getLanguageSoundClusters(params: {
+    languageId: number;
+  }): Observable<LanguageSoundClusters> {
+
+    return this.getLanguageSoundClusters$Response(params).pipe(
+      map((r: StrictHttpResponse<LanguageSoundClusters>) => r.body as LanguageSoundClusters)
     );
   }
 
