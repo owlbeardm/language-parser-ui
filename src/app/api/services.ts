@@ -2,4 +2,5 @@ export { LanguagesEvolutionService } from './services/languages-evolution.servic
 export { LanguagesService } from './services/languages.service';
 export { PingService } from './services/ping.service';
 export { PosService } from './services/pos.service';
+export { TranslationService } from './services/translation.service';
 export { WordsService } from './services/words.service';

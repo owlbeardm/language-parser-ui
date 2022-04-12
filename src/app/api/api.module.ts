@@ -8,6 +8,7 @@ import { LanguagesEvolutionService } from './services/languages-evolution.servic
 import { LanguagesService } from './services/languages.service';
 import { PingService } from './services/ping.service';
 import { PosService } from './services/pos.service';
+import { TranslationService } from './services/translation.service';
 import { WordsService } from './services/words.service';
 
 /**
@@ -22,6 +23,7 @@ import { WordsService } from './services/words.service';
     LanguagesService,
     PingService,
     PosService,
+    TranslationService,
     WordsService,
     ApiConfiguration
   ],

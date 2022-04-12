@@ -1,0 +1,109 @@
+<table>
+  <colgroup>
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: auto;">
+    <col span="1" style="width: 9px;">
+    <col span="1" style="width: 70px;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody>
+  <tr>
+    <th class="border">|<br>|<br>|<br>|</th>
+    <th class="border" style="text-align: left; display: flex;">
+      <app-all-languages (selectedLanguageChange)="loadDefault({languageFromId:$event?.id})"
+                         [(selectedLanguage)]="languageFrom"
+                         [label]="'From'"></app-all-languages>
+      <input (ngModelChange)="loadDefault({word:$event})" [(ngModel)]="wordSearch"
+             style="height: 16px; margin-left: 8px; margin-top: 30px; margin-right: 0px;" type="text"/>
+      <app-all-languages (selectedLanguageChange)="loadDefault({languageToId:$event?.id})"
+                         [(selectedLanguage)]="languageTo"
+                         [label]="'To'"></app-all-languages>
+      <input (ngModelChange)="loadDefault({translation:$event})" [(ngModel)]="translationSearch"
+             style="height: 16px; margin-left: 8px; margin-top: 30px; margin-right: 0px;" type="text"/>
+    </th>
+    <th class="border">|<br>|<br>|<br>|</th>
+    <th><a (click)="resetFilter()" class="text-red-dull">[ x ]</a></th>
+    <th class="border">|<br>|<br>|<br>|</th>
+  </tr>
+  <tr>
+    <th class="border">+</th>
+    <th app-horizontal-dash class="border" colspan="3"></th>
+    <th class="border">+</th>
+  </tr>
+  </tbody>
+</table>
+<table class="table-content">
+  <colgroup>
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 20px;">
+    <col span="1" style="width: auto;">
+    <col span="1" style="width: 48px;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody *ngFor="let word of words.data">
+  <tr>
+    <th class="border">|</th>
+    <th colspan="2" style="padding-left: 8px; padding-right: 8px; white-space: nowrap; text-align: left"><span
+      style="white-space: nowrap;"><a class="text-green-dull link-btn" [fragment]="word.language?.displayName" [routerLink]="['/words/word', word.word]"
+                                         style="text-transform: capitalize;">{{word.writtenWord}}</a>	/ <a
+      class="text-main link-btn" [fragment]="word.language?.displayName" [routerLink]="['/words/word', word.word]">{{word.word}}</a> /</span>
+      {{word.partOfSpeech?.abbreviation}} {{word.language?.displayName}}
+    </th>
+    <th class="border"><a class="text-green-dull">[ + ]</a></th>
+    <th class="border">|</th>
+  </tr>
+  <tr *ngFor="let type of getTranslationTypes(word,true)">
+    <th class="border">|</th>
+    <th class="border" style="padding-left: 4px; padding-right: 8px; text-align: left"><span
+      style="white-space: nowrap;">{{type | translationType}}</span></th>
+    <th style="padding-left: 8px; padding-right: 8px; white-space: nowrap; text-align: left"><span
+      *ngFor="let translation of getTranslationForWordAndType(word,type,true); let i = index">{{i == 0 ? '' : '; '}}<a
+      class="text-blue-dull link-btn" [fragment]="translation.wordTo?.language?.displayName" [routerLink]="['/words/word', translation.wordTo?.word]">{{translation.wordTo?.writtenWord}}</a></span></th>
+    <th class="border"></th>
+    <th class="border">|</th>
+  </tr>
+  <tr *ngFor="let type of getTranslationTypes(word,false)">
+    <th class="border">|</th>
+    <th class="border" style="padding-left: 4px; padding-right: 8px; text-align: left"><span
+      style="white-space: nowrap;">{{type | translationType}}</span></th>
+    <th style="padding-left: 8px; padding-right: 8px; white-space: nowrap; text-align: left"><span
+      *ngFor="let translation of getTranslationForWordAndType(word,type,false); let i = index">{{i == 0 ? '' : '; '}}<span
+      class="text-blue-dull link-btn">{{translation.phraseTo?.phrase}}</span></span></th>
+    <th class="border"></th>
+    <th class="border">|</th>
+  </tr>
+  <tr>
+    <th class="border">+</th>
+    <th app-horizontal-dash class="border" colspan="3"></th>
+    <th class="border">+</th>
+  </tr>
+  </tbody>
+  <tbody>
+  <tr>
+    <th app-vertical-dash class="border"></th>
+    <th colspan="3">
+      <div style="text-align: left; display: flex;">
+        <app-all-languages (selectedLanguageChange)="loadDefault({languageFromId:$event?.id})"
+                           [(selectedLanguage)]="languageFrom"
+                           [label]="'To'"></app-all-languages>
+        <input (ngModelChange)="loadDefault({word:$event})" [(ngModel)]="wordSearch"
+               style="height: 16px; margin-left: 8px; margin-top: 30px; margin-right: 0px;" type="text"/>
+        <span style="margin-left: 8px; text-align: end">
+<!--        <select [value]="undefined" class="posSelector" formControlName="pos" id="posSelector">-->
+          <!--          <option [ngValue]="undefined" class="text-grey-dull" disabled>Part of Speech</option>-->
+          <!--                    <option *ngFor="let pos of poses" [ngValue]="pos">{{ pos.name }}</option>-->
+          <!--        </select>-->
+        </span>
+        <input (ngModelChange)="loadDefault({word:$event})" [(ngModel)]="wordSearch"
+               style="height: 16px; margin-left: 8px; margin-top: 30px; margin-right: 0px;" type="text"/>
+        <span style="margin-left: 8px; vertical-align: text-bottom;">[ Phrase ]</span>
+      </div>
+    </th>
+    <th app-vertical-dash class="border"></th>
+  </tr>
+  </tbody>
+</table>
+<app-list-paginator (load)="loadDefault($event)" [page]="words.page?words.page:0"
+                    [size]="pageSize"
+                    [totalPages]="words.totalPages?words.totalPages:0"
+                    [total]="words.total?words.total:0"></app-list-paginator>
