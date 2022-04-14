@@ -56,6 +56,7 @@ import { ListPaginatorComponent } from './components/list/list-paginator/list-pa
 import { ListEvolutionComponent } from './pages/evolution/list-evolution/list-evolution.component';
 import { LanguageWritingComponent } from './pages/languages/language-writing/language-writing.component';
 import { TranslationTypePipe } from './pipes/translation-type.pipe';
+import { TranslationLineComponent } from './pages/words/translations/translation-line/translation-line.component';
 
 
 @NgModule({
@@ -106,6 +107,7 @@ import { TranslationTypePipe } from './pipes/translation-type.pipe';
     ListEvolutionComponent,
     LanguageWritingComponent,
     TranslationTypePipe,
+    TranslationLineComponent,
   ],
   imports: [
     BrowserModule,

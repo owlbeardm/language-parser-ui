@@ -30,23 +30,6 @@ export class TranslationsComponent {
   ngOnInit(): void {
   }
 
-  getTranslationTypes(word: WordWithTranslations, isWord: boolean): TranslationType[] {
-    const map = word
-      .translations
-      ?.filter(tr => isWord ? !!tr.wordTo : !!tr.phraseTo)
-      .map(tr => tr.type)
-      .map(t => !!t ? t : TranslationType.General);
-    const result = [...new Set(map)];
-    return !!result ? result : [];
-  }
-
-  getTranslationForWordAndType(word: WordWithTranslations, translationType: TranslationType, isWord: boolean): Translation[] {
-    const map = word
-      .translations
-      ?.filter(tr => (isWord ? !!tr.wordTo : !!tr.phraseTo) && tr.type === translationType);
-    return !!map ? map : [];
-  }
-
   load(filter: TranslationListFilter): void {
     this.translationService.getAllWordsWithTranslationsFromLang1({filter}).subscribe(
       (translations) => {

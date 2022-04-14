@@ -23,6 +23,15 @@ export class AllLanguagesComponent implements OnInit {
     this.languagesService.getAllLanguages().subscribe(
       (languages: Language[]) => {
         this.allLanguages = languages.sort((a, b) => a.displayName.localeCompare(b.displayName));
+        if (!!this.selectedLanguage) {
+          this.allLanguages.forEach((lang) => {
+              if (this.selectedLanguage?.id === lang.id) {
+                this.selectedLanguage = lang;
+                this.changeLanguage();
+              }
+            }
+          );
+        }
       }
     );
   }
