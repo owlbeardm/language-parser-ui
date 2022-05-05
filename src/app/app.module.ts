@@ -57,6 +57,7 @@ import { ListEvolutionComponent } from './pages/evolution/list-evolution/list-ev
 import { LanguageWritingComponent } from './pages/languages/language-writing/language-writing.component';
 import { TranslationTypePipe } from './pipes/translation-type.pipe';
 import { TranslationLineComponent } from './pages/words/translations/translation-line/translation-line.component';
+import { WordNewComponent } from './pages/words/word-new/word-new.component';
 
 
 @NgModule({
@@ -108,6 +109,7 @@ import { TranslationLineComponent } from './pages/words/translations/translation
     LanguageWritingComponent,
     TranslationTypePipe,
     TranslationLineComponent,
+    WordNewComponent,
   ],
   imports: [
     BrowserModule,

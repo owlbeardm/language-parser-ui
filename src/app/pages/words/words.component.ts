@@ -9,6 +9,10 @@ import {AbstractHasLanguageComponent} from 'src/app/components/abstract/abstract
 export class WordsComponent extends AbstractHasLanguageComponent {
 
   tabs = [{
+    name: 'Add New',
+    route: 'new',
+    enabled: true
+  }, {
     name: 'List',
     route: 'list',
     enabled: true
