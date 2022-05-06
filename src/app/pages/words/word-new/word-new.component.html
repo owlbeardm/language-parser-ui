@@ -1,1 +1,56 @@
-<p>word-new works!</p>
+<table>
+  <colgroup>
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: auto;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody>
+  <tr>
+    <th class="border">|<br>|<br>|<br>|</th>
+    <th class="border" style="text-align: left; display: flex;">
+      <app-all-languages (selectedLanguageChange)="loadDefault({languageFromId:$event?.id})"
+                         [(selectedLanguage)]="languageFrom"
+                         [label]="'Language'"></app-all-languages>
+      <div class="selector">
+        <label class="languageSelectorLabel" for="languageSelector">Label</label>
+        <div class="input-group" style="margin-top: 4px;">
+          <select (ngModelChange)="loadDefault({posId:$event?.id})" [(ngModel)]="pos" class="posSelector"
+                  id="posSelector">
+            <option [ngValue]="undefined">Any part of speech</option>
+            <option *ngFor="let p of poses" [ngValue]="p">{{ p.name }}</option>
+          </select>
+        </div>
+      </div>
+      <app-all-languages (selectedLanguageChange)="loadDefault({languageFromId:$event?.id})"
+                         [(selectedLanguage)]="languageFrom"
+                         [label]="'From'"></app-all-languages>
+    </th>
+    <th class="border">|<br>|<br>|<br>|</th>
+  </tr>
+  <tr>
+    <th class="border">|<br>|<br>|<br>|</th>
+    <th class="border" style="text-align: left; display: flex;">
+      <div class="selector">
+      <input formControlName="sound" style="height: 16px; margin-left: 0px;" type="text"/>
+      </div>
+      <div class="selector">
+        <span style="margin-left: 8px;">
+        <select [value]="undefined" class="posSelector" formControlName="pos" id="posSelector">
+<!--          <option [ngValue]="undefined" class="text-grey-dull" disabled>Part of Speech</option>-->
+                    <option *ngFor="let pos of poses" [ngValue]="pos">{{ pos.name }}</option>
+        </select>
+      </span>
+      </div>
+      <div class="selector">
+        <input formControlName="sound" style="height: 16px; margin-left: 8px;" type="text"/>
+      </div>
+    </th>
+    <th class="border">|<br>|<br>|<br>|</th>
+  </tr>
+  <tr>
+    <th class="border">+</th>
+    <th app-horizontal-dash class="border"></th>
+    <th class="border">+</th>
+  </tr>
+  </tbody>
+</table>
