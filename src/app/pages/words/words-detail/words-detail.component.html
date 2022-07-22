@@ -38,7 +38,8 @@
     <th class="border">|</th>
     <th class="border" style="text-align: left;"><a [routerLink]="['/words', wwd.word?.word]"
                                                     class="text-green-dull text-line link-btn">{{wwd.word?.writtenWord}}</a> {{wwd.word?.partOfSpeech?.abbreviation}}
-      <a [routerLink]="['/words', wwd.word?.word]" class="text-main link-btn">/ {{wwd.word?.word}} /</a></th>
+      <a [routerLink]="['/words', wwd.word?.word]" class="text-main link-btn">/ {{wwd.word?.word}} /</a>
+      <span class="text-grey"> {{wwd.word?.comment}}</span></th>
     <th class="border">|</th>
   </tr>
   <tr>

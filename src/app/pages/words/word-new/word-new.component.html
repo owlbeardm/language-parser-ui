@@ -20,25 +20,26 @@
           </select>
         </div>
       </div>
-      <app-all-languages *ngIf="type === 'Borrowing'" (selectedLanguageChange)="changeLanguageFrom({languageFromId:$event?.id})"
+      <app-all-languages *ngIf="type === 'Borrowed' || type === 'Evolved'" (selectedLanguageChange)="changeLanguageFrom({languageFromId:$event?.id})"
                          [(selectedLanguage)]="languageTo"
                          [label]="'From'"></app-all-languages>
     </th>
     <th class="border">|<br>|<br>|<br>|</th>
   </tr>
-  <tr>
+  <ng-container *ngIf="language !== undefined">
+  <tr *ngIf="type === 'New'">
     <th class="border">|<br>|<br>|<br>|</th>
     <th class="border" style="text-align: left; display: flex;">
       <div class="selector">
         <label class="languageSelectorLabel" for="newWordTypeSelector">Word</label>
         <div class="input-group" style="margin-top: 4px;">
-          <input style="height: 16px; margin-left: 0px;" type="text"/>
+          <input style="height: 16px; margin-left: 0px;" type="text" [(ngModel)]="word" (submit)="addNewWord()"/>
         </div>
       </div>
       <div class="selector">
         <label class="languageSelectorLabel" for="newWordTypeSelector">Category</label>
         <div class="input-group" style="margin-top: 4px;">
-          <select [value]="undefined" class="posSelector" id="posSelector">
+          <select [value]="undefined" class="posSelector" id="posSelector" [(ngModel)]="pos">
             <!--          <option [ngValue]="undefined" class="text-grey-dull" disabled>Part of Speech</option>-->
             <option *ngFor="let pos of poses" [ngValue]="pos">{{ pos.name }}</option>
           </select>
@@ -47,12 +48,16 @@
       <div class="selector">
         <label class="languageSelectorLabel" for="newWordTypeSelector" style="height: 16px; margin-left: 8px;">Comment</label>
         <div class="input-group" style="margin-top: 4px;">
-          <input style="height: 16px; margin-left: 8px;" type="text"/>
+          <input style="height: 16px; margin-left: 8px;" type="text" [(ngModel)]="comment"/>
         </div>
+      </div>
+      <div class="selector">
+        <a (click)="addNewWord()">[ + ]</a>
       </div>
     </th>
     <th class="border">|<br>|<br>|<br>|</th>
   </tr>
+  </ng-container>
   <tr>
     <th class="border">+</th>
     <th app-horizontal-dash class="border"></th>

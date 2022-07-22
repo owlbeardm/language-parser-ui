@@ -3,6 +3,7 @@
 import { Language } from './language';
 import { Pos } from './pos';
 export interface WordWithWritten {
+  comment?: string;
   forgotten?: boolean;
   id?: number;
   language?: Language;

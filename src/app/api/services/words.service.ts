@@ -14,6 +14,7 @@ import { PageResultWordWithTranslations } from '../models/page-result-word-with-
 import { PageResultWordWithWritten } from '../models/page-result-word-with-written';
 import { Word } from '../models/word';
 import { WordListFilter } from '../models/word-list-filter';
+import { WordToAdd } from '../models/word-to-add';
 
 
 /**
@@ -46,7 +47,7 @@ export class WordsService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addWord$Response(params: {
-    body: Word
+    body: WordToAdd
   }): Observable<StrictHttpResponse<Word>> {
 
     const rb = new RequestBuilder(this.rootUrl, WordsService.AddWordPath, 'post');
@@ -76,7 +77,7 @@ export class WordsService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addWord(params: {
-    body: Word
+    body: WordToAdd
   }): Observable<Word> {
 
     return this.addWord$Response(params).pipe(

@@ -31,6 +31,12 @@ export class ClustersComponent extends AbstractHasLanguageComponent implements O
   private refresh(): void {
     if (this.selectedLanguage?.id) {
       this.languagesService.getLanguageSoundClusters({languageId: this.selectedLanguage?.id}).subscribe((langsc) => {
+        langsc.constClusters = langsc.constClusters?.sort((a, b) => b.length - a.length);
+        langsc.constClustersStart = langsc.constClustersStart?.sort((a, b) => b.length - a.length);
+        langsc.constClustersEnd = langsc.constClustersEnd?.sort((a, b) => b.length - a.length);
+        langsc.vowelClusters = langsc.vowelClusters?.sort((a, b) => b.length - a.length);
+        langsc.vowelClustersStart = langsc.vowelClustersStart?.sort((a, b) => b.length - a.length);
+        langsc.vowelClustersEnd = langsc.vowelClustersEnd?.sort((a, b) => b.length - a.length);
         this.langsc = langsc;
       });
     }

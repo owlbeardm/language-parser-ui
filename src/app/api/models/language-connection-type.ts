@@ -6,5 +6,6 @@
  */
 export enum LanguageConnectionType {
   Evolving = 'EVOLVING',
-  Borrowing = 'BORROWING'
+  Borrowing = 'BORROWING',
+  Derivation = 'DERIVATION'
 }

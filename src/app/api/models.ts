@@ -22,6 +22,8 @@ export { TranslationListFilter } from './models/translation-list-filter';
 export { TranslationType } from './models/translation-type';
 export { Word } from './models/word';
 export { WordListFilter } from './models/word-list-filter';
+export { WordOriginType } from './models/word-origin-type';
+export { WordToAdd } from './models/word-to-add';
 export { WordToEvolve } from './models/word-to-evolve';
 export { WordTraceResult } from './models/word-trace-result';
 export { WordWithEvolution } from './models/word-with-evolution';
