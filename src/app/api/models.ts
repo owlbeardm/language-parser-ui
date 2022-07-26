@@ -1,3 +1,4 @@
+export { DerivedWordToAdd } from './models/derived-word-to-add';
 export { DetailedWord } from './models/detailed-word';
 export { Etymology } from './models/etymology';
 export { Language } from './models/language';

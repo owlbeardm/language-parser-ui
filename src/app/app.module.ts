@@ -58,6 +58,8 @@ import { LanguageWritingComponent } from './pages/languages/language-writing/lan
 import { TranslationTypePipe } from './pipes/translation-type.pipe';
 import { TranslationLineComponent } from './pages/words/translations/translation-line/translation-line.component';
 import { WordNewComponent } from './pages/words/word-new/word-new.component';
+import { NewComponent } from './pages/words/word-new/new/new.component';
+import { DerivedComponent } from './pages/words/word-new/derived/derived.component';
 
 
 @NgModule({
@@ -110,6 +112,8 @@ import { WordNewComponent } from './pages/words/word-new/word-new.component';
     TranslationTypePipe,
     TranslationLineComponent,
     WordNewComponent,
+    NewComponent,
+    DerivedComponent,
   ],
   imports: [
     BrowserModule,

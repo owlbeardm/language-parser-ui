@@ -1,0 +1,36 @@
+<tr>
+  <th class="border">|<br>|<br>|<br>|</th>
+  <th class="border">
+    <form (ngSubmit)="addNewWord()" [formGroup]="newWord">
+      <div style="text-align: left; display: flex;">
+        <div class="selector">
+          <label class="languageSelectorLabel" for="wordInput">Word</label>
+          <div class="input-group" style="margin-top: 4px;">
+            <input (submit)="addNewWord()" formControlName="word" id="wordInput" name="wordInput"
+                   style="height: 16px; margin-left: 0px;" type="text"/>
+          </div>
+        </div>
+        <div class="selector">
+          <label class="languageSelectorLabel" for="posSelector">Category</label>
+          <div class="input-group" style="margin-top: 4px;">
+            <select [value]="undefined" class="posSelector" formControlName="pos" id="posSelector" name="posSelector">
+              <option *ngFor="let pos of poses" [ngValue]="pos">{{ pos.name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="selector">
+          <label class="languageSelectorLabel" for="commentInput"
+                 style="height: 16px; margin-left: 8px;">Comment</label>
+          <div class="input-group" style="margin-top: 4px;">
+            <input (submit)="addNewWord()" formControlName="comment" id="commentInput" name="commentInput"
+                   style="height: 16px; margin-left: 0px;" type="text"/>
+          </div>
+        </div>
+        <div class="selector" style="padding-top: 22px;">
+          <a (click)="addNewWord()" class="text-green-dull">[ Add new word ]</a>
+        </div>
+      </div>
+    </form>
+  </th>
+  <th class="border">|<br>|<br>|<br>|</th>
+</tr>

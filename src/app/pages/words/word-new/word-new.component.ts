@@ -4,7 +4,6 @@ import {WordOriginType} from '../../../api/models/word-origin-type';
 import {Pos} from '../../../api/models/pos';
 import {PosService} from '../../../api/services/pos.service';
 import {WordsService} from '../../../api/services/words.service';
-import {WordToAdd} from '../../../api/models/word-to-add';
 
 @Component({
   selector: 'app-word-new',
@@ -19,9 +18,7 @@ export class WordNewComponent implements OnInit {
   typeKeys = Object.keys(WordOriginType);
   type: WordOriginType | string = this.typeKeys[0];
   poses: Pos[] = [];
-  comment?: string;
-  pos: any;
-  word: any;
+
 
   constructor(private posService: PosService, private wordService: WordsService) {
   }
@@ -50,28 +47,5 @@ export class WordNewComponent implements OnInit {
   }
 
   reloadLanguageFrom(): void {
-
-  }
-
-  addNewWord(): void {
-    const newWord: WordToAdd = {
-      word: this.word,
-      language: this.language,
-      partOfSpeech: this.pos,
-      forgotten: false,
-      comment: this.comment,
-      wordOriginType: WordOriginType.New
-    };
-    this.wordService.addWord({body: newWord}).subscribe(
-      (word) => {
-        this.clear();
-      }
-    );
-  }
-
-
-  private clear() {
-    this.word = undefined;
-    this.comment = undefined;
   }
 }

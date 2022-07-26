@@ -9,6 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { DerivedWordToAdd } from '../models/derived-word-to-add';
 import { DetailedWord } from '../models/detailed-word';
 import { PageResultWordWithTranslations } from '../models/page-result-word-with-translations';
 import { PageResultWordWithWritten } from '../models/page-result-word-with-written';
@@ -190,6 +191,60 @@ export class WordsService extends BaseService {
 
     return this.getAllWordsFromLang$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Word>>) => r.body as Array<Word>)
+    );
+  }
+
+  /**
+   * Path part for operation addDerivedWord
+   */
+  static readonly AddDerivedWordPath = '/api/words/derive';
+
+  /**
+   * Add derived word.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addDerivedWord()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addDerivedWord$Response(params: {
+    body: DerivedWordToAdd
+  }): Observable<StrictHttpResponse<Word>> {
+
+    const rb = new RequestBuilder(this.rootUrl, WordsService.AddDerivedWordPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Word>;
+      })
+    );
+  }
+
+  /**
+   * Add derived word.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addDerivedWord$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addDerivedWord(params: {
+    body: DerivedWordToAdd
+  }): Observable<Word> {
+
+    return this.addDerivedWord$Response(params).pipe(
+      map((r: StrictHttpResponse<Word>) => r.body as Word)
     );
   }
 

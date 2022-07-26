@@ -26,13 +26,9 @@
       </span>
         <span style="margin-left: 8px;">
         <select [value]="undefined" class="posSelector" formControlName="pos" id="posSelector">
-<!--          <option [ngValue]="undefined" class="text-grey-dull" disabled>Part of Speech</option>-->
                     <option *ngFor="let pos of poses" [ngValue]="pos">{{ pos.name }}</option>
         </select>
       </span>
-<!--        <span style="margin-left: 16px;">-->
-<!--          <a [ngClass]="newWord.valid?'text-green-dull':'text-grey-dull'" (click)="addNewWord()">[ + ]</a>-->
-<!--        </span>-->
       </form>
     </th>
     <th class="border">|<br>|</th>
