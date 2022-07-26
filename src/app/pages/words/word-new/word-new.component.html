@@ -20,10 +20,15 @@
           </select>
         </div>
       </div>
-      <app-all-languages (selectedLanguageChange)="changeLanguageFrom({languageFromId:$event?.id})"
-                         *ngIf="type === 'Borrowed' || type === 'Evolved'"
-                         [(selectedLanguage)]="languageTo"
-                         [label]="'From'"></app-all-languages>
+      <div class="selector" *ngIf="type === 'Borrowed' || type === 'Evolved'">
+        <label class="languageSelectorLabel" for="newWordTypeSelector">From</label>
+        <div class="input-group" style="margin-top: 4px;">
+          <select (ngModelChange)="langToChanged({lang:$event})" [(ngModel)]="languageTo" class="langToSelector"
+                  id="langToSelector">
+            <option *ngFor="let lang of languagesTo" [value]="lang">{{lang.displayName}}</option>
+          </select>
+        </div>
+      </div>
     </th>
     <th class="border">|<br>|<br>|<br>|</th>
   </tr>
