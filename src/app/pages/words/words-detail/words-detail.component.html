@@ -68,9 +68,9 @@
                                                                               [routerLink]="['/words/word', from.word]"
                                                                               class="text-main link-btn">{{from.writtenWord}}</a><span
               *ngIf="from.word!=from.writtenWord"> /{{from.word}}/</span>
-              <span *ngIf="from.translations?.length">("<span
+              <span *ngIf="from.translations?.length"> (<span
                 *ngFor="let transl of from.translations; let trlNumbr = index">{{trlNumbr > 0 ? ', ' : ''}}<a
-                class="text-blue-dull">transl</a></span>")</span></span>.
+                class="text-blue-dull">{{transl.wordTo?transl.wordTo.writtenWord:transl.phraseTo}}</a></span>)</span></span>.
           </p>
           <p *ngIf="!wwd.etymology?.from?.length">New word.</p>
           <p *ngIf="wwd.etymology?.cognate?.length">
@@ -117,7 +117,7 @@
       <th style="text-align: left;">
         <div class="cell-content">
           <ol>
-            <li *ngFor="let translation of wwd.translations"><a class="text-blue-dull">{{translation}}</a></li>
+            <li *ngFor="let translation of wwd.translations"><a class="text-blue-dull">{{translation.wordTo?translation.wordTo.writtenWord:translation.phraseTo}}</a></li>
           </ol>
         </div>
       </th>
