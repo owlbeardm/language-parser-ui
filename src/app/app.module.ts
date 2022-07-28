@@ -61,6 +61,8 @@ import { WordNewComponent } from './pages/words/word-new/word-new.component';
 import { NewComponent } from './pages/words/word-new/new/new.component';
 import { DerivedComponent } from './pages/words/word-new/derived/derived.component';
 import { TranslationWordComponent } from './components/translation-word/translation-word.component';
+import { WordWrittenWithTranslationsComponent } from './components/word-written-with-translations/word-written-with-translations.component';
+import { WordDetailTranslationsComponent } from './pages/words/words-detail/word-detail-translations/word-detail-translations.component';
 
 
 @NgModule({
@@ -116,6 +118,8 @@ import { TranslationWordComponent } from './components/translation-word/translat
     NewComponent,
     DerivedComponent,
     TranslationWordComponent,
+    WordWrittenWithTranslationsComponent,
+    WordDetailTranslationsComponent,
   ],
   imports: [
     BrowserModule,

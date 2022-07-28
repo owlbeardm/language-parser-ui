@@ -1,0 +1,52 @@
+<dl>
+  <ng-container *ngFor="let lang of getTranslationLangs">
+    <ng-container *ngFor="let type of getWordTranslationsTypes(lang)">
+      <dt>{{lang}} {{type | translationType}}</dt>
+      <dd>
+          <span
+            *ngFor="let translation of getTranslationForWordAndType(type,true, lang); let i = index">{{i == 0 ? '' : '; '}}<app-translation-word [translation]="translation"></app-translation-word>
+          </span>
+      </dd>
+    </ng-container>
+    <ng-container *ngFor="let type of getPhraseTranslationsTypes(lang)">
+      <dt>{{lang}} {{type | translationType}}</dt>
+      <dd>
+        <ol>
+          <li *ngFor="let translation of getTranslationForWordAndType(type,false, lang); let i = index">
+            <app-translation-word [translation]="translation"></app-translation-word>
+          </li>
+        </ol>
+      </dd>
+    </ng-container>
+  </ng-container>
+</dl>
+
+<!--<ng-container *ngFor="let lang of getTranslationLangs">-->
+<!--  <tr *ngFor="let type of getTranslationTypes(true, lang)">-->
+<!--    <th class="border">|</th>-->
+<!--    <th [rowSpan]="getLanguageRowspans(lang)" class="border"-->
+<!--        style="padding-left: 4px; padding-right: 8px; text-align: left"><span-->
+<!--      style="white-space: nowrap;">{{lang}}</span></th>-->
+<!--    <th class="border" style="padding-left: 4px; padding-right: 8px; text-align: left"><span-->
+<!--      style="white-space: nowrap;">{{type | translationType}}</span></th>-->
+<!--    <th style="padding-left: 8px; padding-right: 8px; white-space: nowrap; text-align: left"><span-->
+<!--      *ngFor="let translation of getTranslationForWordAndType(type,true, lang); let i = index">{{i == 0 ? '' : '; '}}-->
+<!--      <app-translation-word [translation]="translation"></app-translation-word> <span *ngIf="editMode">[<a-->
+<!--        (click)="deleteTranslation(translation)" class="text-red-dull">x</a>]</span></span></th>-->
+<!--    <th class="border"></th>-->
+<!--    <th class="border">|</th>-->
+<!--  </tr>-->
+<!--  <tr *ngFor="let type of getTranslationTypes(false, lang)">-->
+<!--    <th class="border">|</th>-->
+<!--    <th class="border" style="padding-left: 4px; padding-right: 8px; text-align: left"><span-->
+<!--      style="white-space: nowrap;">{{type | translationType}}</span></th>-->
+<!--    <th style="padding-left: 8px; padding-right: 8px; white-space: nowrap; text-align: left"><span-->
+<!--      *ngFor="let translation of getTranslationForWordAndType(type,false, lang); let i = index">{{i == 0 ? '' : '; '}}-->
+<!--      <span-->
+<!--        class="text-blue-dull link-btn"><app-translation-word [translation]="translation"></app-translation-word> <span-->
+<!--        *ngIf="editMode">[<a-->
+<!--        (click)="deleteTranslation(translation)" class="text-red-dull">x</a>]</span></span></span></th>-->
+<!--    <th class="border"></th>-->
+<!--    <th class="border">|</th>-->
+<!--  </tr>-->
+<!--</ng-container>-->
