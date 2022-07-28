@@ -20,15 +20,15 @@
 <ng-container *ngFor="let lang of getTranslationLangs()">
   <tr *ngFor="let type of getTranslationTypes(true, lang)">
     <th class="border">|</th>
-    <th class="border" style="padding-left: 4px; padding-right: 8px; text-align: left" [rowSpan]="getLanguageRowspans(lang)"><span
+    <th [rowSpan]="getLanguageRowspans(lang)" class="border"
+        style="padding-left: 4px; padding-right: 8px; text-align: left"><span
       style="white-space: nowrap;">{{lang}}</span></th>
     <th class="border" style="padding-left: 4px; padding-right: 8px; text-align: left"><span
       style="white-space: nowrap;">{{type | translationType}}</span></th>
     <th style="padding-left: 8px; padding-right: 8px; white-space: nowrap; text-align: left"><span
-      *ngFor="let translation of getTranslationForWordAndType(type,true, lang); let i = index">{{i == 0 ? '' : '; '}}<a
-      [fragment]="translation.wordTo?.language?.displayName" [routerLink]="['/words/word', translation.wordTo?.word]"
-      class="text-blue-dull link-btn">{{translation.wordTo?.writtenWord}}</a> <span *ngIf="editMode">[<a
-      class="text-red-dull" (click)="deleteTranslation(translation)">x</a>]</span></span></th>
+      *ngFor="let translation of getTranslationForWordAndType(type,true, lang); let i = index">{{i == 0 ? '' : '; '}}
+      <app-translation-word [translation]="translation"></app-translation-word> <span *ngIf="editMode">[<a
+        (click)="deleteTranslation(translation)" class="text-red-dull">x</a>]</span></span></th>
     <th class="border"></th>
     <th class="border">|</th>
   </tr>
@@ -39,8 +39,9 @@
     <th style="padding-left: 8px; padding-right: 8px; white-space: nowrap; text-align: left"><span
       *ngFor="let translation of getTranslationForWordAndType(type,false, lang); let i = index">{{i == 0 ? '' : '; '}}
       <span
-        class="text-blue-dull link-btn">{{translation.phraseTo?.phrase}} <span *ngIf="editMode">[<a
-        class="text-red-dull" (click)="deleteTranslation(translation)">x</a>]</span></span></span></th>
+        class="text-blue-dull link-btn"><app-translation-word [translation]="translation"></app-translation-word> <span
+        *ngIf="editMode">[<a
+        (click)="deleteTranslation(translation)" class="text-red-dull">x</a>]</span></span></span></th>
     <th class="border"></th>
     <th class="border">|</th>
   </tr>

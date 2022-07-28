@@ -60,6 +60,7 @@ import { TranslationLineComponent } from './pages/words/translations/translation
 import { WordNewComponent } from './pages/words/word-new/word-new.component';
 import { NewComponent } from './pages/words/word-new/new/new.component';
 import { DerivedComponent } from './pages/words/word-new/derived/derived.component';
+import { TranslationWordComponent } from './components/translation-word/translation-word.component';
 
 
 @NgModule({
@@ -114,6 +115,7 @@ import { DerivedComponent } from './pages/words/word-new/derived/derived.compone
     WordNewComponent,
     NewComponent,
     DerivedComponent,
+    TranslationWordComponent,
   ],
   imports: [
     BrowserModule,

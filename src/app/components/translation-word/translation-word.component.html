@@ -1,0 +1,4 @@
+<a *ngIf="translation.wordTo" [routerLink]="['/words/word', translation.wordTo.word]"
+   class="text-blue-dull link-btn">{{translation.wordTo.writtenWord}}<span
+  *ngIf="translation.wordTo.writtenWord !== translation.wordTo.word"><span class="text-grey"> /{{translation.wordTo.word}}/</span></span></a>
+<a *ngIf="!translation.wordTo" class="text-blue-dull link-btn">{{translation.phraseTo}}</a>

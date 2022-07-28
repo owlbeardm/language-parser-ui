@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {WordsService} from '../../../api/services/words.service';
 import {DetailedWord} from '../../../api/models/detailed-word';
 import {Language} from '../../../api/models/language';
 
@@ -14,17 +13,21 @@ export class WordsDetailComponent implements OnInit {
   detailedWords = new Map<Language, DetailedWord[]>();
   languages: Language[] = [];
 
-  constructor(private wordService: WordsService, private route: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute) {
+  }
+
+  get detailedWordsKeys(): Iterable<Language> {
+    return this.languages;
   }
 
   ngOnInit(): void {
-    const word = this.route.snapshot.paramMap.get('word');
-    if (word) {
-      this.wordService.getDetailedWordsByPhonetics({word}).subscribe(data => {
-        console.log(data);
+    this.activatedRoute.data.subscribe(data => {
+      if (data && data.wordDetails) {
+        const wordDetails = data.wordDetails as DetailedWord[];
+        console.log(wordDetails);
         const emptyLang: Language = {displayName: ''};
-        this.languages = data.filter(dw => dw.word?.language).map(dw => dw.word?.language ? dw.word.language : emptyLang);
-        data.forEach(dw => {
+        this.languages = wordDetails.filter(dw => dw.word?.language).map(dw => dw.word?.language ? dw.word.language : emptyLang);
+        wordDetails.forEach(dw => {
             if (dw.word?.language) {
               const array = this.detailedWords.get(dw.word.language);
               if (!array) {
@@ -35,9 +38,8 @@ export class WordsDetailComponent implements OnInit {
             }
           }
         );
-      });
-    }
+      }
+    });
   }
-
 
 }

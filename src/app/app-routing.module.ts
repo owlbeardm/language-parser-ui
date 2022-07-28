@@ -13,6 +13,7 @@ import {LanguageConnectionsComponent} from './pages/evolution/language-connectio
 import {LanguageDescriptionComponent} from './pages/languages/language-description/language-description.component';
 import {ListEvolutionComponent} from './pages/evolution/list-evolution/list-evolution.component';
 import {WordNewComponent} from './pages/words/word-new/word-new.component';
+import {WorldDetailsResolver} from './resolvers/world-details.resolver';
 
 const routerOptions: ExtraOptions = {
   scrollPositionRestoration: 'enabled',
@@ -27,7 +28,7 @@ const routes: Routes = [
       {path: 'new', component: WordNewComponent},
       {path: 'list', component: WordsListComponent},
       {path: 'translations', component: TranslationsComponent},
-      {path: 'word/:word', component: WordsDetailComponent}]
+      {path: 'word/:word', component: WordsDetailComponent, pathMatch: 'full', resolve: {wordDetails: WorldDetailsResolver}}]
   },
   {
     path: 'evolutions', component: EvolutionComponent,
