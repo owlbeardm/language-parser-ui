@@ -11,6 +11,7 @@ export interface DerivedWordToAdd {
   id?: number;
   language?: Language;
   partOfSpeech?: Pos;
+  sourceType?: WordOriginType;
   version?: number;
   word?: string;
   wordOriginType?: WordOriginType;

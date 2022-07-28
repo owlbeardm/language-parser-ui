@@ -1,0 +1,4 @@
+<span
+  *ngFor="let from of wordsWithTranslations; let number = index">{{number == 0 ? '' : ', '}}<a
+  class="text-grey"><i>{{from.language?.displayName}}</i></a> *<app-word-written-with-translations
+  [wordWithTranslations]="from"></app-word-written-with-translations></span>

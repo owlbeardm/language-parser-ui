@@ -63,6 +63,7 @@ import { DerivedComponent } from './pages/words/word-new/derived/derived.compone
 import { TranslationWordComponent } from './components/translation-word/translation-word.component';
 import { WordWrittenWithTranslationsComponent } from './components/word-written-with-translations/word-written-with-translations.component';
 import { WordDetailTranslationsComponent } from './pages/words/words-detail/word-detail-translations/word-detail-translations.component';
+import { WordDetailListComponent } from './pages/words/words-detail/word-detail-list/word-detail-list.component';
 
 
 @NgModule({
@@ -120,6 +121,7 @@ import { WordDetailTranslationsComponent } from './pages/words/words-detail/word
     TranslationWordComponent,
     WordWrittenWithTranslationsComponent,
     WordDetailTranslationsComponent,
+    WordDetailListComponent,
   ],
   imports: [
     BrowserModule,

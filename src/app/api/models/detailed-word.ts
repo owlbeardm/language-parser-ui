@@ -2,10 +2,11 @@
 /* eslint-disable */
 import { Etymology } from './etymology';
 import { Translation } from './translation';
+import { WordWithTranslations } from './word-with-translations';
 import { WordWithWritten } from './word-with-written';
 export interface DetailedWord {
-  descendants?: Array<WordWithWritten>;
-  dirived?: Array<WordWithWritten>;
+  derived?: Array<WordWithTranslations>;
+  descendants?: Array<WordWithTranslations>;
   etymology?: Etymology;
   translations?: Array<Translation>;
   word?: WordWithWritten;

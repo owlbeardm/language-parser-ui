@@ -50,6 +50,16 @@
   <ng-container *ngFor="let wwd of detailedWords.get(lang); let i = index">
     <tr>
       <th class="border">|</th>
+      <th class="border"><span style="text-transform: capitalize;">{{wwd.word?.partOfSpeech?.name}}</span></th>
+      <th class="border">|</th>
+    </tr>
+    <tr>
+      <th class="border">+</th>
+      <th app-horizontal-dash class="border"></th>
+      <th class="border">+</th>
+    </tr>
+    <tr>
+      <th class="border">|</th>
       <th class="border"><span style="text-transform: capitalize;">Etymology <span>{{i + 1}}</span></span></th>
       <th class="border">|</th>
     </tr>
@@ -63,16 +73,11 @@
       <th style="text-align: left;">
         <div class="cell-content text-cell-content">
           <p *ngIf="wwd.etymology?.from?.length">
-            <span *ngFor="let from of wwd.etymology?.from; let number = index">{{number == 0 ? 'F' : ', f'}}rom <a
-              class="text-grey"><i>{{from.language?.displayName}}</i></a> *<app-word-written-with-translations
-              [wordWithTranslations]="from"></app-word-written-with-translations></span>.
+            From <app-word-detail-list [wordsWithTranslations]="wwd.etymology?.from"></app-word-detail-list>.
           </p>
           <p *ngIf="!wwd.etymology?.from?.length">New word.</p>
           <p *ngIf="wwd.etymology?.cognate?.length">
-            Cognate with <span
-            *ngFor="let from of wwd.etymology?.cognate; let number = index">{{number == 0 ? '' : ', '}}<a
-            class="text-grey"><i>{{from.language?.displayName}}</i></a> *<app-word-written-with-translations
-            [wordWithTranslations]="from"></app-word-written-with-translations></span>.
+            Cognate with <app-word-detail-list [wordsWithTranslations]="wwd.etymology?.cognate"></app-word-detail-list>.
           </p>
         </div>
       </th>
@@ -83,85 +88,90 @@
       <th app-horizontal-dash class="border"></th>
       <th class="border">+</th>
     </tr>
-    <tr>
-      <th class="border">|</th>
-      <th class="border"><span style="text-transform: capitalize;">{{wwd.word?.partOfSpeech?.name}}</span></th>
-      <th class="border">|</th>
-    </tr>
-    <tr>
-      <th class="border">+</th>
-      <th app-horizontal-dash class="border"></th>
-      <th class="border">+</th>
-    </tr>
-    <tr>
-      <th class="border">|</th>
-      <th class="border"><span style="text-transform: capitalize;">Translations</span></th>
-      <th class="border">|</th>
-    </tr>
-    <tr>
-      <th class="border">+</th>
-      <th app-horizontal-dash class="border"></th>
-      <th class="border">+</th>
-    </tr>
-    <tr>
-      <th app-vertical-dash class="border"></th>
-      <th style="text-align: left;">
-        <div *ngIf="wwd.translations" class="cell-content">
-          <app-word-detail-translations [translations]="wwd.translations"></app-word-detail-translations>
-        </div>
-        <!--        <div class="cell-content">-->
-        <!--          <ol>-->
-        <!--            <li *ngFor="let translation of wwd.translations">-->
-        <!--              <app-translation-word [translation]="translation"></app-translation-word>-->
-        <!--            </li>-->
-        <!--          </ol>-->
-        <!--        </div>-->
-      </th>
-      <th app-vertical-dash class="border"></th>
-    </tr>
-    <tr>
-      <th class="border">+</th>
-      <th app-horizontal-dash class="border"></th>
-      <th class="border">+</th>
-    </tr>
-    <tr>
-      <th class="border">|</th>
-      <th class="border"><span style="text-transform: capitalize;">Dirived</span></th>
-      <th class="border">|</th>
-    </tr>
-    <tr>
-      <th class="border">+</th>
-      <th app-horizontal-dash class="border"></th>
-      <th class="border">+</th>
-    </tr>
-    <tr>
-      <th class="border">|</th>
-      <th class="border"><span style="text-transform: capitalize;">Descendants</span></th>
-      <th class="border">|</th>
-    </tr>
-    <tr>
-      <th class="border">+</th>
-      <th app-horizontal-dash class="border"></th>
-      <th class="border">+</th>
-    </tr>
-    <tr>
-      <th app-vertical-dash class="border"></th>
-      <th style="text-align: left;">
-        <div class="cell-content">
-          <ul>
-            <li *ngFor="let desc of wwd.descendants">{{desc.language?.displayName}}: <a>{{desc.word}} <span
-              class="text-grey">({{desc.writtenWord}})</span></a>.
-            </li>
-          </ul>
-        </div>
-      </th>
-      <th app-vertical-dash class="border"></th>
-    </tr>
-    <tr>
-      <th class="border">+</th>
-      <th app-horizontal-dash class="border"></th>
-      <th class="border">+</th>
-    </tr>
+    <ng-container *ngIf="wwd.translations && wwd.translations.length">
+      <tr>
+        <th class="border">|</th>
+        <th class="border"><span style="text-transform: capitalize;">Translations</span></th>
+        <th class="border">|</th>
+      </tr>
+      <tr>
+        <th class="border">+</th>
+        <th app-horizontal-dash class="border"></th>
+        <th class="border">+</th>
+      </tr>
+      <tr>
+        <th app-vertical-dash class="border"></th>
+        <th style="text-align: left;">
+          <div *ngIf="wwd.translations" class="cell-content">
+            <app-word-detail-translations [translations]="wwd.translations"></app-word-detail-translations>
+          </div>
+        </th>
+        <th app-vertical-dash class="border"></th>
+      </tr>
+      <tr>
+        <th class="border">+</th>
+        <th app-horizontal-dash class="border"></th>
+        <th class="border">+</th>
+      </tr>
+    </ng-container>
+    <ng-container *ngIf="wwd.derived && wwd.derived.length">
+      <tr>
+        <th class="border">|</th>
+        <th class="border"><span style="text-transform: capitalize;">Derived</span></th>
+        <th class="border">|</th>
+      </tr>
+      <tr>
+        <th class="border">+</th>
+        <th app-horizontal-dash class="border"></th>
+        <th class="border">+</th>
+      </tr>
+      <tr>
+        <th app-vertical-dash class="border"></th>
+        <th style="text-align: left;">
+          <div class="cell-content text-cell-content">
+            <p *ngIf="wwd.derived">
+              Derived to <app-word-detail-list [wordsWithTranslations]="wwd.derived"></app-word-detail-list>.
+            </p>
+          </div>
+        </th>
+        <th app-vertical-dash class="border"></th>
+      </tr>
+      <tr>
+        <th class="border">+</th>
+        <th app-horizontal-dash class="border"></th>
+        <th class="border">+</th>
+      </tr>
+    </ng-container>
+    <ng-container *ngIf="wwd.descendants && wwd.descendants.length">
+      <tr>
+        <th class="border">|</th>
+        <th class="border"><span style="text-transform: capitalize;">Descendants</span></th>
+        <th class="border">|</th>
+      </tr>
+      <tr>
+        <th class="border">+</th>
+        <th app-horizontal-dash class="border"></th>
+        <th class="border">+</th>
+      </tr>
+      <tr>
+        <th app-vertical-dash class="border"></th>
+        <th style="text-align: left;">
+          <div class="cell-content">
+            <ul>
+              <li *ngFor="let desc of wwd.descendants">{{desc.language?.displayName}}: <a>{{desc.word}} <span
+                class="text-grey">({{desc.writtenWord}})</span></a>.
+              </li>
+            </ul>
+          </div>
+        </th>
+        <th app-vertical-dash class="border"></th>
+      </tr>
+      <tr>
+        <th class="border">+</th>
+        <th app-horizontal-dash class="border"></th>
+        <th class="border">+</th>
+      </tr>
+    </ng-container>
   </ng-container>
   </tbody>
 </table>
