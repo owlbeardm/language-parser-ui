@@ -45,7 +45,7 @@ export class OtherPhonemesComponent implements OnInit {
   }
 
   addNewSound(): void {
-    const sound = this.soundForm.value.newSound;
+    const sound = this.soundForm.value.newSound ? this.soundForm.value.newSound : undefined;
     this.onClick.emit(sound);
     // const find = this.languageSounds?.selectedMainPhonemes?.find(value => value.phoneme === sound);
     // if (find) {

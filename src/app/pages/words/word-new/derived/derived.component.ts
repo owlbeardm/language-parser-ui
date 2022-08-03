@@ -27,7 +27,7 @@ export class DerivedComponent implements OnInit, OnChanges {
   newWord = new FormGroup({
     word: new FormControl('', Validators.required),
     comment: new FormControl('', Validators.required),
-    pos: new FormControl(undefined, Validators.required)
+    pos: new FormControl({} as Pos, Validators.required)
   });
 
   constructor(private wordService: WordsService, private posService: PosService) {
@@ -111,10 +111,10 @@ export class DerivedComponent implements OnInit, OnChanges {
 
   addDerivedWord(): void {
     const derivedWord: DerivedWordToAdd = {
-      word: this.newWord.value.word,
-      comment: this.newWord.value.comment,
+      word: this.newWord.value.word?this.newWord.value.word:undefined,
+      comment: this.newWord.value.comment?this.newWord.value.comment:undefined,
       language: this.language,
-      partOfSpeech: this.newWord.value.pos,
+      partOfSpeech: this.newWord.value.pos?this.newWord.value.pos:undefined,
       forgotten: false,
       wordOriginType: WordOriginType.Derived,
       derivedFrom: this.selectedWords

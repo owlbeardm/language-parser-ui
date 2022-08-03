@@ -16,8 +16,8 @@ export class WordAddLineComponent implements OnInit {
   poses: Pos[] = [];
   newWord = new FormGroup({
     sound: new FormControl('', Validators.required),
-    language: new FormControl(undefined, Validators.required),
-    pos: new FormControl(undefined, Validators.required)
+    language: new FormControl({} as Language, Validators.required),
+    pos: new FormControl({} as Pos, Validators.required)
   });
   @Output() onNewWord = new EventEmitter<Word>();
 
@@ -34,9 +34,9 @@ export class WordAddLineComponent implements OnInit {
   addNewWord(): void {
     console.log(this.newWord.value);
     const newWord: Word = {
-      word: this.newWord.value.sound,
-      language: this.newWord.value.language,
-      partOfSpeech: this.newWord.value.pos,
+      word: this.newWord.value.sound?this.newWord.value.sound:undefined,
+      language: this.newWord.value.language?this.newWord.value.language:undefined,
+      partOfSpeech: this.newWord.value.pos?this.newWord.value.pos:undefined,
       forgotten: false
     };
     if (!newWord.language || !newWord.partOfSpeech || !newWord.word) {

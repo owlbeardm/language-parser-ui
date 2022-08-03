@@ -19,7 +19,7 @@ export class NewComponent implements OnInit {
   newWord = new FormGroup({
     word: new FormControl('', Validators.required),
     comment: new FormControl('', Validators.required),
-    pos: new FormControl(undefined, Validators.required)
+    pos: new FormControl({} as Pos, Validators.required)
   });
 
   constructor(private wordService: WordsService) { }
@@ -29,10 +29,10 @@ export class NewComponent implements OnInit {
 
   addNewWord(): void {
     const newWord: WordToAdd = {
-      word: this.newWord.value.word,
-      comment: this.newWord.value.comment,
+      word: this.newWord.value.word?this.newWord.value.word:'',
+      comment: this.newWord.value.comment?this.newWord.value.comment:'',
       language: this.language,
-      partOfSpeech: this.newWord.value.pos,
+      partOfSpeech: this.newWord.value.pos?this.newWord.value.pos:undefined,
       forgotten: false,
       wordOriginType: WordOriginType.New
     };

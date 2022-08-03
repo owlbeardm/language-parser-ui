@@ -64,6 +64,8 @@ import { TranslationWordComponent } from './components/translation-word/translat
 import { WordWrittenWithTranslationsComponent } from './components/word-written-with-translations/word-written-with-translations.component';
 import { WordDetailTranslationsComponent } from './pages/words/words-detail/word-detail-translations/word-detail-translations.component';
 import { WordDetailListComponent } from './pages/words/words-detail/word-detail-list/word-detail-list.component';
+import {GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from '@abacritt/angularx-social-login';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -122,6 +124,7 @@ import { WordDetailListComponent } from './pages/words/words-detail/word-detail-
     WordWrittenWithTranslationsComponent,
     WordDetailTranslationsComponent,
     WordDetailListComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -129,6 +132,7 @@ import { WordDetailListComponent } from './pages/words/words-detail/word-detail-
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    SocialLoginModule,
     AppServiceModule,
     ApiModule.forRoot({rootUrl: 'http://localhost:8080'}),
   ],
@@ -137,6 +141,21 @@ import { WordDetailListComponent } from './pages/words/words-detail/word-detail-
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
       multi: true
+    },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider('457941235931-ta7f430pcvim9inavtg97ngqav65394i.apps.googleusercontent.com'),
+          },
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
     },
     ErrorService,
   ],

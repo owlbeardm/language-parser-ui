@@ -10,12 +10,12 @@
   <tr>
     <th class="border">|<br>|<br>|<br>|</th>
     <th class="border" style="text-align: left; display: flex;">
-      <app-all-languages (selectedLanguageChange)="loadDefault({languageFromId:$event?.id})"
+      <app-all-languages (selectedLanguageChange)="loadDefault({languageFromId:$event.id})"
                          [(selectedLanguage)]="languageFrom"
                          [label]="'From'"></app-all-languages>
       <input (ngModelChange)="loadDefault({word:$event})" [(ngModel)]="wordSearch"
              style="height: 16px; margin-left: 8px; margin-top: 30px; margin-right: 0px;" type="text"/>
-      <app-all-languages (selectedLanguageChange)="loadDefault({languageToId:$event?.id})"
+      <app-all-languages (selectedLanguageChange)="loadDefault({languageToId:$event.id})"
                          [(selectedLanguage)]="languageTo"
                          [label]="'To'"></app-all-languages>
       <input (ngModelChange)="loadDefault({translation:$event})" [(ngModel)]="translationSearch"
