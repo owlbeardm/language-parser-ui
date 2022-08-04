@@ -66,6 +66,10 @@ import { WordDetailTranslationsComponent } from './pages/words/words-detail/word
 import { WordDetailListComponent } from './pages/words/words-detail/word-detail-list/word-detail-list.component';
 import {GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from '@abacritt/angularx-social-login';
 import { LoginComponent } from './components/login/login.component';
+import {AngularFireModule} from '@angular/fire/compat';
+import {environment} from '../environments/environment';
+import {AngularFireAuthModule} from '@angular/fire/compat/auth';
+import {FireAuthService} from './services/fire-auth.service';
 
 
 @NgModule({
@@ -127,6 +131,8 @@ import { LoginComponent } from './components/login/login.component';
     LoginComponent,
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
@@ -137,6 +143,7 @@ import { LoginComponent } from './components/login/login.component';
     ApiModule.forRoot({rootUrl: 'http://localhost:8080'}),
   ],
   providers: [
+    FireAuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,

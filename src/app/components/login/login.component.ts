@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GoogleLoginProvider, SocialAuthService, SocialUser} from '@abacritt/angularx-social-login';
+import {FireAuthService} from '../../services/fire-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,17 +8,22 @@ import {GoogleLoginProvider, SocialAuthService, SocialUser} from '@abacritt/angu
 })
 export class LoginComponent implements OnInit {
 
-  user?: SocialUser;
-  loggedIn = false;
+  constructor(private fireAuthService: FireAuthService) {
+  }
 
-  constructor(private authService: SocialAuthService) {
+  get loggedIn(): boolean {
+    return this.fireAuthService.isLoggedIn;
+  }
+
+  get userName(): string {
+    const name = this.fireAuthService.userData.displayName;
+    return name ? name : 'Logged In';
   }
 
   ngOnInit(): void {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-    });
   }
 
+  GoogleAuth(): void {
+    this.fireAuthService.GoogleAuth();
+  }
 }
