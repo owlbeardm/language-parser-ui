@@ -1,6 +1,2 @@
-<!--<asl-google-signin-button *ngIf="!loggedIn"></asl-google-signin-button>-->
-<div *ngIf="loggedIn">
-  {{userName}}
-<!--<img src="{{ user?.photoUrl }}" style="width:30px;">-->
-</div>
+<div *ngIf="loggedIn" class="text-grey">[{{userName}}]</div>
 <a *ngIf="!loggedIn" (click)="GoogleAuth()">[LOGIN]</a>

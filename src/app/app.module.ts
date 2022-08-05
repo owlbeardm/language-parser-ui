@@ -70,6 +70,7 @@ import {AngularFireModule} from '@angular/fire/compat';
 import {environment} from '../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import {FireAuthService} from './services/fire-auth.service';
+import {FirebaseAuthInterceptor} from './interceptors/firebase-auth.interceptor';
 
 
 @NgModule({
@@ -144,6 +145,11 @@ import {FireAuthService} from './services/fire-auth.service';
   ],
   providers: [
     FireAuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: FirebaseAuthInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
