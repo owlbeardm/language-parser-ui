@@ -1,2 +1,2 @@
-<div *ngIf="loggedIn" class="text-grey">[{{userName}}]</div>
-<a *ngIf="!loggedIn" (click)="GoogleAuth()">[LOGIN]</a>
+<a (click)="logOut()" *ngIf="loggedIn" class="text-grey link-btn">[{{userName}}]</a>
+<a (click)="GoogleAuth()" *ngIf="!loggedIn" class="text-main link-btn">[LOGIN]</a>

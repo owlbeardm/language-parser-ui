@@ -14,7 +14,7 @@ export class FirebaseAuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const userString = localStorage.getItem('fire.user');
     const user = JSON.parse(userString ? userString : 'null');
-    const token = user.stsTokenManager.accessToken;
+    const token = user?.stsTokenManager?.accessToken;
 
     if (!token) {
       return next.handle(req);

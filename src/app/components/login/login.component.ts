@@ -26,4 +26,8 @@ export class LoginComponent implements OnInit {
   GoogleAuth(): void {
     this.fireAuthService.GoogleAuth();
   }
+
+  logOut(): void {
+    this.fireAuthService.SignOut();
+  }
 }
