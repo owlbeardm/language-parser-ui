@@ -11,7 +11,7 @@ echo "Releasing language-parser $1"
 
 git stash
 git flow release start $1
-yarn build-prod --env.version=$1
+yarn build-prod
 git add -A
 git commit -am "prerelease $1"
 git flow release publish $1
