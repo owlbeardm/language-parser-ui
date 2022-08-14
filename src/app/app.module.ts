@@ -141,7 +141,7 @@ import {FirebaseAuthInterceptor} from './interceptors/firebase-auth.interceptor'
     ReactiveFormsModule,
     SocialLoginModule,
     AppServiceModule,
-    ApiModule.forRoot({rootUrl: 'http://localhost:8080'}),
+    ApiModule.forRoot({rootUrl: environment.rootUrl}),
   ],
   providers: [
     FireAuthService,
