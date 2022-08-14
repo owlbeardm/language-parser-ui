@@ -25,7 +25,7 @@ rm *.png
 rm *.css
 rm *.svg
 rm *.html
-cp -a dist/. .
+cp -a dist/language-parser-ui/. .
 git add -A
 git commit -am "gh-pages release $1"
 git push
