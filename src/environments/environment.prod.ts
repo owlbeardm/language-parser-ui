@@ -9,5 +9,5 @@ export const environment = {
     appId: "1:457941235931:web:3d318384aff9c40965b4fe",
     measurementId: "G-S1PTJS0DPB"
   },
-  rootUrl: 'http://localhost:8080'
+  rootUrl: 'http://foundry.owlbeardm.com:8080'
 };
