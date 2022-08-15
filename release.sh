@@ -7,10 +7,12 @@
 #         exit 1;
 # fi
 
-echo "Releasing language-parser new version"
+now=$(date +"%Y-%m-%d-%H.%M.%S")
+
+echo "Releasing language-parser $now"
 
 git stash
-git flow release start new
+git flow release start $now
 rm -rf dist
 
 if [ -z $1 ];
@@ -26,7 +28,7 @@ fi
 yarn build-prod
 git add -A
 git commit -am "prerelease $version"
-git flow release publish new
+git flow release publish $now
 git checkout gh-pages
 git pull
 rm *.js
@@ -40,5 +42,5 @@ cp -a dist/language-parser-ui/. .
 git add -A
 git commit -am "gh-pages release $version"
 git push
-git checkout release/new
-git flow release finish -nm "$version" new
+git checkout release/$now
+git flow release finish -nm "$version" $now
