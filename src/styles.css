@@ -1,5 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 
+@font-face {
+    font-family : "Ubuntu Mono";
+    src: url('./assets/fonts/UbuntuMono-R.ttf');
+}
+
+@font-face {
+    font-family : "Ubuntu Mono";
+    src: url('./assets/fonts/UbuntuMono-B.ttf');
+    font-weight : bold;
+}
+
+@font-face {
+    font-family : "Ubuntu Mono";
+    src: url('./assets/fonts/UbuntuMono-RI.ttf');
+    font-style : italic;
+}
+
+@font-face {
+    font-family : "Ubuntu Mono";
+    src: url('./assets/fonts/UbuntuMono-BI.ttf');
+    font-weight : bold;
+    font-style : italic;
+}
+
 html {
   font-family: "Ubuntu Mono";
   font-size: 16px;
