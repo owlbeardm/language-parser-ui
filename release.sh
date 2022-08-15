@@ -7,7 +7,7 @@
 #         exit 1;
 # fi
 
-now=$(date +"%Y-%m-%d-%T")
+now=$(date +"%Y-%m-%d-%H.%M.%S")
 
 echo "Releasing language-parser $now"
 
