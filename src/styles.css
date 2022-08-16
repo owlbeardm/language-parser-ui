@@ -31,6 +31,10 @@ html {
   background-color: #252525;
 }
 
+body{
+  margin: 0!important;
+}
+
 body::-webkit-scrollbar {
   background: #252525;
   width: 10px;

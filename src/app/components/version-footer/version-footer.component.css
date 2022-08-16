@@ -1,0 +1,8 @@
+.left {
+  margin-left: 4px;
+  margin-right: auto;
+}
+.right{
+  margin-left: auto;
+  margin-right: 4px;
+}

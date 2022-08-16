@@ -22,6 +22,8 @@ export class WordsListComponent implements OnInit {
   languages: Language[] = [];
   poses: Pos[] = [];
   pageSize = 30;
+  canDelete = new Map<number, boolean>();
+
 
   constructor(private wordService: WordsService, private languageService: LanguagesService, private posService: PosService) {
   }
@@ -40,6 +42,16 @@ export class WordsListComponent implements OnInit {
       (words) => {
         if (words.data) {
           this.words = words;
+          words.data.forEach((word) => {
+            if (word.id) {
+              const wordId = word.id;
+              this.wordService.canDeleteWord({wordId}).subscribe(
+                (can) => {
+                  this.canDelete.set(wordId, can);
+                }
+              );
+            }
+          });
         }
       }
     );
@@ -83,5 +95,12 @@ export class WordsListComponent implements OnInit {
     this.pos = undefined;
     this.wordSearch = undefined;
     this.loadDefault({});
+  }
+
+  canDeleteWord(word: Word): boolean {
+    if (!word.id) {
+      return false;
+    }
+    return !!this.canDelete.get(word.id);
   }
 }
