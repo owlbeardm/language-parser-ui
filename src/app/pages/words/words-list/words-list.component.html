@@ -66,10 +66,10 @@
     <th class="border">|</th>
     <th class="border" style="text-align: left;"><span style="margin-left: 16px;">{{word.language?.displayName}}</span>
     </th>
-    <th class="border">|</th>
+    <th class="border"><span>|</span></th>
     <!--    <th class="border">{{word.forgotten ? "unforget" : "forget"}}</th>-->
     <!--    <th class="border">|</th>-->
-    <th class="border"><a (click)="deleteWord(word)" class="text-red-dull">x</a></th>
+    <th class="border"><a  *ngIf="canDeleteWord(word)" (click)="deleteWord(word)" class="text-red-dull">x</a></th>
     <th class="border">|</th>
   </tr>
   </tbody>
@@ -78,4 +78,4 @@
                     [size]="pageSize"
                     [totalPages]="words.totalPages?words.totalPages:0"
                     [total]="words.total?words.total:0"></app-list-paginator>
-<app-word-add-line (onNewWord)="addNewWord($event)"></app-word-add-line>
+<!--<app-word-add-line (onNewWord)="addNewWord($event)"></app-word-add-line>-->
