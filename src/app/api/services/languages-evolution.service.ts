@@ -92,7 +92,7 @@ export class LanguagesEvolutionService extends BaseService {
   /**
    * Path part for operation getConnectionFromLang
    */
-  static readonly GetConnectionFromLangPath = '/api/evolve/connection/{fromLangId}';
+  static readonly GetConnectionFromLangPath = '/api/evolve/connection/from/{fromLangId}';
 
   /**
    * Get connections from language.
@@ -139,6 +139,60 @@ export class LanguagesEvolutionService extends BaseService {
   }): Observable<Array<LanguageConnection>> {
 
     return this.getConnectionFromLang$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<LanguageConnection>>) => r.body as Array<LanguageConnection>)
+    );
+  }
+
+  /**
+   * Path part for operation getConnectionToLang
+   */
+  static readonly GetConnectionToLangPath = '/api/evolve/connection/to/{toLangId}';
+
+  /**
+   * Get connections from language.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getConnectionToLang()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getConnectionToLang$Response(params: {
+    toLangId: number;
+  }): Observable<StrictHttpResponse<Array<LanguageConnection>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetConnectionToLangPath, 'get');
+    if (params) {
+      rb.path('toLangId', params.toLangId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<LanguageConnection>>;
+      })
+    );
+  }
+
+  /**
+   * Get connections from language.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getConnectionToLang$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getConnectionToLang(params: {
+    toLangId: number;
+  }): Observable<Array<LanguageConnection>> {
+
+    return this.getConnectionToLang$Response(params).pipe(
       map((r: StrictHttpResponse<Array<LanguageConnection>>) => r.body as Array<LanguageConnection>)
     );
   }

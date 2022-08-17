@@ -13,8 +13,8 @@ import {LanguageConnectionType} from '../../../api/models/language-connection-ty
 })
 export class WordNewComponent implements OnInit {
   language?: Language;
-  languageTo?: Language;
-  languagesTo: Language[] = [];
+  languageFrom?: Language;
+  languagesFrom: Language[] = [];
   wordOriginType = WordOriginType;
   typeKeys = Object.keys(WordOriginType);
   type: WordOriginType | string = this.typeKeys[0];
@@ -31,11 +31,11 @@ export class WordNewComponent implements OnInit {
 
   changeLanguageTo(idFrom: number | undefined, type: WordOriginType | string): void {
     if (idFrom) {
-      this.languagesEvolutionService.getConnectionFromLang({fromLangId: idFrom}).subscribe((connections) => {
-        this.languagesTo = connections
+      this.languagesEvolutionService.getConnectionToLang({toLangId: idFrom}).subscribe((connections) => {
+        this.languagesFrom = connections
           .filter((connection) => (connection.connectionType === LanguageConnectionType.Evolving && type === 'Evolved')
             || (connection.connectionType === LanguageConnectionType.Borrowing && type === 'Borrowed'))
-          .map((connection) => connection.langTo).filter((l) => !!l).map((l) => {
+          .map((connection) => connection.langFrom).filter((l) => !!l).map((l) => {
             const lang: Language = {displayName: 'empty'};
             return !!l ? l : lang;
           });
