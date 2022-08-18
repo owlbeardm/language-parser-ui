@@ -23,9 +23,9 @@
       <div class="selector" *ngIf="type === 'Borrowed' || type === 'Evolved'">
         <label class="languageSelectorLabel" for="newWordTypeSelector">From</label>
         <div class="input-group" style="margin-top: 4px;">
-          <select (ngModelChange)="langToChanged({lang:$event})" [(ngModel)]="languageFrom" class="langToSelector"
+          <select (ngModelChange)="langFromChanged({lang:$event})" [(ngModel)]="languageFrom" class="langToSelector"
                   id="langToSelector">
-            <option *ngFor="let lang of languagesFrom" [value]="lang">{{lang.displayName}}</option>
+            <option *ngFor="let lang of languagesFrom" [selected]="languageFrom === lang" [value]="lang">{{lang.displayName}}</option>
           </select>
         </div>
       </div>
@@ -33,9 +33,9 @@
     <th class="border">|<br>|<br>|<br>|</th>
   </tr>
   </tbody>
-  <tbody *ngIf="language !== undefined && type === 'New'" [language]="language" [poses]="poses" app-new></tbody>
-  <tbody *ngIf="language !== undefined && type === 'Derived'" [language]="language" [poses]="poses" app-derived></tbody>
-  <tbody *ngIf="language !== undefined && languageFrom !== undefined && type === 'Borrowed'" [language]="language" [languageFrom]="languageFrom" [poses]="poses" app-borroved></tbody>
+  <tbody *ngIf="language !== undefined && type === 'New'" [language]="language" app-new></tbody>
+  <tbody *ngIf="language !== undefined && type === 'Derived'" [language]="language" app-derived></tbody>
+  <tbody *ngIf="language !== undefined && languageFrom !== undefined && type === 'Borrowed'" [language]="language" [languageFrom]="languageFrom" app-borroved></tbody>
   <tbody>
   <tr>
     <th class="border">+</th>
@@ -44,3 +44,5 @@
   </tr>
   </tbody>
 </table>
+{{languageFrom?.displayName}},{{languageFrom?.id}};
+{{getstr(languagesFrom)}}

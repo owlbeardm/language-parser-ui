@@ -9,20 +9,20 @@ import {PosService} from '../../../../api/services/pos.service';
 import {WordWithWritten} from '../../../../api/models/word-with-written';
 import {DerivedWordToAdd} from '../../../../api/models/derived-word-to-add';
 import {WordOriginType} from '../../../../api/models/word-origin-type';
+import {WordNewDetailed} from "../word-new-detailed";
 
 @Component({
   selector: 'tbody[app-derived]',
   templateUrl: './derived.component.html',
   styleUrls: ['./derived.component.css']
 })
-export class DerivedComponent implements OnInit, OnChanges {
+export class DerivedComponent extends WordNewDetailed implements OnInit, OnChanges {
 
   pageSize = 10;
   wordSearch?: string;
   listPosSelector?: Pos;
   wordsList: PageResultWordWithWritten = {};
   selectedWords: WordWithWritten[] = [];
-  @Input() poses!: Pos[];
   @Input() language!: Language;
   newWord = new FormGroup({
     word: new FormControl('', Validators.required),
@@ -30,22 +30,13 @@ export class DerivedComponent implements OnInit, OnChanges {
     pos: new FormControl({} as Pos, Validators.required)
   });
 
-  constructor(private wordService: WordsService, private posService: PosService) {
+  constructor(private wordService: WordsService, protected posService: PosService) {
+    super(posService);
   }
 
   ngOnInit(): void {
     this.reloadWordList(this.language.id);
     this.loadPos(this.language.id);
-  }
-
-  loadPos(langId: number | undefined): void {
-    if (langId) {
-      this.posService.getAllPosByLanguage({languageId: langId}).subscribe(poses => {
-        this.poses = poses.sort((a, b) => a.name ? a.name.localeCompare(b.name ? b.name : '') : -1);
-      });
-    } else {
-      this.poses = [];
-    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

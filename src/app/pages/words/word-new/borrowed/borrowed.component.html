@@ -1,3 +1,38 @@
 <tr>
-  <th class="border">|<br>|<br>|<br>|</th>
+  <th class="border">|</th>
+  <th app-horizontal-dash class="border"></th>
+  <th class="border">|</th>
+</tr>
+<tr>
+  <th class="border">|<br>|</th>
+  <th class="border" style="text-align: left;">
+    <input (ngModelChange)="loadDefault({word:$event})" [(ngModel)]="wordSearch"
+           style="height: 16px; margin-left: 16px;" type="text"/>
+    <span style="margin-left: 8px;">
+        <select (ngModelChange)="loadDefault({posId:$event?.id})" [(ngModel)]="listPosSelector" class="listPosSelector"
+                id="listPosSelector">
+          <option [ngValue]="undefined">Any part of speech</option>
+          <option *ngFor="let p of poses" [ngValue]="p">{{ p.name }}</option>
+        </select>
+      </span>
+  </th>
+  <th class="border">|<br>|</th>
+</tr>
+<tr *ngIf="wordsList.data && wordsList.data.length">
+  <th class="border">|</th>
+  <th app-horizontal-dash class="border"></th>
+  <th class="border">|</th>
+</tr>
+<tr *ngFor="let w of wordsList.data">
+  <th class="border">|</th>
+  <th class="border" style="text-align: left;">
+    <span style="margin-left: 8px;">
+      *
+    </span>
+    <span class="text-grey" style="margin-left: 8px;">{{w.writtenWord}}</span>
+    <span class="text-main" style="margin-left: 8px;">/ {{w.word}} /</span>
+    <span class="text-grey" style="margin-left: 8px;">{{w.partOfSpeech?.abbreviation}}</span>
+    <span style="margin-left: 8px;">{{w.comment}}</span>
+  </th>
+  <th class="border">|</th>
 </tr>

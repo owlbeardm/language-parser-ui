@@ -5,16 +5,16 @@ import {Pos} from '../../../../api/models/pos';
 import {Language} from '../../../../api/models/language';
 import {WordsService} from '../../../../api/services/words.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Word} from '../../../../api/models/word';
+import {WordNewDetailed} from "../word-new-detailed";
+import {PosService} from "../../../../api/services/pos.service";
 
 @Component({
   selector: 'tbody[app-new]',
   templateUrl: './new.component.html',
   styleUrls: ['./new.component.css']
 })
-export class NewComponent implements OnInit {
+export class NewComponent extends WordNewDetailed implements OnInit {
 
-  @Input() poses!: Pos[];
   @Input() language!: Language;
   newWord = new FormGroup({
     word: new FormControl('', Validators.required),
@@ -22,7 +22,9 @@ export class NewComponent implements OnInit {
     pos: new FormControl({} as Pos, Validators.required)
   });
 
-  constructor(private wordService: WordsService) { }
+  constructor(private wordService: WordsService, protected posService: PosService) {
+    super(posService);
+  }
 
   ngOnInit(): void {
   }
