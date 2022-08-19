@@ -51,8 +51,8 @@ export class WordNewComponent implements OnInit {
     this.changeLanguageTo(this.language?.id, param.type);
   }
 
-  langFromChanged(param: { lang: Language }): void {
-    console.log(JSON.stringify(param));
+  langFromChanged(lang: Language): void {
+    console.log(JSON.stringify(lang));
   }
 
   getstr(o: any): string {

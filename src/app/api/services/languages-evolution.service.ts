@@ -12,11 +12,15 @@ import { map, filter } from 'rxjs/operators';
 import { Language } from '../models/language';
 import { LanguageConnection } from '../models/language-connection';
 import { LanguageConnectionTypeModel } from '../models/language-connection-type-model';
+import { PageResultWordWithBorrowed } from '../models/page-result-word-with-borrowed';
 import { PageResultWordWithEvolution } from '../models/page-result-word-with-evolution';
 import { SoundChange } from '../models/sound-change';
 import { SoundChangePurpose } from '../models/sound-change-purpose';
+import { WordBorrowedListFilter } from '../models/word-borrowed-list-filter';
+import { WordToBorrow } from '../models/word-to-borrow';
 import { WordToEvolve } from '../models/word-to-evolve';
 import { WordTraceResult } from '../models/word-trace-result';
+import { WordWithBorrowed } from '../models/word-with-borrowed';
 import { WordWithEvolution } from '../models/word-with-evolution';
 import { WordWithEvolutionsListFilter } from '../models/word-with-evolutions-list-filter';
 
@@ -1163,6 +1167,114 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.getAllWordsWithEvolutions$Response(params).pipe(
       map((r: StrictHttpResponse<PageResultWordWithEvolution>) => r.body as PageResultWordWithEvolution)
+    );
+  }
+
+  /**
+   * Path part for operation addEvolvedWord2
+   */
+  static readonly AddEvolvedWord2Path = '/api/evolve/words/borrow';
+
+  /**
+   * Evolve word.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addEvolvedWord2()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addEvolvedWord2$Response(params: {
+    body: WordToBorrow
+  }): Observable<StrictHttpResponse<WordWithBorrowed>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.AddEvolvedWord2Path, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<WordWithBorrowed>;
+      })
+    );
+  }
+
+  /**
+   * Evolve word.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addEvolvedWord2$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addEvolvedWord2(params: {
+    body: WordToBorrow
+  }): Observable<WordWithBorrowed> {
+
+    return this.addEvolvedWord2$Response(params).pipe(
+      map((r: StrictHttpResponse<WordWithBorrowed>) => r.body as WordWithBorrowed)
+    );
+  }
+
+  /**
+   * Path part for operation getAllWords1
+   */
+  static readonly GetAllWords1Path = '/api/evolve/words/borrowed';
+
+  /**
+   * Get all words.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllWords1()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllWords1$Response(params: {
+    filter: WordBorrowedListFilter;
+  }): Observable<StrictHttpResponse<PageResultWordWithBorrowed>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetAllWords1Path, 'get');
+    if (params) {
+      rb.query('filter', params.filter, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<PageResultWordWithBorrowed>;
+      })
+    );
+  }
+
+  /**
+   * Get all words.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getAllWords1$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllWords1(params: {
+    filter: WordBorrowedListFilter;
+  }): Observable<PageResultWordWithBorrowed> {
+
+    return this.getAllWords1$Response(params).pipe(
+      map((r: StrictHttpResponse<PageResultWordWithBorrowed>) => r.body as PageResultWordWithBorrowed)
     );
   }
 

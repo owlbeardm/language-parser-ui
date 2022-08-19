@@ -18,21 +18,31 @@
   </th>
   <th class="border">|<br>|</th>
 </tr>
-<tr *ngIf="wordsList.data && wordsList.data.length">
-  <th class="border">|</th>
-  <th app-horizontal-dash class="border"></th>
-  <th class="border">|</th>
-</tr>
-<tr *ngFor="let w of wordsList.data">
+<!--<tr *ngIf="wordsList.data && wordsList.data.length">-->
+<!--  <th class="border">|</th>-->
+<!--  <th app-horizontal-dash class="border"></th>-->
+<!--  <th class="border">|</th>-->
+<!--</tr>-->
+<tr *ngFor="let w of wordsBorrowed">
   <th class="border">|</th>
   <th class="border" style="text-align: left;">
     <span style="margin-left: 8px;">
-      *
+      <i>{{w.word?.language?.displayName}}</i>
     </span>
-    <span class="text-grey" style="margin-left: 8px;">{{w.writtenWord}}</span>
+    <span class="text-grey" style="margin-left: 8px;"><a [ngClass]="w?.word?.forgotten?'text-grey':'text-main'"
+                                                         [routerLink]="['/words/word', w.word?.word]"
+                                                         class="link-btn">{{w.word?.word}}</a></span>
     <span class="text-main" style="margin-left: 8px;">/ {{w.word}} /</span>
-    <span class="text-grey" style="margin-left: 8px;">{{w.partOfSpeech?.abbreviation}}</span>
-    <span style="margin-left: 8px;">{{w.comment}}</span>
+    <span class="text-grey" style="margin-left: 8px;"><span
+      *ngIf="!!w.calculatedEvolution && w.calculatedEvolution === w.wordEvolved?.word"
+      class="text-green-dull">{{w.calculatedEvolution}}</span>
+        <span
+          *ngIf="!!w.wordEvolved?.word && w.calculatedEvolution != w.wordEvolved?.word"><span
+          class="text-red-dull">{{w.wordEvolved?.word}}</span> (<a
+          (click)="evolveSingleWord(w)"
+          class="text-yellow-dull">{{w.calculatedEvolution}}</a>)</span>
+        <span *ngIf="!w.wordEvolved?.word"><a (click)="evolveSingleWord(w)"
+                                                              class="text-yellow-dull">{{w.calculatedEvolution}}</a></span></span>
   </th>
   <th class="border">|</th>
 </tr>

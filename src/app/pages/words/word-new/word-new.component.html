@@ -16,16 +16,16 @@
         <div class="input-group" style="margin-top: 4px;">
           <select (ngModelChange)="typeChanged({type:$event})" [(ngModel)]="type" class="posSelector"
                   id="newWordTypeSelector">
-            <option *ngFor="let tp of typeKeys" [selected]="tp === type" [value]="tp">{{tp}}</option>
+            <option *ngFor="let tp of typeKeys" [selected]="tp === type" [ngValue]="tp">{{tp}}</option>
           </select>
         </div>
       </div>
       <div class="selector" *ngIf="type === 'Borrowed' || type === 'Evolved'">
         <label class="languageSelectorLabel" for="newWordTypeSelector">From</label>
         <div class="input-group" style="margin-top: 4px;">
-          <select (ngModelChange)="langFromChanged({lang:$event})" [(ngModel)]="languageFrom" class="langToSelector"
+          <select (ngModelChange)="langFromChanged($event)" [(ngModel)]="languageFrom" class="langToSelector"
                   id="langToSelector">
-            <option *ngFor="let lang of languagesFrom" [selected]="languageFrom === lang" [value]="lang">{{lang.displayName}}</option>
+            <option *ngFor="let lang of languagesFrom" [selected]="languageFrom === lang" [ngValue]="lang">{{lang.displayName}}</option>
           </select>
         </div>
       </div>
@@ -44,5 +44,3 @@
   </tr>
   </tbody>
 </table>
-{{languageFrom?.displayName}},{{languageFrom?.id}};
-{{getstr(languagesFrom)}}

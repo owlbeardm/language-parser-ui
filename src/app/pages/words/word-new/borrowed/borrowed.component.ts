@@ -1,12 +1,11 @@
-import {Component, OnInit, Input, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {Pos} from "../../../../api/models/pos";
-import {PageResultWordWithWritten} from "../../../../api/models/page-result-word-with-written";
-import {WordWithWritten} from "../../../../api/models/word-with-written";
 import {Language} from "../../../../api/models/language";
-import {WordsService} from "../../../../api/services/words.service";
+import {WordBorrowedListFilter} from "../../../../api/models/word-borrowed-list-filter";
+import {WordWithBorrowed} from "../../../../api/models/word-with-borrowed";
 import {PosService} from "../../../../api/services/pos.service";
-import {WordListFilter} from "../../../../api/models/word-list-filter";
 import {WordNewDetailed} from "../word-new-detailed";
+import {LanguagesEvolutionService} from "../../../../api/services/languages-evolution.service";
 
 @Component({
   selector: 'tbody[app-borroved]',
@@ -18,17 +17,16 @@ export class BorrowedComponent extends WordNewDetailed implements OnInit {
   pageSize = 10;
   wordSearch?: string;
   listPosSelector?: Pos;
-  wordsList: PageResultWordWithWritten = {};
-  selectedWords: WordWithWritten[] = [];
+  wordsBorrowed: WordWithBorrowed[] = [];
   @Input() language!: Language;
   @Input() languageFrom!: Language;
 
-  constructor(private wordService: WordsService, protected posService: PosService) {
+  constructor(private languagesEvolutionService: LanguagesEvolutionService, protected posService: PosService) {
     super(posService);
   }
 
   ngOnInit(): void {
-    this.reloadWordList(this.language.id);
+    this.reloadWordList(this.languageFrom.id);
     console.log("Pos for", JSON.stringify(this.languageFrom))
     this.loadPos(this.languageFrom.id);
   }
@@ -38,7 +36,7 @@ export class BorrowedComponent extends WordNewDetailed implements OnInit {
       console.log('DerivedComponent', changes, changes.languageFrom.currentValue);
       this.reloadWordList(changes.languageFrom.currentValue.id);
       this.loadPos(changes.languageFrom.currentValue.id);
-      this.selectedWords = [];
+      this.wordsBorrowed = [];
     }
   }
 
@@ -46,11 +44,10 @@ export class BorrowedComponent extends WordNewDetailed implements OnInit {
     if (id) {
       this.loadDefault({languageId: id});
     } else {
-      this.wordsList = {};
     }
   }
 
-  loadDefault(filter: WordListFilter | undefined): void {
+  loadDefault(filter: WordBorrowedListFilter | undefined): void {
     console.log('loadDefault', filter, this.listPosSelector, this.language, this.wordSearch);
     if (!filter) {
       filter = {};
@@ -59,20 +56,28 @@ export class BorrowedComponent extends WordNewDetailed implements OnInit {
       page: undefined,
       size: filter.size ? filter.size : this.pageSize,
       word: filter.word ? filter.word : filter.word === '' ? undefined : this.wordSearch,
-      languageId: filter.languageId ? filter.languageId : filter.languageId === null ? undefined : this.language?.id,
+      languageId: filter.languageId ? filter.languageId : filter.languageId === null ? undefined : this.languageFrom?.id,
+      languageToId: this.language.id,
       posId: filter.posId ? filter.posId : filter.posId === null ? undefined : this.listPosSelector?.id,
     };
     this.load(filter);
   }
 
-  load(filter: WordListFilter): void {
-    this.wordService.getAllWords({filter}).subscribe(
+  load(filter: WordBorrowedListFilter): void {
+    this.languagesEvolutionService.getAllWords1({filter}).subscribe(
       (words) => {
         if (words.data) {
-          this.wordsList = words;
+          this.wordsBorrowed = words.data;
         }
       }
     );
   }
 
+  evolveSingleWord(w: WordWithBorrowed) {
+    console.log("EVOLVE WORD", w);
+    this.languagesEvolutionService.addEvolvedWord2({body: {language:this.language,word:w.word}}).subscribe((answer) => {
+      console.log(answer);
+    })
+
+  }
 }
