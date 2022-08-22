@@ -1171,9 +1171,9 @@ export class LanguagesEvolutionService extends BaseService {
   }
 
   /**
-   * Path part for operation addEvolvedWord2
+   * Path part for operation addBorrowedWord
    */
-  static readonly AddEvolvedWord2Path = '/api/evolve/words/borrow';
+  static readonly AddBorrowedWordPath = '/api/evolve/words/borrow';
 
   /**
    * Evolve word.
@@ -1181,15 +1181,15 @@ export class LanguagesEvolutionService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `addEvolvedWord2()` instead.
+   * To access only the response body, use `addBorrowedWord()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  addEvolvedWord2$Response(params: {
+  addBorrowedWord$Response(params: {
     body: WordToBorrow
   }): Observable<StrictHttpResponse<WordWithBorrowed>> {
 
-    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.AddEvolvedWord2Path, 'post');
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.AddBorrowedWordPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -1211,15 +1211,15 @@ export class LanguagesEvolutionService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `addEvolvedWord2$Response()` instead.
+   * To access the full response (for headers, for example), `addBorrowedWord$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  addEvolvedWord2(params: {
+  addBorrowedWord(params: {
     body: WordToBorrow
   }): Observable<WordWithBorrowed> {
 
-    return this.addEvolvedWord2$Response(params).pipe(
+    return this.addBorrowedWord$Response(params).pipe(
       map((r: StrictHttpResponse<WordWithBorrowed>) => r.body as WordWithBorrowed)
     );
   }

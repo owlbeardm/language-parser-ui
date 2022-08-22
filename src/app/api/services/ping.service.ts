@@ -121,4 +121,55 @@ export class PingService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation version
+   */
+  static readonly VersionPath = '/api/ping/version';
+
+  /**
+   * Version.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `version()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  version$Response(params?: {
+  }): Observable<StrictHttpResponse<string>> {
+
+    const rb = new RequestBuilder(this.rootUrl, PingService.VersionPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<string>;
+      })
+    );
+  }
+
+  /**
+   * Version.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `version$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  version(params?: {
+  }): Observable<string> {
+
+    return this.version$Response(params).pipe(
+      map((r: StrictHttpResponse<string>) => r.body as string)
+    );
+  }
+
 }

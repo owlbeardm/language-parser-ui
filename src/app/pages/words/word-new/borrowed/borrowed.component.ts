@@ -14,7 +14,7 @@ import {LanguagesEvolutionService} from "../../../../api/services/languages-evol
 })
 export class BorrowedComponent extends WordNewDetailed implements OnInit {
 
-  pageSize = 10;
+  pageSize = 30;
   wordSearch?: string;
   listPosSelector?: Pos;
   wordsBorrowed: WordWithBorrowed[] = [];
@@ -75,9 +75,10 @@ export class BorrowedComponent extends WordNewDetailed implements OnInit {
 
   evolveSingleWord(w: WordWithBorrowed) {
     console.log("EVOLVE WORD", w);
-    this.languagesEvolutionService.addEvolvedWord2({body: {language:this.language,word:w.word}}).subscribe((answer) => {
-      console.log(answer);
+    this.languagesEvolutionService.addBorrowedWord({body: {language:this.language,word:w.word}}).subscribe((answer) => {
+      w.word = answer.word;
+      w.wordEvolved = answer.wordEvolved;
+      w.calculatedEvolution = answer.calculatedEvolution;
     })
-
   }
 }
