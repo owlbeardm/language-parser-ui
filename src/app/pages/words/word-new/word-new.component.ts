@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Language} from '../../../api/models/language';
 import {WordOriginType} from '../../../api/models/word-origin-type';
-import {Pos} from '../../../api/models/pos';
-import {PosService} from '../../../api/services/pos.service';
 import {LanguagesEvolutionService} from '../../../api/services/languages-evolution.service';
 import {LanguageConnectionType} from '../../../api/models/language-connection-type';
 
@@ -13,14 +11,13 @@ import {LanguageConnectionType} from '../../../api/models/language-connection-ty
 })
 export class WordNewComponent implements OnInit {
   language?: Language;
-  languageTo?: Language;
-  languagesTo: Language[] = [];
+  languageFrom: Language = {displayName: 'empty'};
+  languagesFrom: Language[] = [];
   wordOriginType = WordOriginType;
   typeKeys = Object.keys(WordOriginType);
   type: WordOriginType | string = this.typeKeys[0];
-  poses: Pos[] = [];
 
-  constructor(private posService: PosService, private languagesEvolutionService: LanguagesEvolutionService) {
+  constructor(private languagesEvolutionService: LanguagesEvolutionService) {
   }
 
   ngOnInit(): void {
@@ -31,11 +28,11 @@ export class WordNewComponent implements OnInit {
 
   changeLanguageTo(idFrom: number | undefined, type: WordOriginType | string): void {
     if (idFrom) {
-      this.languagesEvolutionService.getConnectionFromLang({fromLangId: idFrom}).subscribe((connections) => {
-        this.languagesTo = connections
+      this.languagesEvolutionService.getConnectionToLang({toLangId: idFrom}).subscribe((connections) => {
+        this.languagesFrom = connections
           .filter((connection) => (connection.connectionType === LanguageConnectionType.Evolving && type === 'Evolved')
             || (connection.connectionType === LanguageConnectionType.Borrowing && type === 'Borrowed'))
-          .map((connection) => connection.langTo).filter((l) => !!l).map((l) => {
+          .map((connection) => connection.langFrom).filter((l) => !!l).map((l) => {
             const lang: Language = {displayName: 'empty'};
             return !!l ? l : lang;
           });
@@ -46,11 +43,6 @@ export class WordNewComponent implements OnInit {
   changeLanguage(param: { langId: number | undefined }): void {
     if (param.langId) {
       this.changeLanguageTo(param.langId, this.type);
-      this.posService.getAllPosByLanguage({languageId: param.langId}).subscribe(poses => {
-        this.poses = poses.sort((a, b) => a.name ? a.name.localeCompare(b.name ? b.name : '') : -1);
-      });
-    } else {
-      this.poses = [];
     }
   }
 
@@ -59,7 +51,11 @@ export class WordNewComponent implements OnInit {
     this.changeLanguageTo(this.language?.id, param.type);
   }
 
-  langToChanged(param: { lang: Language }): void {
-    console.log(param.lang);
+  langFromChanged(lang: Language): void {
+    console.log(JSON.stringify(lang));
+  }
+
+  getstr(o: any): string {
+    return JSON.stringify(o);
   }
 }

@@ -1,0 +1,70 @@
+<tr>
+  <th class="border">|</th>
+  <th app-horizontal-dash class="border"></th>
+  <th class="border">|</th>
+</tr>
+<tr>
+  <th class="border">|<br>|</th>
+  <th class="border" style="text-align: left;">
+    <input (ngModelChange)="loadDefault({word:$event})" [(ngModel)]="wordSearch"
+           style="height: 16px; margin-left: 16px;" type="text"/>
+    <span style="margin-left: 8px;">
+        <select (ngModelChange)="loadDefault({posId:$event?.id})" [(ngModel)]="listPosSelector" class="listPosSelector"
+                id="listPosSelector">
+          <option [ngValue]="undefined">Any part of speech</option>
+          <option *ngFor="let p of poses" [ngValue]="p">{{ p.name }}</option>
+        </select>
+      </span>
+  </th>
+  <th class="border">|<br>|</th>
+</tr>
+<tr>
+  <th class="border">|</th>
+  <th app-horizontal-dash class="border"></th>
+  <th class="border">|</th>
+</tr>
+<tr>
+  <th colspan="3">
+    <table class="table-content">
+      <colgroup>
+        <col class="border" span="1" style="width: 8px;">
+        <col span="1" style="width: 1%;">
+        <col span="1" style="width: 1%;">
+        <col span="1" style="width: 1%;">
+        <col class="border" span="1" style="width: 8px;">
+        <col span="1" style="width: max-content;">
+        <col class="border" span="1" style="width: 8px;">
+      </colgroup>
+      <tbody class="table-content">
+      <tr *ngFor="let w of wordsBorrowed">
+        <th class="border">|</th>
+        <th class="border" style="text-align: left;">
+          <span style="margin-left: 8px;" class="nowrap"><i>{{w.word?.language?.displayName}}</i></span>
+        </th>
+        <th class="border" style="text-align: left;">
+          <span style="margin-left: 8px;" class="nowrap"><i>{{w.word?.partOfSpeech?.abbreviation}}</i></span>
+        </th>
+        <th class="border" style="text-align: left;">
+          <span class="text-grey" style="margin-left: 8px; word-break: keep-all;"><a [ngClass]="w?.word?.forgotten?'text-grey':'text-main'"
+                                                               [routerLink]="['/words/word', w.word?.word]"
+                                                               class="link-btn">{{w.word?.word}}</a></span>
+        </th>
+        <th class="border">|</th>
+        <th class="border" style="text-align: left;">
+    <span class="text-grey" style="margin-left: 8px;"><span
+      *ngIf="!!w.calculatedEvolution && w.calculatedEvolution === w.wordEvolved?.word?.word"
+      class="text-green-dull">{{w.calculatedEvolution}}</span>
+        <span
+          *ngIf="!!w.wordEvolved?.word?.word && w.calculatedEvolution != w.wordEvolved?.word?.word"><span
+          class="text-red-dull">{{w.wordEvolved?.word?.word}}</span> (<a
+          (click)="evolveSingleWord(w)"
+          class="text-yellow-dull">{{w.calculatedEvolution}}</a>)</span>
+        <span *ngIf="!w.wordEvolved?.word?.word"><a (click)="evolveSingleWord(w)"
+                                                    class="text-yellow-dull">{{w.calculatedEvolution}}</a></span></span>
+        </th>
+        <th class="border">|</th>
+      </tr>
+      </tbody>
+    </table>
+  </th>
+</tr>
