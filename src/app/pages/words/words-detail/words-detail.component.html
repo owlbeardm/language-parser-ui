@@ -11,7 +11,6 @@
       <span *ngFor="let lang of detailedWordsKeys; let i = index"><span *ngIf="i>0"> - </span><a
         [fragment]="lang.displayName" [routerLink]="'.'"
         class="text-main link-btn">{{lang.displayName}}</a></span>
-
     </th>
     <th class="border">|</th>
   </tr>
@@ -73,11 +72,15 @@
       <th style="text-align: left;">
         <div class="cell-content text-cell-content">
           <p *ngIf="wwd.etymology?.from?.length">
-            From <app-word-detail-list [wordsWithTranslations]="wwd.etymology?.from"></app-word-detail-list>.
+            From
+            <app-word-detail-list [wordsWithTranslations]="wwd.etymology?.from"></app-word-detail-list>
+            .
           </p>
           <p *ngIf="!wwd.etymology?.from?.length">New word.</p>
           <p *ngIf="wwd.etymology?.cognate?.length">
-            Cognate with <app-word-detail-list [wordsWithTranslations]="wwd.etymology?.cognate"></app-word-detail-list>.
+            Cognate with
+            <app-word-detail-list [wordsWithTranslations]="wwd.etymology?.cognate"></app-word-detail-list>
+            .
           </p>
         </div>
       </th>
@@ -130,7 +133,9 @@
         <th style="text-align: left;">
           <div class="cell-content text-cell-content">
             <p *ngIf="wwd.derived">
-              Derived to <app-word-detail-list [wordsWithTranslations]="wwd.derived"></app-word-detail-list>.
+              Derived to
+              <app-word-detail-list [wordsWithTranslations]="wwd.derived"></app-word-detail-list>
+              .
             </p>
           </div>
         </th>
@@ -142,7 +147,7 @@
         <th class="border">+</th>
       </tr>
     </ng-container>
-    <ng-container *ngIf="wwd.descendants && wwd.descendants.length">
+    <ng-container *ngIf="wwd.descendants && wwd.descendants?.descendants?.length">
       <tr>
         <th class="border">|</th>
         <th class="border"><span style="text-transform: capitalize;">Descendants</span></th>
@@ -158,9 +163,7 @@
         <th style="text-align: left;">
           <div class="cell-content">
             <ul>
-              <li *ngFor="let desc of wwd.descendants">{{desc.language?.displayName}}: <a>{{desc.word}} <span
-                class="text-grey">({{desc.writtenWord}})</span></a>.
-              </li>
+              <li app-word-detail-descendants *ngFor="let desc of wwd.descendants.descendants" [descendant]="desc"></li>
             </ul>
           </div>
         </th>

@@ -1,4 +1,5 @@
 export { DerivedWordToAdd } from './models/derived-word-to-add';
+export { DescendantWords } from './models/descendant-words';
 export { DetailedWord } from './models/detailed-word';
 export { Etymology } from './models/etymology';
 export { Language } from './models/language';

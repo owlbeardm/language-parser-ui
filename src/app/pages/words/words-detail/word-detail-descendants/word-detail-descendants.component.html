@@ -1,0 +1,4 @@
+{{descendant.word?.language?.displayName}}: <app-word-written-with-translations *ngIf="descendant.word" [wordWithTranslations]="descendant.word"></app-word-written-with-translations>.
+<ul>
+  <li app-word-detail-descendants *ngFor="let desc of descendant.descendants" [descendant]="desc"></li>
+</ul>
