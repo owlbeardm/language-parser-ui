@@ -39,10 +39,12 @@ export class DerivedComponent extends WordNewDetailed {
   }
 
   ngOnInit(): void {
+    super.ngOnInit();
     this.reloadWordList(this.language.id);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
     if (changes.language && changes.language.currentValue) {
       console.log('DerivedComponent', changes, changes.language.currentValue);
       this.reloadWordList(changes.language.currentValue.id);

@@ -30,10 +30,12 @@ export class BorrowedComponent extends WordNewDetailed {
   }
 
   ngOnInit(): void {
+    super.ngOnInit();
     this.reloadWordList(this.languageFrom.id);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
     if (changes.languageFrom && changes.languageFrom.currentValue) {
       console.log('DerivedComponent', changes, changes.languageFrom.currentValue);
       this.reloadWordList(changes.languageFrom.currentValue.id);
