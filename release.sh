@@ -39,6 +39,7 @@ rm *.css
 rm *.svg
 rm *.html
 cp -a dist/language-parser-ui/. .
+cp index.html 404.html
 git add -A
 git commit -am "gh-pages release $version"
 git push
