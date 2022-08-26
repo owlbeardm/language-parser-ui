@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, SimpleChanges} from '@angular/core';
 import {Pos} from "../../../../api/models/pos";
 import {Language} from "../../../../api/models/language";
 import {WordBorrowedListFilter} from "../../../../api/models/word-borrowed-list-filter";
@@ -12,30 +12,31 @@ import {LanguagesEvolutionService} from "../../../../api/services/languages-evol
   templateUrl: './borrowed.component.html',
   styleUrls: ['./borrowed.component.css']
 })
-export class BorrowedComponent extends WordNewDetailed implements OnInit {
+export class BorrowedComponent extends WordNewDetailed {
 
+  @Input() language!: Language;
   pageSize = 30;
   wordSearch?: string;
   listPosSelector?: Pos;
   wordsBorrowed: WordWithBorrowed[] = [];
-  @Input() language!: Language;
   @Input() languageFrom!: Language;
 
   constructor(private languagesEvolutionService: LanguagesEvolutionService, protected posService: PosService) {
     super(posService);
   }
 
+  get getLanguage(): Language {
+    return this.language;
+  }
+
   ngOnInit(): void {
     this.reloadWordList(this.languageFrom.id);
-    console.log("Pos for", JSON.stringify(this.languageFrom))
-    this.loadPos(this.languageFrom.id);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.languageFrom && changes.languageFrom.currentValue) {
       console.log('DerivedComponent', changes, changes.languageFrom.currentValue);
       this.reloadWordList(changes.languageFrom.currentValue.id);
-      this.loadPos(changes.languageFrom.currentValue.id);
       this.wordsBorrowed = [];
     }
   }
@@ -75,7 +76,12 @@ export class BorrowedComponent extends WordNewDetailed implements OnInit {
 
   evolveSingleWord(w: WordWithBorrowed) {
     console.log("EVOLVE WORD", w);
-    this.languagesEvolutionService.addBorrowedWord({body: {language:this.language,word:w.word}}).subscribe((answer) => {
+    this.languagesEvolutionService.addBorrowedWord({
+      body: {
+        language: this.language,
+        word: w.word
+      }
+    }).subscribe((answer) => {
       w.word = answer.word;
       w.wordEvolved = answer.wordEvolved;
       w.calculatedEvolution = answer.calculatedEvolution;

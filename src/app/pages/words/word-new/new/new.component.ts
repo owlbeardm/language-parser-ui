@@ -1,19 +1,19 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {WordToAdd} from '../../../../api/models/word-to-add';
 import {WordOriginType} from '../../../../api/models/word-origin-type';
 import {Pos} from '../../../../api/models/pos';
-import {Language} from '../../../../api/models/language';
 import {WordsService} from '../../../../api/services/words.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {WordNewDetailed} from "../word-new-detailed";
 import {PosService} from "../../../../api/services/pos.service";
+import {Language} from "../../../../api/models/language";
 
 @Component({
   selector: 'tbody[app-new]',
   templateUrl: './new.component.html',
   styleUrls: ['./new.component.css']
 })
-export class NewComponent extends WordNewDetailed implements OnInit {
+export class NewComponent extends WordNewDetailed {
 
   @Input() language!: Language;
   newWord = new FormGroup({
@@ -26,15 +26,16 @@ export class NewComponent extends WordNewDetailed implements OnInit {
     super(posService);
   }
 
-  ngOnInit(): void {
+  get getLanguage(): Language {
+    return this.language;
   }
 
   addNewWord(): void {
     const newWord: WordToAdd = {
-      word: this.newWord.value.word?this.newWord.value.word:'',
-      comment: this.newWord.value.comment?this.newWord.value.comment:'',
+      word: this.newWord.value.word ? this.newWord.value.word : '',
+      comment: this.newWord.value.comment ? this.newWord.value.comment : '',
       language: this.language,
-      partOfSpeech: this.newWord.value.pos?this.newWord.value.pos:undefined,
+      partOfSpeech: this.newWord.value.pos ? this.newWord.value.pos : undefined,
       forgotten: false,
       wordOriginType: WordOriginType.New
     };
