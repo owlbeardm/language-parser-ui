@@ -1,6 +1,5 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, SimpleChanges} from '@angular/core';
 import {Pos} from '../../../../api/models/pos';
-import {Language} from '../../../../api/models/language';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {WordListFilter} from '../../../../api/models/word-list-filter';
 import {WordsService} from '../../../../api/services/words.service';
@@ -10,20 +9,21 @@ import {WordWithWritten} from '../../../../api/models/word-with-written';
 import {DerivedWordToAdd} from '../../../../api/models/derived-word-to-add';
 import {WordOriginType} from '../../../../api/models/word-origin-type';
 import {WordNewDetailed} from "../word-new-detailed";
+import {Language} from "../../../../api/models/language";
 
 @Component({
   selector: 'tbody[app-derived]',
   templateUrl: './derived.component.html',
   styleUrls: ['./derived.component.css']
 })
-export class DerivedComponent extends WordNewDetailed implements OnInit, OnChanges {
+export class DerivedComponent extends WordNewDetailed {
 
+  @Input() language!: Language;
   pageSize = 10;
   wordSearch?: string;
   listPosSelector?: Pos;
   wordsList: PageResultWordWithWritten = {};
   selectedWords: WordWithWritten[] = [];
-  @Input() language!: Language;
   newWord = new FormGroup({
     word: new FormControl('', Validators.required),
     comment: new FormControl('', Validators.required),
@@ -34,16 +34,18 @@ export class DerivedComponent extends WordNewDetailed implements OnInit, OnChang
     super(posService);
   }
 
+  get getLanguage(): Language {
+    return this.language;
+  }
+
   ngOnInit(): void {
     this.reloadWordList(this.language.id);
-    this.loadPos(this.language.id);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.language && changes.language.currentValue) {
       console.log('DerivedComponent', changes, changes.language.currentValue);
       this.reloadWordList(changes.language.currentValue.id);
-      this.loadPos(changes.language.currentValue.id);
       this.selectedWords = [];
     }
   }
@@ -102,10 +104,10 @@ export class DerivedComponent extends WordNewDetailed implements OnInit, OnChang
 
   addDerivedWord(): void {
     const derivedWord: DerivedWordToAdd = {
-      word: this.newWord.value.word?this.newWord.value.word:undefined,
-      comment: this.newWord.value.comment?this.newWord.value.comment:undefined,
+      word: this.newWord.value.word ? this.newWord.value.word : undefined,
+      comment: this.newWord.value.comment ? this.newWord.value.comment : undefined,
       language: this.language,
-      partOfSpeech: this.newWord.value.pos?this.newWord.value.pos:undefined,
+      partOfSpeech: this.newWord.value.pos ? this.newWord.value.pos : undefined,
       forgotten: false,
       wordOriginType: WordOriginType.Derived,
       derivedFrom: this.selectedWords
