@@ -38,7 +38,13 @@
     <th class="border" style="text-align: left;"><a [routerLink]="['/words', wwd.word?.word]"
                                                     class="text-green-dull text-line link-btn">{{wwd.word?.writtenWord}}</a> {{wwd.word?.partOfSpeech?.abbreviation}}
       <a [routerLink]="['/words', wwd.word?.word]" class="text-main link-btn">/ {{wwd.word?.word}} /</a>
-      <span class="text-grey"> {{wwd.word?.comment}}</span></th>
+      <span *ngIf="!isEditComment"><span class="text-grey"> {{wwd.word?.comment}}</span>
+      <a class="text-grey-dull link-btn" (click)="editComment()"> [e]</a></span>
+      <span *ngIf="isEditComment">
+        <input *ngIf="wwd.word" type="text" style="height: 16px; margin-left: 8px; margin-right: 0px;" (ngModelChange)="changeComment($event, wwd.word)" [(ngModel)]="wwd.word.comment">
+        <a class="text-green-dull link-btn" (click)="saveComment(wwd.word)"> [s]</a>
+        <a class="text-red-dull link-btn" (click)="editComment()"> [c]</a>
+      </span></th>
     <th class="border">|</th>
   </tr>
   <tr>
