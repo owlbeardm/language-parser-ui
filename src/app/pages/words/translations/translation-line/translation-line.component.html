@@ -10,7 +10,8 @@
                                     class="text-main link-btn"
                                     style="text-transform: capitalize;">{{word.writtenWord}} <span
     class="text-grey">/{{word.word}}/</span></a></span>
-    {{word.partOfSpeech?.abbreviation}} {{word.language?.displayName}}
+    {{word.comment}}
+    <span class="text-grey-dull"> {{word.partOfSpeech?.abbreviation}} {{word.language?.displayName}}</span>
   </th>
   <th class="border"><a (click)="startAddTranslation()" *ngIf="!editMode" class="text-grey-dull">[Edit]</a>
     <a (click)="cancelTranslation()" *ngIf="editMode" class="text-grey-dull">[Cancel]</a></th>
