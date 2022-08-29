@@ -37,7 +37,7 @@ export class NewComponent extends WordNewDetailed {
       language: this.language,
       partOfSpeech: this.newWord.value.pos ? this.newWord.value.pos : undefined,
       forgotten: false,
-      wordOriginType: WordOriginType.New
+      sourceType:WordOriginType.New
     };
     this.wordService.addWord({body: newWord}).subscribe(
       (word) => {

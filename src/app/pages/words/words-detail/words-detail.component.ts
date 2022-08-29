@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {DetailedWord} from '../../../api/models/detailed-word';
 import {Language} from '../../../api/models/language';
+import {WordWithWritten} from "../../../api/models/word-with-written";
+import {WordsService} from "../../../api/services/words.service";
 
 @Component({
   selector: 'app-words',
@@ -12,8 +14,9 @@ export class WordsDetailComponent implements OnInit {
 
   detailedWords = new Map<Language, DetailedWord[]>();
   languages: Language[] = [];
+  isEditComment: boolean = false;
 
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute, private wordsService: WordsService) {
   }
 
   get detailedWordsKeys(): Iterable<Language> {
@@ -42,4 +45,20 @@ export class WordsDetailComponent implements OnInit {
     });
   }
 
+  editComment(): void {
+    this.isEditComment = !this.isEditComment;
+  }
+
+  saveComment(word: WordWithWritten | undefined): void {
+    console.log(word);
+    if (!word) return;
+    this.wordsService.addWord({body: word}).subscribe((w) => {
+      word.comment = w.comment;
+      this.isEditComment = false;
+    });
+  }
+
+  changeComment(comment: string, word: WordWithWritten): void {
+    word.comment = comment;
+  }
 }
