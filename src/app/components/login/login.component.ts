@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   }
 
   get userName(): string {
-    const name = this.fireAuthService.userData.displayName;
+    const name = this.fireAuthService?.userData?.displayName;
     return name ? name : 'Logged In';
   }
 
