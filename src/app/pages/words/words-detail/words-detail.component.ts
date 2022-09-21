@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {DetailedWord} from '../../../api/models/detailed-word';
 import {Language} from '../../../api/models/language';
@@ -10,7 +10,7 @@ import {WordsService} from "../../../api/services/words.service";
   templateUrl: './words-detail.component.html',
   styleUrls: ['./words-detail.component.css']
 })
-export class WordsDetailComponent implements OnInit {
+export class WordsDetailComponent implements OnInit, OnDestroy {
 
   detailedWords = new Map<Language, DetailedWord[]>();
   languages: Language[] = [];
@@ -27,7 +27,7 @@ export class WordsDetailComponent implements OnInit {
     this.activatedRoute.data.subscribe(data => {
       if (data && data.wordDetails) {
         const wordDetails = data.wordDetails as DetailedWord[];
-        console.log(wordDetails);
+        console.log("WordsDetailComponent ngOnInit", wordDetails);
         const emptyLang: Language = {displayName: ''};
         this.languages = wordDetails.filter(dw => dw.word?.language).map(dw => dw.word?.language ? dw.word.language : emptyLang);
         wordDetails.forEach(dw => {
@@ -43,6 +43,10 @@ export class WordsDetailComponent implements OnInit {
         );
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    console.log("WordsDetailComponent ngOnDestroy");
   }
 
   editComment(): void {

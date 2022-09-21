@@ -16,6 +16,7 @@ export class WorldDetailsResolver implements Resolve<DetailedWord[]> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DetailedWord[]> {
     const word: string | null = findParam(ROUTER_PARAM.WORD, route);
+    console.log("WorldDetailsResolver resolve", word);
     if (!word) {
       return EMPTY;
     }
