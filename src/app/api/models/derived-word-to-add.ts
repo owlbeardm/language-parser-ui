@@ -13,6 +13,10 @@ export interface DerivedWordToAdd {
   partOfSpeech?: Pos;
   sourceType?: WordOriginType;
   version?: number;
+
+  /**
+   * The word sounds
+   */
   word?: string;
   wordOriginType?: WordOriginType;
 }
