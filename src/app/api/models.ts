@@ -28,7 +28,6 @@ export { WordBorrowedListFilter } from './models/word-borrowed-list-filter';
 export { WordListFilter } from './models/word-list-filter';
 export { WordOriginSource } from './models/word-origin-source';
 export { WordOriginType } from './models/word-origin-type';
-export { WordToAdd } from './models/word-to-add';
 export { WordToBorrow } from './models/word-to-borrow';
 export { WordToEvolve } from './models/word-to-evolve';
 export { WordTraceResult } from './models/word-trace-result';
