@@ -51,6 +51,14 @@ export class LanguagePosComponent extends AbstractHasLanguageComponent implement
     }
   }
 
+  getLanguagePos(pos: Pos): LanguagePos | undefined {
+    if (!this.selectedLanguage) {
+      return undefined;
+    } else {
+      return this.lp.find(lp => lp?.languageId === this.selectedLanguage?.id && lp?.posId === pos.id);
+    }
+  }
+
   connectPosToLanguage(p: Pos): void {
     console.log('connectPosToLanguage', p);
     if (this.getLanguagePosSymbol(p)) {
