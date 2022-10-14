@@ -1,21 +1,34 @@
 #!/bin/bash
 
-if [ -z $1 ]; then
-        echo "Releasing language-parser into gh-pages branch"
-        echo "Missed version"
-        echo "Usage: release.sh <release version>"
-        exit 1;
-fi
+# if [ -z $1 ]; then
+#         echo "Releasing language-parser into gh-pages branch"
+#         echo "Missed version"
+#         echo "Usage: release.sh <release version>"
+#         exit 1;
+# fi
 
-echo "Releasing language-parser $1"
+now=$(date +"%Y-%m-%d-%H.%M.%S")
+
+echo "Releasing language-parser $now"
 
 git stash
-git flow release start $1
+git flow release start $now
 rm -rf dist
+
+if [ -z $1 ];
+then
+  version=$(npm version patch)
+elif [ "$1" == "minor" ];
+then
+  version=$(npm version minor)
+else
+  version=$(npm version $1)
+fi
+
 yarn build-prod
 git add -A
-git commit -am "prerelease $1"
-git flow release publish $1
+git commit -am "prerelease $version"
+git flow release publish $now
 git checkout gh-pages
 git pull
 rm *.js
@@ -26,8 +39,9 @@ rm *.css
 rm *.svg
 rm *.html
 cp -a dist/language-parser-ui/. .
+cp index.html 404.html
 git add -A
-git commit -am "gh-pages release $1"
+git commit -am "gh-pages release $version"
 git push
-git checkout release/$1
-git flow release finish -nm "$1" $1
+git checkout release/$now
+git flow release finish -nm "$version" $now

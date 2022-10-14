@@ -71,6 +71,9 @@ import {environment} from '../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import {FireAuthService} from './services/fire-auth.service';
 import {FirebaseAuthInterceptor} from './interceptors/firebase-auth.interceptor';
+import { VersionFooterComponent } from './components/version-footer/version-footer.component';
+import { BorrowedComponent } from './pages/words/word-new/borrowed/borrowed.component';
+import { WordDetailDescendantsComponent } from './pages/words/words-detail/word-detail-descendants/word-detail-descendants.component';
 
 
 @NgModule({
@@ -130,6 +133,9 @@ import {FirebaseAuthInterceptor} from './interceptors/firebase-auth.interceptor'
     WordDetailTranslationsComponent,
     WordDetailListComponent,
     LoginComponent,
+    VersionFooterComponent,
+    BorrowedComponent,
+    WordDetailDescendantsComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

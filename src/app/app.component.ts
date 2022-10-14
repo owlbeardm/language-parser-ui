@@ -1,3 +1,4 @@
+import packageJson from '../../package.json';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'language-parser-ui';
+  public version: string = packageJson.version;
 }

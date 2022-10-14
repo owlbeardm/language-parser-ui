@@ -13,6 +13,10 @@ export interface WordWithTranslations {
   sourceType?: WordOriginType;
   translations?: Array<Translation>;
   version?: number;
+
+  /**
+   * The word sounds
+   */
   word?: string;
   writtenWord?: string;
 }

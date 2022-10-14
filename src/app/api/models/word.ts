@@ -11,5 +11,9 @@ export interface Word {
   partOfSpeech?: Pos;
   sourceType?: WordOriginType;
   version?: number;
+
+  /**
+   * The word sounds
+   */
   word?: string;
 }

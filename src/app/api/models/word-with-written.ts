@@ -11,6 +11,10 @@ export interface WordWithWritten {
   partOfSpeech?: Pos;
   sourceType?: WordOriginType;
   version?: number;
+
+  /**
+   * The word sounds
+   */
   word?: string;
   writtenWord?: string;
 }

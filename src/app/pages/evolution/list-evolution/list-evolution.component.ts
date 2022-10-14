@@ -69,6 +69,7 @@ export class ListEvolutionComponent implements OnInit {
   forget(word: Word | undefined): void {
     if (word) {
       word.forgotten = !word.forgotten;
+      console.log("forget word", word.forgotten, word);
       this.wordsService.addWord({body: word}).subscribe((w) => {
         if (this.withoutForgotten) {
           this.loadDefault(undefined);
@@ -86,7 +87,6 @@ export class ListEvolutionComponent implements OnInit {
           });
         }
       });
-      word.forgotten = !word.forgotten;
     }
   }
 

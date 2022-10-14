@@ -1,0 +1,27 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-wrapper {
+  width: 100%;
+  display: block;
+}
+
+.content {
+  max-width: 1320px;
+}
+
+.app-footer{
+  width: 100%;
+  display: flex;
+  background: #212121;
+  /*position: fixed;*/
+  /*left: 0px;*/
+  /*bottom: 0px;*/
+  /*margin-top: 32px;*/
+  height: fit-content;
+  margin-top: auto;
+  margin-bottom: 0;
+}

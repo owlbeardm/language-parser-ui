@@ -15,7 +15,6 @@ import { PageResultWordWithTranslations } from '../models/page-result-word-with-
 import { PageResultWordWithWritten } from '../models/page-result-word-with-written';
 import { Word } from '../models/word';
 import { WordListFilter } from '../models/word-list-filter';
-import { WordToAdd } from '../models/word-to-add';
 
 
 /**
@@ -48,7 +47,7 @@ export class WordsService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addWord$Response(params: {
-    body: WordToAdd
+    body: Word
   }): Observable<StrictHttpResponse<Word>> {
 
     const rb = new RequestBuilder(this.rootUrl, WordsService.AddWordPath, 'post');
@@ -78,7 +77,7 @@ export class WordsService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addWord(params: {
-    body: WordToAdd
+    body: Word
   }): Observable<Word> {
 
     return this.addWord$Response(params).pipe(
@@ -191,6 +190,57 @@ export class WordsService extends BaseService {
 
     return this.getAllWordsFromLang$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Word>>) => r.body as Array<Word>)
+    );
+  }
+
+  /**
+   * Path part for operation cleanIpaWords
+   */
+  static readonly CleanIpaWordsPath = '/api/words/clean';
+
+  /**
+   * Clean IPA in words.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `cleanIpaWords()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  cleanIpaWords$Response(params?: {
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, WordsService.CleanIpaWordsPath, 'post');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Clean IPA in words.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `cleanIpaWords$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  cleanIpaWords(params?: {
+  }): Observable<void> {
+
+    return this.cleanIpaWords$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
 
@@ -429,7 +479,7 @@ export class WordsService extends BaseService {
     word: string;
   }): Observable<StrictHttpResponse<Array<DetailedWord>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, WordsService.GetDetailedWordsByPhoneticsPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, WordsService.GetDetailedWordsByPhoneticsPath, 'get');
     if (params) {
       rb.path('word', params.word, {});
     }

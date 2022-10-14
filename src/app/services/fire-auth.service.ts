@@ -35,6 +35,11 @@ export class FireAuthService {
     });
   }
 
+  async getToken() {
+    var user = await this.afAuth.currentUser;
+    return await user?.getIdToken(false);
+  }
+
   AuthLogin(provider: any) {
     return this.afAuth
       .signInWithPopup(provider)
