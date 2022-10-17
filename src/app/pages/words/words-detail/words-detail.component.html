@@ -36,7 +36,7 @@
   <tr *ngFor="let wwd of detailedWords.get(lang)">
     <th class="border">|</th>
     <th class="border" style="text-align: left;"><a [routerLink]="['/words', wwd.word?.word]"
-                                                    class="text-green-dull text-line link-btn">{{wwd.word?.writtenWord}}</a> {{wwd.word?.partOfSpeech?.abbreviation}}
+                                                    class="text-green-dull text-line link-btn">{{wwd.word?.writtenWord | writtenWord}}</a> {{wwd.word?.partOfSpeech?.abbreviation}}
       <a [routerLink]="['/words', wwd.word?.word]" class="text-main link-btn">/ {{wwd.word?.word}} /</a>
       <span *ngIf="!isEditComment"><span class="text-grey"> {{wwd.word?.comment}}</span>
       <a class="text-grey-dull link-btn" (click)="editComment()"> [e]</a></span>

@@ -28,7 +28,12 @@ const routes: Routes = [
       {path: 'new', component: WordNewComponent},
       {path: 'list', component: WordsListComponent},
       {path: 'translations', component: TranslationsComponent},
-      {path: 'word/:word', component: WordsDetailComponent, pathMatch: 'full', resolve: {wordDetails: WorldDetailsResolver}}]
+      {
+        path: 'word/:word',
+        component: WordsDetailComponent,
+        pathMatch: 'full',
+        resolve: {wordDetails: WorldDetailsResolver}
+      }]
   },
   {
     path: 'evolutions', component: EvolutionComponent,

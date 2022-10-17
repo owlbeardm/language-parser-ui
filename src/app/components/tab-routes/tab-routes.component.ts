@@ -25,32 +25,36 @@ export class TabRoutesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("TabRoutesComponent", "ngOnInit")
     this.correctIndex();
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         this.correctIndex();
       }
     });
-    this.navigateIndex(this.selectedIndex);
-    const binding$ = this.keybind.match(['TAB'], []).subscribe((event) => {
-      event.preventDefault();
-      this.selectedIndex = (this.selectedIndex + 1) % this.tabs.length;
-      this.navigateIndex(this.selectedIndex);
-    });
+    // this.navigateIndex(this.selectedIndex);
+    // const binding$ = this.keybind.match(['TAB'], []).subscribe((event) => {
+    //   event.preventDefault();
+    //   this.selectedIndex = (this.selectedIndex + 1) % this.tabs.length;
+    //   this.navigateIndex(this.selectedIndex);
+    // });
   }
 
   correctIndex() {
     const path = this.activeRoute.snapshot.children[0].routeConfig ?.path;
+    console.log("TabRoutesComponent", "correctIndex", path, this.activeRoute.snapshot.children[0]);
     this.selectedIndex = this.tabs.reduce((i, tab, curI) => {
       return tab.route == path ? curI : i;
     }, this.selectedIndex)
   }
 
   select(i: number) {
+    console.log("TabRoutesComponent", "select")
     this.selectedIndex = i;
   }
 
   navigateIndex(i: number) {
+    console.log("TabRoutesComponent", "navigateIndex")
     const lang = this.activeRoute.snapshot.queryParamMap.get('lang');
     this.router.navigate([this.tabs[i].route,], { relativeTo: this.activeRoute, queryParams: { lang: lang } });
   }

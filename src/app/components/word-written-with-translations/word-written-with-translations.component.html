@@ -1,6 +1,6 @@
 <a
   [routerLink]="['/words/word', wordWithTranslations.word]"
-  class="text-main link-btn">{{wordWithTranslations.writtenWord}}</a><span
+  class="text-main link-btn">{{wordWithTranslations.writtenWord | writtenWord}}</a><span
   *ngIf="wordWithTranslations.word!==wordWithTranslations.writtenWord"> /{{wordWithTranslations.word}}/</span>
 <span *ngIf="wordWithTranslations.translations?.length"><span> (</span><ng-container
   *ngFor="let transl of wordWithTranslations.translations; let trlNumbr = index">{{trlNumbr > 0 ? ', ' : ''}}<app-translation-word [translation]="transl"></app-translation-word></ng-container>)</span>

@@ -8,7 +8,7 @@
   <th colspan="3" style="padding-left: 8px; padding-right: 8px; white-space: nowrap; text-align: left"><span
     style="white-space: nowrap;"><a [fragment]="word.language?.displayName" [routerLink]="['/words/word', word.word]"
                                     class="text-main link-btn"
-                                    style="text-transform: capitalize;">{{word.writtenWord}} <span
+                                    style="text-transform: capitalize;">{{word.writtenWord | writtenWord}} <span
     class="text-grey">/{{word.word}}/</span></a></span>
     {{word.comment}}
     <span class="text-grey-dull"> {{word.partOfSpeech?.abbreviation}} {{word.language?.displayName}}</span>
@@ -78,7 +78,7 @@
     <th><a (click)="addTranslationWord(tr)" class="text-green-dull link-btn">[+]</a></th>
     <th colspan="3" style="padding-left: 8px; padding-right: 8px; white-space: nowrap; text-align: left">
       <a [fragment]="tr.language?.displayName" [routerLink]="['/words/word', tr.word]"
-         class="text-blue-dull link-btn">{{tr.writtenWord}}</a> / {{tr.word}}
+         class="text-blue-dull link-btn">{{tr.writtenWord | writtenWord}}</a> / {{tr.word}}
       / {{tr.partOfSpeech?.abbreviation}} {{tr.language?.displayName}}
     </th>
     <th class="border">|</th>

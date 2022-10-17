@@ -80,7 +80,7 @@
       <a *ngIf="indexOfSelectedWord(w)<0" (click)="selectWord(w)" class="text-grey-dull">[ ]</a>
       <a *ngIf="indexOfSelectedWord(w)>=0" (click)="removeWord(w)" class="text-green-dull">[x]</a>
     </span>
-    <span class="text-grey" style="margin-left: 8px;">{{w.writtenWord}}</span>
+    <span class="text-grey" style="margin-left: 8px;">{{w.writtenWord | writtenWord}}</span>
     <span class="text-main" style="margin-left: 8px;">/ {{w.word}} /</span>
     <span class="text-grey" style="margin-left: 8px;">{{w.partOfSpeech?.abbreviation}}</span>
     <span style="margin-left: 8px;">{{w.comment}}</span>
