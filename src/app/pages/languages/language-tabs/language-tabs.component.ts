@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {NavigationEnd} from '@angular/router';
 import {KeyBindService} from '../../../services/key-bind.service';
 import {Language} from '../../../api/models/language';
 
@@ -20,17 +19,21 @@ export class LanguageTabsComponent implements OnInit {
     enabled: true,
     shortName: '[pʰ]'
   }, {
+    name: 'Orthography',
+    enabled: true,
+    shortName: 'Aa...'
+  }, {
     name: 'Phonotactics',
     enabled: true,
     shortName: 'CV(C)'
   }, {
-    name: 'Parts of Speech',
-    enabled: false,
-    shortName: 'PoS'
+    name: 'Word Classes',
+    enabled: true,
+    shortName: 'pos'
   }, {
-    name: 'Orthography',
-    enabled: false,
-    shortName: 'Aa...'
+    name: 'Grammatical Categories',
+    enabled: true,
+    shortName: 'm/n/f'
   }];
   removeBorder = true;
   @Input() selectedLanguage?: Language;
