@@ -75,6 +75,9 @@ import { VersionFooterComponent } from './components/version-footer/version-foot
 import { BorrowedComponent } from './pages/words/word-new/borrowed/borrowed.component';
 import { WordDetailDescendantsComponent } from './pages/words/words-detail/word-detail-descendants/word-detail-descendants.component';
 import { WrittenWordPipe } from './pipes/written-word.pipe';
+import { WordGrammarComponent } from './pages/words/words-detail/word-grammar/word-grammar.component';
+import { LanguageCategoryComponent } from './pages/languages/language-category/language-category.component';
+import { LanguageCategoryDetailsComponent } from './pages/languages/language-category/language-category-details/language-category-details.component';
 
 
 @NgModule({
@@ -138,6 +141,9 @@ import { WrittenWordPipe } from './pipes/written-word.pipe';
     BorrowedComponent,
     WordDetailDescendantsComponent,
     WrittenWordPipe,
+    WordGrammarComponent,
+    LanguageCategoryComponent,
+    LanguageCategoryDetailsComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

@@ -55,8 +55,22 @@
   <ng-container *ngFor="let wwd of detailedWords.get(lang); let i = index">
     <tr>
       <th class="border">|</th>
-      <th class="border"><span style="text-transform: capitalize;">{{wwd.word?.partOfSpeech?.name}}</span></th>
+      <th class="border"><span style="text-transform: capitalize;">Grammar</span></th>
       <th class="border">|</th>
+    </tr>
+    <tr>
+      <th class="border">+</th>
+      <th app-horizontal-dash class="border"></th>
+      <th class="border">+</th>
+    </tr>
+    <tr>
+      <th app-vertical-dash class="border"></th>
+      <th style="text-align: left;">
+        <div class="cell-content text-cell-content">
+          <app-word-grammar *ngIf="wwd.word" [word]="wwd.word"></app-word-grammar>
+        </div>
+      </th>
+      <th app-vertical-dash class="border"></th>
     </tr>
     <tr>
       <th class="border">+</th>

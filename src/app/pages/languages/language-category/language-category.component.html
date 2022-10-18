@@ -1,0 +1,43 @@
+<table>
+  <colgroup>
+    <col class="border" span="1" style="width: 17px;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: calc(30% - 41px);">
+    <col class="border" span="1" style="width: 8px;">
+    <col class="border" span="1" style="width: 70%;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody>
+  <tr *ngFor="let category of categories; index as i">
+    <!--      [ngClass]="getLanguageCategory(p)?.connectedToLanguage?(getLanguageCategory(p)?.usedInLanguage?'text-green-dull':'text-yellow-dull'):(getLanguagePos(p)?.usedInLanguage?'text-red-dull':'text-grey-dull')"-->
+    <th [ngClass]="selectedCategory?.id === category.id?'selectedTh':''"><a
+      (click)="connectCategoryToLanguage(category)">
+      <!--      {{getLanguageCategory(p)?.connectedToLanguage ? 'o' : 'x'}}-->
+    </a>
+    </th>
+    <th class="border">|</th>
+    <th [ngClass]="selectedCategory?.id === category.id?'selectedTh':''" class="border"><a
+      (click)="selectedCategory = category"
+      [ngClass]="selectedCategory?.id === category.id ? 'text-main' : 'text-grey'">{{category.name}}</a>
+    </th>
+    <th [ngClass]="selectedCategory?.id === category.id?'selectedTh':''"
+        class="border">{{selectedCategory?.id === category.id ? '' : '|'}}</th>
+    <th *ngIf="i==0" class="border" rowspan="0" style="vertical-align: top;">
+      <app-language-category-details [selectedLanguage]="selectedLanguage" [selectedCategory]="selectedCategory"></app-language-category-details>
+    </th>
+    <th *ngIf="i==0" app-vertical-dash class="border" rowspan="0"></th>
+  </tr>
+  <tr>
+    <th app-horizontal-dash colspan="3"></th>
+    <th class="border">+</th>
+  </tr>
+  <tr>
+    <th colspan="2"></th>
+    <th><a (click)="addNewCategory()" class="text-green-dull">[ + ]</a></th>
+    <th class="border">|</th>
+  </tr>
+  <tr>
+    <th app-horizontal-dash colspan="5"></th>
+  </tr>
+  </tbody>
+</table>

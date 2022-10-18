@@ -4,6 +4,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
+import { CategoryService } from './services/category.service';
 import { LanguagesEvolutionService } from './services/languages-evolution.service';
 import { LanguagesService } from './services/languages.service';
 import { PingService } from './services/ping.service';
@@ -19,6 +20,7 @@ import { WordsService } from './services/words.service';
   exports: [],
   declarations: [],
   providers: [
+    CategoryService,
     LanguagesEvolutionService,
     LanguagesService,
     PingService,
