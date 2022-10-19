@@ -18,11 +18,14 @@
     </th>
   </tr>
   <tr *ngFor="let p of pos; index as i">
-    <th style="text-align: right">{{i == 0 ? 'Word Classes' : ''}}</th>
+    <th style="text-align: right">{{i == 0 ? 'Classes' : ''}}</th>
     <th class="border"></th>
     <th style="text-align: left">
-      [x] <span
-      [ngClass]="getLanguagePos(p)?.connectedToLanguage?'text-white':(getLanguagePos(p)?.usedInLanguage?'text-yellow-dull':'text-grey-dull')">{{p.name}}</span>
+      <span class="text-grey-dull" *ngIf="!selectedLanguage?.id">[ ]</span>
+      <a class="text-grey-dull" *ngIf="!isConnected(p.id) && selectedLanguage?.id" (click)="connect(p)">[x]</a>
+      <a class="text-grey-dull" *ngIf="isConnected(p.id) && selectedLanguage?.id" (click)="removeConnection(p)">[<span class="text-green-dull">o</span>]</a>
+      <span
+        [ngClass]="getLanguagePos(p)?.connectedToLanguage?'text-white':(getLanguagePos(p)?.usedInLanguage?'text-yellow-dull':'text-grey-dull')"> {{p.name}}</span>
     </th>
     <th class="border" style="text-align: right">
     </th>

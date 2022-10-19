@@ -1,0 +1,21 @@
+<table *ngIf="selectedValue && selectedValue.id" style="width: 100%">
+  <colgroup>
+    <col span="1" style="width: 200px; text-align: right">
+    <col class="border" span="1" style="width: 32px;">
+    <col span="1" style="width: auto;">
+    <col span="1" style="width: 81px;">
+  </colgroup>
+  <tbody>
+  <tr>
+    <th style="text-align: right">Name</th>
+    <th class="border"></th>
+    <th style="text-align: left">
+      <input (ngModelChange)="canUpdate = true" [(ngModel)]="selectedValue.name"/>
+      <span *ngIf="canUpdate"> [ <a (click)="saveChanges()" class="text-green-dull">Update</a> ] </span>
+    </th>
+    <th class="border" style="text-align: right">
+      <!--      <span *ngIf="canUpdate"> [ <a (click)="saveChanges()" class="text-green-dull">Update</a> ] </span>-->
+    </th>
+  </tr>
+  </tbody>
+</table>

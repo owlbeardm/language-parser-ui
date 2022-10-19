@@ -3,6 +3,7 @@ export { DescendantWords } from './models/descendant-words';
 export { DetailedWord } from './models/detailed-word';
 export { Etymology } from './models/etymology';
 export { GrammaticalCategory } from './models/grammatical-category';
+export { GrammaticalCategoryConnection } from './models/grammatical-category-connection';
 export { GrammaticalCategoryValue } from './models/grammatical-category-value';
 export { Language } from './models/language';
 export { LanguageConnection } from './models/language-connection';

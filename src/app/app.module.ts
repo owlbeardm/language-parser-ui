@@ -78,6 +78,7 @@ import { WrittenWordPipe } from './pipes/written-word.pipe';
 import { WordGrammarComponent } from './pages/words/words-detail/word-grammar/word-grammar.component';
 import { LanguageCategoryComponent } from './pages/languages/language-category/language-category.component';
 import { LanguageCategoryDetailsComponent } from './pages/languages/language-category/language-category-details/language-category-details.component';
+import { LanguageCategoryValueDetailsComponent } from './pages/languages/language-category/language-category-value-details/language-category-value-details.component';
 
 
 @NgModule({
@@ -144,6 +145,7 @@ import { LanguageCategoryDetailsComponent } from './pages/languages/language-cat
     WordGrammarComponent,
     LanguageCategoryComponent,
     LanguageCategoryDetailsComponent,
+    LanguageCategoryValueDetailsComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

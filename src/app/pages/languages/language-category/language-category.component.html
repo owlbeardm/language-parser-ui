@@ -1,43 +1,79 @@
 <table>
   <colgroup>
-    <col class="border" span="1" style="width: 17px;">
+    <col class="border" span="1" style="width: 17px; white-space: nowrap;">
     <col class="border" span="1" style="width: 8px;">
-    <col span="1" style="width: calc(30% - 41px);">
+    <col span="1" style="width: 21%;">
     <col class="border" span="1" style="width: 8px;">
-    <col class="border" span="1" style="width: 70%;">
+    <col class="border" span="1" style="width: 29%;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 21%;">
+    <col class="border" span="1" style="width: 8px;">
+    <col class="border" span="1" style="width: 25%;">
     <col class="border" span="1" style="width: 8px;">
   </colgroup>
   <tbody>
-  <tr *ngFor="let category of categories; index as i">
-    <!--      [ngClass]="getLanguageCategory(p)?.connectedToLanguage?(getLanguageCategory(p)?.usedInLanguage?'text-green-dull':'text-yellow-dull'):(getLanguagePos(p)?.usedInLanguage?'text-red-dull':'text-grey-dull')"-->
-    <th [ngClass]="selectedCategory?.id === category.id?'selectedTh':''"><a
-      (click)="connectCategoryToLanguage(category)">
-      <!--      {{getLanguageCategory(p)?.connectedToLanguage ? 'o' : 'x'}}-->
-    </a>
-    </th>
-    <th class="border">|</th>
-    <th [ngClass]="selectedCategory?.id === category.id?'selectedTh':''" class="border"><a
-      (click)="selectedCategory = category"
-      [ngClass]="selectedCategory?.id === category.id ? 'text-main' : 'text-grey'">{{category.name}}</a>
-    </th>
-    <th [ngClass]="selectedCategory?.id === category.id?'selectedTh':''"
-        class="border">{{selectedCategory?.id === category.id ? '' : '|'}}</th>
+  <tr *ngFor="let i of array">
+    <ng-container *ngIf="categories[i]">
+      <th [ngClass]="selectedCategory?.id === categories[i].id?'selectedTh':''" style="white-space: nowrap;">x
+      </th>
+      <th class="border">|</th>
+      <th [ngClass]="selectedCategory?.id === categories[i].id?'selectedTh':''" class="border"><a
+        (click)="changeCategory(categories[i])"
+        [ngClass]="selectedCategory?.id === categories[i].id ? 'text-main' : 'text-grey'">{{categories[i].name}}</a>
+      </th>
+      <th [ngClass]="selectedCategory?.id === categories[i].id?'selectedTh':''"
+          class="border">{{selectedCategory?.id === categories[i].id ? '' : '|'}}</th>
+    </ng-container>
+    <ng-container *ngIf="!categories[i]">
+      <ng-container *ngIf="categories.length === i">
+        <th app-horizontal-dash colspan="3"></th>
+        <th>+</th>
+      </ng-container>
+      <ng-container *ngIf="categories.length+1 === i">
+        <th colspan="2"></th>
+        <th><a (click)="addNewCategory()" class="text-green-dull">[ + ]</a></th>
+        <th class="border">|</th>
+      </ng-container>
+      <ng-container *ngIf="categories.length+1 < i">
+        <th colspan="3"></th>
+        <th class="border">|</th>
+      </ng-container>
+    </ng-container>
     <th *ngIf="i==0" class="border" rowspan="0" style="vertical-align: top;">
-      <app-language-category-details [selectedLanguage]="selectedLanguage" [selectedCategory]="selectedCategory"></app-language-category-details>
+      <app-language-category-details [selectedCategory]="selectedCategory"
+                                     [selectedLanguage]="selectedLanguage"></app-language-category-details>
+    </th>
+    <ng-container *ngIf="values[i]">
+      <th class="border"></th>
+      <th [ngClass]="selectedValue?.id === values[i].id?'selectedTh':''" class="border"><a
+        (click)="changeValue(values[i])"
+        [ngClass]="selectedValue?.id === values[i].id ? 'text-main' : 'text-grey'">{{values[i].name}}</a>
+      </th>
+      <th [ngClass]="selectedValue?.id === values[i].id?'selectedTh':''"
+          class="border">{{selectedValue?.id === values[i].id ? '' : '|'}}</th>
+    </ng-container>
+    <ng-container *ngIf="!values[i]">
+      <ng-container *ngIf="values.length === i">
+        <th class="border">+</th>
+        <th app-horizontal-dash></th>
+        <th>+</th>
+      </ng-container>
+      <ng-container *ngIf="values.length+1 === i">
+        <th class="border">|</th>
+        <th  *ngIf="selectedCategory"><a (click)="addNewCategoryValue()" class="text-green-dull">[ + ]</a></th>
+        <th  *ngIf="!selectedCategory"></th>
+        <th class="border">|</th>
+      </ng-container>
+      <ng-container *ngIf="values.length+1 < i">
+        <th class="border">|</th>
+        <th></th>
+        <th class="border">|</th>
+      </ng-container>
+    </ng-container>
+    <th *ngIf="i==0" class="border" rowspan="0" style="vertical-align: top;">
+      <app-language-category-value-details [selectedValue]="selectedValue"></app-language-category-value-details>
     </th>
     <th *ngIf="i==0" app-vertical-dash class="border" rowspan="0"></th>
-  </tr>
-  <tr>
-    <th app-horizontal-dash colspan="3"></th>
-    <th class="border">+</th>
-  </tr>
-  <tr>
-    <th colspan="2"></th>
-    <th><a (click)="addNewCategory()" class="text-green-dull">[ + ]</a></th>
-    <th class="border">|</th>
-  </tr>
-  <tr>
-    <th app-horizontal-dash colspan="5"></th>
   </tr>
   </tbody>
 </table>

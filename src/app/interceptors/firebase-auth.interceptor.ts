@@ -16,9 +16,7 @@ export class FirebaseAuthInterceptor implements HttpInterceptor {
   }
 
   async handle(req: HttpRequest<any>, next: HttpHandler) {
-    console.log("Handle token");
     const token = await this.fireAuthService.getToken();
-    console.log("Handle token", token);
     if (!token) {
       return await lastValueFrom(next.handle(req));
     }
