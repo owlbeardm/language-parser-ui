@@ -1,3 +1,14 @@
 <span class="text-green-dull text-line"
       style="text-transform: capitalize;"><i>{{word.writtenWord | writtenWord}}</i></span>
 <span> {{word.partOfSpeech?.name?.toLowerCase()}};</span>
+<span *ngIf="!isEditCategories" style="margin-left: 8px;">
+  <span *ngFor="let wv of wordValues; index as i">{{i == 0 ? '' : ', '}}{{wv.value?.name}}</span>
+  <a (click)="isEditCategories = true" class="text-grey-dull link-btn"> [e]</a>
+</span>
+<span *ngIf="isEditCategories" style="margin-left: 8px;">
+  <span *ngFor="let c of categories; index as i">
+    <app-word-grammar-category [categoryValues]="categoryValues.get(c)" [category]="c" [value]="getWordCategoryValue(c)"
+                               [word]="word"></app-word-grammar-category>
+  </span>
+  <a (click)="save()" class="text-grey-dull link-btn"> [close]</a>
+</span>

@@ -1,0 +1,8 @@
+{{category.name}}:
+<span class="input-group" style="margin-right: 12px;">
+          <select (ngModelChange)="valueChanged({value:$event})" [(ngModel)]="value" class="posSelector"
+                  id="newWordTypeSelector">
+            <option [ngValue]="undefined"></option>
+            <option *ngFor="let cv of categoryValues" [ngValue]="cv">{{cv.name}}</option>
+          </select>
+        </span>

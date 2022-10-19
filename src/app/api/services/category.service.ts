@@ -12,6 +12,7 @@ import { map, filter } from 'rxjs/operators';
 import { GrammaticalCategory } from '../models/grammatical-category';
 import { GrammaticalCategoryConnection } from '../models/grammatical-category-connection';
 import { GrammaticalCategoryValue } from '../models/grammatical-category-value';
+import { GrammaticalValueWordConnection } from '../models/grammatical-value-word-connection';
 
 
 /**
@@ -321,6 +322,127 @@ export class CategoryService extends BaseService {
   }
 
   /**
+   * Path part for operation replaceGrammaticalValuesByWord
+   */
+  static readonly ReplaceGrammaticalValuesByWordPath = '/api/category/valuebyword/replace';
+
+  /**
+   * Replace grammatical value word connections.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `replaceGrammaticalValuesByWord()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  replaceGrammaticalValuesByWord$Response(params: {
+    context?: HttpContext
+    body: GrammaticalValueWordConnection
+  }
+): Observable<StrictHttpResponse<GrammaticalValueWordConnection>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoryService.ReplaceGrammaticalValuesByWordPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<GrammaticalValueWordConnection>;
+      })
+    );
+  }
+
+  /**
+   * Replace grammatical value word connections.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `replaceGrammaticalValuesByWord$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  replaceGrammaticalValuesByWord(params: {
+    context?: HttpContext
+    body: GrammaticalValueWordConnection
+  }
+): Observable<GrammaticalValueWordConnection> {
+
+    return this.replaceGrammaticalValuesByWord$Response(params).pipe(
+      map((r: StrictHttpResponse<GrammaticalValueWordConnection>) => r.body as GrammaticalValueWordConnection)
+    );
+  }
+
+  /**
+   * Path part for operation removeGrammaticalValuesByWord
+   */
+  static readonly RemoveGrammaticalValuesByWordPath = '/api/category/valuebyword/{wordId}/{categoryId}';
+
+  /**
+   * Remove grammatical value word connections.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeGrammaticalValuesByWord()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeGrammaticalValuesByWord$Response(params: {
+    wordId: number;
+    categoryId: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoryService.RemoveGrammaticalValuesByWordPath, 'delete');
+    if (params) {
+      rb.path('wordId', params.wordId, {});
+      rb.path('categoryId', params.categoryId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Remove grammatical value word connections.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `removeGrammaticalValuesByWord$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeGrammaticalValuesByWord(params: {
+    wordId: number;
+    categoryId: number;
+    context?: HttpContext
+  }
+): Observable<void> {
+
+    return this.removeGrammaticalValuesByWord$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
    * Path part for operation getCategoryValuesByCategory
    */
   static readonly GetCategoryValuesByCategoryPath = '/api/category/{categoryId}/values';
@@ -438,6 +560,65 @@ export class CategoryService extends BaseService {
 
     return this.getGrammaticalCategoryConnectionsForLang$Response(params).pipe(
       map((r: StrictHttpResponse<Array<GrammaticalCategoryConnection>>) => r.body as Array<GrammaticalCategoryConnection>)
+    );
+  }
+
+  /**
+   * Path part for operation getGrammaticalValuesByWord
+   */
+  static readonly GetGrammaticalValuesByWordPath = '/api/category/{wordId}/valuebyword';
+
+  /**
+   * Get grammatical value word connections.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getGrammaticalValuesByWord()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getGrammaticalValuesByWord$Response(params: {
+    wordId: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<GrammaticalValueWordConnection>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoryService.GetGrammaticalValuesByWordPath, 'get');
+    if (params) {
+      rb.path('wordId', params.wordId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<GrammaticalValueWordConnection>>;
+      })
+    );
+  }
+
+  /**
+   * Get grammatical value word connections.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getGrammaticalValuesByWord$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getGrammaticalValuesByWord(params: {
+    wordId: number;
+    context?: HttpContext
+  }
+): Observable<Array<GrammaticalValueWordConnection>> {
+
+    return this.getGrammaticalValuesByWord$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<GrammaticalValueWordConnection>>) => r.body as Array<GrammaticalValueWordConnection>)
     );
   }
 

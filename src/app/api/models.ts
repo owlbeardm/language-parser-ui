@@ -5,6 +5,7 @@ export { Etymology } from './models/etymology';
 export { GrammaticalCategory } from './models/grammatical-category';
 export { GrammaticalCategoryConnection } from './models/grammatical-category-connection';
 export { GrammaticalCategoryValue } from './models/grammatical-category-value';
+export { GrammaticalValueWordConnection } from './models/grammatical-value-word-connection';
 export { Language } from './models/language';
 export { LanguageConnection } from './models/language-connection';
 export { LanguageConnectionType } from './models/language-connection-type';

@@ -5,4 +5,5 @@ export interface GrammaticalCategoryValue {
   category?: GrammaticalCategory;
   id?: number;
   name?: string;
+  version?: number;
 }
