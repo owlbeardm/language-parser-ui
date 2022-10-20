@@ -28,8 +28,11 @@ export class WordGrammarComponent implements OnInit {
     this.categoryService.getAllCategories().subscribe((categories) => {
       categories.forEach((category) => {
         this.categoryValues.set(category, []);
-        if (category.id)
-          this.categoryService.getCategoryValuesByCategory({categoryId: category.id}).subscribe((values) => {
+        if (category.id && this.word.language?.id)
+          this.categoryService.getCategoryValuesByCategoryAndLang({
+            categoryId: category.id,
+            langId: this.word.language.id
+          }).subscribe((values) => {
             this.categoryValues.set(category, values);
           });
       });
@@ -44,7 +47,7 @@ export class WordGrammarComponent implements OnInit {
 
   getWordCategoryValue(c: GrammaticalCategory): GrammaticalCategoryValue | undefined {
     const value = this.wordValues?.find((vw) => vw.value?.category?.id == c.id)?.value;
-    return value == null?undefined:value;
+    return value == null ? undefined : value;
   }
 
   private reloadWordValues() {

@@ -6,6 +6,8 @@
     <col class="border" span="1" style="width: 8px;">
     <col class="border" span="1" style="width: 29%;">
     <col class="border" span="1" style="width: 8px;">
+    <col class="border" span="1" style="width: 8px;">
+    <col class="border" span="1" style="width: 8px;">
     <col span="1" style="width: 21%;">
     <col class="border" span="1" style="width: 8px;">
     <col class="border" span="1" style="width: 25%;">
@@ -45,6 +47,11 @@
     </th>
     <ng-container *ngIf="values[i]">
       <th class="border"></th>
+      <th [ngClass]="selectedValue?.id === values[i].id?'selectedTh':''" class="border">
+        <a *ngIf="!isValueConnected(values[i])" class="link-btn text-grey-dull" (click)="connectValue(values[i])">x</a>
+        <a *ngIf="isValueConnected(values[i])" class="link-btn text-green-dull" (click)="disconnectValue(values[i])">o</a>
+      </th>
+      <th class="border">|</th>
       <th [ngClass]="selectedValue?.id === values[i].id?'selectedTh':''" class="border"><a
         (click)="changeValue(values[i])"
         [ngClass]="selectedValue?.id === values[i].id ? 'text-main' : 'text-grey'">{{values[i].name}}</a>
@@ -55,18 +62,18 @@
     <ng-container *ngIf="!values[i]">
       <ng-container *ngIf="values.length === i">
         <th class="border">+</th>
-        <th app-horizontal-dash></th>
+        <th colspan="3" app-horizontal-dash></th>
         <th>+</th>
       </ng-container>
       <ng-container *ngIf="values.length+1 === i">
         <th class="border">|</th>
-        <th  *ngIf="selectedCategory"><a (click)="addNewCategoryValue()" class="text-green-dull">[ + ]</a></th>
+        <th colspan="3" *ngIf="selectedCategory"><a (click)="addNewCategoryValue()" class="text-green-dull">[ + ]</a></th>
         <th  *ngIf="!selectedCategory"></th>
         <th class="border">|</th>
       </ng-container>
       <ng-container *ngIf="values.length+1 < i">
         <th class="border">|</th>
-        <th></th>
+        <th colspan="3"></th>
         <th class="border">|</th>
       </ng-container>
     </ng-container>

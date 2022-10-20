@@ -1,21 +1,23 @@
-import {Component} from '@angular/core';
+import {Component, OnChanges, SimpleChanges} from '@angular/core';
 import {AbstractHasLanguageComponent} from "../../../components/abstract/abstract-has-language/abstract-has-language.component";
 import {GrammaticalCategory} from "../../../api/models/grammatical-category";
 import {CategoryService} from "../../../api/services/category.service";
 import {GrammaticalCategoryValue} from "../../../api/models/grammatical-category-value";
 import {PosService} from "../../../api/services/pos.service";
 import {Pos} from "../../../api/models/pos";
+import {GrammaticalCategoryValueConnection} from "../../../api/models/grammatical-category-value-connection";
 
 @Component({
   selector: 'app-language-category',
   templateUrl: './language-category.component.html',
   styleUrls: ['./language-category.component.css']
 })
-export class LanguageCategoryComponent extends AbstractHasLanguageComponent {
+export class LanguageCategoryComponent extends AbstractHasLanguageComponent implements OnChanges {
 
   categories: GrammaticalCategory[] = [];
   pos: Pos[] = [];
   values: GrammaticalCategoryValue[] = [];
+  valuesConnectios: GrammaticalCategoryValueConnection[] = [];
   selectedCategory?: GrammaticalCategory;
   selectedValue?: GrammaticalCategoryValue;
 
@@ -32,17 +34,19 @@ export class LanguageCategoryComponent extends AbstractHasLanguageComponent {
     super.ngOnInit();
     this.categoryService.getAllCategories().subscribe(gc => this.categories = gc.sort((a, b) => !a.name ? -1 : a.name.localeCompare(!b.name ? '' : b.name)));
     this.posService.getAllPos().subscribe(pos => this.pos = pos);
+    if (this.selectedLanguage?.id)
+      this.reloadConnectedValues(this.selectedLanguage.id);
   }
 
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   if (changes.selectedCategory?.currentValue) {
-  //     console.log(changes, changes.selectedCategory?.currentValue.id);
-  //     if (changes.selectedCategory?.currentValue.id) {
-  //       const id = changes.selectedCategory.currentValue.id;
-  //       this.reloadCategoryValues(id);
-  //     }
-  //   }
-  // }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.selectedLanguage?.currentValue) {
+      console.log("ngOnChanges", changes, changes.selectedLanguage?.currentValue.id);
+      if (changes.selectedLanguage?.currentValue.id) {
+        const id = changes.selectedLanguage.currentValue.id;
+        this.reloadConnectedValues(id);
+      }
+    }
+  }
 
   connectCategoryToLanguage(category: GrammaticalCategory) {
 
@@ -64,13 +68,13 @@ export class LanguageCategoryComponent extends AbstractHasLanguageComponent {
   }
 
   addNewCategoryValue() {
-    if(!this.selectedCategory)
+    if (!this.selectedCategory)
       return;
     const gcv: GrammaticalCategoryValue = {
       name: 'new value',
       category: this.selectedCategory
     };
-    this.categoryService.saveGrammaticalCategoryValue({body:gcv}).subscribe((id) => {
+    this.categoryService.saveGrammaticalCategoryValue({body: gcv}).subscribe((id) => {
       gcv.id = id;
       this.selectedValue = gcv;
       this.values.push(gcv);
@@ -87,10 +91,41 @@ export class LanguageCategoryComponent extends AbstractHasLanguageComponent {
     this.selectedValue = grammaticalCategoryValue;
   }
 
+  isValueConnected(value: GrammaticalCategoryValue | undefined): boolean {
+    if (!value)
+      return false;
+    return !!this.valuesConnectios.find((vc) => vc.value?.id === value.id);
+  }
+
+  connectValue(grammaticalCategoryValue: GrammaticalCategoryValue) {
+    const connection: GrammaticalCategoryValueConnection = {
+      value: grammaticalCategoryValue,
+      language: this.selectedLanguage
+    }
+    this.categoryService.saveGrammaticalCategoryValueConnection({body: connection}).subscribe((id) => {
+      connection.id = id;
+      this.valuesConnectios.push(connection);
+    })
+  }
+
+  disconnectValue(value: GrammaticalCategoryValue) {
+    const connection = this.valuesConnectios.find((vc) => vc.value?.id === value.id);
+    if (connection?.id) {
+      this.categoryService.removeGrammaticalCategoryValueConnection({gcvcId: connection.id}).subscribe(() => {
+        this.valuesConnectios = this.valuesConnectios.filter((vc) => vc.value?.id !== value.id);
+      });
+    }
+  }
+
   private reloadCategoryValues(id: number) {
     console.log("reloadCategoryValues", id)
     this.categoryService.getCategoryValuesByCategory({categoryId: id}).subscribe(vs => this.values = vs.sort((a, b) => !a.name ? -1 : a.name.localeCompare(!b.name ? '' : b.name)));
   }
 
+  private reloadConnectedValues(id: number) {
+    this.categoryService.getGrammaticalValuesConnectionByLang({langId: id}).subscribe((connections) => {
+      this.valuesConnectios = connections;
+    });
 
+  }
 }
