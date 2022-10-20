@@ -1,0 +1,9 @@
+<span>
+  <select (ngModelChange)="changeValueTo({value:$event})" [(ngModel)]="valueTo"
+          class="languageSelector" id="languageSelector"
+          name="languageSelector">
+            <option [ngValue]="undefined">---nothing---</option>
+            <option *ngFor="let value of valuesTo"
+                    [ngValue]="value">{{value.name}}</option>
+          </select>
+</span>

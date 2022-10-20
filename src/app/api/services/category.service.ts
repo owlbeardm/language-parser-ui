@@ -804,6 +804,68 @@ export class CategoryService extends BaseService {
   }
 
   /**
+   * Path part for operation getGrammaticalCategoryConnectionsForLangAndPos
+   */
+  static readonly GetGrammaticalCategoryConnectionsForLangAndPosPath = '/api/category/{posId}/{languageId}/connectionspos';
+
+  /**
+   * Get grammatical category connections.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getGrammaticalCategoryConnectionsForLangAndPos()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getGrammaticalCategoryConnectionsForLangAndPos$Response(params: {
+    posId: number;
+    languageId: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<GrammaticalCategoryConnection>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoryService.GetGrammaticalCategoryConnectionsForLangAndPosPath, 'get');
+    if (params) {
+      rb.path('posId', params.posId, {});
+      rb.path('languageId', params.languageId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<GrammaticalCategoryConnection>>;
+      })
+    );
+  }
+
+  /**
+   * Get grammatical category connections.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getGrammaticalCategoryConnectionsForLangAndPos$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getGrammaticalCategoryConnectionsForLangAndPos(params: {
+    posId: number;
+    languageId: number;
+    context?: HttpContext
+  }
+): Observable<Array<GrammaticalCategoryConnection>> {
+
+    return this.getGrammaticalCategoryConnectionsForLangAndPos$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<GrammaticalCategoryConnection>>) => r.body as Array<GrammaticalCategoryConnection>)
+    );
+  }
+
+  /**
    * Path part for operation getGrammaticalValuesByWord
    */
   static readonly GetGrammaticalValuesByWordPath = '/api/category/{wordId}/valuebyword';

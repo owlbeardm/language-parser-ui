@@ -1,0 +1,32 @@
+<table>
+  <colgroup>
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: auto;">
+    <col class="border" span="1" style="width: max-content;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody>
+  <tr>
+    <th class="border">|<br>|<br>|<br>|</th>
+    <th style="text-align: left; display: flex">
+      <!--      connections-->
+      <div class="selector">
+        <label class="languageSelectorLabel" for="languageSelector">Languages connection</label>
+        <div class="input-group">
+          <select (ngModelChange)="changeConnection({connection:$event})" [(ngModel)]="connection"
+                  class="languageSelector" id="languageSelector"
+                  name="languageSelector">
+            <option [ngValue]="undefined"> --- Select Connection ---</option>
+            <option *ngFor="let connection of connections"
+                    [ngValue]="connection">{{ getConnectionText(connection)}}</option>
+          </select>
+        </div>
+      </div>
+    </th>
+    <th class="border"></th>
+    <th class="border">|<br>|<br>|<br>|</th>
+  </tr>
+  </tbody>
+</table>
+<app-category-evolution-table [langFrom]="connection?.langFrom"
+                              [langTo]="connection?.langTo"></app-category-evolution-table>

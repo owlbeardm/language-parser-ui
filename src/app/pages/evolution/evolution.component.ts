@@ -17,6 +17,10 @@ export class EvolutionComponent implements OnInit, RefreshAll {
     route: 'connections',
     enabled: true
   }, {
+    name: 'Category evolution',
+    route: 'category',
+    enabled: true
+  }, {
     name: 'List evolve',
     route: 'list',
     enabled: true
