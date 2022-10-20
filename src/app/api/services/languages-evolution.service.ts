@@ -109,9 +109,7 @@ export class LanguagesEvolutionService extends BaseService {
    * This method doesn't expect any request body.
    */
   getConnections$Response(params?: {
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<LanguageConnection>>> {
+  }): Observable<StrictHttpResponse<Array<LanguageConnection>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetConnectionsPath, 'get');
     if (params) {
@@ -119,8 +117,7 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -140,9 +137,7 @@ export class LanguagesEvolutionService extends BaseService {
    * This method doesn't expect any request body.
    */
   getConnections(params?: {
-    context?: HttpContext
-  }
-): Observable<Array<LanguageConnection>> {
+  }): Observable<Array<LanguageConnection>> {
 
     return this.getConnections$Response(params).pipe(
       map((r: StrictHttpResponse<Array<LanguageConnection>>) => r.body as Array<LanguageConnection>)

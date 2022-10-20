@@ -424,10 +424,8 @@ export class CategoryService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   saveGrammaticalCategoryValueConnection$Response(params: {
-    context?: HttpContext
     body: GrammaticalCategoryValueConnection
-  }
-): Observable<StrictHttpResponse<number>> {
+  }): Observable<StrictHttpResponse<number>> {
 
     const rb = new RequestBuilder(this.rootUrl, CategoryService.SaveGrammaticalCategoryValueConnectionPath, 'post');
     if (params) {
@@ -436,8 +434,7 @@ export class CategoryService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -457,10 +454,8 @@ export class CategoryService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   saveGrammaticalCategoryValueConnection(params: {
-    context?: HttpContext
     body: GrammaticalCategoryValueConnection
-  }
-): Observable<number> {
+  }): Observable<number> {
 
     return this.saveGrammaticalCategoryValueConnection$Response(params).pipe(
       map((r: StrictHttpResponse<number>) => r.body as number)
@@ -484,9 +479,7 @@ export class CategoryService extends BaseService {
    */
   removeGrammaticalCategoryValueConnection$Response(params: {
     gcvcId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, CategoryService.RemoveGrammaticalCategoryValueConnectionPath, 'delete');
     if (params) {
@@ -495,8 +488,7 @@ export class CategoryService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*',
-      context: params?.context
+      accept: '*/*'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -517,9 +509,7 @@ export class CategoryService extends BaseService {
    */
   removeGrammaticalCategoryValueConnection(params: {
     gcvcId: number;
-    context?: HttpContext
-  }
-): Observable<void> {
+  }): Observable<void> {
 
     return this.removeGrammaticalCategoryValueConnection$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -598,9 +588,7 @@ export class CategoryService extends BaseService {
   getCategoryValuesByCategoryAndLang$Response(params: {
     categoryId: number;
     langId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<GrammaticalCategoryValue>>> {
+  }): Observable<StrictHttpResponse<Array<GrammaticalCategoryValue>>> {
 
     const rb = new RequestBuilder(this.rootUrl, CategoryService.GetCategoryValuesByCategoryAndLangPath, 'get');
     if (params) {
@@ -610,8 +598,7 @@ export class CategoryService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -633,9 +620,7 @@ export class CategoryService extends BaseService {
   getCategoryValuesByCategoryAndLang(params: {
     categoryId: number;
     langId: number;
-    context?: HttpContext
-  }
-): Observable<Array<GrammaticalCategoryValue>> {
+  }): Observable<Array<GrammaticalCategoryValue>> {
 
     return this.getCategoryValuesByCategoryAndLang$Response(params).pipe(
       map((r: StrictHttpResponse<Array<GrammaticalCategoryValue>>) => r.body as Array<GrammaticalCategoryValue>)
@@ -716,9 +701,7 @@ export class CategoryService extends BaseService {
    */
   getGrammaticalValuesConnectionByLang$Response(params: {
     langId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<GrammaticalCategoryValueConnection>>> {
+  }): Observable<StrictHttpResponse<Array<GrammaticalCategoryValueConnection>>> {
 
     const rb = new RequestBuilder(this.rootUrl, CategoryService.GetGrammaticalValuesConnectionByLangPath, 'get');
     if (params) {
@@ -727,8 +710,7 @@ export class CategoryService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -749,9 +731,7 @@ export class CategoryService extends BaseService {
    */
   getGrammaticalValuesConnectionByLang(params: {
     langId: number;
-    context?: HttpContext
-  }
-): Observable<Array<GrammaticalCategoryValueConnection>> {
+  }): Observable<Array<GrammaticalCategoryValueConnection>> {
 
     return this.getGrammaticalValuesConnectionByLang$Response(params).pipe(
       map((r: StrictHttpResponse<Array<GrammaticalCategoryValueConnection>>) => r.body as Array<GrammaticalCategoryValueConnection>)
@@ -776,9 +756,7 @@ export class CategoryService extends BaseService {
   getGrammaticalCategoryConnectionsForLangAndPos$Response(params: {
     posId: number;
     languageId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<GrammaticalCategoryConnection>>> {
+  }): Observable<StrictHttpResponse<Array<GrammaticalCategoryConnection>>> {
 
     const rb = new RequestBuilder(this.rootUrl, CategoryService.GetGrammaticalCategoryConnectionsForLangAndPosPath, 'get');
     if (params) {
@@ -788,8 +766,7 @@ export class CategoryService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -811,9 +788,7 @@ export class CategoryService extends BaseService {
   getGrammaticalCategoryConnectionsForLangAndPos(params: {
     posId: number;
     languageId: number;
-    context?: HttpContext
-  }
-): Observable<Array<GrammaticalCategoryConnection>> {
+  }): Observable<Array<GrammaticalCategoryConnection>> {
 
     return this.getGrammaticalCategoryConnectionsForLangAndPos$Response(params).pipe(
       map((r: StrictHttpResponse<Array<GrammaticalCategoryConnection>>) => r.body as Array<GrammaticalCategoryConnection>)
