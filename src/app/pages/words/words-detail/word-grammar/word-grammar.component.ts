@@ -29,9 +29,11 @@ export class WordGrammarComponent implements OnInit {
     this.categoryService.getAllCategories().subscribe((categories) => {
       categories.forEach((category) => {
         this.categoryValues.set(category, []);
-        if (category.id) {
-          this.categoryConnections.set(category.id, false);
-          this.categoryService.getCategoryValuesByCategory({categoryId: category.id}).subscribe((values) => {
+        if (category.id && this.word.language?.id)
+          this.categoryService.getCategoryValuesByCategoryAndLang({
+            categoryId: category.id,
+            langId: this.word.language.id
+          }).subscribe((values) => {
             this.categoryValues.set(category, values);
           });
           if (this.word.language?.id)

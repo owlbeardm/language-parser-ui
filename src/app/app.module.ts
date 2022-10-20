@@ -80,6 +80,9 @@ import { LanguageCategoryComponent } from './pages/languages/language-category/l
 import { LanguageCategoryDetailsComponent } from './pages/languages/language-category/language-category-details/language-category-details.component';
 import { LanguageCategoryValueDetailsComponent } from './pages/languages/language-category/language-category-value-details/language-category-value-details.component';
 import { WordGrammarCategoryComponent } from './pages/words/words-detail/word-grammar/word-grammar-category/word-grammar-category.component';
+import { CategoryEvolutionComponent } from './pages/evolution/category-evolution/category-evolution.component';
+import { CategoryEvolutionTableComponent } from './pages/evolution/category-evolution/category-evolution-table/category-evolution-table.component';
+import { CategoryEvolutionInputComponent } from './pages/evolution/category-evolution/category-evolution-table/category-evolution-input/category-evolution-input.component';
 
 
 @NgModule({
@@ -148,6 +151,9 @@ import { WordGrammarCategoryComponent } from './pages/words/words-detail/word-gr
     LanguageCategoryDetailsComponent,
     LanguageCategoryValueDetailsComponent,
     WordGrammarCategoryComponent,
+    CategoryEvolutionComponent,
+    CategoryEvolutionTableComponent,
+    CategoryEvolutionInputComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

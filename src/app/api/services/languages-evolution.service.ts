@@ -94,6 +94,62 @@ export class LanguagesEvolutionService extends BaseService {
   }
 
   /**
+   * Path part for operation getConnections
+   */
+  static readonly GetConnectionsPath = '/api/evolve/connection/all';
+
+  /**
+   * Get connections.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getConnections()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getConnections$Response(params?: {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<LanguageConnection>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetConnectionsPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<LanguageConnection>>;
+      })
+    );
+  }
+
+  /**
+   * Get connections.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getConnections$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getConnections(params?: {
+    context?: HttpContext
+  }
+): Observable<Array<LanguageConnection>> {
+
+    return this.getConnections$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<LanguageConnection>>) => r.body as Array<LanguageConnection>)
+    );
+  }
+
+  /**
    * Path part for operation getConnectionFromLang
    */
   static readonly GetConnectionFromLangPath = '/api/evolve/connection/from/{fromLangId}';

@@ -1,0 +1,83 @@
+<table>
+  <colgroup>
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: calc(25% - 40px);">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 25%;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 25%;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 25%;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody>
+  <!--  <tr class="table-content" *ngFor="let sc of soundChanges; index as i" [soundChange]="sc" (soundChangeDeleted)="deleteSoundChange($event)" app-sound-changes-table-row></tr>-->
+  <ng-container *ngFor="let pos of poses; index as i">
+    <tr>
+      <th class="border">+</th>
+      <th app-horizontal-dash class="border" colspan="7"></th>
+      <th class="border">+</th>
+    </tr>
+    <tr>
+      <th class="border">|</th>
+      <th class="text-grey">{{pos.name}}</th>
+      <th class="border" colspan="6"></th>
+      <th class="border">|</th>
+    </tr>
+    <ng-container *ngFor="let category of getCategoriesFrom(pos); index as j">
+      <tr>
+        <th class="border">|</th>
+        <th></th>
+        <th class="border">+</th>
+        <th app-horizontal-dash class="border" colspan="3"></th>
+        <th class="border">+</th>
+        <th app-horizontal-dash class="border" colspan="1"></th>
+        <th class="border">+</th>
+      </tr>
+      <tr>
+        <th class="border">|</th>
+        <th></th>
+        <th class="border">|</th>
+        <th class="text-white">{{category.name}}</th>
+        <th class="border" colspan="2"></th>
+        <th class="border">{{getCategoryTo(pos, category) ? '' : '|'}}</th>
+        <th class="text-grey">{{getCategoryTo(pos, category) ? '' : 'No grammatical category'}}</th>
+        <th class="border">|</th>
+      </tr>
+      <ng-container *ngIf="getCategoryTo(pos, category)">
+        <ng-container *ngFor="let value of getValuesFrom(category); index as z">
+          <tr>
+            <th class="border">|</th>
+            <th></th>
+            <th class="border">|</th>
+            <th></th>
+            <th class="border">+</th>
+            <th app-horizontal-dash class="border" colspan="3"></th>
+            <th class="border">+</th>
+          </tr>
+          <tr>
+            <th class="border">|</th>
+            <th></th>
+            <th class="border">|</th>
+            <th></th>
+            <th class="border">|</th>
+            <th class="text-main">{{value.name}}</th>
+            <th class="border">></th>
+            <th class="border">
+              <app-category-evolution-input [langFrom]="langFrom" [langTo]="langTo" [pos]="pos"
+                                            [valueFrom]="value"
+                                            [valuesTo]="getValuesTo(category)"></app-category-evolution-input>
+            </th>
+            <th class="border">|</th>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <tr>
+    <th class="border">+</th>
+    <th app-horizontal-dash class="border" colspan="7"></th>
+    <th class="border">+</th>
+  </tr>
+  </tbody>
+</table>

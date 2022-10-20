@@ -14,6 +14,7 @@ import {LanguageDescriptionComponent} from './pages/languages/language-descripti
 import {ListEvolutionComponent} from './pages/evolution/list-evolution/list-evolution.component';
 import {WordNewComponent} from './pages/words/word-new/word-new.component';
 import {WorldDetailsResolver} from './resolvers/world-details.resolver';
+import {CategoryEvolutionComponent} from "./pages/evolution/category-evolution/category-evolution.component";
 
 const routerOptions: ExtraOptions = {
   scrollPositionRestoration: 'enabled',
@@ -39,6 +40,7 @@ const routes: Routes = [
     path: 'evolutions', component: EvolutionComponent,
     children: [
       {path: 'connections', component: LanguageConnectionsComponent},
+      {path: 'category', component: CategoryEvolutionComponent},
       {path: 'list', component: ListEvolutionComponent}]
   },
   {

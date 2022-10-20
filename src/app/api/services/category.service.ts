@@ -12,6 +12,7 @@ import { map, filter } from 'rxjs/operators';
 import { GrammaticalCategory } from '../models/grammatical-category';
 import { GrammaticalCategoryConnection } from '../models/grammatical-category-connection';
 import { GrammaticalCategoryValue } from '../models/grammatical-category-value';
+import { GrammaticalCategoryValueConnection } from '../models/grammatical-category-value-connection';
 import { GrammaticalValueWordConnection } from '../models/grammatical-value-word-connection';
 
 
@@ -408,6 +409,124 @@ export class CategoryService extends BaseService {
   }
 
   /**
+   * Path part for operation saveGrammaticalCategoryValueConnection
+   */
+  static readonly SaveGrammaticalCategoryValueConnectionPath = '/api/category/valuelangconnection';
+
+  /**
+   * Replace grammatical values connection.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `saveGrammaticalCategoryValueConnection()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  saveGrammaticalCategoryValueConnection$Response(params: {
+    context?: HttpContext
+    body: GrammaticalCategoryValueConnection
+  }
+): Observable<StrictHttpResponse<number>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoryService.SaveGrammaticalCategoryValueConnectionPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
+      })
+    );
+  }
+
+  /**
+   * Replace grammatical values connection.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `saveGrammaticalCategoryValueConnection$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  saveGrammaticalCategoryValueConnection(params: {
+    context?: HttpContext
+    body: GrammaticalCategoryValueConnection
+  }
+): Observable<number> {
+
+    return this.saveGrammaticalCategoryValueConnection$Response(params).pipe(
+      map((r: StrictHttpResponse<number>) => r.body as number)
+    );
+  }
+
+  /**
+   * Path part for operation removeGrammaticalCategoryValueConnection
+   */
+  static readonly RemoveGrammaticalCategoryValueConnectionPath = '/api/category/valuelangconnection/{gcvcId}';
+
+  /**
+   * Remove grammatical values connection.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeGrammaticalCategoryValueConnection()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeGrammaticalCategoryValueConnection$Response(params: {
+    gcvcId: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoryService.RemoveGrammaticalCategoryValueConnectionPath, 'delete');
+    if (params) {
+      rb.path('gcvcId', params.gcvcId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Remove grammatical values connection.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `removeGrammaticalCategoryValueConnection$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeGrammaticalCategoryValueConnection(params: {
+    gcvcId: number;
+    context?: HttpContext
+  }
+): Observable<void> {
+
+    return this.removeGrammaticalCategoryValueConnection$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
    * Path part for operation getCategoryValuesByCategory
    */
   static readonly GetCategoryValuesByCategoryPath = '/api/category/{categoryId}/values';
@@ -457,6 +576,68 @@ export class CategoryService extends BaseService {
   }): Observable<Array<GrammaticalCategoryValue>> {
 
     return this.getCategoryValuesByCategory$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<GrammaticalCategoryValue>>) => r.body as Array<GrammaticalCategoryValue>)
+    );
+  }
+
+  /**
+   * Path part for operation getCategoryValuesByCategoryAndLang
+   */
+  static readonly GetCategoryValuesByCategoryAndLangPath = '/api/category/{categoryId}/{langId}/values';
+
+  /**
+   * Get grammatical categories values of category and lang.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getCategoryValuesByCategoryAndLang()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getCategoryValuesByCategoryAndLang$Response(params: {
+    categoryId: number;
+    langId: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<GrammaticalCategoryValue>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoryService.GetCategoryValuesByCategoryAndLangPath, 'get');
+    if (params) {
+      rb.path('categoryId', params.categoryId, {});
+      rb.path('langId', params.langId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<GrammaticalCategoryValue>>;
+      })
+    );
+  }
+
+  /**
+   * Get grammatical categories values of category and lang.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getCategoryValuesByCategoryAndLang$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getCategoryValuesByCategoryAndLang(params: {
+    categoryId: number;
+    langId: number;
+    context?: HttpContext
+  }
+): Observable<Array<GrammaticalCategoryValue>> {
+
+    return this.getCategoryValuesByCategoryAndLang$Response(params).pipe(
       map((r: StrictHttpResponse<Array<GrammaticalCategoryValue>>) => r.body as Array<GrammaticalCategoryValue>)
     );
   }
@@ -514,6 +695,127 @@ export class CategoryService extends BaseService {
   }): Observable<Array<GrammaticalCategoryConnection>> {
 
     return this.getGrammaticalCategoryConnectionsForLang$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<GrammaticalCategoryConnection>>) => r.body as Array<GrammaticalCategoryConnection>)
+    );
+  }
+
+  /**
+   * Path part for operation getGrammaticalValuesConnectionByLang
+   */
+  static readonly GetGrammaticalValuesConnectionByLangPath = '/api/category/{langId}/valuelangconnection';
+
+  /**
+   * Get grammatical values connection by lang.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getGrammaticalValuesConnectionByLang()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getGrammaticalValuesConnectionByLang$Response(params: {
+    langId: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<GrammaticalCategoryValueConnection>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoryService.GetGrammaticalValuesConnectionByLangPath, 'get');
+    if (params) {
+      rb.path('langId', params.langId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<GrammaticalCategoryValueConnection>>;
+      })
+    );
+  }
+
+  /**
+   * Get grammatical values connection by lang.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getGrammaticalValuesConnectionByLang$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getGrammaticalValuesConnectionByLang(params: {
+    langId: number;
+    context?: HttpContext
+  }
+): Observable<Array<GrammaticalCategoryValueConnection>> {
+
+    return this.getGrammaticalValuesConnectionByLang$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<GrammaticalCategoryValueConnection>>) => r.body as Array<GrammaticalCategoryValueConnection>)
+    );
+  }
+
+  /**
+   * Path part for operation getGrammaticalCategoryConnectionsForLangAndPos
+   */
+  static readonly GetGrammaticalCategoryConnectionsForLangAndPosPath = '/api/category/{posId}/{languageId}/connectionspos';
+
+  /**
+   * Get grammatical category connections.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getGrammaticalCategoryConnectionsForLangAndPos()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getGrammaticalCategoryConnectionsForLangAndPos$Response(params: {
+    posId: number;
+    languageId: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<GrammaticalCategoryConnection>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoryService.GetGrammaticalCategoryConnectionsForLangAndPosPath, 'get');
+    if (params) {
+      rb.path('posId', params.posId, {});
+      rb.path('languageId', params.languageId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<GrammaticalCategoryConnection>>;
+      })
+    );
+  }
+
+  /**
+   * Get grammatical category connections.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getGrammaticalCategoryConnectionsForLangAndPos$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getGrammaticalCategoryConnectionsForLangAndPos(params: {
+    posId: number;
+    languageId: number;
+    context?: HttpContext
+  }
+): Observable<Array<GrammaticalCategoryConnection>> {
+
+    return this.getGrammaticalCategoryConnectionsForLangAndPos$Response(params).pipe(
       map((r: StrictHttpResponse<Array<GrammaticalCategoryConnection>>) => r.body as Array<GrammaticalCategoryConnection>)
     );
   }
