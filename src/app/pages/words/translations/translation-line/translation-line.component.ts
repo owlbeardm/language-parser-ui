@@ -5,10 +5,10 @@ import {Translation} from '../../../../api/models/translation';
 import {Pos} from '../../../../api/models/pos';
 import {PosService} from '../../../../api/services/pos.service';
 import {Language} from '../../../../api/models/language';
-import {PageResultWordWithWritten} from '../../../../api/models/page-result-word-with-written';
 import {WordsService} from '../../../../api/services/words.service';
 import {WordWithWritten} from '../../../../api/models/word-with-written';
 import {TranslationService} from '../../../../api/services/translation.service';
+import {PageResultWordWithCategoryValues} from "../../../../api/models/page-result-word-with-category-values";
 
 @Component({
   selector: 'tbody[app-translation-line]',
@@ -18,7 +18,7 @@ import {TranslationService} from '../../../../api/services/translation.service';
 export class TranslationLineComponent implements OnInit {
 
   poses: Pos[] = [];
-  wordsForTranslation: PageResultWordWithWritten = {};
+  wordsForTranslation: PageResultWordWithCategoryValues = {};
   @Input() word!: WordWithTranslations;
   @Input() languageToFilter?: Language;
   editMode = false;

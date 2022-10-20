@@ -13,6 +13,7 @@ export class WordGrammarCategoryComponent implements OnInit {
   @Input() category!: GrammaticalCategory;
   @Input() categoryValues: GrammaticalCategoryValue[] | undefined;
   @Input() value: GrammaticalCategoryValue | undefined;
+  @Input() connected!: boolean;
   @Input() word!: Word;
 
   constructor(private categoryService: CategoryService) {

@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
@@ -37,9 +37,7 @@ export class PingService extends BaseService {
    * This method doesn't expect any request body.
    */
   ping$Response(params?: {
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<string>> {
+  }): Observable<StrictHttpResponse<string>> {
 
     const rb = new RequestBuilder(this.rootUrl, PingService.PingPath, 'get');
     if (params) {
@@ -47,8 +45,7 @@ export class PingService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -68,9 +65,7 @@ export class PingService extends BaseService {
    * This method doesn't expect any request body.
    */
   ping(params?: {
-    context?: HttpContext
-  }
-): Observable<string> {
+  }): Observable<string> {
 
     return this.ping$Response(params).pipe(
       map((r: StrictHttpResponse<string>) => r.body as string)
@@ -90,10 +85,8 @@ export class PingService extends BaseService {
    */
   setUserClaims$Response(params: {
     uid: string;
-    context?: HttpContext
     body: Array<'TEST_CLAIM' | 'ADMIN' | 'WRITE'>
-  }
-): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, PingService.SetUserClaimsPath, 'post');
     if (params) {
@@ -103,8 +96,7 @@ export class PingService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*',
-      context: params?.context
+      accept: '*/*'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -121,10 +113,8 @@ export class PingService extends BaseService {
    */
   setUserClaims(params: {
     uid: string;
-    context?: HttpContext
     body: Array<'TEST_CLAIM' | 'ADMIN' | 'WRITE'>
-  }
-): Observable<void> {
+  }): Observable<void> {
 
     return this.setUserClaims$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -147,9 +137,7 @@ export class PingService extends BaseService {
    * This method doesn't expect any request body.
    */
   version$Response(params?: {
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<string>> {
+  }): Observable<StrictHttpResponse<string>> {
 
     const rb = new RequestBuilder(this.rootUrl, PingService.VersionPath, 'get');
     if (params) {
@@ -157,8 +145,7 @@ export class PingService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: 'text/plain',
-      context: params?.context
+      accept: 'text/plain'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -178,9 +165,7 @@ export class PingService extends BaseService {
    * This method doesn't expect any request body.
    */
   version(params?: {
-    context?: HttpContext
-  }
-): Observable<string> {
+  }): Observable<string> {
 
     return this.version$Response(params).pipe(
       map((r: StrictHttpResponse<string>) => r.body as string)

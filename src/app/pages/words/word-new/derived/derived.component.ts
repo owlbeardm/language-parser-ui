@@ -3,13 +3,13 @@ import {Pos} from '../../../../api/models/pos';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {WordListFilter} from '../../../../api/models/word-list-filter';
 import {WordsService} from '../../../../api/services/words.service';
-import {PageResultWordWithWritten} from '../../../../api/models/page-result-word-with-written';
 import {PosService} from '../../../../api/services/pos.service';
 import {WordWithWritten} from '../../../../api/models/word-with-written';
 import {DerivedWordToAdd} from '../../../../api/models/derived-word-to-add';
 import {WordOriginType} from '../../../../api/models/word-origin-type';
 import {WordNewDetailed} from "../word-new-detailed";
 import {Language} from "../../../../api/models/language";
+import {PageResultWordWithCategoryValues} from "../../../../api/models/page-result-word-with-category-values";
 
 @Component({
   selector: 'tbody[app-derived]',
@@ -22,7 +22,7 @@ export class DerivedComponent extends WordNewDetailed {
   pageSize = 10;
   wordSearch?: string;
   listPosSelector?: Pos;
-  wordsList: PageResultWordWithWritten = {};
+  wordsList: PageResultWordWithCategoryValues = {};
   selectedWords: WordWithWritten[] = [];
   newWord = new FormGroup({
     word: new FormControl('', Validators.required),

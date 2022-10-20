@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
@@ -11,8 +11,8 @@ import { map, filter } from 'rxjs/operators';
 
 import { DerivedWordToAdd } from '../models/derived-word-to-add';
 import { DetailedWord } from '../models/detailed-word';
+import { PageResultWordWithCategoryValues } from '../models/page-result-word-with-category-values';
 import { PageResultWordWithTranslations } from '../models/page-result-word-with-translations';
-import { PageResultWordWithWritten } from '../models/page-result-word-with-written';
 import { Word } from '../models/word';
 import { WordListFilter } from '../models/word-list-filter';
 
@@ -47,10 +47,8 @@ export class WordsService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addWord$Response(params: {
-    context?: HttpContext
     body: Word
-  }
-): Observable<StrictHttpResponse<Word>> {
+  }): Observable<StrictHttpResponse<Word>> {
 
     const rb = new RequestBuilder(this.rootUrl, WordsService.AddWordPath, 'post');
     if (params) {
@@ -59,8 +57,7 @@ export class WordsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -80,10 +77,8 @@ export class WordsService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addWord(params: {
-    context?: HttpContext
     body: Word
-  }
-): Observable<Word> {
+  }): Observable<Word> {
 
     return this.addWord$Response(params).pipe(
       map((r: StrictHttpResponse<Word>) => r.body as Word)
@@ -107,9 +102,7 @@ export class WordsService extends BaseService {
    */
   getAllWords$Response(params: {
     filter: WordListFilter;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<PageResultWordWithWritten>> {
+  }): Observable<StrictHttpResponse<PageResultWordWithCategoryValues>> {
 
     const rb = new RequestBuilder(this.rootUrl, WordsService.GetAllWordsPath, 'get');
     if (params) {
@@ -118,12 +111,11 @@ export class WordsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<PageResultWordWithWritten>;
+        return r as StrictHttpResponse<PageResultWordWithCategoryValues>;
       })
     );
   }
@@ -140,12 +132,10 @@ export class WordsService extends BaseService {
    */
   getAllWords(params: {
     filter: WordListFilter;
-    context?: HttpContext
-  }
-): Observable<PageResultWordWithWritten> {
+  }): Observable<PageResultWordWithCategoryValues> {
 
     return this.getAllWords$Response(params).pipe(
-      map((r: StrictHttpResponse<PageResultWordWithWritten>) => r.body as PageResultWordWithWritten)
+      map((r: StrictHttpResponse<PageResultWordWithCategoryValues>) => r.body as PageResultWordWithCategoryValues)
     );
   }
 
@@ -166,9 +156,7 @@ export class WordsService extends BaseService {
    */
   getAllWordsFromLang$Response(params: {
     from: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<Word>>> {
+  }): Observable<StrictHttpResponse<Array<Word>>> {
 
     const rb = new RequestBuilder(this.rootUrl, WordsService.GetAllWordsFromLangPath, 'get');
     if (params) {
@@ -177,8 +165,7 @@ export class WordsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -199,9 +186,7 @@ export class WordsService extends BaseService {
    */
   getAllWordsFromLang(params: {
     from: number;
-    context?: HttpContext
-  }
-): Observable<Array<Word>> {
+  }): Observable<Array<Word>> {
 
     return this.getAllWordsFromLang$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Word>>) => r.body as Array<Word>)
@@ -224,9 +209,7 @@ export class WordsService extends BaseService {
    * This method doesn't expect any request body.
    */
   cleanIpaWords$Response(params?: {
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, WordsService.CleanIpaWordsPath, 'post');
     if (params) {
@@ -234,8 +217,7 @@ export class WordsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*',
-      context: params?.context
+      accept: '*/*'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -255,9 +237,7 @@ export class WordsService extends BaseService {
    * This method doesn't expect any request body.
    */
   cleanIpaWords(params?: {
-    context?: HttpContext
-  }
-): Observable<void> {
+  }): Observable<void> {
 
     return this.cleanIpaWords$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -280,10 +260,8 @@ export class WordsService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addDerivedWord$Response(params: {
-    context?: HttpContext
     body: DerivedWordToAdd
-  }
-): Observable<StrictHttpResponse<Word>> {
+  }): Observable<StrictHttpResponse<Word>> {
 
     const rb = new RequestBuilder(this.rootUrl, WordsService.AddDerivedWordPath, 'post');
     if (params) {
@@ -292,8 +270,7 @@ export class WordsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -313,10 +290,8 @@ export class WordsService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addDerivedWord(params: {
-    context?: HttpContext
     body: DerivedWordToAdd
-  }
-): Observable<Word> {
+  }): Observable<Word> {
 
     return this.addDerivedWord$Response(params).pipe(
       map((r: StrictHttpResponse<Word>) => r.body as Word)
@@ -340,9 +315,7 @@ export class WordsService extends BaseService {
    */
   getAllWordsWithTranslationsFromLang$Response(params: {
     from: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<PageResultWordWithTranslations>> {
+  }): Observable<StrictHttpResponse<PageResultWordWithTranslations>> {
 
     const rb = new RequestBuilder(this.rootUrl, WordsService.GetAllWordsWithTranslationsFromLangPath, 'get');
     if (params) {
@@ -351,8 +324,7 @@ export class WordsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -373,9 +345,7 @@ export class WordsService extends BaseService {
    */
   getAllWordsWithTranslationsFromLang(params: {
     from: number;
-    context?: HttpContext
-  }
-): Observable<PageResultWordWithTranslations> {
+  }): Observable<PageResultWordWithTranslations> {
 
     return this.getAllWordsWithTranslationsFromLang$Response(params).pipe(
       map((r: StrictHttpResponse<PageResultWordWithTranslations>) => r.body as PageResultWordWithTranslations)
@@ -399,9 +369,7 @@ export class WordsService extends BaseService {
    */
   deleteWord$Response(params: {
     id: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, WordsService.DeleteWordPath, 'delete');
     if (params) {
@@ -410,8 +378,7 @@ export class WordsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*',
-      context: params?.context
+      accept: '*/*'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -432,9 +399,7 @@ export class WordsService extends BaseService {
    */
   deleteWord(params: {
     id: number;
-    context?: HttpContext
-  }
-): Observable<void> {
+  }): Observable<void> {
 
     return this.deleteWord$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -458,9 +423,7 @@ export class WordsService extends BaseService {
    */
   canDeleteWord$Response(params: {
     wordId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<boolean>> {
+  }): Observable<StrictHttpResponse<boolean>> {
 
     const rb = new RequestBuilder(this.rootUrl, WordsService.CanDeleteWordPath, 'get');
     if (params) {
@@ -469,8 +432,7 @@ export class WordsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -491,9 +453,7 @@ export class WordsService extends BaseService {
    */
   canDeleteWord(params: {
     wordId: number;
-    context?: HttpContext
-  }
-): Observable<boolean> {
+  }): Observable<boolean> {
 
     return this.canDeleteWord$Response(params).pipe(
       map((r: StrictHttpResponse<boolean>) => r.body as boolean)
@@ -517,9 +477,7 @@ export class WordsService extends BaseService {
    */
   getDetailedWordsByPhonetics$Response(params: {
     word: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<DetailedWord>>> {
+  }): Observable<StrictHttpResponse<Array<DetailedWord>>> {
 
     const rb = new RequestBuilder(this.rootUrl, WordsService.GetDetailedWordsByPhoneticsPath, 'get');
     if (params) {
@@ -528,8 +486,7 @@ export class WordsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -550,9 +507,7 @@ export class WordsService extends BaseService {
    */
   getDetailedWordsByPhonetics(params: {
     word: string;
-    context?: HttpContext
-  }
-): Observable<Array<DetailedWord>> {
+  }): Observable<Array<DetailedWord>> {
 
     return this.getDetailedWordsByPhonetics$Response(params).pipe(
       map((r: StrictHttpResponse<Array<DetailedWord>>) => r.body as Array<DetailedWord>)

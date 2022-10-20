@@ -2,12 +2,17 @@
       style="text-transform: capitalize;"><i>{{word.writtenWord | writtenWord}}</i></span>
 <span> {{word.partOfSpeech?.name?.toLowerCase()}};</span>
 <span *ngIf="!isEditCategories" style="margin-left: 8px;">
-  <span *ngFor="let wv of wordValues; index as i">{{i == 0 ? '' : ', '}}{{wv.value?.name}}</span>
+  <span *ngFor="let wv of wordValues; index as i">{{i == 0 ? '' : ', '}}<span
+    [ngClass]="isValueConnected(wv)?'':'text-red-dull'">{{wv.value?.name}}</span></span>
   <a (click)="isEditCategories = true" class="text-grey-dull link-btn"> [e]</a>
 </span>
 <span *ngIf="isEditCategories" style="margin-left: 8px;">
+
   <span *ngFor="let c of categories; index as i">
-    <app-word-grammar-category [categoryValues]="categoryValues.get(c)" [category]="c" [value]="getWordCategoryValue(c)"
+    <app-word-grammar-category *ngIf="isCategoryConnected(c) || getWordCategoryValue(c)"
+                               [categoryValues]="categoryValues.get(c)"
+                               [category]="c" [connected]="isCategoryConnected(c)"
+                               [value]="getWordCategoryValue(c)"
                                [word]="word"></app-word-grammar-category>
   </span>
   <a (click)="save()" class="text-grey-dull link-btn"> [close]</a>

@@ -14,6 +14,7 @@ export class WordGrammarComponent implements OnInit {
 
   @Input() word!: WordWithWritten;
   categoryValues = new Map<GrammaticalCategory, GrammaticalCategoryValue[]>();
+  categoryConnections = new Map<number, boolean>();
   wordValues: GrammaticalValueWordConnection[] = [];
   isEditCategories: boolean = false;
 
@@ -21,19 +22,30 @@ export class WordGrammarComponent implements OnInit {
   }
 
   get categories() {
-    return this.categoryValues.keys();
+    return [...this.categoryValues.keys()].sort((a, b) => !a.name ? -1 : a.name.localeCompare(!b.name ? '' : b.name));
   }
 
   ngOnInit(): void {
     this.categoryService.getAllCategories().subscribe((categories) => {
       categories.forEach((category) => {
         this.categoryValues.set(category, []);
-        if (category.id)
+        if (category.id) {
+          this.categoryConnections.set(category.id, false);
           this.categoryService.getCategoryValuesByCategory({categoryId: category.id}).subscribe((values) => {
             this.categoryValues.set(category, values);
           });
+          if (this.word.language?.id)
+            this.categoryService.getGrammaticalCategoryConnectionsForLang({
+              categoryId: category.id,
+              languageId: this.word.language.id
+            }).subscribe((gcc) => {
+              if (category.id)
+                this.categoryConnections.set(category.id, !!gcc.find((gccv) => gccv?.pos?.id === this.word.partOfSpeech?.id));
+            });
+        }
       });
     });
+
     this.reloadWordValues();
   }
 
@@ -44,7 +56,15 @@ export class WordGrammarComponent implements OnInit {
 
   getWordCategoryValue(c: GrammaticalCategory): GrammaticalCategoryValue | undefined {
     const value = this.wordValues?.find((vw) => vw.value?.category?.id == c.id)?.value;
-    return value == null?undefined:value;
+    return value == null ? undefined : value;
+  }
+
+  isValueConnected(wv: GrammaticalValueWordConnection | undefined): boolean {
+    return this.isCategoryConnected(wv?.value?.category);
+  }
+
+  isCategoryConnected(c: GrammaticalCategory | undefined): boolean {
+    return !!c?.id && !!this.categoryConnections.get(c.id);
   }
 
   private reloadWordValues() {

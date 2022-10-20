@@ -1,4 +1,4 @@
-{{category.name}}:
+<span [ngClass]="connected?'':'text-red-dull'">{{category.name}}</span>:
 <span class="input-group" style="margin-right: 12px;">
           <select (ngModelChange)="valueChanged({value:$event})" [(ngModel)]="value" class="posSelector"
                   id="newWordTypeSelector">

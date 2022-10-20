@@ -61,12 +61,17 @@ export class LanguagePosComponent extends AbstractHasLanguageComponent implement
 
   connectPosToLanguage(p: Pos): void {
     console.log('connectPosToLanguage', p);
-    if (this.getLanguagePosSymbol(p)) {
+    if (this.getLanguagePos(p)?.connectedToLanguage) {
       if (this.selectedLanguage?.id) {
         const connectionToDelete = this.lp.find(lp => lp.languageId === this.selectedLanguage?.id && lp.posId === p.id);
         if (connectionToDelete && connectionToDelete.id) {
           this.posService.deleteLanguagePos({id: connectionToDelete.id}).subscribe(() => {
-            this.lp = this.lp.filter(lp => lp.id !== connectionToDelete.id);
+            const find = this.lp.find(lpv => lpv.id === connectionToDelete.id);
+            if(find?.usedInLanguage){
+              find.connectedToLanguage = false;
+            } else {
+              this.lp = this.lp.filter(lp => lp.id !== connectionToDelete.id);
+            }
           });
         }
       }
@@ -78,7 +83,15 @@ export class LanguagePosComponent extends AbstractHasLanguageComponent implement
         };
         this.posService.saveLanguagePos({body: lp}).subscribe((id) => {
           lp.id = id;
-          this.lp.push(lp);
+          const find = this.lp.find(lpv => lpv.posId === p.id && lpv.languageId === this.selectedLanguage?.id);
+          if(find){
+            console.log("found!", find);
+            find.id = id;
+            find.connectedToLanguage = true;
+          } else {
+            lp.connectedToLanguage = true;
+            this.lp.push(lp);
+          }
         });
       }
     }
