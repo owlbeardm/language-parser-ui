@@ -36,15 +36,15 @@ export class WordGrammarComponent implements OnInit {
           }).subscribe((values) => {
             this.categoryValues.set(category, values);
           });
-          if (this.word.language?.id)
-            this.categoryService.getGrammaticalCategoryConnectionsForLang({
-              categoryId: category.id,
-              languageId: this.word.language.id
-            }).subscribe((gcc) => {
-              if (category.id)
-                this.categoryConnections.set(category.id, !!gcc.find((gccv) => gccv?.pos?.id === this.word.partOfSpeech?.id));
-            });
-        }
+        if (this.word.language?.id && category.id)
+          this.categoryService.getGrammaticalCategoryConnectionsForLang({
+            categoryId: category.id,
+            languageId: this.word.language.id
+          }).subscribe((gcc) => {
+            if (category.id)
+              this.categoryConnections.set(category.id, !!gcc.find((gccv) => gccv?.pos?.id === this.word.partOfSpeech?.id));
+          });
+
       });
     });
 
