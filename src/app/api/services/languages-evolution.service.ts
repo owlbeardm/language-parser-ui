@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
@@ -9,6 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { GrammaticalValueEvolution } from '../models/grammatical-value-evolution';
 import { Language } from '../models/language';
 import { LanguageConnection } from '../models/language-connection';
 import { LanguageConnectionTypeModel } from '../models/language-connection-type-model';
@@ -56,7 +57,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   getAllLanguagesFrom$Response(params: {
     fromId: number;
-  }): Observable<StrictHttpResponse<Array<Language>>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<Language>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetAllLanguagesFromPath, 'get');
     if (params) {
@@ -65,7 +68,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -86,7 +90,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   getAllLanguagesFrom(params: {
     fromId: number;
-  }): Observable<Array<Language>> {
+    context?: HttpContext
+  }
+): Observable<Array<Language>> {
 
     return this.getAllLanguagesFrom$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Language>>) => r.body as Array<Language>)
@@ -109,7 +115,9 @@ export class LanguagesEvolutionService extends BaseService {
    * This method doesn't expect any request body.
    */
   getConnections$Response(params?: {
-  }): Observable<StrictHttpResponse<Array<LanguageConnection>>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<LanguageConnection>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetConnectionsPath, 'get');
     if (params) {
@@ -117,7 +125,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -137,7 +146,9 @@ export class LanguagesEvolutionService extends BaseService {
    * This method doesn't expect any request body.
    */
   getConnections(params?: {
-  }): Observable<Array<LanguageConnection>> {
+    context?: HttpContext
+  }
+): Observable<Array<LanguageConnection>> {
 
     return this.getConnections$Response(params).pipe(
       map((r: StrictHttpResponse<Array<LanguageConnection>>) => r.body as Array<LanguageConnection>)
@@ -161,7 +172,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   getConnectionFromLang$Response(params: {
     fromLangId: number;
-  }): Observable<StrictHttpResponse<Array<LanguageConnection>>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<LanguageConnection>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetConnectionFromLangPath, 'get');
     if (params) {
@@ -170,7 +183,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -191,7 +205,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   getConnectionFromLang(params: {
     fromLangId: number;
-  }): Observable<Array<LanguageConnection>> {
+    context?: HttpContext
+  }
+): Observable<Array<LanguageConnection>> {
 
     return this.getConnectionFromLang$Response(params).pipe(
       map((r: StrictHttpResponse<Array<LanguageConnection>>) => r.body as Array<LanguageConnection>)
@@ -215,7 +231,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   getConnectionToLang$Response(params: {
     toLangId: number;
-  }): Observable<StrictHttpResponse<Array<LanguageConnection>>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<LanguageConnection>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetConnectionToLangPath, 'get');
     if (params) {
@@ -224,7 +242,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -245,7 +264,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   getConnectionToLang(params: {
     toLangId: number;
-  }): Observable<Array<LanguageConnection>> {
+    context?: HttpContext
+  }
+): Observable<Array<LanguageConnection>> {
 
     return this.getConnectionToLang$Response(params).pipe(
       map((r: StrictHttpResponse<Array<LanguageConnection>>) => r.body as Array<LanguageConnection>)
@@ -270,7 +291,9 @@ export class LanguagesEvolutionService extends BaseService {
   getConnectionByLangs$Response(params: {
     fromLangId: number;
     toLangId: number;
-  }): Observable<StrictHttpResponse<LanguageConnection>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<LanguageConnection>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetConnectionByLangsPath, 'get');
     if (params) {
@@ -280,7 +303,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -302,7 +326,9 @@ export class LanguagesEvolutionService extends BaseService {
   getConnectionByLangs(params: {
     fromLangId: number;
     toLangId: number;
-  }): Observable<LanguageConnection> {
+    context?: HttpContext
+  }
+): Observable<LanguageConnection> {
 
     return this.getConnectionByLangs$Response(params).pipe(
       map((r: StrictHttpResponse<LanguageConnection>) => r.body as LanguageConnection)
@@ -327,8 +353,10 @@ export class LanguagesEvolutionService extends BaseService {
   updateConnectionByLangs$Response(params: {
     fromLangId: number;
     toLangId: number;
+    context?: HttpContext
     body: LanguageConnectionTypeModel
-  }): Observable<StrictHttpResponse<void>> {
+  }
+): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.UpdateConnectionByLangsPath, 'post');
     if (params) {
@@ -339,7 +367,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*'
+      accept: '*/*',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -361,8 +390,10 @@ export class LanguagesEvolutionService extends BaseService {
   updateConnectionByLangs(params: {
     fromLangId: number;
     toLangId: number;
+    context?: HttpContext
     body: LanguageConnectionTypeModel
-  }): Observable<void> {
+  }
+): Observable<void> {
 
     return this.updateConnectionByLangs$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -387,7 +418,9 @@ export class LanguagesEvolutionService extends BaseService {
   deleteConnectionByLangs$Response(params: {
     fromLangId: number;
     toLangId: number;
-  }): Observable<StrictHttpResponse<void>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.DeleteConnectionByLangsPath, 'delete');
     if (params) {
@@ -397,7 +430,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*'
+      accept: '*/*',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -419,10 +453,198 @@ export class LanguagesEvolutionService extends BaseService {
   deleteConnectionByLangs(params: {
     fromLangId: number;
     toLangId: number;
-  }): Observable<void> {
+    context?: HttpContext
+  }
+): Observable<void> {
 
     return this.deleteConnectionByLangs$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation saveGrammaticalValueEvolution
+   */
+  static readonly SaveGrammaticalValueEvolutionPath = '/api/evolve/grammaticalvalue';
+
+  /**
+   * Save grammatical value evolution.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `saveGrammaticalValueEvolution()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  saveGrammaticalValueEvolution$Response(params: {
+    context?: HttpContext
+    body: GrammaticalValueEvolution
+  }
+): Observable<StrictHttpResponse<number>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.SaveGrammaticalValueEvolutionPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
+      })
+    );
+  }
+
+  /**
+   * Save grammatical value evolution.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `saveGrammaticalValueEvolution$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  saveGrammaticalValueEvolution(params: {
+    context?: HttpContext
+    body: GrammaticalValueEvolution
+  }
+): Observable<number> {
+
+    return this.saveGrammaticalValueEvolution$Response(params).pipe(
+      map((r: StrictHttpResponse<number>) => r.body as number)
+    );
+  }
+
+  /**
+   * Path part for operation removeGrammaticalValueEvolution
+   */
+  static readonly RemoveGrammaticalValueEvolutionPath = '/api/evolve/grammaticalvalue/{id}';
+
+  /**
+   * Delete grammatical value evolution.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeGrammaticalValueEvolution()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeGrammaticalValueEvolution$Response(params: {
+    id: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.RemoveGrammaticalValueEvolutionPath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Delete grammatical value evolution.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `removeGrammaticalValueEvolution$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeGrammaticalValueEvolution(params: {
+    id: number;
+    context?: HttpContext
+  }
+): Observable<void> {
+
+    return this.removeGrammaticalValueEvolution$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation getGrammaticalValueEvolution
+   */
+  static readonly GetGrammaticalValueEvolutionPath = '/api/evolve/grammaticalvalue/{langFromId}/{langToId}/{posId}/{valueFromId}';
+
+  /**
+   * Get grammatical value evolution.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getGrammaticalValueEvolution()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getGrammaticalValueEvolution$Response(params: {
+    langFromId: number;
+    langToId: number;
+    posId: number;
+    valueFromId: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<GrammaticalValueEvolution>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetGrammaticalValueEvolutionPath, 'get');
+    if (params) {
+      rb.path('langFromId', params.langFromId, {});
+      rb.path('langToId', params.langToId, {});
+      rb.path('posId', params.posId, {});
+      rb.path('valueFromId', params.valueFromId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<GrammaticalValueEvolution>;
+      })
+    );
+  }
+
+  /**
+   * Get grammatical value evolution.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getGrammaticalValueEvolution$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getGrammaticalValueEvolution(params: {
+    langFromId: number;
+    langToId: number;
+    posId: number;
+    valueFromId: number;
+    context?: HttpContext
+  }
+): Observable<GrammaticalValueEvolution> {
+
+    return this.getGrammaticalValueEvolution$Response(params).pipe(
+      map((r: StrictHttpResponse<GrammaticalValueEvolution>) => r.body as GrammaticalValueEvolution)
     );
   }
 
@@ -442,7 +664,9 @@ export class LanguagesEvolutionService extends BaseService {
    * This method doesn't expect any request body.
    */
   getLanguageGraph$Response(params?: {
-  }): Observable<StrictHttpResponse<string>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<string>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetLanguageGraphPath, 'get');
     if (params) {
@@ -450,7 +674,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -470,7 +695,9 @@ export class LanguagesEvolutionService extends BaseService {
    * This method doesn't expect any request body.
    */
   getLanguageGraph(params?: {
-  }): Observable<string> {
+    context?: HttpContext
+  }
+): Observable<string> {
 
     return this.getLanguageGraph$Response(params).pipe(
       map((r: StrictHttpResponse<string>) => r.body as string)
@@ -495,7 +722,9 @@ export class LanguagesEvolutionService extends BaseService {
   getAllRoutes$Response(params: {
     fromId: number;
     toId: number;
-  }): Observable<StrictHttpResponse<Array<Array<Language>>>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<Array<Language>>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetAllRoutesPath, 'get');
     if (params) {
@@ -505,7 +734,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -527,7 +757,9 @@ export class LanguagesEvolutionService extends BaseService {
   getAllRoutes(params: {
     fromId: number;
     toId: number;
-  }): Observable<Array<Array<Language>>> {
+    context?: HttpContext
+  }
+): Observable<Array<Array<Language>>> {
 
     return this.getAllRoutes$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Array<Language>>>) => r.body as Array<Array<Language>>)
@@ -552,7 +784,9 @@ export class LanguagesEvolutionService extends BaseService {
   getSoundChangesByLang$Response(params: {
     soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
-  }): Observable<StrictHttpResponse<Array<SoundChange>>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<SoundChange>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetSoundChangesByLangPath, 'get');
     if (params) {
@@ -562,7 +796,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -584,7 +819,9 @@ export class LanguagesEvolutionService extends BaseService {
   getSoundChangesByLang(params: {
     soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
-  }): Observable<Array<SoundChange>> {
+    context?: HttpContext
+  }
+): Observable<Array<SoundChange>> {
 
     return this.getSoundChangesByLang$Response(params).pipe(
       map((r: StrictHttpResponse<Array<SoundChange>>) => r.body as Array<SoundChange>)
@@ -610,7 +847,9 @@ export class LanguagesEvolutionService extends BaseService {
     soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
     toLangId: number;
-  }): Observable<StrictHttpResponse<Array<SoundChange>>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<SoundChange>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetSoundChangesByLangsPath, 'get');
     if (params) {
@@ -621,7 +860,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -644,7 +884,9 @@ export class LanguagesEvolutionService extends BaseService {
     soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
     toLangId: number;
-  }): Observable<Array<SoundChange>> {
+    context?: HttpContext
+  }
+): Observable<Array<SoundChange>> {
 
     return this.getSoundChangesByLangs$Response(params).pipe(
       map((r: StrictHttpResponse<Array<SoundChange>>) => r.body as Array<SoundChange>)
@@ -669,7 +911,9 @@ export class LanguagesEvolutionService extends BaseService {
   getSoundChangesRawLinesByLang$Response(params: {
     soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
-  }): Observable<StrictHttpResponse<string>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<string>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetSoundChangesRawLinesByLangPath, 'get');
     if (params) {
@@ -679,7 +923,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: 'text/plain'
+      accept: 'text/plain',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -701,7 +946,9 @@ export class LanguagesEvolutionService extends BaseService {
   getSoundChangesRawLinesByLang(params: {
     soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
-  }): Observable<string> {
+    context?: HttpContext
+  }
+): Observable<string> {
 
     return this.getSoundChangesRawLinesByLang$Response(params).pipe(
       map((r: StrictHttpResponse<string>) => r.body as string)
@@ -726,8 +973,10 @@ export class LanguagesEvolutionService extends BaseService {
   saveSoundChangesRawLinesByLang$Response(params: {
     soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
+    context?: HttpContext
     body: string
-  }): Observable<StrictHttpResponse<void>> {
+  }
+): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.SaveSoundChangesRawLinesByLangPath, 'post');
     if (params) {
@@ -738,7 +987,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*'
+      accept: '*/*',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -760,8 +1010,10 @@ export class LanguagesEvolutionService extends BaseService {
   saveSoundChangesRawLinesByLang(params: {
     soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
+    context?: HttpContext
     body: string
-  }): Observable<void> {
+  }
+): Observable<void> {
 
     return this.saveSoundChangesRawLinesByLang$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -787,7 +1039,9 @@ export class LanguagesEvolutionService extends BaseService {
     soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
     toLangId: number;
-  }): Observable<StrictHttpResponse<string>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<string>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetSoundChangesRawLinesByLangsPath, 'get');
     if (params) {
@@ -798,7 +1052,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: 'text/plain'
+      accept: 'text/plain',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -821,7 +1076,9 @@ export class LanguagesEvolutionService extends BaseService {
     soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
     toLangId: number;
-  }): Observable<string> {
+    context?: HttpContext
+  }
+): Observable<string> {
 
     return this.getSoundChangesRawLinesByLangs$Response(params).pipe(
       map((r: StrictHttpResponse<string>) => r.body as string)
@@ -847,8 +1104,10 @@ export class LanguagesEvolutionService extends BaseService {
     soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
     toLangId: number;
+    context?: HttpContext
     body: string
-  }): Observable<StrictHttpResponse<void>> {
+  }
+): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.SaveSoundChangesRawLinesByLangsPath, 'post');
     if (params) {
@@ -860,7 +1119,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*'
+      accept: '*/*',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -883,8 +1143,10 @@ export class LanguagesEvolutionService extends BaseService {
     soundChangePurpose: SoundChangePurpose;
     fromLangId: number;
     toLangId: number;
+    context?: HttpContext
     body: string
-  }): Observable<void> {
+  }
+): Observable<void> {
 
     return this.saveSoundChangesRawLinesByLangs$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -908,7 +1170,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   getSoundChangeRaw$Response(params: {
     id: number;
-  }): Observable<StrictHttpResponse<string>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<string>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetSoundChangeRawPath, 'get');
     if (params) {
@@ -917,7 +1181,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: 'text/plain'
+      accept: 'text/plain',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -938,7 +1203,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   getSoundChangeRaw(params: {
     id: number;
-  }): Observable<string> {
+    context?: HttpContext
+  }
+): Observable<string> {
 
     return this.getSoundChangeRaw$Response(params).pipe(
       map((r: StrictHttpResponse<string>) => r.body as string)
@@ -962,8 +1229,10 @@ export class LanguagesEvolutionService extends BaseService {
    */
   updateSoundChange$Response(params: {
     id: number;
+    context?: HttpContext
     body: string
-  }): Observable<StrictHttpResponse<void>> {
+  }
+): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.UpdateSoundChangePath, 'post');
     if (params) {
@@ -973,7 +1242,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*'
+      accept: '*/*',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -994,8 +1264,10 @@ export class LanguagesEvolutionService extends BaseService {
    */
   updateSoundChange(params: {
     id: number;
+    context?: HttpContext
     body: string
-  }): Observable<void> {
+  }
+): Observable<void> {
 
     return this.updateSoundChange$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -1019,7 +1291,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   getSoundChange$Response(params: {
     id: number;
-  }): Observable<StrictHttpResponse<SoundChange>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<SoundChange>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetSoundChangePath, 'get');
     if (params) {
@@ -1028,7 +1302,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -1049,7 +1324,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   getSoundChange(params: {
     id: number;
-  }): Observable<SoundChange> {
+    context?: HttpContext
+  }
+): Observable<SoundChange> {
 
     return this.getSoundChange$Response(params).pipe(
       map((r: StrictHttpResponse<SoundChange>) => r.body as SoundChange)
@@ -1073,7 +1350,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   deleteSoundChange$Response(params: {
     id: number;
-  }): Observable<StrictHttpResponse<void>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.DeleteSoundChangePath, 'delete');
     if (params) {
@@ -1082,7 +1361,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*'
+      accept: '*/*',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -1103,7 +1383,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   deleteSoundChange(params: {
     id: number;
-  }): Observable<void> {
+    context?: HttpContext
+  }
+): Observable<void> {
 
     return this.deleteSoundChange$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -1127,8 +1409,10 @@ export class LanguagesEvolutionService extends BaseService {
    */
   trace$Response(params: {
     word: string;
+    context?: HttpContext
     body: Array<Language>
-  }): Observable<StrictHttpResponse<Array<WordTraceResult>>> {
+  }
+): Observable<StrictHttpResponse<Array<WordTraceResult>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.TracePath, 'post');
     if (params) {
@@ -1138,7 +1422,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -1159,8 +1444,10 @@ export class LanguagesEvolutionService extends BaseService {
    */
   trace(params: {
     word: string;
+    context?: HttpContext
     body: Array<Language>
-  }): Observable<Array<WordTraceResult>> {
+  }
+): Observable<Array<WordTraceResult>> {
 
     return this.trace$Response(params).pipe(
       map((r: StrictHttpResponse<Array<WordTraceResult>>) => r.body as Array<WordTraceResult>)
@@ -1184,7 +1471,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   getAllWordsWithEvolutions$Response(params: {
     filter: WordWithEvolutionsListFilter;
-  }): Observable<StrictHttpResponse<PageResultWordWithEvolution>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<PageResultWordWithEvolution>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetAllWordsWithEvolutionsPath, 'get');
     if (params) {
@@ -1193,7 +1482,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -1214,7 +1504,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   getAllWordsWithEvolutions(params: {
     filter: WordWithEvolutionsListFilter;
-  }): Observable<PageResultWordWithEvolution> {
+    context?: HttpContext
+  }
+): Observable<PageResultWordWithEvolution> {
 
     return this.getAllWordsWithEvolutions$Response(params).pipe(
       map((r: StrictHttpResponse<PageResultWordWithEvolution>) => r.body as PageResultWordWithEvolution)
@@ -1237,8 +1529,10 @@ export class LanguagesEvolutionService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addBorrowedWord$Response(params: {
+    context?: HttpContext
     body: WordToBorrow
-  }): Observable<StrictHttpResponse<WordWithBorrowed>> {
+  }
+): Observable<StrictHttpResponse<WordWithBorrowed>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.AddBorrowedWordPath, 'post');
     if (params) {
@@ -1247,7 +1541,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -1267,8 +1562,10 @@ export class LanguagesEvolutionService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addBorrowedWord(params: {
+    context?: HttpContext
     body: WordToBorrow
-  }): Observable<WordWithBorrowed> {
+  }
+): Observable<WordWithBorrowed> {
 
     return this.addBorrowedWord$Response(params).pipe(
       map((r: StrictHttpResponse<WordWithBorrowed>) => r.body as WordWithBorrowed)
@@ -1292,7 +1589,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   getAllWords1$Response(params: {
     filter: WordBorrowedListFilter;
-  }): Observable<StrictHttpResponse<PageResultWordWithBorrowed>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<PageResultWordWithBorrowed>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetAllWords1Path, 'get');
     if (params) {
@@ -1301,7 +1600,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -1322,7 +1622,9 @@ export class LanguagesEvolutionService extends BaseService {
    */
   getAllWords1(params: {
     filter: WordBorrowedListFilter;
-  }): Observable<PageResultWordWithBorrowed> {
+    context?: HttpContext
+  }
+): Observable<PageResultWordWithBorrowed> {
 
     return this.getAllWords1$Response(params).pipe(
       map((r: StrictHttpResponse<PageResultWordWithBorrowed>) => r.body as PageResultWordWithBorrowed)
@@ -1345,8 +1647,10 @@ export class LanguagesEvolutionService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addEvolvedWord$Response(params: {
+    context?: HttpContext
     body: WordToEvolve
-  }): Observable<StrictHttpResponse<WordWithEvolution>> {
+  }
+): Observable<StrictHttpResponse<WordWithEvolution>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.AddEvolvedWordPath, 'post');
     if (params) {
@@ -1355,7 +1659,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -1375,8 +1680,10 @@ export class LanguagesEvolutionService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addEvolvedWord(params: {
+    context?: HttpContext
     body: WordToEvolve
-  }): Observable<WordWithEvolution> {
+  }
+): Observable<WordWithEvolution> {
 
     return this.addEvolvedWord$Response(params).pipe(
       map((r: StrictHttpResponse<WordWithEvolution>) => r.body as WordWithEvolution)
@@ -1399,8 +1706,10 @@ export class LanguagesEvolutionService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addEvolvedWord1$Response(params: {
+    context?: HttpContext
     body: Array<WordToEvolve>
-  }): Observable<StrictHttpResponse<Array<WordWithEvolution>>> {
+  }
+): Observable<StrictHttpResponse<Array<WordWithEvolution>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.AddEvolvedWord1Path, 'post');
     if (params) {
@@ -1409,7 +1718,8 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -1429,8 +1739,10 @@ export class LanguagesEvolutionService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addEvolvedWord1(params: {
+    context?: HttpContext
     body: Array<WordToEvolve>
-  }): Observable<Array<WordWithEvolution>> {
+  }
+): Observable<Array<WordWithEvolution>> {
 
     return this.addEvolvedWord1$Response(params).pipe(
       map((r: StrictHttpResponse<Array<WordWithEvolution>>) => r.body as Array<WordWithEvolution>)
