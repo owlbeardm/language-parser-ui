@@ -1,9 +1,16 @@
-<span>
-  <select (ngModelChange)="changeValueTo({value:$event})" [(ngModel)]="valueTo"
+<span *ngIf="edit">
+  <select (ngModelChange)="changeValueTo({value:$event})" [(ngModel)]="valueToModel"
           class="languageSelector" id="languageSelector"
           name="languageSelector">
             <option [ngValue]="undefined">---nothing---</option>
             <option *ngFor="let value of valuesTo"
                     [ngValue]="value">{{value.name}}</option>
           </select>
+  <a (click)="save()" class="text-green-dull link-btn" style="margin-left: 8px;">[s]</a>
+  <a (click)="edit = false" class="text-grey-dull link-btn" style="margin-left: 4px;">[c]</a>
+</span>
+<span *ngIf="!edit">
+  <span *ngIf="valueTo" class="text-green-dull">{{valueTo.name}}</span>
+  <span *ngIf="!valueTo" class="text-grey">no evolution</span>
+  <a (click)="startEdit()" class="text-grey-dull link-btn" style="margin-left: 4px;">[e]</a>
 </span>
