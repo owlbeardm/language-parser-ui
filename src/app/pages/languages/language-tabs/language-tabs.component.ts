@@ -34,6 +34,10 @@ export class LanguageTabsComponent implements OnInit {
     name: 'Grammatical Categories',
     enabled: true,
     shortName: 'm/n/f'
+  }, {
+    name: 'Declensions',
+    enabled: true,
+    shortName: '-us/ūs'
   }];
   removeBorder = true;
   @Input() selectedLanguage?: Language;
