@@ -26,8 +26,7 @@ export class LanguageCategoryComponent extends AbstractHasLanguageComponent impl
   }
 
   get array() {
-    const numbers = [...Array(Math.max(this.categories.length, this.values.length, this.pos.length) + 2).keys()];
-    return numbers;
+    return [...Array(Math.max(this.categories.length, this.values.length, this.pos.length) + 2).keys()];
   }
 
   ngOnInit(): void {
@@ -53,7 +52,6 @@ export class LanguageCategoryComponent extends AbstractHasLanguageComponent impl
   }
 
   getLanguageCategory(category: GrammaticalCategory) {
-
   }
 
   addNewCategory() {

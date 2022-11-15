@@ -41,7 +41,7 @@
         <th class="text-white">{{category.name}}</th>
         <th class="border" colspan="2"></th>
         <th class="border">{{getCategoryTo(pos, category) ? '' : '|'}}</th>
-        <th class="text-grey">{{getCategoryTo(pos, category) ? '' : 'No grammatical category'}}</th>
+        <th class="text-yellow-dull">{{getCategoryTo(pos, category) ? '' : 'No grammatical category'}}</th>
         <th class="border">|</th>
       </tr>
       <ng-container *ngIf="getCategoryTo(pos, category)">

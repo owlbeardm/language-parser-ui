@@ -83,6 +83,8 @@ import { WordGrammarCategoryComponent } from './pages/words/words-detail/word-gr
 import { CategoryEvolutionComponent } from './pages/evolution/category-evolution/category-evolution.component';
 import { CategoryEvolutionTableComponent } from './pages/evolution/category-evolution/category-evolution-table/category-evolution-table.component';
 import { CategoryEvolutionInputComponent } from './pages/evolution/category-evolution/category-evolution-table/category-evolution-input/category-evolution-input.component';
+import { LanguageDeclensionComponent } from './pages/languages/language-declension/language-declension.component';
+import { LanguageDeclensionRulesComponent } from './pages/languages/language-declension/language-declension-rules/language-declension-rules.component';
 
 
 @NgModule({
@@ -154,6 +156,8 @@ import { CategoryEvolutionInputComponent } from './pages/evolution/category-evol
     CategoryEvolutionComponent,
     CategoryEvolutionTableComponent,
     CategoryEvolutionInputComponent,
+    LanguageDeclensionComponent,
+    LanguageDeclensionRulesComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
