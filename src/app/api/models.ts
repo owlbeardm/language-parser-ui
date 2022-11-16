@@ -1,3 +1,4 @@
+export { DeclensionConnection } from './models/declension-connection';
 export { DerivedWordToAdd } from './models/derived-word-to-add';
 export { DescendantWords } from './models/descendant-words';
 export { DetailedWord } from './models/detailed-word';

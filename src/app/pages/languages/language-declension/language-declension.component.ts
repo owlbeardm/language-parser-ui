@@ -6,6 +6,8 @@ import {GrammaticalCategory} from "../../../api/models/grammatical-category";
 import {CategoryService} from "../../../api/services/category.service";
 import {Language} from "../../../api/models/language";
 import {GrammaticalCategoryValue} from "../../../api/models/grammatical-category-value";
+import {DeclensionService} from "../../../api/services/declension.service";
+import {DeclensionConnection} from "../../../api/models/declension-connection";
 
 @Component({
   selector: 'app-language-declension',
@@ -18,11 +20,13 @@ export class LanguageDeclensionComponent extends AbstractHasLanguageComponent im
   pos: Pos[] = [];
   selectedPos?: Pos;
   categoriesWithPos: Set<number> = new Set<number>();
-  connectedCategories: Set<number> = new Set<number>();
+  connectedCategories: Map<number, DeclensionConnection> = new Map<number, DeclensionConnection>();
   languageValues: Map<number, GrammaticalCategoryValue[]> = new Map<number, GrammaticalCategoryValue[]>();
   matrix: string [] = [];
 
-  constructor(private categoryService: CategoryService, private posService: PosService) {
+  constructor(private categoryService: CategoryService,
+              private posService: PosService,
+              private declensionService: DeclensionService) {
     super();
   }
 
@@ -72,16 +76,33 @@ export class LanguageDeclensionComponent extends AbstractHasLanguageComponent im
   }
 
   connectCategory(grammaticalCategory: GrammaticalCategory) {
-    if (grammaticalCategory.id) {
-      this.connectedCategories.add(grammaticalCategory.id);
-      this.recalculateMatrix();
+    const gcid = grammaticalCategory.id;
+    if (gcid) {
+      const dc: DeclensionConnection = {
+        grammaticalCategory: grammaticalCategory,
+        language: this.selectedLanguage,
+        pos: this.selectedPos
+      };
+      this.declensionService.saveDeclensionConnection({body: dc}).subscribe((id) => {
+        dc.id = id;
+        this.connectedCategories.set(gcid, dc);
+        this.recalculateMatrix();
+      });
     }
   }
 
   disconnectCategory(grammaticalCategory: GrammaticalCategory) {
-    if (grammaticalCategory.id) {
-      this.connectedCategories.delete(grammaticalCategory.id);
-      this.recalculateMatrix();
+    const gcid = grammaticalCategory.id;
+    if (gcid) {
+      if(this.connectedCategories.has(gcid)){
+        const dcId = this.connectedCategories.get(gcid)?.id;
+        if(dcId){
+          this.declensionService.deleteDeclensionConnection({connectionId:dcId}).subscribe(()=>{
+            this.connectedCategories.delete(gcid);
+            this.recalculateMatrix();
+          });
+        }
+      }
     }
   }
 
@@ -105,7 +126,26 @@ export class LanguageDeclensionComponent extends AbstractHasLanguageComponent im
             this.categoriesWithPos.add(connection.grammaticalCategory.id);
           }
         });
+        this.reloadDeclenstionConnections(lang, pos);
         console.log(this.categoriesWithPos);
+      });
+    }
+  }
+
+  private reloadDeclenstionConnections(lang: Language, pos: Pos) {
+    console.log("reloadDeclenstionConnections", lang, pos);
+    this.connectedCategories.clear();
+    if (lang.id && pos.id) {
+      this.declensionService.getDeclensionConnectionWithLangAndPos({
+        languageId: lang.id,
+        posId: pos.id
+      }).subscribe((decls) => {
+        decls.forEach((dcl) => {
+          if (dcl?.grammaticalCategory?.id) {
+            this.connectedCategories.set(dcl.grammaticalCategory.id, dcl);
+          }
+        });
+        this.recalculateMatrix();
       });
     }
   }
