@@ -1,0 +1,11 @@
+.rule-container{
+  /*display: flex;*/
+  text-align: left;
+}
+.label{
+  padding-left: 4px;
+  padding-bottom: 8px;
+}
+.selector{
+  margin: 8px 8px 12px;
+}

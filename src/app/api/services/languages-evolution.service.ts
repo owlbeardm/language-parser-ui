@@ -1154,6 +1154,133 @@ export class LanguagesEvolutionService extends BaseService {
   }
 
   /**
+   * Path part for operation getSoundChangesRawLinesByRule
+   */
+  static readonly GetSoundChangesRawLinesByRulePath = '/api/evolve/sc/raw/rule/{soundChangePurpose}/{declensionId}';
+
+  /**
+   * Get all sound changes in text form.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getSoundChangesRawLinesByRule()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSoundChangesRawLinesByRule$Response(params: {
+    soundChangePurpose: SoundChangePurpose;
+    declensionId: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<string>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetSoundChangesRawLinesByRulePath, 'get');
+    if (params) {
+      rb.path('soundChangePurpose', params.soundChangePurpose, {});
+      rb.path('declensionId', params.declensionId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: 'text/plain',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<string>;
+      })
+    );
+  }
+
+  /**
+   * Get all sound changes in text form.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getSoundChangesRawLinesByRule$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSoundChangesRawLinesByRule(params: {
+    soundChangePurpose: SoundChangePurpose;
+    declensionId: number;
+    context?: HttpContext
+  }
+): Observable<string> {
+
+    return this.getSoundChangesRawLinesByRule$Response(params).pipe(
+      map((r: StrictHttpResponse<string>) => r.body as string)
+    );
+  }
+
+  /**
+   * Path part for operation saveSoundChangesRawLinesByRule
+   */
+  static readonly SaveSoundChangesRawLinesByRulePath = '/api/evolve/sc/raw/rule/{soundChangePurpose}/{declensionId}';
+
+  /**
+   * Save all sound changes from text form.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `saveSoundChangesRawLinesByRule()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  saveSoundChangesRawLinesByRule$Response(params: {
+    soundChangePurpose: SoundChangePurpose;
+    declensionId: number;
+    context?: HttpContext
+    body: string
+  }
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.SaveSoundChangesRawLinesByRulePath, 'post');
+    if (params) {
+      rb.path('soundChangePurpose', params.soundChangePurpose, {});
+      rb.path('declensionId', params.declensionId, {});
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Save all sound changes from text form.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `saveSoundChangesRawLinesByRule$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  saveSoundChangesRawLinesByRule(params: {
+    soundChangePurpose: SoundChangePurpose;
+    declensionId: number;
+    context?: HttpContext
+    body: string
+  }
+): Observable<void> {
+
+    return this.saveSoundChangesRawLinesByRule$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
    * Path part for operation getSoundChangeRaw
    */
   static readonly GetSoundChangeRawPath = '/api/evolve/sc/raw/{id}';
@@ -1271,6 +1398,68 @@ export class LanguagesEvolutionService extends BaseService {
 
     return this.updateSoundChange$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation getSoundChangesByRule
+   */
+  static readonly GetSoundChangesByRulePath = '/api/evolve/sc/rule/{soundChangePurpose}/{ruleId}';
+
+  /**
+   * Get all sound changes.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getSoundChangesByRule()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSoundChangesByRule$Response(params: {
+    soundChangePurpose: SoundChangePurpose;
+    ruleId: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<SoundChange>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LanguagesEvolutionService.GetSoundChangesByRulePath, 'get');
+    if (params) {
+      rb.path('soundChangePurpose', params.soundChangePurpose, {});
+      rb.path('ruleId', params.ruleId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<SoundChange>>;
+      })
+    );
+  }
+
+  /**
+   * Get all sound changes.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getSoundChangesByRule$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSoundChangesByRule(params: {
+    soundChangePurpose: SoundChangePurpose;
+    ruleId: number;
+    context?: HttpContext
+  }
+): Observable<Array<SoundChange>> {
+
+    return this.getSoundChangesByRule$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<SoundChange>>) => r.body as Array<SoundChange>)
     );
   }
 

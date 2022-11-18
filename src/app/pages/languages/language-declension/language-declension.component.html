@@ -83,4 +83,4 @@
   </tr>
   </tbody>
 </table>
-<app-language-declension-rules></app-language-declension-rules>
+<app-language-declension-rules *ngIf="selectedDeclension" [declension]="selectedDeclension"></app-language-declension-rules>

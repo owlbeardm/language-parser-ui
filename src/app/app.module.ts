@@ -85,6 +85,9 @@ import { CategoryEvolutionTableComponent } from './pages/evolution/category-evol
 import { CategoryEvolutionInputComponent } from './pages/evolution/category-evolution/category-evolution-table/category-evolution-input/category-evolution-input.component';
 import { LanguageDeclensionComponent } from './pages/languages/language-declension/language-declension.component';
 import { LanguageDeclensionRulesComponent } from './pages/languages/language-declension/language-declension-rules/language-declension-rules.component';
+import { DeclensionRuleComponent } from './pages/languages/language-declension/language-declension-rules/declension-rule/declension-rule.component';
+import { RuleValuesComponent } from './pages/languages/language-declension/language-declension-rules/declension-rule/rule-values/rule-values.component';
+import { RuleSoundChangesComponent } from './pages/languages/language-declension/language-declension-rules/declension-rule/rule-sound-changes/rule-sound-changes.component';
 
 
 @NgModule({
@@ -158,6 +161,9 @@ import { LanguageDeclensionRulesComponent } from './pages/languages/language-dec
     CategoryEvolutionInputComponent,
     LanguageDeclensionComponent,
     LanguageDeclensionRulesComponent,
+    DeclensionRuleComponent,
+    RuleValuesComponent,
+    RuleSoundChangesComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

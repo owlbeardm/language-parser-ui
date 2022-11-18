@@ -1,5 +1,7 @@
+export { Declension } from './models/declension';
 export { DeclensionConnection } from './models/declension-connection';
 export { DeclensionFull } from './models/declension-full';
+export { DeclensionRule } from './models/declension-rule';
 export { DerivedWordToAdd } from './models/derived-word-to-add';
 export { DescendantWords } from './models/descendant-words';
 export { DetailedWord } from './models/detailed-word';

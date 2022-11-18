@@ -6,5 +6,6 @@
  */
 export enum SoundChangePurpose {
   SoundChange = 'SOUND_CHANGE',
-  WritingSystem = 'WRITING_SYSTEM'
+  WritingSystem = 'WRITING_SYSTEM',
+  Declension = 'DECLENSION'
 }

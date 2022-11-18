@@ -42,7 +42,7 @@ export class LanguageTabsComponent implements OnInit {
   removeBorder = true;
   @Input() selectedLanguage?: Language;
   @Output() onDeleteLanguage = new EventEmitter<number>();
-  selectedIndex = 0;
+  selectedIndex = 6;
 
   constructor(private keybind: KeyBindService) {
   }
