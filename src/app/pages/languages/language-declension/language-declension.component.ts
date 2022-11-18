@@ -8,6 +8,7 @@ import {Language} from "../../../api/models/language";
 import {GrammaticalCategoryValue} from "../../../api/models/grammatical-category-value";
 import {DeclensionService} from "../../../api/services/declension.service";
 import {DeclensionConnection} from "../../../api/models/declension-connection";
+import {DeclensionFull} from "../../../api/models/declension-full";
 
 @Component({
   selector: 'app-language-declension',
@@ -22,7 +23,8 @@ export class LanguageDeclensionComponent extends AbstractHasLanguageComponent im
   categoriesWithPos: Set<number> = new Set<number>();
   connectedCategories: Map<number, DeclensionConnection> = new Map<number, DeclensionConnection>();
   languageValues: Map<number, GrammaticalCategoryValue[]> = new Map<number, GrammaticalCategoryValue[]>();
-  matrix: string [] = [];
+  matrix: DeclensionFull [] = [];
+  selectedDeclension?: DeclensionFull;
 
   constructor(private categoryService: CategoryService,
               private posService: PosService,
@@ -86,7 +88,8 @@ export class LanguageDeclensionComponent extends AbstractHasLanguageComponent im
       this.declensionService.saveDeclensionConnection({body: dc}).subscribe((id) => {
         dc.id = id;
         this.connectedCategories.set(gcid, dc);
-        this.recalculateMatrix();
+        if (this.selectedLanguage?.id && this.selectedPos?.id)
+          this.recalculateMatrix(this.selectedLanguage.id, this.selectedPos.id);
       });
     }
   }
@@ -94,12 +97,13 @@ export class LanguageDeclensionComponent extends AbstractHasLanguageComponent im
   disconnectCategory(grammaticalCategory: GrammaticalCategory) {
     const gcid = grammaticalCategory.id;
     if (gcid) {
-      if(this.connectedCategories.has(gcid)){
+      if (this.connectedCategories.has(gcid)) {
         const dcId = this.connectedCategories.get(gcid)?.id;
-        if(dcId){
-          this.declensionService.deleteDeclensionConnection({connectionId:dcId}).subscribe(()=>{
+        if (dcId) {
+          this.declensionService.deleteDeclensionConnection({connectionId: dcId}).subscribe(() => {
             this.connectedCategories.delete(gcid);
-            this.recalculateMatrix();
+            if (this.selectedLanguage?.id && this.selectedPos?.id)
+              this.recalculateMatrix(this.selectedLanguage.id, this.selectedPos.id);
           });
         }
       }
@@ -111,6 +115,22 @@ export class LanguageDeclensionComponent extends AbstractHasLanguageComponent im
       return false;
     }
     return grammaticalCategory.id ? this.categoriesWithPos.has(grammaticalCategory.id) : false;
+  }
+
+  declensionName(declension: DeclensionFull) {
+    return declension.values?.map(v => v.name).join(' ');
+  }
+
+  deleteDeclension(declensionFull: DeclensionFull, i: number) {
+    if (declensionFull.id)
+      this.declensionService.deleteDeclension({declensionId: declensionFull.id}).subscribe(() => {
+        this.matrix.splice(i, 1);
+      });
+
+  }
+
+  addDeclension(declensionFull: DeclensionFull, i: number) {
+    this.declensionService.saveDeclension({body: declensionFull}).subscribe((df) => this.matrix[i] = df);
   }
 
   private reloadCategoriesConnections(pos: Pos, lang: Language) {
@@ -145,7 +165,8 @@ export class LanguageDeclensionComponent extends AbstractHasLanguageComponent im
             this.connectedCategories.set(dcl.grammaticalCategory.id, dcl);
           }
         });
-        this.recalculateMatrix();
+        if (lang.id && pos.id)
+          this.recalculateMatrix(lang.id, pos.id);
       });
     }
   }
@@ -171,28 +192,9 @@ export class LanguageDeclensionComponent extends AbstractHasLanguageComponent im
     }
   }
 
-  private recalculateMatrix() {
-    let result: string[] = [''];
-    const connected: number[] = [];
-    this.categories.forEach((category) => {
-      if (category?.id && this.connectedCategories.has(category.id)) connected.push(category.id);
-    });
-    connected.forEach((id) => {
-      if (this.languageValues.has(id)) {
-        const values = this.languageValues.get(id);
-        const newResult: string[] = [];
-        result.forEach((str) => {
-          if (values) {
-            values.forEach((value) => {
-              const items = str + ' ' + value.name;
-              newResult.push(items.trim());
-            });
-          }
-        });
-        result = newResult;
-      }
-    });
-    this.matrix = result;
-    console.log(this.matrix);
+  private recalculateMatrix(langId: number, posId: number) {
+    this.declensionService.getDeclensionsByLangAndPos({languageId: langId, posId: posId}).subscribe(matrix => {
+      this.matrix = matrix;
+    })
   }
 }

@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { DeclensionConnection } from '../models/declension-connection';
+import { DeclensionFull } from '../models/declension-full';
 
 
 /**
@@ -203,6 +204,186 @@ export class DeclensionService extends BaseService {
 
     return this.getDeclensionConnectionWithLangAndPos$Response(params).pipe(
       map((r: StrictHttpResponse<Array<DeclensionConnection>>) => r.body as Array<DeclensionConnection>)
+    );
+  }
+
+  /**
+   * Path part for operation saveDeclension
+   */
+  static readonly SaveDeclensionPath = '/api/declension/declension';
+
+  /**
+   * Save declension.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `saveDeclension()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  saveDeclension$Response(params: {
+    context?: HttpContext
+    body: DeclensionFull
+  }
+): Observable<StrictHttpResponse<DeclensionFull>> {
+
+    const rb = new RequestBuilder(this.rootUrl, DeclensionService.SaveDeclensionPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<DeclensionFull>;
+      })
+    );
+  }
+
+  /**
+   * Save declension.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `saveDeclension$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  saveDeclension(params: {
+    context?: HttpContext
+    body: DeclensionFull
+  }
+): Observable<DeclensionFull> {
+
+    return this.saveDeclension$Response(params).pipe(
+      map((r: StrictHttpResponse<DeclensionFull>) => r.body as DeclensionFull)
+    );
+  }
+
+  /**
+   * Path part for operation deleteDeclension
+   */
+  static readonly DeleteDeclensionPath = '/api/declension/declension/{declensionId}';
+
+  /**
+   * Delete declension.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteDeclension()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteDeclension$Response(params: {
+    declensionId: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, DeclensionService.DeleteDeclensionPath, 'delete');
+    if (params) {
+      rb.path('declensionId', params.declensionId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Delete declension.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `deleteDeclension$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteDeclension(params: {
+    declensionId: number;
+    context?: HttpContext
+  }
+): Observable<void> {
+
+    return this.deleteDeclension$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation getDeclensionsByLangAndPos
+   */
+  static readonly GetDeclensionsByLangAndPosPath = '/api/declension/declensions/{languageId}/{posId}';
+
+  /**
+   * Get declensions by lang and pos.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getDeclensionsByLangAndPos()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getDeclensionsByLangAndPos$Response(params: {
+    languageId: number;
+    posId: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<DeclensionFull>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, DeclensionService.GetDeclensionsByLangAndPosPath, 'get');
+    if (params) {
+      rb.path('languageId', params.languageId, {});
+      rb.path('posId', params.posId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<DeclensionFull>>;
+      })
+    );
+  }
+
+  /**
+   * Get declensions by lang and pos.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getDeclensionsByLangAndPos$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getDeclensionsByLangAndPos(params: {
+    languageId: number;
+    posId: number;
+    context?: HttpContext
+  }
+): Observable<Array<DeclensionFull>> {
+
+    return this.getDeclensionsByLangAndPos$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<DeclensionFull>>) => r.body as Array<DeclensionFull>)
     );
   }
 
