@@ -1,0 +1,51 @@
+<table>
+  <colgroup>
+    <col class="border" span="1" style="width: 25%; white-space: nowrap;">
+    <col class="border" span="1" style="width: 8px;">
+    <col class="border" span="1" style="width: 75%;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody>
+  <tr>
+    <th app-horizontal-dash colspan="3"></th>
+    <th>+</th>
+  </tr>
+  <tr>
+    <th class="uppercase" colspan="3">{{name}}</th>
+    <th>|</th>
+  </tr>
+  <tr>
+    <th app-horizontal-dash colspan="3"></th>
+    <th>+</th>
+  </tr>
+  <tr>
+    <th>RULES</th>
+    <th>|</th>
+    <th rowspan="0"><app-declension-rule *ngIf="ruleSelected" [declensionRule]="ruleSelected" (onSave)="save()"></app-declension-rule></th>
+    <th app-vertical-dash rowspan="0"></th>
+  </tr>
+  <tr *ngIf="rules.length">
+    <th app-horizontal-dash></th>
+    <th>+</th>
+  </tr>
+  <tr *ngFor="let rule of rules">
+    <th [ngClass]="rule?.id && ruleSelected?.id === rule?.id?'selectedTh':''"><a
+      (click)="ruleSelected = rule" [ngClass]="rule?.id && ruleSelected?.id === rule?.id?'text-main':(rule?.enabled?'text-white':'text-grey')"
+      class="link-btn">{{rule.name}}</a>
+    </th>
+    <th>{{rule?.id && ruleSelected?.id === rule?.id ? '' : '|'}}</th>
+  </tr>
+  <tr>
+    <th app-horizontal-dash></th>
+    <th>+</th>
+  </tr>
+  <tr>
+    <th><a (click)="addNewRule()" class="text-green-dull link-btn">[ + ]</a></th>
+    <th>|</th>
+  </tr>
+  <tr>
+    <th rowspan="0"></th>
+    <th app-vertical-dash rowspan="0"></th>
+  </tr>
+  </tbody>
+</table>

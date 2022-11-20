@@ -1,0 +1,52 @@
+<tr *ngIf="horisontalValues?.length">
+  <th></th>
+  <th class="text-border">|</th>
+  <th class="text-border"></th>
+  <th class="text-border">|</th>
+  <ng-container *ngFor="let value of horisontalValues">
+    <th class="text title">{{value.name}}</th>
+    <th class="text-border">|</th>
+  </ng-container>
+</tr>
+<tr *ngIf="horisontalValues?.length">
+  <th></th>
+  <th class="text-border">+</th>
+  <th app-horizontal-dash class="text-border"></th>
+  <th class="text-border">+</th>
+  <ng-container *ngFor="let value of horisontalValues">
+    <th app-horizontal-dash class="text-border"></th>
+    <th class="text-border">+</th>
+  </ng-container>
+</tr>
+<ng-container *ngFor="let valueVertical of verticalValues">
+  <tr>
+    <th></th>
+    <th class="text-border">|</th>
+    <th class="text title">{{valueVertical.name}}</th>
+    <th class="text-border">|</th>
+    <ng-container *ngFor="let value of horisontalValues">
+      <th class="text text-yellow-dull"><span
+        *ngFor="let wd of findWordsForValues([value,valueVertical])">{{wd}} </span></th>
+      <th class="text-border">|</th>
+    </ng-container>
+    <ng-container *ngIf="!horisontalValues?.length">
+      <th class="text text-yellow-dull" colspan="1"><span
+        *ngFor="let wd of findWordsForValues([valueVertical])">{{wd}} </span></th>
+      <th class="text-border">|</th>
+    </ng-container>
+  </tr>
+  <tr>
+    <th></th>
+    <th class="text-border">+</th>
+    <th app-horizontal-dash class="text-border"></th>
+    <th class="text-border">+</th>
+    <ng-container *ngFor="let value of horisontalValues">
+      <th app-horizontal-dash class="text-border"></th>
+      <th class="text-border">+</th>
+    </ng-container>
+    <ng-container *ngIf="!horisontalValues?.length">
+      <th app-horizontal-dash class="text-border" colspan="1"></th>
+      <th class="text-border">+</th>
+    </ng-container>
+  </tr>
+</ng-container>

@@ -1,3 +1,8 @@
+export { Declension } from './models/declension';
+export { DeclensionConnection } from './models/declension-connection';
+export { DeclensionFull } from './models/declension-full';
+export { DeclensionRule } from './models/declension-rule';
+export { DeclinedWord } from './models/declined-word';
 export { DerivedWordToAdd } from './models/derived-word-to-add';
 export { DescendantWords } from './models/descendant-words';
 export { DetailedWord } from './models/detailed-word';
@@ -31,6 +36,7 @@ export { TranslationListFilter } from './models/translation-list-filter';
 export { TranslationType } from './models/translation-type';
 export { Word } from './models/word';
 export { WordBorrowedListFilter } from './models/word-borrowed-list-filter';
+export { WordDeclension } from './models/word-declension';
 export { WordListFilter } from './models/word-list-filter';
 export { WordOriginSource } from './models/word-origin-source';
 export { WordOriginType } from './models/word-origin-type';

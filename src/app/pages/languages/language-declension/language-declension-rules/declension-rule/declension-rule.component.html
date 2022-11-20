@@ -1,0 +1,43 @@
+<div *ngIf="changed" class="selector">
+  <a (click)="save()" class="link-btn text-green-dull">[ SAVE ]</a>
+</div>
+<div class="rule-container">
+  <div class="selector">
+    <label class="label" for="ruleName">Name</label>
+    <div class="input-group">
+      <input (ngModelChange)="change($event)" [(ngModel)]="declensionRule.name" class="input"
+             id="ruleName" name="ruleName" type="text"/>
+      <a (click)="changeEnabled()" [ngClass]="declensionRule.enabled?'text-green-dull':'text-grey-dull'"
+         class="selector link-btn">[ {{declensionRule.enabled ? 'ENABLED' : 'DISABLED'}} ]</a>
+    </div>
+  </div>
+  <div class="selector">
+    <label class="label" for="rulePattern">Word pattern</label>
+    <div class="input-group">
+      <input (ngModelChange)="change($event)" [(ngModel)]="declensionRule.wordPattern" class="input"
+             id="rulePattern" name="rulePattern" type="text"/>
+    </div>
+  </div>
+  <div class="selector">
+    <label class="label">For grammatical categories:</label>
+    <div class="input-group">
+    <span *ngIf="!isEditCategories" style="margin-left: 8px;">
+      <span *ngIf="!declensionRule.values?.length" class="text-green-dull">Any</span>
+      <span *ngFor="let v of declensionRule.values; index as i" class="text-white">{{i == 0 ? '' : ', '}}
+        <span>{{v.name}}</span></span>
+      <a (click)="isEditCategories = true" class="text-grey-dull link-btn"> [edit categories]</a>
+    </span>
+      <span *ngIf="isEditCategories" style="margin-left: 8px;">
+      <span *ngFor="let c of categories; index as i">
+        <app-rule-values (changed)="changed = true"
+                         *ngIf="isCategoryConnected(c) || getRuleCategoryValue(c)"
+                         [categoryValues]="categoryValues.get(c)" [category]="c"
+                         [connected]="isCategoryConnected(c)"
+                         [rule]="declensionRule" [value]="getRuleCategoryValue(c)"></app-rule-values>
+      </span>
+      <a (click)="isEditCategories = false" class="text-grey-dull link-btn"> [close]</a>
+    </span>
+    </div>
+  </div>
+</div>
+<app-rule-sound-changes [rule]="declensionRule"></app-rule-sound-changes>

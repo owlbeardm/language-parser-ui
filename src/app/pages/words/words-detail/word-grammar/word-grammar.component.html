@@ -1,12 +1,14 @@
-<span class="text-green-dull text-line"
-      style="text-transform: capitalize;"><i>{{word.writtenWord | writtenWord}}</i></span>
-<span> {{word.partOfSpeech?.name?.toLowerCase()}};</span>
-<span *ngIf="!isEditCategories" style="margin-left: 8px;">
+<div class="grammar-container">
+  <div class="word-grammar">
+    <span class="text-green-dull text-line"
+          style="text-transform: capitalize;"><i>{{word.writtenWord | writtenWord}}</i></span>
+    <span> {{word.partOfSpeech?.name?.toLowerCase()}};</span>
+    <span *ngIf="!isEditCategories" style="margin-left: 8px;">
   <span *ngFor="let wv of wordValues; index as i">{{i == 0 ? '' : ', '}}<span
     [ngClass]="isValueConnected(wv)?'':'text-red-dull'">{{wv.value?.name}}</span></span>
   <a (click)="isEditCategories = true" class="text-grey-dull link-btn"> [e]</a>
 </span>
-<span *ngIf="isEditCategories" style="margin-left: 8px;">
+    <span *ngIf="isEditCategories" style="margin-left: 8px;">
 
   <span *ngFor="let c of categories; index as i">
     <app-word-grammar-category *ngIf="isCategoryConnected(c) || getWordCategoryValue(c)"
@@ -17,3 +19,8 @@
   </span>
   <a (click)="save()" class="text-grey-dull link-btn"> [close]</a>
 </span>
+  </div>
+  <div class="declension">
+    <app-word-declensions [word]="word"></app-word-declensions>
+  </div>
+</div>

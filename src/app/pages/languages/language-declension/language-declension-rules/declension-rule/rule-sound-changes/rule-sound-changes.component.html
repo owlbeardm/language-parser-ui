@@ -1,0 +1,48 @@
+<table *ngIf="soundChanges.length">
+  <colgroup>
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 100%;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 16px;">
+    <col class="border" span="1" style="width: 8px;">
+    <col span="1" style="width: 16px;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody>
+  <tr *ngIf="soundChanges.length">
+    <th class="border">+</th>
+    <th app-horizontal-dash class="border" colspan="7"></th>
+    <th class="border">+</th>
+    <th app-horizontal-dash class="border"></th>
+    <th class="border">+</th>
+    <th app-horizontal-dash class="border"></th>
+    <th class="border">+</th>
+  </tr>
+  </tbody>
+</table>
+<app-sound-changes-table (soundChangesChanges)="soundChangesChanges" *ngIf="!editMode"
+                         [soundChanges]="soundChanges"></app-sound-changes-table>
+<app-sound-changes-edit (soundChangesRawChange)="soundChangesRawChange()" *ngIf="editMode"
+                        [(soundChangesRaw)]="soundChangesRaw"></app-sound-changes-edit>
+<table>
+  <colgroup>
+    <col span="1" style="width: auto;">
+    <col class="border" span="1" style="width: max-content;">
+  </colgroup>
+  <tbody>
+  <tr>
+    <th app-horizontal-dash class="border"></th>
+    <th *ngIf="!editMode" class="border">[ <a (click)="editSoundChanges()" class="text-yellow-dull"><b>E</b>dit</a> ]-
+    </th>
+    <th *ngIf="editMode" class="border">[ <a (click)="saveSoundChanges()" class="text-green-dull"><b>S</b>ave</a> ]-[<a
+      (click)="cancelSoundChanges()" class="text-red-dull"> x </a>]-
+    </th>
+  </tr>
+  </tbody>
+</table>

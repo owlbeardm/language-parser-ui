@@ -13,6 +13,10 @@
   max-width: 1320px;
 }
 
+.selectedTh {
+  background-color: #333333;
+}
+
 .app-footer{
   width: 100%;
   display: flex;

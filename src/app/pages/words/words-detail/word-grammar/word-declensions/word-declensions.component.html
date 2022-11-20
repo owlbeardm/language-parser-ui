@@ -1,0 +1,50 @@
+<table *ngIf="columnSize">
+  <colgroup>
+    <col span="1" style="width: 100%;">
+    <col span="1" style="width: 8px;">
+    <col span="1" style="width: 1%; text-align: right">
+    <col span="1" style="width: 8px;">
+    <ng-container *ngFor="let i of array">
+      <col span="1" style="width: 1%; text-align: right">
+      <col span="1" style="width: 8px;">
+    </ng-container>
+  </colgroup>
+  <tbody>
+  <tr>
+    <th></th>
+    <th class="text-border">+</th>
+    <th [colSpan]="columnSize*2+1" app-horizontal-dash class="text-border"></th>
+    <th class="text-border">+</th>
+  </tr>
+  </tbody>
+  <ng-container *ngIf="valuesArray.length > 2">
+    <ng-container *ngFor="let restValue of restValues">
+      <tbody>
+      <tr>
+        <th></th>
+        <th class="text-border">|</th>
+        <th [colSpan]="columnSize*2+1" class="text title"><span *ngFor="let v of restValue">{{v.name}} </span></th>
+        <th class="text-border">|</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th class="text-border">+</th>
+        <th [colSpan]="columnSize*2+1" app-horizontal-dash class="text-border"></th>
+        <th class="text-border">+</th>
+      </tr>
+      </tbody>
+      <tbody [columnSize]="columnSize" [declinedWord]="declinedWord"
+             [horisontalValues]="valuesArray[valuesArray.length-2]"
+             [verticalValues]="valuesArray[valuesArray.length-1]" [wordSearchValues]="restValue"
+             app-word-declension-table></tbody>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="valuesArray.length == 2">
+    <tbody [columnSize]="columnSize" [declinedWord]="declinedWord" [horisontalValues]="valuesArray[0]"
+           [verticalValues]="valuesArray[1]" [wordSearchValues]="[]" app-word-declension-table></tbody>
+  </ng-container>
+  <ng-container *ngIf="valuesArray.length == 1">
+    <tbody [columnSize]="columnSize" [declinedWord]="declinedWord" [verticalValues]="valuesArray[0]"
+           [wordSearchValues]="[]" app-word-declension-table></tbody>
+  </ng-container>
+</table>

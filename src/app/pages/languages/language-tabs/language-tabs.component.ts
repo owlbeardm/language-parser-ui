@@ -34,11 +34,15 @@ export class LanguageTabsComponent implements OnInit {
     name: 'Grammatical Categories',
     enabled: true,
     shortName: 'm/n/f'
+  }, {
+    name: 'Declensions',
+    enabled: true,
+    shortName: '-us/ūs'
   }];
   removeBorder = true;
   @Input() selectedLanguage?: Language;
   @Output() onDeleteLanguage = new EventEmitter<number>();
-  selectedIndex = 0;
+  selectedIndex = 6;
 
   constructor(private keybind: KeyBindService) {
   }

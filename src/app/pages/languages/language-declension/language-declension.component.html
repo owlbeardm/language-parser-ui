@@ -1,0 +1,86 @@
+<table>
+  <colgroup>
+    <col class="border" span="1" style="width: 21%; white-space: nowrap;">
+    <col class="border" span="1" style="width: 8px;">
+    <col class="border" span="1" style="width: 17px; white-space: nowrap;">
+    <col span="1" style="width: 21%;">
+    <col class="border" span="1" style="width: 8px;">
+    <col class="border" span="1" style="width: 17px; white-space: nowrap;">
+    <col class="border" span="1" style="width: 58%;">
+    <col class="border" span="1" style="width: 8px;">
+  </colgroup>
+  <tbody>
+  <tr *ngFor="let i of array">
+    <ng-container *ngIf="pos[i]">
+      <th [ngClass]="selectedPos?.id === pos[i]?.id?'selectedTh':''" style="white-space: nowrap;">
+        <a (click)="changePos(pos[i])"
+           [ngClass]="selectedPos?.id === pos[i]?.id?'text-main':'text-grey'">{{pos[i]?.name}}</a>
+      </th>
+      <th style="white-space: nowrap;">
+        {{selectedPos?.id === pos[i]?.id ? '' : (i === categories.length ? '+' : '|')}}
+      </th>
+    </ng-container>
+    <ng-container *ngIf="!pos[i]">
+      <ng-container *ngIf="pos.length === i && i+1 !== arraySize">
+        <th app-horizontal-dash></th>
+        <th>+</th>
+      </ng-container>
+      <ng-container *ngIf="pos.length != i || i+1 === arraySize">
+        <th></th>
+        <th class="border">|</th>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="categories[i]">
+      <th *ngIf="isCategoryWithPos(categories[i])" class="border">
+        <a (click)="connectCategory(categories[i])" *ngIf="!isCategoryConnected(categories[i])"
+           class="link-btn text-grey-dull">x</a>
+        <a (click)="disconnectCategory(categories[i])" *ngIf="isCategoryConnected(categories[i])"
+           class="link-btn text-green-dull">o</a>
+      </th>
+      <th *ngIf="!isCategoryWithPos(categories[i])" class="border"></th>
+      <th [ngClass]="isCategoryWithPos(categories[i])?'text-white':'text-grey'">
+        {{categories[i]?.name}}
+      </th>
+      <th class="border">|</th>
+    </ng-container>
+    <ng-container *ngIf="!categories[i]">
+      <ng-container *ngIf="categories.length === i && i+1 !== arraySize">
+        <th app-horizontal-dash colspan="2"></th>
+        <th>+</th>
+      </ng-container>
+      <ng-container *ngIf="categories.length != i || i+1 === arraySize">
+        <th colspan="2"></th>
+        <th class="border">|</th>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="matrix[i]">
+      <th [ngClass]="matrix[i].id && selectedDeclension?.id === matrix[i].id?'selectedTh':''">
+        <a (click)="deleteDeclension(matrix[i], i)" *ngIf="!matrix[i].deprecated && matrix[i].exist"
+           class="text-green-dull link-btn">o</a>
+        <a (click)="addDeclension(matrix[i], i)" *ngIf="!matrix[i].deprecated && !matrix[i].exist"
+           class="text-grey link-btn">x</a>
+        <a (click)="deleteDeclension(matrix[i], i)" *ngIf="matrix[i].deprecated && matrix[i].exist"
+           class="text-red-dull link-btn">x</a>
+      </th>
+      <th *ngIf="!matrix[i].exist">{{declensionName(matrix[i])}}</th>
+      <th *ngIf="matrix[i].exist" [ngClass]="matrix[i].id && selectedDeclension?.id === matrix[i].id?'selectedTh':''">
+        <a
+          (click)="selectedDeclension = matrix[i]"
+          [ngClass]="matrix[i].id && selectedDeclension?.id === matrix[i].id?'text-main':'text-grey'"
+          class="link-btn">{{declensionName(matrix[i])}}</a></th>
+      <th>|</th>
+    </ng-container>
+    <ng-container *ngIf="!matrix[i]">
+      <ng-container *ngIf="matrix.length === i && i+1 !== arraySize">
+        <th app-horizontal-dash colspan="2"></th>
+        <th>|</th>
+      </ng-container>
+      <ng-container *ngIf="matrix.length != i || i+1 === arraySize">
+        <th colspan="2"></th>
+        <th class="border">|</th>
+      </ng-container>
+    </ng-container>
+  </tr>
+  </tbody>
+</table>
+<app-language-declension-rules *ngIf="selectedDeclension" [declension]="selectedDeclension"></app-language-declension-rules>

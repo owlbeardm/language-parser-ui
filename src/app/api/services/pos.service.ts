@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
@@ -43,9 +43,7 @@ export class PosService extends BaseService {
    * This method doesn't expect any request body.
    */
   getAllPos$Response(params?: {
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<Pos>>> {
+  }): Observable<StrictHttpResponse<Array<Pos>>> {
 
     const rb = new RequestBuilder(this.rootUrl, PosService.GetAllPosPath, 'get');
     if (params) {
@@ -53,8 +51,7 @@ export class PosService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -74,9 +71,7 @@ export class PosService extends BaseService {
    * This method doesn't expect any request body.
    */
   getAllPos(params?: {
-    context?: HttpContext
-  }
-): Observable<Array<Pos>> {
+  }): Observable<Array<Pos>> {
 
     return this.getAllPos$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Pos>>) => r.body as Array<Pos>)
@@ -99,10 +94,8 @@ export class PosService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   savePos$Response(params: {
-    context?: HttpContext
     body: Pos
-  }
-): Observable<StrictHttpResponse<number>> {
+  }): Observable<StrictHttpResponse<number>> {
 
     const rb = new RequestBuilder(this.rootUrl, PosService.SavePosPath, 'post');
     if (params) {
@@ -111,8 +104,7 @@ export class PosService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -132,10 +124,8 @@ export class PosService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   savePos(params: {
-    context?: HttpContext
     body: Pos
-  }
-): Observable<number> {
+  }): Observable<number> {
 
     return this.savePos$Response(params).pipe(
       map((r: StrictHttpResponse<number>) => r.body as number)
@@ -159,9 +149,7 @@ export class PosService extends BaseService {
    */
   getAllPosByLanguage$Response(params: {
     languageId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<Pos>>> {
+  }): Observable<StrictHttpResponse<Array<Pos>>> {
 
     const rb = new RequestBuilder(this.rootUrl, PosService.GetAllPosByLanguagePath, 'get');
     if (params) {
@@ -170,8 +158,7 @@ export class PosService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -192,9 +179,7 @@ export class PosService extends BaseService {
    */
   getAllPosByLanguage(params: {
     languageId: number;
-    context?: HttpContext
-  }
-): Observable<Array<Pos>> {
+  }): Observable<Array<Pos>> {
 
     return this.getAllPosByLanguage$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Pos>>) => r.body as Array<Pos>)
@@ -217,10 +202,8 @@ export class PosService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   saveLanguagePos$Response(params: {
-    context?: HttpContext
     body: LanguagePos
-  }
-): Observable<StrictHttpResponse<number>> {
+  }): Observable<StrictHttpResponse<number>> {
 
     const rb = new RequestBuilder(this.rootUrl, PosService.SaveLanguagePosPath, 'post');
     if (params) {
@@ -229,8 +212,7 @@ export class PosService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -250,10 +232,8 @@ export class PosService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   saveLanguagePos(params: {
-    context?: HttpContext
     body: LanguagePos
-  }
-): Observable<number> {
+  }): Observable<number> {
 
     return this.saveLanguagePos$Response(params).pipe(
       map((r: StrictHttpResponse<number>) => r.body as number)
@@ -277,9 +257,7 @@ export class PosService extends BaseService {
    */
   deleteLanguagePos$Response(params: {
     id: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, PosService.DeleteLanguagePosPath, 'delete');
     if (params) {
@@ -288,8 +266,7 @@ export class PosService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*',
-      context: params?.context
+      accept: '*/*'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -310,9 +287,7 @@ export class PosService extends BaseService {
    */
   deleteLanguagePos(params: {
     id: number;
-    context?: HttpContext
-  }
-): Observable<void> {
+  }): Observable<void> {
 
     return this.deleteLanguagePos$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -336,9 +311,7 @@ export class PosService extends BaseService {
    */
   getPosByLanguage$Response(params: {
     languageId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<LanguagePos>>> {
+  }): Observable<StrictHttpResponse<Array<LanguagePos>>> {
 
     const rb = new RequestBuilder(this.rootUrl, PosService.GetPosByLanguagePath, 'get');
     if (params) {
@@ -347,8 +320,7 @@ export class PosService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -369,9 +341,7 @@ export class PosService extends BaseService {
    */
   getPosByLanguage(params: {
     languageId: number;
-    context?: HttpContext
-  }
-): Observable<Array<LanguagePos>> {
+  }): Observable<Array<LanguagePos>> {
 
     return this.getPosByLanguage$Response(params).pipe(
       map((r: StrictHttpResponse<Array<LanguagePos>>) => r.body as Array<LanguagePos>)
