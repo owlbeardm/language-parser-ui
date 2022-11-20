@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
@@ -46,8 +46,10 @@ export class LanguagesService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   saveLanguage$Response(params: {
+    context?: HttpContext
     body: Language
-  }): Observable<StrictHttpResponse<Language>> {
+  }
+): Observable<StrictHttpResponse<Language>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesService.SaveLanguagePath, 'post');
     if (params) {
@@ -56,7 +58,8 @@ export class LanguagesService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -76,8 +79,10 @@ export class LanguagesService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   saveLanguage(params: {
+    context?: HttpContext
     body: Language
-  }): Observable<Language> {
+  }
+): Observable<Language> {
 
     return this.saveLanguage$Response(params).pipe(
       map((r: StrictHttpResponse<Language>) => r.body as Language)
@@ -100,7 +105,9 @@ export class LanguagesService extends BaseService {
    * This method doesn't expect any request body.
    */
   getAllLanguages$Response(params?: {
-  }): Observable<StrictHttpResponse<Array<Language>>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<Language>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetAllLanguagesPath, 'get');
     if (params) {
@@ -108,7 +115,8 @@ export class LanguagesService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -128,7 +136,9 @@ export class LanguagesService extends BaseService {
    * This method doesn't expect any request body.
    */
   getAllLanguages(params?: {
-  }): Observable<Array<Language>> {
+    context?: HttpContext
+  }
+): Observable<Array<Language>> {
 
     return this.getAllLanguages$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Language>>) => r.body as Array<Language>)
@@ -152,7 +162,9 @@ export class LanguagesService extends BaseService {
    */
   getLanguageSoundClusters$Response(params: {
     languageId: number;
-  }): Observable<StrictHttpResponse<LanguageSoundClusters>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<LanguageSoundClusters>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetLanguageSoundClustersPath, 'get');
     if (params) {
@@ -161,7 +173,8 @@ export class LanguagesService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -182,7 +195,9 @@ export class LanguagesService extends BaseService {
    */
   getLanguageSoundClusters(params: {
     languageId: number;
-  }): Observable<LanguageSoundClusters> {
+    context?: HttpContext
+  }
+): Observable<LanguageSoundClusters> {
 
     return this.getLanguageSoundClusters$Response(params).pipe(
       map((r: StrictHttpResponse<LanguageSoundClusters>) => r.body as LanguageSoundClusters)
@@ -206,7 +221,9 @@ export class LanguagesService extends BaseService {
    */
   getLanguagePhonemes$Response(params: {
     languageId: number;
-  }): Observable<StrictHttpResponse<ListOfLanguagePhonemes>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<ListOfLanguagePhonemes>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetLanguagePhonemesPath, 'get');
     if (params) {
@@ -215,7 +232,8 @@ export class LanguagesService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -236,7 +254,9 @@ export class LanguagesService extends BaseService {
    */
   getLanguagePhonemes(params: {
     languageId: number;
-  }): Observable<ListOfLanguagePhonemes> {
+    context?: HttpContext
+  }
+): Observable<ListOfLanguagePhonemes> {
 
     return this.getLanguagePhonemes$Response(params).pipe(
       map((r: StrictHttpResponse<ListOfLanguagePhonemes>) => r.body as ListOfLanguagePhonemes)
@@ -260,8 +280,10 @@ export class LanguagesService extends BaseService {
    */
   saveLanguagePhoneme$Response(params: {
     languageId: number;
+    context?: HttpContext
     body: string
-  }): Observable<StrictHttpResponse<LanguagePhoneme>> {
+  }
+): Observable<StrictHttpResponse<LanguagePhoneme>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesService.SaveLanguagePhonemePath, 'post');
     if (params) {
@@ -271,7 +293,8 @@ export class LanguagesService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -292,8 +315,10 @@ export class LanguagesService extends BaseService {
    */
   saveLanguagePhoneme(params: {
     languageId: number;
+    context?: HttpContext
     body: string
-  }): Observable<LanguagePhoneme> {
+  }
+): Observable<LanguagePhoneme> {
 
     return this.saveLanguagePhoneme$Response(params).pipe(
       map((r: StrictHttpResponse<LanguagePhoneme>) => r.body as LanguagePhoneme)
@@ -317,7 +342,9 @@ export class LanguagesService extends BaseService {
    */
   deleteLanguagePhoneme$Response(params: {
     phonemeId: number;
-  }): Observable<StrictHttpResponse<void>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesService.DeleteLanguagePhonemePath, 'delete');
     if (params) {
@@ -326,7 +353,8 @@ export class LanguagesService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*'
+      accept: '*/*',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -347,7 +375,9 @@ export class LanguagesService extends BaseService {
    */
   deleteLanguagePhoneme(params: {
     phonemeId: number;
-  }): Observable<void> {
+    context?: HttpContext
+  }
+): Observable<void> {
 
     return this.deleteLanguagePhoneme$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -371,7 +401,9 @@ export class LanguagesService extends BaseService {
    */
   getAllPartsOfSpeechByLanguage$Response(params: {
     languageId: number;
-  }): Observable<StrictHttpResponse<Array<Pos>>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<Pos>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetAllPartsOfSpeechByLanguagePath, 'get');
     if (params) {
@@ -380,7 +412,8 @@ export class LanguagesService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -401,7 +434,9 @@ export class LanguagesService extends BaseService {
    */
   getAllPartsOfSpeechByLanguage(params: {
     languageId: number;
-  }): Observable<Array<Pos>> {
+    context?: HttpContext
+  }
+): Observable<Array<Pos>> {
 
     return this.getAllPartsOfSpeechByLanguage$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Pos>>) => r.body as Array<Pos>)
@@ -425,7 +460,9 @@ export class LanguagesService extends BaseService {
    */
   deleteLanguage$Response(params: {
     languageId: number;
-  }): Observable<StrictHttpResponse<void>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesService.DeleteLanguagePath, 'delete');
     if (params) {
@@ -434,7 +471,8 @@ export class LanguagesService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*'
+      accept: '*/*',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -455,7 +493,9 @@ export class LanguagesService extends BaseService {
    */
   deleteLanguage(params: {
     languageId: number;
-  }): Observable<void> {
+    context?: HttpContext
+  }
+): Observable<void> {
 
     return this.deleteLanguage$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -479,7 +519,9 @@ export class LanguagesService extends BaseService {
    */
   canDeleteLanguage$Response(params: {
     languageId: number;
-  }): Observable<StrictHttpResponse<boolean>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<boolean>> {
 
     const rb = new RequestBuilder(this.rootUrl, LanguagesService.CanDeleteLanguagePath, 'get');
     if (params) {
@@ -488,7 +530,8 @@ export class LanguagesService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -509,7 +552,9 @@ export class LanguagesService extends BaseService {
    */
   canDeleteLanguage(params: {
     languageId: number;
-  }): Observable<boolean> {
+    context?: HttpContext
+  }
+): Observable<boolean> {
 
     return this.canDeleteLanguage$Response(params).pipe(
       map((r: StrictHttpResponse<boolean>) => r.body as boolean)
