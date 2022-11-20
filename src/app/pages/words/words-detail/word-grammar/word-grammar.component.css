@@ -1,0 +1,12 @@
+.grammar-container {
+  display: flex;
+}
+
+.word-grammar {
+  min-width: 40%;
+}
+
+.declension {
+  text-align: right;
+  width: 100%;
+}

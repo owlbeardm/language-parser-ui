@@ -19,7 +19,7 @@ export class RuleSoundChangesComponent extends AbstractSoundChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.selectedLanguage) {
+    if (changes.selectedLanguage || changes.rule) {
       this.refresh();
     }
   }

@@ -24,6 +24,7 @@ export class LanguageDeclensionRulesComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.declension?.currentValue) {
       console.log("ngOnChanges", changes, changes.declension?.currentValue.id);
+      this.ruleSelected = undefined;
       if (changes.declension?.currentValue.id) {
         this.reloadRules(changes.declension?.currentValue.id);
       }

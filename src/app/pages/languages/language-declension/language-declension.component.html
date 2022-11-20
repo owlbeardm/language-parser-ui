@@ -54,7 +54,7 @@
       </ng-container>
     </ng-container>
     <ng-container *ngIf="matrix[i]">
-      <th [ngClass]="matrix[i]?.id && selectedDeclension?.id === matrix[i]?.id?'selectedTh':''">
+      <th [ngClass]="matrix[i].id && selectedDeclension?.id === matrix[i].id?'selectedTh':''">
         <a (click)="deleteDeclension(matrix[i], i)" *ngIf="!matrix[i].deprecated && matrix[i].exist"
            class="text-green-dull link-btn">o</a>
         <a (click)="addDeclension(matrix[i], i)" *ngIf="!matrix[i].deprecated && !matrix[i].exist"
@@ -63,10 +63,10 @@
            class="text-red-dull link-btn">x</a>
       </th>
       <th *ngIf="!matrix[i].exist">{{declensionName(matrix[i])}}</th>
-      <th *ngIf="matrix[i].exist" [ngClass]="matrix[i]?.id && selectedDeclension?.id === matrix[i]?.id?'selectedTh':''">
+      <th *ngIf="matrix[i].exist" [ngClass]="matrix[i].id && selectedDeclension?.id === matrix[i].id?'selectedTh':''">
         <a
           (click)="selectedDeclension = matrix[i]"
-          [ngClass]="matrix[i]?.id && selectedDeclension?.id === matrix[i]?.id?'text-main':'text-grey'"
+          [ngClass]="matrix[i].id && selectedDeclension?.id === matrix[i].id?'text-main':'text-grey'"
           class="link-btn">{{declensionName(matrix[i])}}</a></th>
       <th>|</th>
     </ng-container>

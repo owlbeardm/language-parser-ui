@@ -88,6 +88,8 @@ import { LanguageDeclensionRulesComponent } from './pages/languages/language-dec
 import { DeclensionRuleComponent } from './pages/languages/language-declension/language-declension-rules/declension-rule/declension-rule.component';
 import { RuleValuesComponent } from './pages/languages/language-declension/language-declension-rules/declension-rule/rule-values/rule-values.component';
 import { RuleSoundChangesComponent } from './pages/languages/language-declension/language-declension-rules/declension-rule/rule-sound-changes/rule-sound-changes.component';
+import { WordDeclensionsComponent } from './pages/words/words-detail/word-grammar/word-declensions/word-declensions.component';
+import { WordDeclensionTableComponent } from './pages/words/words-detail/word-grammar/word-declensions/word-declension-table/word-declension-table.component';
 
 
 @NgModule({
@@ -164,6 +166,8 @@ import { RuleSoundChangesComponent } from './pages/languages/language-declension
     DeclensionRuleComponent,
     RuleValuesComponent,
     RuleSoundChangesComponent,
+    WordDeclensionsComponent,
+    WordDeclensionTableComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

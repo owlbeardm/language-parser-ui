@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
@@ -44,10 +44,8 @@ export class TranslationService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addTranslation$Response(params: {
-    context?: HttpContext
     body: Translation
-  }
-): Observable<StrictHttpResponse<number>> {
+  }): Observable<StrictHttpResponse<number>> {
 
     const rb = new RequestBuilder(this.rootUrl, TranslationService.AddTranslationPath, 'post');
     if (params) {
@@ -56,8 +54,7 @@ export class TranslationService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -77,10 +74,8 @@ export class TranslationService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   addTranslation(params: {
-    context?: HttpContext
     body: Translation
-  }
-): Observable<number> {
+  }): Observable<number> {
 
     return this.addTranslation$Response(params).pipe(
       map((r: StrictHttpResponse<number>) => r.body as number)
@@ -104,9 +99,7 @@ export class TranslationService extends BaseService {
    */
   getAllWordsWithTranslationsFromLang1$Response(params: {
     filter: TranslationListFilter;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<PageResultWordWithTranslations>> {
+  }): Observable<StrictHttpResponse<PageResultWordWithTranslations>> {
 
     const rb = new RequestBuilder(this.rootUrl, TranslationService.GetAllWordsWithTranslationsFromLang1Path, 'get');
     if (params) {
@@ -115,8 +108,7 @@ export class TranslationService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -137,9 +129,7 @@ export class TranslationService extends BaseService {
    */
   getAllWordsWithTranslationsFromLang1(params: {
     filter: TranslationListFilter;
-    context?: HttpContext
-  }
-): Observable<PageResultWordWithTranslations> {
+  }): Observable<PageResultWordWithTranslations> {
 
     return this.getAllWordsWithTranslationsFromLang1$Response(params).pipe(
       map((r: StrictHttpResponse<PageResultWordWithTranslations>) => r.body as PageResultWordWithTranslations)
@@ -163,9 +153,7 @@ export class TranslationService extends BaseService {
    */
   getTranslationsForWord$Response(params: {
     id: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<Translation>>> {
+  }): Observable<StrictHttpResponse<Array<Translation>>> {
 
     const rb = new RequestBuilder(this.rootUrl, TranslationService.GetTranslationsForWordPath, 'get');
     if (params) {
@@ -174,8 +162,7 @@ export class TranslationService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -196,9 +183,7 @@ export class TranslationService extends BaseService {
    */
   getTranslationsForWord(params: {
     id: number;
-    context?: HttpContext
-  }
-): Observable<Array<Translation>> {
+  }): Observable<Array<Translation>> {
 
     return this.getTranslationsForWord$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Translation>>) => r.body as Array<Translation>)
@@ -222,9 +207,7 @@ export class TranslationService extends BaseService {
    */
   deleteTranslation$Response(params: {
     id: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, TranslationService.DeleteTranslationPath, 'delete');
     if (params) {
@@ -233,8 +216,7 @@ export class TranslationService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*',
-      context: params?.context
+      accept: '*/*'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -255,9 +237,7 @@ export class TranslationService extends BaseService {
    */
   deleteTranslation(params: {
     id: number;
-    context?: HttpContext
-  }
-): Observable<void> {
+  }): Observable<void> {
 
     return this.deleteTranslation$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
