@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
@@ -45,8 +45,10 @@ export class DeclensionService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   saveDeclensionConnection$Response(params: {
+    context?: HttpContext
     body: DeclensionConnection
-  }): Observable<StrictHttpResponse<number>> {
+  }
+): Observable<StrictHttpResponse<number>> {
 
     const rb = new RequestBuilder(this.rootUrl, DeclensionService.SaveDeclensionConnectionPath, 'post');
     if (params) {
@@ -55,7 +57,8 @@ export class DeclensionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -75,8 +78,10 @@ export class DeclensionService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   saveDeclensionConnection(params: {
+    context?: HttpContext
     body: DeclensionConnection
-  }): Observable<number> {
+  }
+): Observable<number> {
 
     return this.saveDeclensionConnection$Response(params).pipe(
       map((r: StrictHttpResponse<number>) => r.body as number)
@@ -100,7 +105,9 @@ export class DeclensionService extends BaseService {
    */
   deleteDeclensionConnection$Response(params: {
     connectionId: number;
-  }): Observable<StrictHttpResponse<void>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, DeclensionService.DeleteDeclensionConnectionPath, 'delete');
     if (params) {
@@ -109,7 +116,8 @@ export class DeclensionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*'
+      accept: '*/*',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -130,7 +138,9 @@ export class DeclensionService extends BaseService {
    */
   deleteDeclensionConnection(params: {
     connectionId: number;
-  }): Observable<void> {
+    context?: HttpContext
+  }
+): Observable<void> {
 
     return this.deleteDeclensionConnection$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -155,7 +165,9 @@ export class DeclensionService extends BaseService {
   getDeclensionConnectionWithLangAndPos$Response(params: {
     languageId: number;
     posId: number;
-  }): Observable<StrictHttpResponse<Array<DeclensionConnection>>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<DeclensionConnection>>> {
 
     const rb = new RequestBuilder(this.rootUrl, DeclensionService.GetDeclensionConnectionWithLangAndPosPath, 'get');
     if (params) {
@@ -165,7 +177,8 @@ export class DeclensionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -187,7 +200,9 @@ export class DeclensionService extends BaseService {
   getDeclensionConnectionWithLangAndPos(params: {
     languageId: number;
     posId: number;
-  }): Observable<Array<DeclensionConnection>> {
+    context?: HttpContext
+  }
+): Observable<Array<DeclensionConnection>> {
 
     return this.getDeclensionConnectionWithLangAndPos$Response(params).pipe(
       map((r: StrictHttpResponse<Array<DeclensionConnection>>) => r.body as Array<DeclensionConnection>)
@@ -210,8 +225,10 @@ export class DeclensionService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   saveDeclension$Response(params: {
+    context?: HttpContext
     body: DeclensionFull
-  }): Observable<StrictHttpResponse<DeclensionFull>> {
+  }
+): Observable<StrictHttpResponse<DeclensionFull>> {
 
     const rb = new RequestBuilder(this.rootUrl, DeclensionService.SaveDeclensionPath, 'post');
     if (params) {
@@ -220,7 +237,8 @@ export class DeclensionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -240,8 +258,10 @@ export class DeclensionService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   saveDeclension(params: {
+    context?: HttpContext
     body: DeclensionFull
-  }): Observable<DeclensionFull> {
+  }
+): Observable<DeclensionFull> {
 
     return this.saveDeclension$Response(params).pipe(
       map((r: StrictHttpResponse<DeclensionFull>) => r.body as DeclensionFull)
@@ -265,7 +285,9 @@ export class DeclensionService extends BaseService {
    */
   deleteDeclension$Response(params: {
     declensionId: number;
-  }): Observable<StrictHttpResponse<void>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, DeclensionService.DeleteDeclensionPath, 'delete');
     if (params) {
@@ -274,7 +296,8 @@ export class DeclensionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*'
+      accept: '*/*',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -295,7 +318,9 @@ export class DeclensionService extends BaseService {
    */
   deleteDeclension(params: {
     declensionId: number;
-  }): Observable<void> {
+    context?: HttpContext
+  }
+): Observable<void> {
 
     return this.deleteDeclension$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -320,7 +345,9 @@ export class DeclensionService extends BaseService {
   getDeclensionsByLangAndPos$Response(params: {
     languageId: number;
     posId: number;
-  }): Observable<StrictHttpResponse<Array<DeclensionFull>>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<DeclensionFull>>> {
 
     const rb = new RequestBuilder(this.rootUrl, DeclensionService.GetDeclensionsByLangAndPosPath, 'get');
     if (params) {
@@ -330,7 +357,8 @@ export class DeclensionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -352,10 +380,130 @@ export class DeclensionService extends BaseService {
   getDeclensionsByLangAndPos(params: {
     languageId: number;
     posId: number;
-  }): Observable<Array<DeclensionFull>> {
+    context?: HttpContext
+  }
+): Observable<Array<DeclensionFull>> {
 
     return this.getDeclensionsByLangAndPos$Response(params).pipe(
       map((r: StrictHttpResponse<Array<DeclensionFull>>) => r.body as Array<DeclensionFull>)
+    );
+  }
+
+  /**
+   * Path part for operation isMainDelcension
+   */
+  static readonly IsMainDelcensionPath = '/api/declension/ismain/{declensionId}';
+
+  /**
+   * Is main declension.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `isMainDelcension()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  isMainDelcension$Response(params: {
+    declensionId: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<boolean>> {
+
+    const rb = new RequestBuilder(this.rootUrl, DeclensionService.IsMainDelcensionPath, 'get');
+    if (params) {
+      rb.path('declensionId', params.declensionId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: String((r as HttpResponse<any>).body) === 'true' }) as StrictHttpResponse<boolean>;
+      })
+    );
+  }
+
+  /**
+   * Is main declension.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `isMainDelcension$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  isMainDelcension(params: {
+    declensionId: number;
+    context?: HttpContext
+  }
+): Observable<boolean> {
+
+    return this.isMainDelcension$Response(params).pipe(
+      map((r: StrictHttpResponse<boolean>) => r.body as boolean)
+    );
+  }
+
+  /**
+   * Path part for operation removeFromMainDeclension
+   */
+  static readonly RemoveFromMainDeclensionPath = '/api/declension/removemain/{declensionId}';
+
+  /**
+   * Remove from main declension.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeFromMainDeclension()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeFromMainDeclension$Response(params: {
+    declensionId: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, DeclensionService.RemoveFromMainDeclensionPath, 'post');
+    if (params) {
+      rb.path('declensionId', params.declensionId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Remove from main declension.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `removeFromMainDeclension$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeFromMainDeclension(params: {
+    declensionId: number;
+    context?: HttpContext
+  }
+): Observable<void> {
+
+    return this.removeFromMainDeclension$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
 
@@ -375,8 +523,10 @@ export class DeclensionService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   saveDeclensionRule$Response(params: {
+    context?: HttpContext
     body: DeclensionRule
-  }): Observable<StrictHttpResponse<DeclensionRule>> {
+  }
+): Observable<StrictHttpResponse<DeclensionRule>> {
 
     const rb = new RequestBuilder(this.rootUrl, DeclensionService.SaveDeclensionRulePath, 'post');
     if (params) {
@@ -385,7 +535,8 @@ export class DeclensionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -405,8 +556,10 @@ export class DeclensionService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   saveDeclensionRule(params: {
+    context?: HttpContext
     body: DeclensionRule
-  }): Observable<DeclensionRule> {
+  }
+): Observable<DeclensionRule> {
 
     return this.saveDeclensionRule$Response(params).pipe(
       map((r: StrictHttpResponse<DeclensionRule>) => r.body as DeclensionRule)
@@ -430,7 +583,9 @@ export class DeclensionService extends BaseService {
    */
   deleteDeclensionRule$Response(params: {
     declensionRuleId: number;
-  }): Observable<StrictHttpResponse<void>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, DeclensionService.DeleteDeclensionRulePath, 'delete');
     if (params) {
@@ -439,7 +594,8 @@ export class DeclensionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*'
+      accept: '*/*',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -460,7 +616,9 @@ export class DeclensionService extends BaseService {
    */
   deleteDeclensionRule(params: {
     declensionRuleId: number;
-  }): Observable<void> {
+    context?: HttpContext
+  }
+): Observable<void> {
 
     return this.deleteDeclensionRule$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -484,7 +642,9 @@ export class DeclensionService extends BaseService {
    */
   getDeclensionRules$Response(params: {
     declensionId: number;
-  }): Observable<StrictHttpResponse<Array<DeclensionRule>>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<DeclensionRule>>> {
 
     const rb = new RequestBuilder(this.rootUrl, DeclensionService.GetDeclensionRulesPath, 'get');
     if (params) {
@@ -493,7 +653,8 @@ export class DeclensionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -514,10 +675,71 @@ export class DeclensionService extends BaseService {
    */
   getDeclensionRules(params: {
     declensionId: number;
-  }): Observable<Array<DeclensionRule>> {
+    context?: HttpContext
+  }
+): Observable<Array<DeclensionRule>> {
 
     return this.getDeclensionRules$Response(params).pipe(
       map((r: StrictHttpResponse<Array<DeclensionRule>>) => r.body as Array<DeclensionRule>)
+    );
+  }
+
+  /**
+   * Path part for operation setAsMainDeclension
+   */
+  static readonly SetAsMainDeclensionPath = '/api/declension/setmain/{declensionId}';
+
+  /**
+   * Set as main declension.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `setAsMainDeclension()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  setAsMainDeclension$Response(params: {
+    declensionId: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, DeclensionService.SetAsMainDeclensionPath, 'post');
+    if (params) {
+      rb.path('declensionId', params.declensionId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Set as main declension.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `setAsMainDeclension$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  setAsMainDeclension(params: {
+    declensionId: number;
+    context?: HttpContext
+  }
+): Observable<void> {
+
+    return this.setAsMainDeclension$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
 
@@ -538,7 +760,9 @@ export class DeclensionService extends BaseService {
    */
   getDeclineWord$Response(params: {
     wordId: number;
-  }): Observable<StrictHttpResponse<DeclinedWord>> {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<DeclinedWord>> {
 
     const rb = new RequestBuilder(this.rootUrl, DeclensionService.GetDeclineWordPath, 'get');
     if (params) {
@@ -547,7 +771,8 @@ export class DeclensionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -568,7 +793,9 @@ export class DeclensionService extends BaseService {
    */
   getDeclineWord(params: {
     wordId: number;
-  }): Observable<DeclinedWord> {
+    context?: HttpContext
+  }
+): Observable<DeclinedWord> {
 
     return this.getDeclineWord$Response(params).pipe(
       map((r: StrictHttpResponse<DeclinedWord>) => r.body as DeclinedWord)

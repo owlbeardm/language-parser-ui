@@ -13,6 +13,7 @@ export class LanguageDeclensionRulesComponent implements OnInit, OnChanges {
   @Input() declension!: DeclensionFull;
   rules: DeclensionRule[] = [];
   ruleSelected?: DeclensionRule;
+  isMainDeclension: boolean = false;
 
   constructor(private declensionService: DeclensionService) {
   }
@@ -21,10 +22,16 @@ export class LanguageDeclensionRulesComponent implements OnInit, OnChanges {
     return this.declension.values?.map(v => v.name).join(' ');
   }
 
+  reloadIsMainDeclension() {
+    if (this.declension?.id)
+      this.declensionService.isMainDelcension({declensionId: this.declension.id}).subscribe((isMain) => this.isMainDeclension = isMain);
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.declension?.currentValue) {
       console.log("ngOnChanges", changes, changes.declension?.currentValue.id);
       this.ruleSelected = undefined;
+      this.reloadIsMainDeclension();
       if (changes.declension?.currentValue.id) {
         this.reloadRules(changes.declension?.currentValue.id);
       }
@@ -35,6 +42,7 @@ export class LanguageDeclensionRulesComponent implements OnInit, OnChanges {
     if (this.declension?.id) {
       this.reloadRules(this.declension?.id);
     }
+    this.reloadIsMainDeclension();
   }
 
   addNewRule() {
@@ -56,6 +64,20 @@ export class LanguageDeclensionRulesComponent implements OnInit, OnChanges {
         this.rules.push(rule);
         this.ruleSelected = rule;
       })
+    }
+  }
+
+  changeIsMainDeclension() {
+    if (this.declension?.id) {
+      if (this.isMainDeclension) {
+        this.declensionService.removeFromMainDeclension({declensionId: this.declension.id}).subscribe(() => {
+          this.reloadIsMainDeclension()
+        });
+      } else {
+        this.declensionService.setAsMainDeclension({declensionId: this.declension.id}).subscribe(() => {
+          this.reloadIsMainDeclension()
+        });
+      }
     }
   }
 

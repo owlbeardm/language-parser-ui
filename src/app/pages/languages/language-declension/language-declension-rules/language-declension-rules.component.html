@@ -19,10 +19,18 @@
     <th>+</th>
   </tr>
   <tr>
-    <th>RULES</th>
+    <th><a (click)="changeIsMainDeclension()" [ngClass]="isMainDeclension?'text-green-dull':'text-grey-dull'" class="link-btn">[ MAIN DECLENSION ]</a></th>
     <th>|</th>
     <th rowspan="0"><app-declension-rule *ngIf="ruleSelected" [declensionRule]="ruleSelected" (onSave)="save()"></app-declension-rule></th>
     <th app-vertical-dash rowspan="0"></th>
+  </tr>
+  <tr *ngIf="rules.length">
+    <th app-horizontal-dash></th>
+    <th>+</th>
+  </tr>
+  <tr>
+    <th>RULES</th>
+    <th>|</th>
   </tr>
   <tr *ngIf="rules.length">
     <th app-horizontal-dash></th>
