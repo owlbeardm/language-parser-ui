@@ -62,27 +62,28 @@
            class="link-btn">{{wordWithEvolution.word?.word}}</a>
     </th>
     <th class="border">|</th>
-    <ng-container *ngIf="!wordWithEvolution?.word?.forgotten">
+<!--    <ng-container *ngIf="!wordWithEvolution?.word?.forgotten">-->
       <th>
         <span
           *ngIf="!!wordWithEvolution.calculatedEvolution && wordWithEvolution.calculatedEvolution === wordWithEvolution.wordEvolved?.word"
-          class="text-green-dull">{{wordWithEvolution.calculatedEvolution}}</span>
+          [ngClass]="wordWithEvolution?.word?.forgotten?'text-grey':'text-green-dull'">{{wordWithEvolution.calculatedEvolution}}</span>
         <span
           *ngIf="!!wordWithEvolution.wordEvolved?.word && wordWithEvolution.calculatedEvolution != wordWithEvolution.wordEvolved?.word"><span
-          class="text-red-dull">{{wordWithEvolution.wordEvolved?.word}}</span> (<a
+          [ngClass]="wordWithEvolution?.word?.forgotten?'text-grey':'text-red-dull'">{{wordWithEvolution.wordEvolved?.word}}</span> (<a
           (click)="evolveSingleWord(wordWithEvolution)"
           class="text-yellow-dull">{{wordWithEvolution.calculatedEvolution}}</a>)</span>
         <span *ngIf="!wordWithEvolution.wordEvolved?.word"><a (click)="evolveSingleWord(wordWithEvolution)"
                                                               class="text-yellow-dull">{{wordWithEvolution.calculatedEvolution}}</a></span>
       </th>
       <th class="border">|</th>
-      <th class="border" style="text-align: left;">
+      <th class="border" style="text-align: left;" [ngClass]="wordWithEvolution?.word?.forgotten?'text-grey-dull':'text-grey'">
         {{wordWithEvolution.wordEvolved?.partOfSpeech?.abbreviation}}
-        <i>{{wordWithEvolution.languageConnection?.langTo?.displayName}}</i></th>
-    </ng-container>
-    <ng-container *ngIf="wordWithEvolution?.word?.forgotten">
-      <th class="border" colspan="3"></th>
-    </ng-container>
+        <i>{{wordWithEvolution.languageConnection?.langTo?.displayName}}</i>
+      </th>
+<!--    </ng-container>-->
+<!--    <ng-container *ngIf="wordWithEvolution?.word?.forgotten">-->
+<!--      <th class="border" colspan="3"></th>-->
+<!--    </ng-container>-->
     <th class="border">|</th>
     <th class="border">
       <a (click)="forget(wordWithEvolution.word)" *ngIf="wordWithEvolution?.word?.forgotten" class="text-green-dull">unforget</a>
