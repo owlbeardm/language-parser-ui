@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-import { WordDeclension } from './word-declension';
+import { WordDeclension } from '../models/word-declension';
 export interface DeclinedWord {
   declensionList?: Array<WordDeclension>;
 }

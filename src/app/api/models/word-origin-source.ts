@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Word } from './word';
+import { Word } from '../models/word';
 export interface WordOriginSource {
   comment?: string;
   id?: number;

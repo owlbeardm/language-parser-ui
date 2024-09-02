@@ -1,35 +1,40 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
-import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
 
+import { deleteLanguagePos } from '../fn/pos/delete-language-pos';
+import { DeleteLanguagePos$Params } from '../fn/pos/delete-language-pos';
+import { getAllPos } from '../fn/pos/get-all-pos';
+import { GetAllPos$Params } from '../fn/pos/get-all-pos';
+import { getAllPosByLanguage } from '../fn/pos/get-all-pos-by-language';
+import { GetAllPosByLanguage$Params } from '../fn/pos/get-all-pos-by-language';
+import { getPosByLanguage } from '../fn/pos/get-pos-by-language';
+import { GetPosByLanguage$Params } from '../fn/pos/get-pos-by-language';
 import { LanguagePos } from '../models/language-pos';
 import { Pos } from '../models/pos';
+import { saveLanguagePos } from '../fn/pos/save-language-pos';
+import { SaveLanguagePos$Params } from '../fn/pos/save-language-pos';
+import { savePos } from '../fn/pos/save-pos';
+import { SavePos$Params } from '../fn/pos/save-pos';
 
 
 /**
  * Parts of speech related operations
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class PosService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
-  /**
-   * Path part for operation getAllPos
-   */
+  /** Path part for operation `getAllPos()` */
   static readonly GetAllPosPath = '/api/pos';
 
   /**
@@ -42,25 +47,8 @@ export class PosService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllPos$Response(params?: {
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<Pos>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, PosService.GetAllPosPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<Pos>>;
-      })
-    );
+  getAllPos$Response(params?: GetAllPos$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Pos>>> {
+    return getAllPos(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -68,24 +56,18 @@ export class PosService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getAllPos$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getAllPos(params?: {
-    context?: HttpContext
-  }
-): Observable<Array<Pos>> {
-
-    return this.getAllPos$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<Pos>>) => r.body as Array<Pos>)
+  getAllPos(params?: GetAllPos$Params, context?: HttpContext): Observable<Array<Pos>> {
+    return this.getAllPos$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Pos>>): Array<Pos> => r.body)
     );
   }
 
-  /**
-   * Path part for operation savePos
-   */
+  /** Path part for operation `savePos()` */
   static readonly SavePosPath = '/api/pos';
 
   /**
@@ -98,27 +80,8 @@ export class PosService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  savePos$Response(params: {
-    context?: HttpContext
-    body: Pos
-  }
-): Observable<StrictHttpResponse<number>> {
-
-    const rb = new RequestBuilder(this.rootUrl, PosService.SavePosPath, 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
-      })
-    );
+  savePos$Response(params: SavePos$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return savePos(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -126,25 +89,18 @@ export class PosService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `savePos$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  savePos(params: {
-    context?: HttpContext
-    body: Pos
-  }
-): Observable<number> {
-
-    return this.savePos$Response(params).pipe(
-      map((r: StrictHttpResponse<number>) => r.body as number)
+  savePos(params: SavePos$Params, context?: HttpContext): Observable<number> {
+    return this.savePos$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
     );
   }
 
-  /**
-   * Path part for operation getAllPosByLanguage
-   */
+  /** Path part for operation `getAllPosByLanguage()` */
   static readonly GetAllPosByLanguagePath = '/api/pos/language/{languageId}';
 
   /**
@@ -157,27 +113,8 @@ export class PosService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllPosByLanguage$Response(params: {
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<Pos>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, PosService.GetAllPosByLanguagePath, 'get');
-    if (params) {
-      rb.path('languageId', params.languageId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<Pos>>;
-      })
-    );
+  getAllPosByLanguage$Response(params: GetAllPosByLanguage$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Pos>>> {
+    return getAllPosByLanguage(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -185,25 +122,18 @@ export class PosService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getAllPosByLanguage$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getAllPosByLanguage(params: {
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<Array<Pos>> {
-
-    return this.getAllPosByLanguage$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<Pos>>) => r.body as Array<Pos>)
+  getAllPosByLanguage(params: GetAllPosByLanguage$Params, context?: HttpContext): Observable<Array<Pos>> {
+    return this.getAllPosByLanguage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Pos>>): Array<Pos> => r.body)
     );
   }
 
-  /**
-   * Path part for operation saveLanguagePos
-   */
+  /** Path part for operation `saveLanguagePos()` */
   static readonly SaveLanguagePosPath = '/api/pos/languagepos';
 
   /**
@@ -216,27 +146,8 @@ export class PosService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  saveLanguagePos$Response(params: {
-    context?: HttpContext
-    body: LanguagePos
-  }
-): Observable<StrictHttpResponse<number>> {
-
-    const rb = new RequestBuilder(this.rootUrl, PosService.SaveLanguagePosPath, 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
-      })
-    );
+  saveLanguagePos$Response(params: SaveLanguagePos$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return saveLanguagePos(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -244,25 +155,18 @@ export class PosService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `saveLanguagePos$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  saveLanguagePos(params: {
-    context?: HttpContext
-    body: LanguagePos
-  }
-): Observable<number> {
-
-    return this.saveLanguagePos$Response(params).pipe(
-      map((r: StrictHttpResponse<number>) => r.body as number)
+  saveLanguagePos(params: SaveLanguagePos$Params, context?: HttpContext): Observable<number> {
+    return this.saveLanguagePos$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
     );
   }
 
-  /**
-   * Path part for operation deleteLanguagePos
-   */
+  /** Path part for operation `deleteLanguagePos()` */
   static readonly DeleteLanguagePosPath = '/api/pos/languagepos/{id}';
 
   /**
@@ -275,27 +179,8 @@ export class PosService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  deleteLanguagePos$Response(params: {
-    id: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, PosService.DeleteLanguagePosPath, 'delete');
-    if (params) {
-      rb.path('id', params.id, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+  deleteLanguagePos$Response(params: DeleteLanguagePos$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return deleteLanguagePos(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -303,25 +188,18 @@ export class PosService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `deleteLanguagePos$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  deleteLanguagePos(params: {
-    id: number;
-    context?: HttpContext
-  }
-): Observable<void> {
-
-    return this.deleteLanguagePos$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+  deleteLanguagePos(params: DeleteLanguagePos$Params, context?: HttpContext): Observable<void> {
+    return this.deleteLanguagePos$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
-  /**
-   * Path part for operation getPosByLanguage
-   */
+  /** Path part for operation `getPosByLanguage()` */
   static readonly GetPosByLanguagePath = '/api/pos/languagepos/{languageId}';
 
   /**
@@ -334,27 +212,8 @@ export class PosService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getPosByLanguage$Response(params: {
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<LanguagePos>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, PosService.GetPosByLanguagePath, 'get');
-    if (params) {
-      rb.path('languageId', params.languageId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<LanguagePos>>;
-      })
-    );
+  getPosByLanguage$Response(params: GetPosByLanguage$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<LanguagePos>>> {
+    return getPosByLanguage(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -362,19 +221,14 @@ export class PosService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getPosByLanguage$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getPosByLanguage(params: {
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<Array<LanguagePos>> {
-
-    return this.getPosByLanguage$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<LanguagePos>>) => r.body as Array<LanguagePos>)
+  getPosByLanguage(params: GetPosByLanguage$Params, context?: HttpContext): Observable<Array<LanguagePos>> {
+    return this.getPosByLanguage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<LanguagePos>>): Array<LanguagePos> => r.body)
     );
   }
 

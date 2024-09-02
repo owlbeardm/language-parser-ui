@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Language } from './language';
+import { Language } from '../models/language';
 export interface LanguagePhoneme {
   id?: number;
   language?: Language;

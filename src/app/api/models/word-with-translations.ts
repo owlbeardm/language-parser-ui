@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Language } from './language';
-import { Pos } from './pos';
-import { Translation } from './translation';
-import { WordOriginType } from './word-origin-type';
+import { Language } from '../models/language';
+import { Pos } from '../models/pos';
+import { Translation } from '../models/translation';
+import { WordOriginType } from '../models/word-origin-type';
 export interface WordWithTranslations {
   comment?: string;
   forgotten?: boolean;

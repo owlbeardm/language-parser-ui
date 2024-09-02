@@ -1,29 +1,32 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
-import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+
+import { ping } from '../fn/ping/ping';
+import { Ping$Params } from '../fn/ping/ping';
+import { setUserClaims } from '../fn/ping/set-user-claims';
+import { SetUserClaims$Params } from '../fn/ping/set-user-claims';
+import { version } from '../fn/ping/version';
+import { Version$Params } from '../fn/ping/version';
 
 
-@Injectable({
-  providedIn: 'root',
-})
+/**
+ * Ping service
+ */
+@Injectable({ providedIn: 'root' })
 export class PingService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
-  /**
-   * Path part for operation ping
-   */
+  /** Path part for operation `ping()` */
   static readonly PingPath = '/api/ping';
 
   /**
@@ -36,25 +39,8 @@ export class PingService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  ping$Response(params?: {
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<string>> {
-
-    const rb = new RequestBuilder(this.rootUrl, PingService.PingPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<string>;
-      })
-    );
+  ping$Response(params?: Ping$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return ping(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -62,24 +48,18 @@ export class PingService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `ping$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  ping(params?: {
-    context?: HttpContext
-  }
-): Observable<string> {
-
-    return this.ping$Response(params).pipe(
-      map((r: StrictHttpResponse<string>) => r.body as string)
+  ping(params?: Ping$Params, context?: HttpContext): Observable<string> {
+    return this.ping$Response(params, context).pipe(
+      map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 
-  /**
-   * Path part for operation setUserClaims
-   */
+  /** Path part for operation `setUserClaims()` */
   static readonly SetUserClaimsPath = '/api/ping/user-claims/{uid}';
 
   /**
@@ -88,52 +68,23 @@ export class PingService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  setUserClaims$Response(params: {
-    uid: string;
-    context?: HttpContext
-    body: Array<'TEST_CLAIM' | 'ADMIN' | 'WRITE'>
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, PingService.SetUserClaimsPath, 'post');
-    if (params) {
-      rb.path('uid', params.uid, {});
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+  setUserClaims$Response(params: SetUserClaims$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return setUserClaims(this.http, this.rootUrl, params, context);
   }
 
   /**
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `setUserClaims$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  setUserClaims(params: {
-    uid: string;
-    context?: HttpContext
-    body: Array<'TEST_CLAIM' | 'ADMIN' | 'WRITE'>
-  }
-): Observable<void> {
-
-    return this.setUserClaims$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+  setUserClaims(params: SetUserClaims$Params, context?: HttpContext): Observable<void> {
+    return this.setUserClaims$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
-  /**
-   * Path part for operation version
-   */
+  /** Path part for operation `version()` */
   static readonly VersionPath = '/api/ping/version';
 
   /**
@@ -146,25 +97,8 @@ export class PingService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  version$Response(params?: {
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<string>> {
-
-    const rb = new RequestBuilder(this.rootUrl, PingService.VersionPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: 'text/plain',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<string>;
-      })
-    );
+  version$Response(params?: Version$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return version(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -172,18 +106,14 @@ export class PingService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `version$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  version(params?: {
-    context?: HttpContext
-  }
-): Observable<string> {
-
-    return this.version$Response(params).pipe(
-      map((r: StrictHttpResponse<string>) => r.body as string)
+  version(params?: Version$Params, context?: HttpContext): Observable<string> {
+    return this.version$Response(params, context).pipe(
+      map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 

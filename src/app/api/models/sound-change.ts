@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-import { SoundChangePurpose } from './sound-change-purpose';
-import { SoundChangeType } from './sound-change-type';
+import { SoundChangePurpose } from '../models/sound-change-purpose';
+import { SoundChangeType } from '../models/sound-change-type';
 export interface SoundChange {
   environmentAfter?: string;
   environmentBefore?: string;

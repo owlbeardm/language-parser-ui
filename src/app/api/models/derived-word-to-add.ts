@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Language } from './language';
-import { Pos } from './pos';
-import { Word } from './word';
-import { WordOriginType } from './word-origin-type';
+import { Language } from '../models/language';
+import { Pos } from '../models/pos';
+import { Word } from '../models/word';
+import { WordOriginType } from '../models/word-origin-type';
 export interface DerivedWordToAdd {
   comment?: string;
   derivedFrom?: Array<Word>;

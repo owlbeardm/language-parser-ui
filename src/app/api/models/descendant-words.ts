@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-import { WordWithTranslations } from './word-with-translations';
+import { WordWithTranslations } from '../models/word-with-translations';
 export interface DescendantWords {
   descendants?: Array<DescendantWords>;
   word?: WordWithTranslations;

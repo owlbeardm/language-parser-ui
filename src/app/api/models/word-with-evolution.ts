@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
-import { LanguageConnection } from './language-connection';
-import { LanguageConnectionType } from './language-connection-type';
-import { Word } from './word';
+import { LanguageConnection } from '../models/language-connection';
+import { LanguageConnectionType } from '../models/language-connection-type';
+import { Word } from '../models/word';
 export interface WordWithEvolution {
   calculatedEvolution?: string;
   languageConnection?: LanguageConnection;

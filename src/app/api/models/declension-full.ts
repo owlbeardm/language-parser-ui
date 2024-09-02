@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
-import { GrammaticalCategoryValue } from './grammatical-category-value';
-import { Language } from './language';
-import { Pos } from './pos';
+import { GrammaticalCategoryValue } from '../models/grammatical-category-value';
+import { Language } from '../models/language';
+import { Pos } from '../models/pos';
 export interface DeclensionFull {
   deprecated?: boolean;
   exist?: boolean;

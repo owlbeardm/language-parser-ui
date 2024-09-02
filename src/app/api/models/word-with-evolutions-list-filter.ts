@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-import { SortDirection } from './sort-direction';
+import { SortDirection } from '../models/sort-direction';
 export interface WordWithEvolutionsListFilter {
 
   /**

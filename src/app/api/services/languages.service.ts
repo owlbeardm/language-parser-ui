@@ -1,38 +1,49 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
-import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
 
+import { canDeleteLanguage } from '../fn/languages/can-delete-language';
+import { CanDeleteLanguage$Params } from '../fn/languages/can-delete-language';
+import { deleteLanguage } from '../fn/languages/delete-language';
+import { DeleteLanguage$Params } from '../fn/languages/delete-language';
+import { deleteLanguagePhoneme } from '../fn/languages/delete-language-phoneme';
+import { DeleteLanguagePhoneme$Params } from '../fn/languages/delete-language-phoneme';
+import { getAllLanguages } from '../fn/languages/get-all-languages';
+import { GetAllLanguages$Params } from '../fn/languages/get-all-languages';
+import { getAllPartsOfSpeechByLanguage } from '../fn/languages/get-all-parts-of-speech-by-language';
+import { GetAllPartsOfSpeechByLanguage$Params } from '../fn/languages/get-all-parts-of-speech-by-language';
+import { getLanguagePhonemes } from '../fn/languages/get-language-phonemes';
+import { GetLanguagePhonemes$Params } from '../fn/languages/get-language-phonemes';
+import { getLanguageSoundClusters } from '../fn/languages/get-language-sound-clusters';
+import { GetLanguageSoundClusters$Params } from '../fn/languages/get-language-sound-clusters';
 import { Language } from '../models/language';
 import { LanguagePhoneme } from '../models/language-phoneme';
 import { LanguageSoundClusters } from '../models/language-sound-clusters';
 import { ListOfLanguagePhonemes } from '../models/list-of-language-phonemes';
 import { Pos } from '../models/pos';
+import { saveLanguage } from '../fn/languages/save-language';
+import { SaveLanguage$Params } from '../fn/languages/save-language';
+import { saveLanguagePhoneme } from '../fn/languages/save-language-phoneme';
+import { SaveLanguagePhoneme$Params } from '../fn/languages/save-language-phoneme';
 
 
 /**
  * Language related operations
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class LanguagesService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
-  /**
-   * Path part for operation saveLanguage
-   */
+  /** Path part for operation `saveLanguage()` */
   static readonly SaveLanguagePath = '/api/language/';
 
   /**
@@ -45,27 +56,8 @@ export class LanguagesService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  saveLanguage$Response(params: {
-    context?: HttpContext
-    body: Language
-  }
-): Observable<StrictHttpResponse<Language>> {
-
-    const rb = new RequestBuilder(this.rootUrl, LanguagesService.SaveLanguagePath, 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Language>;
-      })
-    );
+  saveLanguage$Response(params: SaveLanguage$Params, context?: HttpContext): Observable<StrictHttpResponse<Language>> {
+    return saveLanguage(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -73,25 +65,18 @@ export class LanguagesService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `saveLanguage$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  saveLanguage(params: {
-    context?: HttpContext
-    body: Language
-  }
-): Observable<Language> {
-
-    return this.saveLanguage$Response(params).pipe(
-      map((r: StrictHttpResponse<Language>) => r.body as Language)
+  saveLanguage(params: SaveLanguage$Params, context?: HttpContext): Observable<Language> {
+    return this.saveLanguage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Language>): Language => r.body)
     );
   }
 
-  /**
-   * Path part for operation getAllLanguages
-   */
+  /** Path part for operation `getAllLanguages()` */
   static readonly GetAllLanguagesPath = '/api/language/all';
 
   /**
@@ -104,25 +89,8 @@ export class LanguagesService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllLanguages$Response(params?: {
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<Language>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetAllLanguagesPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<Language>>;
-      })
-    );
+  getAllLanguages$Response(params?: GetAllLanguages$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Language>>> {
+    return getAllLanguages(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -130,24 +98,18 @@ export class LanguagesService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getAllLanguages$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getAllLanguages(params?: {
-    context?: HttpContext
-  }
-): Observable<Array<Language>> {
-
-    return this.getAllLanguages$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<Language>>) => r.body as Array<Language>)
+  getAllLanguages(params?: GetAllLanguages$Params, context?: HttpContext): Observable<Array<Language>> {
+    return this.getAllLanguages$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Language>>): Array<Language> => r.body)
     );
   }
 
-  /**
-   * Path part for operation getLanguageSoundClusters
-   */
+  /** Path part for operation `getLanguageSoundClusters()` */
   static readonly GetLanguageSoundClustersPath = '/api/language/clusters/{languageId}';
 
   /**
@@ -160,27 +122,8 @@ export class LanguagesService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getLanguageSoundClusters$Response(params: {
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<LanguageSoundClusters>> {
-
-    const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetLanguageSoundClustersPath, 'get');
-    if (params) {
-      rb.path('languageId', params.languageId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<LanguageSoundClusters>;
-      })
-    );
+  getLanguageSoundClusters$Response(params: GetLanguageSoundClusters$Params, context?: HttpContext): Observable<StrictHttpResponse<LanguageSoundClusters>> {
+    return getLanguageSoundClusters(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -188,25 +131,18 @@ export class LanguagesService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getLanguageSoundClusters$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getLanguageSoundClusters(params: {
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<LanguageSoundClusters> {
-
-    return this.getLanguageSoundClusters$Response(params).pipe(
-      map((r: StrictHttpResponse<LanguageSoundClusters>) => r.body as LanguageSoundClusters)
+  getLanguageSoundClusters(params: GetLanguageSoundClusters$Params, context?: HttpContext): Observable<LanguageSoundClusters> {
+    return this.getLanguageSoundClusters$Response(params, context).pipe(
+      map((r: StrictHttpResponse<LanguageSoundClusters>): LanguageSoundClusters => r.body)
     );
   }
 
-  /**
-   * Path part for operation getLanguagePhonemes
-   */
+  /** Path part for operation `getLanguagePhonemes()` */
   static readonly GetLanguagePhonemesPath = '/api/language/phoneme/{languageId}';
 
   /**
@@ -219,27 +155,8 @@ export class LanguagesService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getLanguagePhonemes$Response(params: {
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<ListOfLanguagePhonemes>> {
-
-    const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetLanguagePhonemesPath, 'get');
-    if (params) {
-      rb.path('languageId', params.languageId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<ListOfLanguagePhonemes>;
-      })
-    );
+  getLanguagePhonemes$Response(params: GetLanguagePhonemes$Params, context?: HttpContext): Observable<StrictHttpResponse<ListOfLanguagePhonemes>> {
+    return getLanguagePhonemes(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -247,25 +164,18 @@ export class LanguagesService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getLanguagePhonemes$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getLanguagePhonemes(params: {
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<ListOfLanguagePhonemes> {
-
-    return this.getLanguagePhonemes$Response(params).pipe(
-      map((r: StrictHttpResponse<ListOfLanguagePhonemes>) => r.body as ListOfLanguagePhonemes)
+  getLanguagePhonemes(params: GetLanguagePhonemes$Params, context?: HttpContext): Observable<ListOfLanguagePhonemes> {
+    return this.getLanguagePhonemes$Response(params, context).pipe(
+      map((r: StrictHttpResponse<ListOfLanguagePhonemes>): ListOfLanguagePhonemes => r.body)
     );
   }
 
-  /**
-   * Path part for operation saveLanguagePhoneme
-   */
+  /** Path part for operation `saveLanguagePhoneme()` */
   static readonly SaveLanguagePhonemePath = '/api/language/phoneme/{languageId}';
 
   /**
@@ -278,29 +188,8 @@ export class LanguagesService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  saveLanguagePhoneme$Response(params: {
-    languageId: number;
-    context?: HttpContext
-    body: string
-  }
-): Observable<StrictHttpResponse<LanguagePhoneme>> {
-
-    const rb = new RequestBuilder(this.rootUrl, LanguagesService.SaveLanguagePhonemePath, 'post');
-    if (params) {
-      rb.path('languageId', params.languageId, {});
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<LanguagePhoneme>;
-      })
-    );
+  saveLanguagePhoneme$Response(params: SaveLanguagePhoneme$Params, context?: HttpContext): Observable<StrictHttpResponse<LanguagePhoneme>> {
+    return saveLanguagePhoneme(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -308,26 +197,18 @@ export class LanguagesService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `saveLanguagePhoneme$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  saveLanguagePhoneme(params: {
-    languageId: number;
-    context?: HttpContext
-    body: string
-  }
-): Observable<LanguagePhoneme> {
-
-    return this.saveLanguagePhoneme$Response(params).pipe(
-      map((r: StrictHttpResponse<LanguagePhoneme>) => r.body as LanguagePhoneme)
+  saveLanguagePhoneme(params: SaveLanguagePhoneme$Params, context?: HttpContext): Observable<LanguagePhoneme> {
+    return this.saveLanguagePhoneme$Response(params, context).pipe(
+      map((r: StrictHttpResponse<LanguagePhoneme>): LanguagePhoneme => r.body)
     );
   }
 
-  /**
-   * Path part for operation deleteLanguagePhoneme
-   */
+  /** Path part for operation `deleteLanguagePhoneme()` */
   static readonly DeleteLanguagePhonemePath = '/api/language/phoneme/{phonemeId}';
 
   /**
@@ -340,27 +221,8 @@ export class LanguagesService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  deleteLanguagePhoneme$Response(params: {
-    phonemeId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, LanguagesService.DeleteLanguagePhonemePath, 'delete');
-    if (params) {
-      rb.path('phonemeId', params.phonemeId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+  deleteLanguagePhoneme$Response(params: DeleteLanguagePhoneme$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return deleteLanguagePhoneme(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -368,25 +230,18 @@ export class LanguagesService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `deleteLanguagePhoneme$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  deleteLanguagePhoneme(params: {
-    phonemeId: number;
-    context?: HttpContext
-  }
-): Observable<void> {
-
-    return this.deleteLanguagePhoneme$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+  deleteLanguagePhoneme(params: DeleteLanguagePhoneme$Params, context?: HttpContext): Observable<void> {
+    return this.deleteLanguagePhoneme$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
-  /**
-   * Path part for operation getAllPartsOfSpeechByLanguage
-   */
+  /** Path part for operation `getAllPartsOfSpeechByLanguage()` */
   static readonly GetAllPartsOfSpeechByLanguagePath = '/api/language/pos/{languageId}';
 
   /**
@@ -399,27 +254,8 @@ export class LanguagesService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllPartsOfSpeechByLanguage$Response(params: {
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<Pos>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, LanguagesService.GetAllPartsOfSpeechByLanguagePath, 'get');
-    if (params) {
-      rb.path('languageId', params.languageId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<Pos>>;
-      })
-    );
+  getAllPartsOfSpeechByLanguage$Response(params: GetAllPartsOfSpeechByLanguage$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Pos>>> {
+    return getAllPartsOfSpeechByLanguage(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -427,25 +263,18 @@ export class LanguagesService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getAllPartsOfSpeechByLanguage$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getAllPartsOfSpeechByLanguage(params: {
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<Array<Pos>> {
-
-    return this.getAllPartsOfSpeechByLanguage$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<Pos>>) => r.body as Array<Pos>)
+  getAllPartsOfSpeechByLanguage(params: GetAllPartsOfSpeechByLanguage$Params, context?: HttpContext): Observable<Array<Pos>> {
+    return this.getAllPartsOfSpeechByLanguage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Pos>>): Array<Pos> => r.body)
     );
   }
 
-  /**
-   * Path part for operation deleteLanguage
-   */
+  /** Path part for operation `deleteLanguage()` */
   static readonly DeleteLanguagePath = '/api/language/{languageId}';
 
   /**
@@ -458,27 +287,8 @@ export class LanguagesService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  deleteLanguage$Response(params: {
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, LanguagesService.DeleteLanguagePath, 'delete');
-    if (params) {
-      rb.path('languageId', params.languageId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+  deleteLanguage$Response(params: DeleteLanguage$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return deleteLanguage(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -486,25 +296,18 @@ export class LanguagesService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `deleteLanguage$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  deleteLanguage(params: {
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<void> {
-
-    return this.deleteLanguage$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+  deleteLanguage(params: DeleteLanguage$Params, context?: HttpContext): Observable<void> {
+    return this.deleteLanguage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
-  /**
-   * Path part for operation canDeleteLanguage
-   */
+  /** Path part for operation `canDeleteLanguage()` */
   static readonly CanDeleteLanguagePath = '/api/language/{languageId}/candelete';
 
   /**
@@ -517,27 +320,8 @@ export class LanguagesService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  canDeleteLanguage$Response(params: {
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<boolean>> {
-
-    const rb = new RequestBuilder(this.rootUrl, LanguagesService.CanDeleteLanguagePath, 'get');
-    if (params) {
-      rb.path('languageId', params.languageId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: String((r as HttpResponse<any>).body) === 'true' }) as StrictHttpResponse<boolean>;
-      })
-    );
+  canDeleteLanguage$Response(params: CanDeleteLanguage$Params, context?: HttpContext): Observable<StrictHttpResponse<boolean>> {
+    return canDeleteLanguage(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -545,19 +329,14 @@ export class LanguagesService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `canDeleteLanguage$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  canDeleteLanguage(params: {
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<boolean> {
-
-    return this.canDeleteLanguage$Response(params).pipe(
-      map((r: StrictHttpResponse<boolean>) => r.body as boolean)
+  canDeleteLanguage(params: CanDeleteLanguage$Params, context?: HttpContext): Observable<boolean> {
+    return this.canDeleteLanguage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<boolean>): boolean => r.body)
     );
   }
 

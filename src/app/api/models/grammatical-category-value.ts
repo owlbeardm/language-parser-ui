@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-import { GrammaticalCategory } from './grammatical-category';
+import { GrammaticalCategory } from '../models/grammatical-category';
 export interface GrammaticalCategoryValue {
   category?: GrammaticalCategory;
   id?: number;
