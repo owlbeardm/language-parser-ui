@@ -1,10 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
-import { DescendantWords } from './descendant-words';
-import { Etymology } from './etymology';
-import { Translation } from './translation';
-import { WordWithTranslations } from './word-with-translations';
-import { WordWithWritten } from './word-with-written';
+import { DescendantWords } from '../models/descendant-words';
+import { Etymology } from '../models/etymology';
+import { Translation } from '../models/translation';
+import { WordWithTranslations } from '../models/word-with-translations';
+import { WordWithWritten } from '../models/word-with-written';
 export interface DetailedWord {
   derived?: Array<WordWithTranslations>;
   descendants?: DescendantWords;

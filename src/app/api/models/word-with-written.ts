@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Language } from './language';
-import { Pos } from './pos';
-import { WordOriginType } from './word-origin-type';
+import { Language } from '../models/language';
+import { Pos } from '../models/pos';
+import { WordOriginType } from '../models/word-origin-type';
 export interface WordWithWritten {
   comment?: string;
   forgotten?: boolean;

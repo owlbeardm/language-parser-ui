@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Language } from './language';
-import { LanguageConnectionType } from './language-connection-type';
+import { Language } from '../models/language';
+import { LanguageConnectionType } from '../models/language-connection-type';
 export interface LanguageConnection {
   connectionType?: LanguageConnectionType;
   id?: number;

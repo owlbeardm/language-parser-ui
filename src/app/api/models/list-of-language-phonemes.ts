@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-import { LanguagePhoneme } from './language-phoneme';
+import { LanguagePhoneme } from '../models/language-phoneme';
 export interface ListOfLanguagePhonemes {
   langId?: number;
   restUsedPhonemes?: Array<string>;

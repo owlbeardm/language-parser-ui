@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Declension } from './declension';
-import { GrammaticalCategoryValue } from './grammatical-category-value';
+import { Declension } from '../models/declension';
+import { GrammaticalCategoryValue } from '../models/grammatical-category-value';
 export interface DeclensionRule {
   declension?: Declension;
   enabled?: boolean;

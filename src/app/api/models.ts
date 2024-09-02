@@ -1,3 +1,5 @@
+/* tslint:disable */
+/* eslint-disable */
 export { Declension } from './models/declension';
 export { DeclensionConnection } from './models/declension-connection';
 export { DeclensionFull } from './models/declension-full';
@@ -17,16 +19,16 @@ export { Language } from './models/language';
 export { LanguageConnection } from './models/language-connection';
 export { LanguageConnectionType } from './models/language-connection-type';
 export { LanguageConnectionTypeModel } from './models/language-connection-type-model';
-export { LanguagePos } from './models/language-pos';
 export { LanguagePhoneme } from './models/language-phoneme';
+export { LanguagePos } from './models/language-pos';
 export { LanguageSoundClusters } from './models/language-sound-clusters';
 export { ListOfLanguagePhonemes } from './models/list-of-language-phonemes';
-export { Pos } from './models/pos';
 export { PageResultWordWithBorrowed } from './models/page-result-word-with-borrowed';
 export { PageResultWordWithCategoryValues } from './models/page-result-word-with-category-values';
 export { PageResultWordWithEvolution } from './models/page-result-word-with-evolution';
 export { PageResultWordWithTranslations } from './models/page-result-word-with-translations';
 export { Phrase } from './models/phrase';
+export { Pos } from './models/pos';
 export { SortDirection } from './models/sort-direction';
 export { SoundChange } from './models/sound-change';
 export { SoundChangePurpose } from './models/sound-change-purpose';

@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Phrase } from './phrase';
-import { TranslationType } from './translation-type';
-import { Word } from './word';
-import { WordWithWritten } from './word-with-written';
+import { Phrase } from '../models/phrase';
+import { TranslationType } from '../models/translation-type';
+import { Word } from '../models/word';
+import { WordWithWritten } from '../models/word-with-written';
 export interface Translation {
   id?: number;
   phraseTo?: Phrase;

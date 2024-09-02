@@ -1,39 +1,48 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
-import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
 
-import { DerivedWordToAdd } from '../models/derived-word-to-add';
+import { addDerivedWord } from '../fn/words/add-derived-word';
+import { AddDerivedWord$Params } from '../fn/words/add-derived-word';
+import { addWord } from '../fn/words/add-word';
+import { AddWord$Params } from '../fn/words/add-word';
+import { canDeleteWord } from '../fn/words/can-delete-word';
+import { CanDeleteWord$Params } from '../fn/words/can-delete-word';
+import { cleanIpaWords } from '../fn/words/clean-ipa-words';
+import { CleanIpaWords$Params } from '../fn/words/clean-ipa-words';
+import { deleteWord } from '../fn/words/delete-word';
+import { DeleteWord$Params } from '../fn/words/delete-word';
 import { DetailedWord } from '../models/detailed-word';
+import { getAllWords } from '../fn/words/get-all-words';
+import { GetAllWords$Params } from '../fn/words/get-all-words';
+import { getAllWordsFromLang } from '../fn/words/get-all-words-from-lang';
+import { GetAllWordsFromLang$Params } from '../fn/words/get-all-words-from-lang';
+import { getAllWordsWithTranslationsFromLang } from '../fn/words/get-all-words-with-translations-from-lang';
+import { GetAllWordsWithTranslationsFromLang$Params } from '../fn/words/get-all-words-with-translations-from-lang';
+import { getDetailedWordsByPhonetics } from '../fn/words/get-detailed-words-by-phonetics';
+import { GetDetailedWordsByPhonetics$Params } from '../fn/words/get-detailed-words-by-phonetics';
 import { PageResultWordWithCategoryValues } from '../models/page-result-word-with-category-values';
 import { PageResultWordWithTranslations } from '../models/page-result-word-with-translations';
 import { Word } from '../models/word';
-import { WordListFilter } from '../models/word-list-filter';
 
 
 /**
  * Words related operations
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class WordsService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
-  /**
-   * Path part for operation addWord
-   */
+  /** Path part for operation `addWord()` */
   static readonly AddWordPath = '/api/words/add';
 
   /**
@@ -46,27 +55,8 @@ export class WordsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  addWord$Response(params: {
-    context?: HttpContext
-    body: Word
-  }
-): Observable<StrictHttpResponse<Word>> {
-
-    const rb = new RequestBuilder(this.rootUrl, WordsService.AddWordPath, 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Word>;
-      })
-    );
+  addWord$Response(params: AddWord$Params, context?: HttpContext): Observable<StrictHttpResponse<Word>> {
+    return addWord(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -74,25 +64,18 @@ export class WordsService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `addWord$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  addWord(params: {
-    context?: HttpContext
-    body: Word
-  }
-): Observable<Word> {
-
-    return this.addWord$Response(params).pipe(
-      map((r: StrictHttpResponse<Word>) => r.body as Word)
+  addWord(params: AddWord$Params, context?: HttpContext): Observable<Word> {
+    return this.addWord$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Word>): Word => r.body)
     );
   }
 
-  /**
-   * Path part for operation getAllWords
-   */
+  /** Path part for operation `getAllWords()` */
   static readonly GetAllWordsPath = '/api/words/all';
 
   /**
@@ -105,27 +88,8 @@ export class WordsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllWords$Response(params: {
-    filter: WordListFilter;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<PageResultWordWithCategoryValues>> {
-
-    const rb = new RequestBuilder(this.rootUrl, WordsService.GetAllWordsPath, 'get');
-    if (params) {
-      rb.query('filter', params.filter, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<PageResultWordWithCategoryValues>;
-      })
-    );
+  getAllWords$Response(params: GetAllWords$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResultWordWithCategoryValues>> {
+    return getAllWords(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -133,25 +97,18 @@ export class WordsService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getAllWords$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getAllWords(params: {
-    filter: WordListFilter;
-    context?: HttpContext
-  }
-): Observable<PageResultWordWithCategoryValues> {
-
-    return this.getAllWords$Response(params).pipe(
-      map((r: StrictHttpResponse<PageResultWordWithCategoryValues>) => r.body as PageResultWordWithCategoryValues)
+  getAllWords(params: GetAllWords$Params, context?: HttpContext): Observable<PageResultWordWithCategoryValues> {
+    return this.getAllWords$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageResultWordWithCategoryValues>): PageResultWordWithCategoryValues => r.body)
     );
   }
 
-  /**
-   * Path part for operation getAllWordsFromLang
-   */
+  /** Path part for operation `getAllWordsFromLang()` */
   static readonly GetAllWordsFromLangPath = '/api/words/all/{from}';
 
   /**
@@ -164,27 +121,8 @@ export class WordsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllWordsFromLang$Response(params: {
-    from: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<Word>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, WordsService.GetAllWordsFromLangPath, 'get');
-    if (params) {
-      rb.path('from', params.from, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<Word>>;
-      })
-    );
+  getAllWordsFromLang$Response(params: GetAllWordsFromLang$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Word>>> {
+    return getAllWordsFromLang(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -192,25 +130,18 @@ export class WordsService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getAllWordsFromLang$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getAllWordsFromLang(params: {
-    from: number;
-    context?: HttpContext
-  }
-): Observable<Array<Word>> {
-
-    return this.getAllWordsFromLang$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<Word>>) => r.body as Array<Word>)
+  getAllWordsFromLang(params: GetAllWordsFromLang$Params, context?: HttpContext): Observable<Array<Word>> {
+    return this.getAllWordsFromLang$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Word>>): Array<Word> => r.body)
     );
   }
 
-  /**
-   * Path part for operation cleanIpaWords
-   */
+  /** Path part for operation `cleanIpaWords()` */
   static readonly CleanIpaWordsPath = '/api/words/clean';
 
   /**
@@ -223,25 +154,8 @@ export class WordsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  cleanIpaWords$Response(params?: {
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, WordsService.CleanIpaWordsPath, 'post');
-    if (params) {
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+  cleanIpaWords$Response(params?: CleanIpaWords$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return cleanIpaWords(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -249,24 +163,18 @@ export class WordsService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `cleanIpaWords$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  cleanIpaWords(params?: {
-    context?: HttpContext
-  }
-): Observable<void> {
-
-    return this.cleanIpaWords$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+  cleanIpaWords(params?: CleanIpaWords$Params, context?: HttpContext): Observable<void> {
+    return this.cleanIpaWords$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
-  /**
-   * Path part for operation addDerivedWord
-   */
+  /** Path part for operation `addDerivedWord()` */
   static readonly AddDerivedWordPath = '/api/words/derive';
 
   /**
@@ -279,27 +187,8 @@ export class WordsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  addDerivedWord$Response(params: {
-    context?: HttpContext
-    body: DerivedWordToAdd
-  }
-): Observable<StrictHttpResponse<Word>> {
-
-    const rb = new RequestBuilder(this.rootUrl, WordsService.AddDerivedWordPath, 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Word>;
-      })
-    );
+  addDerivedWord$Response(params: AddDerivedWord$Params, context?: HttpContext): Observable<StrictHttpResponse<Word>> {
+    return addDerivedWord(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -307,25 +196,18 @@ export class WordsService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `addDerivedWord$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  addDerivedWord(params: {
-    context?: HttpContext
-    body: DerivedWordToAdd
-  }
-): Observable<Word> {
-
-    return this.addDerivedWord$Response(params).pipe(
-      map((r: StrictHttpResponse<Word>) => r.body as Word)
+  addDerivedWord(params: AddDerivedWord$Params, context?: HttpContext): Observable<Word> {
+    return this.addDerivedWord$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Word>): Word => r.body)
     );
   }
 
-  /**
-   * Path part for operation getAllWordsWithTranslationsFromLang
-   */
+  /** Path part for operation `getAllWordsWithTranslationsFromLang()` */
   static readonly GetAllWordsWithTranslationsFromLangPath = '/api/words/page/{from}';
 
   /**
@@ -338,27 +220,8 @@ export class WordsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllWordsWithTranslationsFromLang$Response(params: {
-    from: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<PageResultWordWithTranslations>> {
-
-    const rb = new RequestBuilder(this.rootUrl, WordsService.GetAllWordsWithTranslationsFromLangPath, 'get');
-    if (params) {
-      rb.path('from', params.from, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<PageResultWordWithTranslations>;
-      })
-    );
+  getAllWordsWithTranslationsFromLang$Response(params: GetAllWordsWithTranslationsFromLang$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResultWordWithTranslations>> {
+    return getAllWordsWithTranslationsFromLang(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -366,25 +229,18 @@ export class WordsService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getAllWordsWithTranslationsFromLang$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getAllWordsWithTranslationsFromLang(params: {
-    from: number;
-    context?: HttpContext
-  }
-): Observable<PageResultWordWithTranslations> {
-
-    return this.getAllWordsWithTranslationsFromLang$Response(params).pipe(
-      map((r: StrictHttpResponse<PageResultWordWithTranslations>) => r.body as PageResultWordWithTranslations)
+  getAllWordsWithTranslationsFromLang(params: GetAllWordsWithTranslationsFromLang$Params, context?: HttpContext): Observable<PageResultWordWithTranslations> {
+    return this.getAllWordsWithTranslationsFromLang$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageResultWordWithTranslations>): PageResultWordWithTranslations => r.body)
     );
   }
 
-  /**
-   * Path part for operation deleteWord
-   */
+  /** Path part for operation `deleteWord()` */
   static readonly DeleteWordPath = '/api/words/{id}';
 
   /**
@@ -397,27 +253,8 @@ export class WordsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  deleteWord$Response(params: {
-    id: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, WordsService.DeleteWordPath, 'delete');
-    if (params) {
-      rb.path('id', params.id, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+  deleteWord$Response(params: DeleteWord$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return deleteWord(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -425,25 +262,18 @@ export class WordsService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `deleteWord$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  deleteWord(params: {
-    id: number;
-    context?: HttpContext
-  }
-): Observable<void> {
-
-    return this.deleteWord$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+  deleteWord(params: DeleteWord$Params, context?: HttpContext): Observable<void> {
+    return this.deleteWord$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
-  /**
-   * Path part for operation canDeleteWord
-   */
+  /** Path part for operation `canDeleteWord()` */
   static readonly CanDeleteWordPath = '/api/words/{wordId}/candelete';
 
   /**
@@ -456,27 +286,8 @@ export class WordsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  canDeleteWord$Response(params: {
-    wordId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<boolean>> {
-
-    const rb = new RequestBuilder(this.rootUrl, WordsService.CanDeleteWordPath, 'get');
-    if (params) {
-      rb.path('wordId', params.wordId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: String((r as HttpResponse<any>).body) === 'true' }) as StrictHttpResponse<boolean>;
-      })
-    );
+  canDeleteWord$Response(params: CanDeleteWord$Params, context?: HttpContext): Observable<StrictHttpResponse<boolean>> {
+    return canDeleteWord(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -484,25 +295,18 @@ export class WordsService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `canDeleteWord$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  canDeleteWord(params: {
-    wordId: number;
-    context?: HttpContext
-  }
-): Observable<boolean> {
-
-    return this.canDeleteWord$Response(params).pipe(
-      map((r: StrictHttpResponse<boolean>) => r.body as boolean)
+  canDeleteWord(params: CanDeleteWord$Params, context?: HttpContext): Observable<boolean> {
+    return this.canDeleteWord$Response(params, context).pipe(
+      map((r: StrictHttpResponse<boolean>): boolean => r.body)
     );
   }
 
-  /**
-   * Path part for operation getDetailedWordsByPhonetics
-   */
+  /** Path part for operation `getDetailedWordsByPhonetics()` */
   static readonly GetDetailedWordsByPhoneticsPath = '/api/words/{word}';
 
   /**
@@ -515,27 +319,8 @@ export class WordsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getDetailedWordsByPhonetics$Response(params: {
-    word: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<DetailedWord>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, WordsService.GetDetailedWordsByPhoneticsPath, 'get');
-    if (params) {
-      rb.path('word', params.word, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<DetailedWord>>;
-      })
-    );
+  getDetailedWordsByPhonetics$Response(params: GetDetailedWordsByPhonetics$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<DetailedWord>>> {
+    return getDetailedWordsByPhonetics(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -543,19 +328,14 @@ export class WordsService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getDetailedWordsByPhonetics$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getDetailedWordsByPhonetics(params: {
-    word: string;
-    context?: HttpContext
-  }
-): Observable<Array<DetailedWord>> {
-
-    return this.getDetailedWordsByPhonetics$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<DetailedWord>>) => r.body as Array<DetailedWord>)
+  getDetailedWordsByPhonetics(params: GetDetailedWordsByPhonetics$Params, context?: HttpContext): Observable<Array<DetailedWord>> {
+    return this.getDetailedWordsByPhonetics$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<DetailedWord>>): Array<DetailedWord> => r.body)
     );
   }
 

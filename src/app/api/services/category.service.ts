@@ -1,38 +1,61 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
-import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
 
+import { deleteGrammaticalCategoryConnection } from '../fn/category/delete-grammatical-category-connection';
+import { DeleteGrammaticalCategoryConnection$Params } from '../fn/category/delete-grammatical-category-connection';
+import { getAllCategories } from '../fn/category/get-all-categories';
+import { GetAllCategories$Params } from '../fn/category/get-all-categories';
+import { getCategoryValuesByCategory } from '../fn/category/get-category-values-by-category';
+import { GetCategoryValuesByCategory$Params } from '../fn/category/get-category-values-by-category';
+import { getCategoryValuesByCategoryAndLang } from '../fn/category/get-category-values-by-category-and-lang';
+import { GetCategoryValuesByCategoryAndLang$Params } from '../fn/category/get-category-values-by-category-and-lang';
+import { getGrammaticalCategoryConnectionsForLang } from '../fn/category/get-grammatical-category-connections-for-lang';
+import { GetGrammaticalCategoryConnectionsForLang$Params } from '../fn/category/get-grammatical-category-connections-for-lang';
+import { getGrammaticalCategoryConnectionsForLangAndPos } from '../fn/category/get-grammatical-category-connections-for-lang-and-pos';
+import { GetGrammaticalCategoryConnectionsForLangAndPos$Params } from '../fn/category/get-grammatical-category-connections-for-lang-and-pos';
+import { getGrammaticalValuesByWord } from '../fn/category/get-grammatical-values-by-word';
+import { GetGrammaticalValuesByWord$Params } from '../fn/category/get-grammatical-values-by-word';
+import { getGrammaticalValuesConnectionByLang } from '../fn/category/get-grammatical-values-connection-by-lang';
+import { GetGrammaticalValuesConnectionByLang$Params } from '../fn/category/get-grammatical-values-connection-by-lang';
 import { GrammaticalCategory } from '../models/grammatical-category';
 import { GrammaticalCategoryConnection } from '../models/grammatical-category-connection';
 import { GrammaticalCategoryValue } from '../models/grammatical-category-value';
 import { GrammaticalCategoryValueConnection } from '../models/grammatical-category-value-connection';
 import { GrammaticalValueWordConnection } from '../models/grammatical-value-word-connection';
+import { removeGrammaticalCategoryValueConnection } from '../fn/category/remove-grammatical-category-value-connection';
+import { RemoveGrammaticalCategoryValueConnection$Params } from '../fn/category/remove-grammatical-category-value-connection';
+import { removeGrammaticalValuesByWord } from '../fn/category/remove-grammatical-values-by-word';
+import { RemoveGrammaticalValuesByWord$Params } from '../fn/category/remove-grammatical-values-by-word';
+import { replaceGrammaticalValuesByWord } from '../fn/category/replace-grammatical-values-by-word';
+import { ReplaceGrammaticalValuesByWord$Params } from '../fn/category/replace-grammatical-values-by-word';
+import { saveGrammaticalCategory } from '../fn/category/save-grammatical-category';
+import { SaveGrammaticalCategory$Params } from '../fn/category/save-grammatical-category';
+import { saveGrammaticalCategoryConnection } from '../fn/category/save-grammatical-category-connection';
+import { SaveGrammaticalCategoryConnection$Params } from '../fn/category/save-grammatical-category-connection';
+import { saveGrammaticalCategoryValue } from '../fn/category/save-grammatical-category-value';
+import { SaveGrammaticalCategoryValue$Params } from '../fn/category/save-grammatical-category-value';
+import { saveGrammaticalCategoryValueConnection } from '../fn/category/save-grammatical-category-value-connection';
+import { SaveGrammaticalCategoryValueConnection$Params } from '../fn/category/save-grammatical-category-value-connection';
 
 
 /**
  * Grammatical category related operations
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class CategoryService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
-  /**
-   * Path part for operation getAllCategories
-   */
+  /** Path part for operation `getAllCategories()` */
   static readonly GetAllCategoriesPath = '/api/category';
 
   /**
@@ -45,25 +68,8 @@ export class CategoryService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllCategories$Response(params?: {
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<GrammaticalCategory>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CategoryService.GetAllCategoriesPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<GrammaticalCategory>>;
-      })
-    );
+  getAllCategories$Response(params?: GetAllCategories$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<GrammaticalCategory>>> {
+    return getAllCategories(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -71,24 +77,18 @@ export class CategoryService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getAllCategories$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getAllCategories(params?: {
-    context?: HttpContext
-  }
-): Observable<Array<GrammaticalCategory>> {
-
-    return this.getAllCategories$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<GrammaticalCategory>>) => r.body as Array<GrammaticalCategory>)
+  getAllCategories(params?: GetAllCategories$Params, context?: HttpContext): Observable<Array<GrammaticalCategory>> {
+    return this.getAllCategories$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<GrammaticalCategory>>): Array<GrammaticalCategory> => r.body)
     );
   }
 
-  /**
-   * Path part for operation saveGrammaticalCategory
-   */
+  /** Path part for operation `saveGrammaticalCategory()` */
   static readonly SaveGrammaticalCategoryPath = '/api/category';
 
   /**
@@ -101,27 +101,8 @@ export class CategoryService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  saveGrammaticalCategory$Response(params: {
-    context?: HttpContext
-    body: GrammaticalCategory
-  }
-): Observable<StrictHttpResponse<number>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CategoryService.SaveGrammaticalCategoryPath, 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
-      })
-    );
+  saveGrammaticalCategory$Response(params: SaveGrammaticalCategory$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return saveGrammaticalCategory(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -129,25 +110,18 @@ export class CategoryService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `saveGrammaticalCategory$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  saveGrammaticalCategory(params: {
-    context?: HttpContext
-    body: GrammaticalCategory
-  }
-): Observable<number> {
-
-    return this.saveGrammaticalCategory$Response(params).pipe(
-      map((r: StrictHttpResponse<number>) => r.body as number)
+  saveGrammaticalCategory(params: SaveGrammaticalCategory$Params, context?: HttpContext): Observable<number> {
+    return this.saveGrammaticalCategory$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
     );
   }
 
-  /**
-   * Path part for operation saveGrammaticalCategoryConnection
-   */
+  /** Path part for operation `saveGrammaticalCategoryConnection()` */
   static readonly SaveGrammaticalCategoryConnectionPath = '/api/category/connection';
 
   /**
@@ -160,27 +134,8 @@ export class CategoryService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  saveGrammaticalCategoryConnection$Response(params: {
-    context?: HttpContext
-    body: GrammaticalCategoryConnection
-  }
-): Observable<StrictHttpResponse<number>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CategoryService.SaveGrammaticalCategoryConnectionPath, 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
-      })
-    );
+  saveGrammaticalCategoryConnection$Response(params: SaveGrammaticalCategoryConnection$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return saveGrammaticalCategoryConnection(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -188,25 +143,18 @@ export class CategoryService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `saveGrammaticalCategoryConnection$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  saveGrammaticalCategoryConnection(params: {
-    context?: HttpContext
-    body: GrammaticalCategoryConnection
-  }
-): Observable<number> {
-
-    return this.saveGrammaticalCategoryConnection$Response(params).pipe(
-      map((r: StrictHttpResponse<number>) => r.body as number)
+  saveGrammaticalCategoryConnection(params: SaveGrammaticalCategoryConnection$Params, context?: HttpContext): Observable<number> {
+    return this.saveGrammaticalCategoryConnection$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
     );
   }
 
-  /**
-   * Path part for operation deleteGrammaticalCategoryConnection
-   */
+  /** Path part for operation `deleteGrammaticalCategoryConnection()` */
   static readonly DeleteGrammaticalCategoryConnectionPath = '/api/category/connection/{connectionId}';
 
   /**
@@ -219,27 +167,8 @@ export class CategoryService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  deleteGrammaticalCategoryConnection$Response(params: {
-    connectionId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CategoryService.DeleteGrammaticalCategoryConnectionPath, 'delete');
-    if (params) {
-      rb.path('connectionId', params.connectionId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+  deleteGrammaticalCategoryConnection$Response(params: DeleteGrammaticalCategoryConnection$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return deleteGrammaticalCategoryConnection(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -247,25 +176,18 @@ export class CategoryService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `deleteGrammaticalCategoryConnection$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  deleteGrammaticalCategoryConnection(params: {
-    connectionId: number;
-    context?: HttpContext
-  }
-): Observable<void> {
-
-    return this.deleteGrammaticalCategoryConnection$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+  deleteGrammaticalCategoryConnection(params: DeleteGrammaticalCategoryConnection$Params, context?: HttpContext): Observable<void> {
+    return this.deleteGrammaticalCategoryConnection$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
-  /**
-   * Path part for operation saveGrammaticalCategoryValue
-   */
+  /** Path part for operation `saveGrammaticalCategoryValue()` */
   static readonly SaveGrammaticalCategoryValuePath = '/api/category/value';
 
   /**
@@ -278,27 +200,8 @@ export class CategoryService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  saveGrammaticalCategoryValue$Response(params: {
-    context?: HttpContext
-    body: GrammaticalCategoryValue
-  }
-): Observable<StrictHttpResponse<number>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CategoryService.SaveGrammaticalCategoryValuePath, 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
-      })
-    );
+  saveGrammaticalCategoryValue$Response(params: SaveGrammaticalCategoryValue$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return saveGrammaticalCategoryValue(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -306,25 +209,18 @@ export class CategoryService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `saveGrammaticalCategoryValue$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  saveGrammaticalCategoryValue(params: {
-    context?: HttpContext
-    body: GrammaticalCategoryValue
-  }
-): Observable<number> {
-
-    return this.saveGrammaticalCategoryValue$Response(params).pipe(
-      map((r: StrictHttpResponse<number>) => r.body as number)
+  saveGrammaticalCategoryValue(params: SaveGrammaticalCategoryValue$Params, context?: HttpContext): Observable<number> {
+    return this.saveGrammaticalCategoryValue$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
     );
   }
 
-  /**
-   * Path part for operation replaceGrammaticalValuesByWord
-   */
+  /** Path part for operation `replaceGrammaticalValuesByWord()` */
   static readonly ReplaceGrammaticalValuesByWordPath = '/api/category/valuebyword/replace';
 
   /**
@@ -337,27 +233,8 @@ export class CategoryService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  replaceGrammaticalValuesByWord$Response(params: {
-    context?: HttpContext
-    body: GrammaticalValueWordConnection
-  }
-): Observable<StrictHttpResponse<GrammaticalValueWordConnection>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CategoryService.ReplaceGrammaticalValuesByWordPath, 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<GrammaticalValueWordConnection>;
-      })
-    );
+  replaceGrammaticalValuesByWord$Response(params: ReplaceGrammaticalValuesByWord$Params, context?: HttpContext): Observable<StrictHttpResponse<GrammaticalValueWordConnection>> {
+    return replaceGrammaticalValuesByWord(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -365,25 +242,18 @@ export class CategoryService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `replaceGrammaticalValuesByWord$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  replaceGrammaticalValuesByWord(params: {
-    context?: HttpContext
-    body: GrammaticalValueWordConnection
-  }
-): Observable<GrammaticalValueWordConnection> {
-
-    return this.replaceGrammaticalValuesByWord$Response(params).pipe(
-      map((r: StrictHttpResponse<GrammaticalValueWordConnection>) => r.body as GrammaticalValueWordConnection)
+  replaceGrammaticalValuesByWord(params: ReplaceGrammaticalValuesByWord$Params, context?: HttpContext): Observable<GrammaticalValueWordConnection> {
+    return this.replaceGrammaticalValuesByWord$Response(params, context).pipe(
+      map((r: StrictHttpResponse<GrammaticalValueWordConnection>): GrammaticalValueWordConnection => r.body)
     );
   }
 
-  /**
-   * Path part for operation removeGrammaticalValuesByWord
-   */
+  /** Path part for operation `removeGrammaticalValuesByWord()` */
   static readonly RemoveGrammaticalValuesByWordPath = '/api/category/valuebyword/{wordId}/{categoryId}';
 
   /**
@@ -396,29 +266,8 @@ export class CategoryService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  removeGrammaticalValuesByWord$Response(params: {
-    wordId: number;
-    categoryId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CategoryService.RemoveGrammaticalValuesByWordPath, 'delete');
-    if (params) {
-      rb.path('wordId', params.wordId, {});
-      rb.path('categoryId', params.categoryId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+  removeGrammaticalValuesByWord$Response(params: RemoveGrammaticalValuesByWord$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return removeGrammaticalValuesByWord(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -426,26 +275,18 @@ export class CategoryService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `removeGrammaticalValuesByWord$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  removeGrammaticalValuesByWord(params: {
-    wordId: number;
-    categoryId: number;
-    context?: HttpContext
-  }
-): Observable<void> {
-
-    return this.removeGrammaticalValuesByWord$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+  removeGrammaticalValuesByWord(params: RemoveGrammaticalValuesByWord$Params, context?: HttpContext): Observable<void> {
+    return this.removeGrammaticalValuesByWord$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
-  /**
-   * Path part for operation saveGrammaticalCategoryValueConnection
-   */
+  /** Path part for operation `saveGrammaticalCategoryValueConnection()` */
   static readonly SaveGrammaticalCategoryValueConnectionPath = '/api/category/valuelangconnection';
 
   /**
@@ -458,27 +299,8 @@ export class CategoryService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  saveGrammaticalCategoryValueConnection$Response(params: {
-    context?: HttpContext
-    body: GrammaticalCategoryValueConnection
-  }
-): Observable<StrictHttpResponse<number>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CategoryService.SaveGrammaticalCategoryValueConnectionPath, 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
-      })
-    );
+  saveGrammaticalCategoryValueConnection$Response(params: SaveGrammaticalCategoryValueConnection$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return saveGrammaticalCategoryValueConnection(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -486,25 +308,18 @@ export class CategoryService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `saveGrammaticalCategoryValueConnection$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  saveGrammaticalCategoryValueConnection(params: {
-    context?: HttpContext
-    body: GrammaticalCategoryValueConnection
-  }
-): Observable<number> {
-
-    return this.saveGrammaticalCategoryValueConnection$Response(params).pipe(
-      map((r: StrictHttpResponse<number>) => r.body as number)
+  saveGrammaticalCategoryValueConnection(params: SaveGrammaticalCategoryValueConnection$Params, context?: HttpContext): Observable<number> {
+    return this.saveGrammaticalCategoryValueConnection$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
     );
   }
 
-  /**
-   * Path part for operation removeGrammaticalCategoryValueConnection
-   */
+  /** Path part for operation `removeGrammaticalCategoryValueConnection()` */
   static readonly RemoveGrammaticalCategoryValueConnectionPath = '/api/category/valuelangconnection/{gcvcId}';
 
   /**
@@ -517,27 +332,8 @@ export class CategoryService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  removeGrammaticalCategoryValueConnection$Response(params: {
-    gcvcId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CategoryService.RemoveGrammaticalCategoryValueConnectionPath, 'delete');
-    if (params) {
-      rb.path('gcvcId', params.gcvcId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+  removeGrammaticalCategoryValueConnection$Response(params: RemoveGrammaticalCategoryValueConnection$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return removeGrammaticalCategoryValueConnection(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -545,25 +341,18 @@ export class CategoryService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `removeGrammaticalCategoryValueConnection$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  removeGrammaticalCategoryValueConnection(params: {
-    gcvcId: number;
-    context?: HttpContext
-  }
-): Observable<void> {
-
-    return this.removeGrammaticalCategoryValueConnection$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+  removeGrammaticalCategoryValueConnection(params: RemoveGrammaticalCategoryValueConnection$Params, context?: HttpContext): Observable<void> {
+    return this.removeGrammaticalCategoryValueConnection$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
-  /**
-   * Path part for operation getCategoryValuesByCategory
-   */
+  /** Path part for operation `getCategoryValuesByCategory()` */
   static readonly GetCategoryValuesByCategoryPath = '/api/category/{categoryId}/values';
 
   /**
@@ -576,27 +365,8 @@ export class CategoryService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getCategoryValuesByCategory$Response(params: {
-    categoryId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<GrammaticalCategoryValue>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CategoryService.GetCategoryValuesByCategoryPath, 'get');
-    if (params) {
-      rb.path('categoryId', params.categoryId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<GrammaticalCategoryValue>>;
-      })
-    );
+  getCategoryValuesByCategory$Response(params: GetCategoryValuesByCategory$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<GrammaticalCategoryValue>>> {
+    return getCategoryValuesByCategory(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -604,25 +374,18 @@ export class CategoryService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getCategoryValuesByCategory$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getCategoryValuesByCategory(params: {
-    categoryId: number;
-    context?: HttpContext
-  }
-): Observable<Array<GrammaticalCategoryValue>> {
-
-    return this.getCategoryValuesByCategory$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<GrammaticalCategoryValue>>) => r.body as Array<GrammaticalCategoryValue>)
+  getCategoryValuesByCategory(params: GetCategoryValuesByCategory$Params, context?: HttpContext): Observable<Array<GrammaticalCategoryValue>> {
+    return this.getCategoryValuesByCategory$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<GrammaticalCategoryValue>>): Array<GrammaticalCategoryValue> => r.body)
     );
   }
 
-  /**
-   * Path part for operation getCategoryValuesByCategoryAndLang
-   */
+  /** Path part for operation `getCategoryValuesByCategoryAndLang()` */
   static readonly GetCategoryValuesByCategoryAndLangPath = '/api/category/{categoryId}/{langId}/values';
 
   /**
@@ -635,29 +398,8 @@ export class CategoryService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getCategoryValuesByCategoryAndLang$Response(params: {
-    categoryId: number;
-    langId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<GrammaticalCategoryValue>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CategoryService.GetCategoryValuesByCategoryAndLangPath, 'get');
-    if (params) {
-      rb.path('categoryId', params.categoryId, {});
-      rb.path('langId', params.langId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<GrammaticalCategoryValue>>;
-      })
-    );
+  getCategoryValuesByCategoryAndLang$Response(params: GetCategoryValuesByCategoryAndLang$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<GrammaticalCategoryValue>>> {
+    return getCategoryValuesByCategoryAndLang(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -665,26 +407,18 @@ export class CategoryService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getCategoryValuesByCategoryAndLang$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getCategoryValuesByCategoryAndLang(params: {
-    categoryId: number;
-    langId: number;
-    context?: HttpContext
-  }
-): Observable<Array<GrammaticalCategoryValue>> {
-
-    return this.getCategoryValuesByCategoryAndLang$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<GrammaticalCategoryValue>>) => r.body as Array<GrammaticalCategoryValue>)
+  getCategoryValuesByCategoryAndLang(params: GetCategoryValuesByCategoryAndLang$Params, context?: HttpContext): Observable<Array<GrammaticalCategoryValue>> {
+    return this.getCategoryValuesByCategoryAndLang$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<GrammaticalCategoryValue>>): Array<GrammaticalCategoryValue> => r.body)
     );
   }
 
-  /**
-   * Path part for operation getGrammaticalCategoryConnectionsForLang
-   */
+  /** Path part for operation `getGrammaticalCategoryConnectionsForLang()` */
   static readonly GetGrammaticalCategoryConnectionsForLangPath = '/api/category/{categoryId}/{languageId}/connections';
 
   /**
@@ -697,29 +431,8 @@ export class CategoryService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getGrammaticalCategoryConnectionsForLang$Response(params: {
-    categoryId: number;
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<GrammaticalCategoryConnection>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CategoryService.GetGrammaticalCategoryConnectionsForLangPath, 'get');
-    if (params) {
-      rb.path('categoryId', params.categoryId, {});
-      rb.path('languageId', params.languageId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<GrammaticalCategoryConnection>>;
-      })
-    );
+  getGrammaticalCategoryConnectionsForLang$Response(params: GetGrammaticalCategoryConnectionsForLang$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<GrammaticalCategoryConnection>>> {
+    return getGrammaticalCategoryConnectionsForLang(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -727,26 +440,18 @@ export class CategoryService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getGrammaticalCategoryConnectionsForLang$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getGrammaticalCategoryConnectionsForLang(params: {
-    categoryId: number;
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<Array<GrammaticalCategoryConnection>> {
-
-    return this.getGrammaticalCategoryConnectionsForLang$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<GrammaticalCategoryConnection>>) => r.body as Array<GrammaticalCategoryConnection>)
+  getGrammaticalCategoryConnectionsForLang(params: GetGrammaticalCategoryConnectionsForLang$Params, context?: HttpContext): Observable<Array<GrammaticalCategoryConnection>> {
+    return this.getGrammaticalCategoryConnectionsForLang$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<GrammaticalCategoryConnection>>): Array<GrammaticalCategoryConnection> => r.body)
     );
   }
 
-  /**
-   * Path part for operation getGrammaticalValuesConnectionByLang
-   */
+  /** Path part for operation `getGrammaticalValuesConnectionByLang()` */
   static readonly GetGrammaticalValuesConnectionByLangPath = '/api/category/{langId}/valuelangconnection';
 
   /**
@@ -759,27 +464,8 @@ export class CategoryService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getGrammaticalValuesConnectionByLang$Response(params: {
-    langId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<GrammaticalCategoryValueConnection>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CategoryService.GetGrammaticalValuesConnectionByLangPath, 'get');
-    if (params) {
-      rb.path('langId', params.langId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<GrammaticalCategoryValueConnection>>;
-      })
-    );
+  getGrammaticalValuesConnectionByLang$Response(params: GetGrammaticalValuesConnectionByLang$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<GrammaticalCategoryValueConnection>>> {
+    return getGrammaticalValuesConnectionByLang(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -787,25 +473,18 @@ export class CategoryService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getGrammaticalValuesConnectionByLang$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getGrammaticalValuesConnectionByLang(params: {
-    langId: number;
-    context?: HttpContext
-  }
-): Observable<Array<GrammaticalCategoryValueConnection>> {
-
-    return this.getGrammaticalValuesConnectionByLang$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<GrammaticalCategoryValueConnection>>) => r.body as Array<GrammaticalCategoryValueConnection>)
+  getGrammaticalValuesConnectionByLang(params: GetGrammaticalValuesConnectionByLang$Params, context?: HttpContext): Observable<Array<GrammaticalCategoryValueConnection>> {
+    return this.getGrammaticalValuesConnectionByLang$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<GrammaticalCategoryValueConnection>>): Array<GrammaticalCategoryValueConnection> => r.body)
     );
   }
 
-  /**
-   * Path part for operation getGrammaticalCategoryConnectionsForLangAndPos
-   */
+  /** Path part for operation `getGrammaticalCategoryConnectionsForLangAndPos()` */
   static readonly GetGrammaticalCategoryConnectionsForLangAndPosPath = '/api/category/{posId}/{languageId}/connectionspos';
 
   /**
@@ -818,29 +497,8 @@ export class CategoryService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getGrammaticalCategoryConnectionsForLangAndPos$Response(params: {
-    posId: number;
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<GrammaticalCategoryConnection>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CategoryService.GetGrammaticalCategoryConnectionsForLangAndPosPath, 'get');
-    if (params) {
-      rb.path('posId', params.posId, {});
-      rb.path('languageId', params.languageId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<GrammaticalCategoryConnection>>;
-      })
-    );
+  getGrammaticalCategoryConnectionsForLangAndPos$Response(params: GetGrammaticalCategoryConnectionsForLangAndPos$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<GrammaticalCategoryConnection>>> {
+    return getGrammaticalCategoryConnectionsForLangAndPos(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -848,26 +506,18 @@ export class CategoryService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getGrammaticalCategoryConnectionsForLangAndPos$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getGrammaticalCategoryConnectionsForLangAndPos(params: {
-    posId: number;
-    languageId: number;
-    context?: HttpContext
-  }
-): Observable<Array<GrammaticalCategoryConnection>> {
-
-    return this.getGrammaticalCategoryConnectionsForLangAndPos$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<GrammaticalCategoryConnection>>) => r.body as Array<GrammaticalCategoryConnection>)
+  getGrammaticalCategoryConnectionsForLangAndPos(params: GetGrammaticalCategoryConnectionsForLangAndPos$Params, context?: HttpContext): Observable<Array<GrammaticalCategoryConnection>> {
+    return this.getGrammaticalCategoryConnectionsForLangAndPos$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<GrammaticalCategoryConnection>>): Array<GrammaticalCategoryConnection> => r.body)
     );
   }
 
-  /**
-   * Path part for operation getGrammaticalValuesByWord
-   */
+  /** Path part for operation `getGrammaticalValuesByWord()` */
   static readonly GetGrammaticalValuesByWordPath = '/api/category/{wordId}/valuebyword';
 
   /**
@@ -880,27 +530,8 @@ export class CategoryService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getGrammaticalValuesByWord$Response(params: {
-    wordId: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<GrammaticalValueWordConnection>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CategoryService.GetGrammaticalValuesByWordPath, 'get');
-    if (params) {
-      rb.path('wordId', params.wordId, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<GrammaticalValueWordConnection>>;
-      })
-    );
+  getGrammaticalValuesByWord$Response(params: GetGrammaticalValuesByWord$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<GrammaticalValueWordConnection>>> {
+    return getGrammaticalValuesByWord(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -908,19 +539,14 @@ export class CategoryService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getGrammaticalValuesByWord$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getGrammaticalValuesByWord(params: {
-    wordId: number;
-    context?: HttpContext
-  }
-): Observable<Array<GrammaticalValueWordConnection>> {
-
-    return this.getGrammaticalValuesByWord$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<GrammaticalValueWordConnection>>) => r.body as Array<GrammaticalValueWordConnection>)
+  getGrammaticalValuesByWord(params: GetGrammaticalValuesByWord$Params, context?: HttpContext): Observable<Array<GrammaticalValueWordConnection>> {
+    return this.getGrammaticalValuesByWord$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<GrammaticalValueWordConnection>>): Array<GrammaticalValueWordConnection> => r.body)
     );
   }
 

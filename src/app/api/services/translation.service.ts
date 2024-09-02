@@ -1,36 +1,36 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
-import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
 
+import { addTranslation } from '../fn/translation/add-translation';
+import { AddTranslation$Params } from '../fn/translation/add-translation';
+import { deleteTranslation } from '../fn/translation/delete-translation';
+import { DeleteTranslation$Params } from '../fn/translation/delete-translation';
+import { getAllWordsWithTranslationsFromLang1 } from '../fn/translation/get-all-words-with-translations-from-lang-1';
+import { GetAllWordsWithTranslationsFromLang1$Params } from '../fn/translation/get-all-words-with-translations-from-lang-1';
+import { getTranslationsForWord } from '../fn/translation/get-translations-for-word';
+import { GetTranslationsForWord$Params } from '../fn/translation/get-translations-for-word';
 import { PageResultWordWithTranslations } from '../models/page-result-word-with-translations';
 import { Translation } from '../models/translation';
-import { TranslationListFilter } from '../models/translation-list-filter';
 
 
 /**
  * Translation related operations
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class TranslationService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
-  /**
-   * Path part for operation addTranslation
-   */
+  /** Path part for operation `addTranslation()` */
   static readonly AddTranslationPath = '/api/translation/';
 
   /**
@@ -43,27 +43,8 @@ export class TranslationService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  addTranslation$Response(params: {
-    context?: HttpContext
-    body: Translation
-  }
-): Observable<StrictHttpResponse<number>> {
-
-    const rb = new RequestBuilder(this.rootUrl, TranslationService.AddTranslationPath, 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
-      })
-    );
+  addTranslation$Response(params: AddTranslation$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return addTranslation(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -71,25 +52,18 @@ export class TranslationService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `addTranslation$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  addTranslation(params: {
-    context?: HttpContext
-    body: Translation
-  }
-): Observable<number> {
-
-    return this.addTranslation$Response(params).pipe(
-      map((r: StrictHttpResponse<number>) => r.body as number)
+  addTranslation(params: AddTranslation$Params, context?: HttpContext): Observable<number> {
+    return this.addTranslation$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
     );
   }
 
-  /**
-   * Path part for operation getAllWordsWithTranslationsFromLang1
-   */
+  /** Path part for operation `getAllWordsWithTranslationsFromLang1()` */
   static readonly GetAllWordsWithTranslationsFromLang1Path = '/api/translation/page';
 
   /**
@@ -102,27 +76,8 @@ export class TranslationService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllWordsWithTranslationsFromLang1$Response(params: {
-    filter: TranslationListFilter;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<PageResultWordWithTranslations>> {
-
-    const rb = new RequestBuilder(this.rootUrl, TranslationService.GetAllWordsWithTranslationsFromLang1Path, 'get');
-    if (params) {
-      rb.query('filter', params.filter, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<PageResultWordWithTranslations>;
-      })
-    );
+  getAllWordsWithTranslationsFromLang1$Response(params: GetAllWordsWithTranslationsFromLang1$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResultWordWithTranslations>> {
+    return getAllWordsWithTranslationsFromLang1(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -130,25 +85,18 @@ export class TranslationService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getAllWordsWithTranslationsFromLang1$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getAllWordsWithTranslationsFromLang1(params: {
-    filter: TranslationListFilter;
-    context?: HttpContext
-  }
-): Observable<PageResultWordWithTranslations> {
-
-    return this.getAllWordsWithTranslationsFromLang1$Response(params).pipe(
-      map((r: StrictHttpResponse<PageResultWordWithTranslations>) => r.body as PageResultWordWithTranslations)
+  getAllWordsWithTranslationsFromLang1(params: GetAllWordsWithTranslationsFromLang1$Params, context?: HttpContext): Observable<PageResultWordWithTranslations> {
+    return this.getAllWordsWithTranslationsFromLang1$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageResultWordWithTranslations>): PageResultWordWithTranslations => r.body)
     );
   }
 
-  /**
-   * Path part for operation getTranslationsForWord
-   */
+  /** Path part for operation `getTranslationsForWord()` */
   static readonly GetTranslationsForWordPath = '/api/translation/tranlationsfor/{id}';
 
   /**
@@ -161,27 +109,8 @@ export class TranslationService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getTranslationsForWord$Response(params: {
-    id: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<Translation>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, TranslationService.GetTranslationsForWordPath, 'get');
-    if (params) {
-      rb.path('id', params.id, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<Translation>>;
-      })
-    );
+  getTranslationsForWord$Response(params: GetTranslationsForWord$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Translation>>> {
+    return getTranslationsForWord(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -189,25 +118,18 @@ export class TranslationService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getTranslationsForWord$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getTranslationsForWord(params: {
-    id: number;
-    context?: HttpContext
-  }
-): Observable<Array<Translation>> {
-
-    return this.getTranslationsForWord$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<Translation>>) => r.body as Array<Translation>)
+  getTranslationsForWord(params: GetTranslationsForWord$Params, context?: HttpContext): Observable<Array<Translation>> {
+    return this.getTranslationsForWord$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Translation>>): Array<Translation> => r.body)
     );
   }
 
-  /**
-   * Path part for operation deleteTranslation
-   */
+  /** Path part for operation `deleteTranslation()` */
   static readonly DeleteTranslationPath = '/api/translation/{id}';
 
   /**
@@ -220,27 +142,8 @@ export class TranslationService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  deleteTranslation$Response(params: {
-    id: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, TranslationService.DeleteTranslationPath, 'delete');
-    if (params) {
-      rb.path('id', params.id, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+  deleteTranslation$Response(params: DeleteTranslation$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return deleteTranslation(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -248,19 +151,14 @@ export class TranslationService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `deleteTranslation$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  deleteTranslation(params: {
-    id: number;
-    context?: HttpContext
-  }
-): Observable<void> {
-
-    return this.deleteTranslation$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+  deleteTranslation(params: DeleteTranslation$Params, context?: HttpContext): Observable<void> {
+    return this.deleteTranslation$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
