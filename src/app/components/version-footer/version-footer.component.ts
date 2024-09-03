@@ -3,6 +3,7 @@ import {PingService} from "../../api/services/ping.service";
 
 @Component({
   selector: 'app-version-footer',
+  standalone: true,
   templateUrl: './version-footer.component.html',
   styleUrls: ['./version-footer.component.css']
 })

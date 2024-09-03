@@ -7,6 +7,7 @@ import {WordsService} from "../../../api/services/words.service";
 
 @Component({
   selector: 'app-words',
+  standalone: true,
   templateUrl: './words-detail.component.html',
   styleUrls: ['./words-detail.component.css']
 })

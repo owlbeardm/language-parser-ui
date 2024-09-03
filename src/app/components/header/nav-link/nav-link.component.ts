@@ -5,6 +5,7 @@ import {KeyBindService} from 'src/app/services/key-bind.service';
 
 @Component({
   selector: 'app-header-nav-link',
+  standalone: true,
   templateUrl: './nav-link.component.html',
   styleUrls: ['./nav-link.component.css']
 })

@@ -3,9 +3,10 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { KeyBindService } from 'src/app/services/key-bind.service';
 
 @Component({
-  selector: 'app-tab-routes',
+  selector: 'app-tab-routes[tabs]',
   templateUrl: './tab-routes.component.html',
-  styleUrls: ['./tab-routes.component.css']
+  styleUrls: ['./tab-routes.component.css'],
+  standalone: true,
 })
 export class TabRoutesComponent implements OnInit {
 

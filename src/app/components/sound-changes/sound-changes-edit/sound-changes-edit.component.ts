@@ -3,6 +3,7 @@ import {Language} from '../../../api/models/language';
 
 @Component({
   selector: 'app-sound-changes-edit',
+  standalone: true,
   templateUrl: './sound-changes-edit.component.html',
   styleUrls: ['./sound-changes-edit.component.css']
 })

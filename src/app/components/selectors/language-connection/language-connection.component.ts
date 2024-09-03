@@ -4,6 +4,7 @@ import {Language} from '../../../api/models/language';
 
 @Component({
   selector: 'app-language-connection',
+  standalone: true,
   templateUrl: './language-connection.component.html',
   styleUrls: ['./language-connection.component.css']
 })

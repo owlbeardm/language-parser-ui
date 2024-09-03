@@ -4,6 +4,7 @@ import {Language} from '../../../api/models/language';
 
 @Component({
   selector: 'app-all-languages',
+  standalone: true,
   templateUrl: './all-languages.component.html',
   styleUrls: ['./all-languages.component.css']
 })

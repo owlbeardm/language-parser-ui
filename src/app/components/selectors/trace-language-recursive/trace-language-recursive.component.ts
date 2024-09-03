@@ -5,6 +5,7 @@ import {LanguagesEvolutionService} from '../../../api/services/languages-evoluti
 
 @Component({
   selector: 'app-trace-language-recursive',
+  standalone: true,
   templateUrl: './trace-language-recursive.component.html',
   styleUrls: ['./trace-language-recursive.component.css']
 })

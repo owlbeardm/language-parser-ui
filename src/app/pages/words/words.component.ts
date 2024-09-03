@@ -1,10 +1,13 @@
-import {Component} from '@angular/core';
-import {AbstractHasLanguageComponent} from 'src/app/components/abstract/abstract-has-language/abstract-has-language.component';
+import { Component } from '@angular/core';
+import { AbstractHasLanguageComponent } from 'src/app/components/abstract/abstract-has-language/abstract-has-language.component';
+import { TabRoutesComponent } from '../../components/tab-routes/tab-routes.component';
 
 @Component({
   selector: 'app-words',
   templateUrl: './words.component.html',
-  styleUrls: ['./words.component.css']
+  styleUrls: ['./words.component.css'],
+  standalone: true,
+  imports: [TabRoutesComponent]
 })
 export class WordsComponent extends AbstractHasLanguageComponent {
 

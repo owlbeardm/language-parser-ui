@@ -4,6 +4,7 @@ import {timer} from 'rxjs';
 
 @Component({
   selector: 'th[app-horizontal-dash]',
+  standalone: true,
   templateUrl: './horizontal-dash.component.html',
   styleUrls: ['./horizontal-dash.component.css']
 })

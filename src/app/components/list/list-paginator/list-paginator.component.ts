@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 
 @Component({
   selector: 'app-list-paginator',
+  standalone: true,
   templateUrl: './list-paginator.component.html',
   styleUrls: ['./list-paginator.component.css']
 })

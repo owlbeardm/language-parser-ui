@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewChecked, HostListener, ChangeDet
 
 @Component({
   selector: 'app-hr',
+  standalone: true,
   templateUrl: './hr.component.html',
   styleUrls: ['./hr.component.css']
 })

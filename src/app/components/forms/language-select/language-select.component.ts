@@ -5,6 +5,7 @@ import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-language-select',
+  standalone: true,
   templateUrl: './language-select.component.html',
   styleUrls: ['./language-select.component.css']
 })

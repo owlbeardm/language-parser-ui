@@ -3,6 +3,7 @@ import {WordWithTranslations} from '../../api/models/word-with-translations';
 
 @Component({
   selector: 'app-word-written-with-translations',
+  standalone: true,
   templateUrl: './word-written-with-translations.component.html',
   styleUrls: ['./word-written-with-translations.component.css']
 })

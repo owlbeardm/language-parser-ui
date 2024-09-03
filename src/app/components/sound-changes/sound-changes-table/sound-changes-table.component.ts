@@ -3,6 +3,7 @@ import {SoundChange} from '../../../api/models/sound-change';
 
 @Component({
   selector: 'app-sound-changes-table',
+  standalone: true,
   templateUrl: './sound-changes-table.component.html',
   styleUrls: ['./sound-changes-table.component.css']
 })

@@ -3,6 +3,7 @@ import {FireAuthService} from '../../services/fire-auth.service';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

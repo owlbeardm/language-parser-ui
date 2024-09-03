@@ -3,6 +3,7 @@ import {Translation} from '../../api/models/translation';
 
 @Component({
   selector: 'app-translation-word',
+  standalone: true,
   templateUrl: './translation-word.component.html',
   styleUrls: ['./translation-word.component.css']
 })

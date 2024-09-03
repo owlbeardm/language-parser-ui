@@ -4,6 +4,7 @@ import {timer} from 'rxjs';
 
 @Component({
   selector: 'th[app-vertical-dash]',
+  standalone: true,
   templateUrl: './vertical-dash.component.html',
   styleUrls: ['./vertical-dash.component.css']
 })

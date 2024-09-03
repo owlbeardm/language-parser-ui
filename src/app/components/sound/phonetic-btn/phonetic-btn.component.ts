@@ -4,6 +4,7 @@ import {ListOfLanguagePhonemes} from '../../../api/models/list-of-language-phone
 
 @Component({
   selector: 'app-phonetic-btn',
+  standalone: true,
   templateUrl: './phonetic-btn.component.html',
   styleUrls: ['./phonetic-btn.component.css']
 })

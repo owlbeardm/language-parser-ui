@@ -1,20 +1,6 @@
-import {NgModule} from '@angular/core';
-import {ExtraOptions, RouterModule, Routes} from '@angular/router';
-import {LawsComponent} from './pages/evolution/laws/laws.component';
-import {ClustersComponent} from './pages/languages/clusters/clusters.component';
-import {LanguagesComponent} from './pages/languages/languages.component';
-import {TraceComponent} from './pages/trace/trace.component';
-import {WordsComponent} from './pages/words/words.component';
-import {WordsListComponent} from './pages/words/words-list/words-list.component';
-import {WordsDetailComponent} from './pages/words/words-detail/words-detail.component';
-import {EvolutionComponent} from './pages/evolution/evolution.component';
-import {TranslationsComponent} from './pages/words/translations/translations.component';
-import {LanguageConnectionsComponent} from './pages/evolution/language-connections/language-connections.component';
-import {LanguageDescriptionComponent} from './pages/languages/language-description/language-description.component';
-import {ListEvolutionComponent} from './pages/evolution/list-evolution/list-evolution.component';
-import {WordNewComponent} from './pages/words/word-new/word-new.component';
-import {WorldDetailsResolver} from './resolvers/world-details.resolver';
-import {CategoryEvolutionComponent} from "./pages/evolution/category-evolution/category-evolution.component";
+import { NgModule } from '@angular/core';
+import { ExtraOptions, RouterModule, Routes } from '@angular/router';
+import { WorldDetailsResolver } from './resolvers/world-details.resolver';
 
 const routerOptions: ExtraOptions = {
   scrollPositionRestoration: 'enabled',
@@ -22,33 +8,33 @@ const routerOptions: ExtraOptions = {
   // scrollOffset: [0, 64],
 };
 const routes: Routes = [
-  {path: 'trace', component: TraceComponent},
+  { path: 'trace', loadComponent: () => import('./pages/trace/trace.component').then((c) => c.TraceComponent),
   {
-    path: 'words', component: WordsComponent,
+    path: 'words', loadComponent: () => import('./pages/words/words.component').then((c) => c.WordsComponent),
     children: [
-      {path: 'new', component: WordNewComponent},
-      {path: 'list', component: WordsListComponent},
-      {path: 'translations', component: TranslationsComponent},
+      { path: 'new', loadComponent: () => import('./pages/words/word-new/word-new.component').then((c) => c.WordNewComponent), },
+      { path: 'list', loadComponent: () => import('./pages/words/words-list/words-list.component').then((c) => c.WordsListComponent), },
+      { path: 'translations', loadComponent: () => import('./pages/words/translations/translations.component').then((c) => c.TranslationsComponent), },
       {
         path: 'word/:word',
-        component: WordsDetailComponent,
+        loadComponent: () => import('./pages/words/words-detail/words-detail.component').then((c) => c.WordsDetailComponent),
         pathMatch: 'full',
-        resolve: {wordDetails: WorldDetailsResolver}
+        resolve: { wordDetails: WorldDetailsResolver }
       }]
   },
   {
-    path: 'evolutions', component: EvolutionComponent,
+    path: 'evolutions', loadComponent: () => import('./pages/evolution/evolution.component').then((c) => c.EvolutionComponent),
     children: [
-      {path: 'connections', component: LanguageConnectionsComponent},
-      {path: 'category', component: CategoryEvolutionComponent},
-      {path: 'list', component: ListEvolutionComponent}]
+      { path: 'connections', loadComponent: () => import('./pages/evolution/language-connections/language-connections.component').then((c) => c.LanguageConnectionsComponent), },
+      { path: 'category', loadComponent: () => import('./pages/evolution/category-evolution/category-evolution.component').then((c) => c.CategoryEvolutionComponent), },
+      { path: 'list', loadComponent: () => import('./pages/evolution/list-evolution/list-evolution.component').then((c) => c.ListEvolutionComponent), }]
   },
   {
-    path: 'language', component: LanguagesComponent,
+    path: 'language', loadComponent: () => import('./pages/languages/languages.component').then((c) => c.LanguagesComponent),
     children: [
-      {path: 'description', component: LanguageDescriptionComponent},
-      {path: 'clusters', component: ClustersComponent},
-      {path: 'laws', component: LawsComponent}]
+      { path: 'description', loadComponent: () => import('./pages/languages/language-description/language-description.component').then((c) => c.LanguageDescriptionComponent), },
+      { path: 'clusters', loadComponent: () => import('./pages/languages/clusters/clusters.component').then((c) => c.ClustersComponent), },
+      { path: 'laws', loadComponent: () => import('./pages/evolution/laws/laws.component').then((c) => c.LawsComponent), }]
   },
 ];
 

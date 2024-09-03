@@ -4,6 +4,7 @@ import {LanguagesEvolutionService} from '../../../api/services/languages-evoluti
 
 @Component({
   selector: 'tr[app-sound-changes-table-row]',
+  standalone: true,
   templateUrl: './sound-changes-table-row.component.html',
   styleUrls: ['./sound-changes-table-row.component.css']
 })
