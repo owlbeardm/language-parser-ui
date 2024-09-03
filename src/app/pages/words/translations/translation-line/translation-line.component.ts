@@ -12,6 +12,7 @@ import {PageResultWordWithCategoryValues} from "../../../../api/models/page-resu
 
 @Component({
   selector: 'tbody[app-translation-line]',
+  standalone: true,
   templateUrl: './translation-line.component.html',
   styleUrls: ['./translation-line.component.css']
 })

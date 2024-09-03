@@ -4,6 +4,7 @@ import {TranslationType} from '../../../../api/models/translation-type';
 
 @Component({
   selector: 'app-word-detail-translations',
+  standalone: true,
   templateUrl: './word-detail-translations.component.html',
   styleUrls: ['./word-detail-translations.component.css']
 })

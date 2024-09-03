@@ -6,6 +6,7 @@ import {LanguagePos} from '../../../api/models/language-pos';
 
 @Component({
   selector: 'app-language-pos',
+  standalone: true,
   templateUrl: './language-pos.component.html',
   styleUrls: ['./language-pos.component.css']
 })

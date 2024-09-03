@@ -10,6 +10,7 @@ import {Translation} from '../../../api/models/translation';
 
 @Component({
   selector: 'app-translations',
+  standalone: true,
   templateUrl: './translations.component.html',
   styleUrls: ['./translations.component.css']
 })

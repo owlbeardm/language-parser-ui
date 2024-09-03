@@ -4,6 +4,7 @@ import {GrammaticalCategoryValue} from '../../../../../../api/models/grammatical
 
 @Component({
     selector: 'tbody[app-word-declension-table]',
+  standalone: true,
     templateUrl: './word-declension-table.component.html',
     styleUrls: ['./word-declension-table.component.css']
 })

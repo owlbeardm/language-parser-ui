@@ -5,6 +5,7 @@ import {DeclensionRule} from "../../../../api/models/declension-rule";
 
 @Component({
   selector: 'app-language-declension-rules',
+  standalone: true,
   templateUrl: './language-declension-rules.component.html',
   styleUrls: ['./language-declension-rules.component.css']
 })

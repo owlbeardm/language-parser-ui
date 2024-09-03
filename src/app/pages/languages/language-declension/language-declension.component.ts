@@ -12,6 +12,7 @@ import {DeclensionFull} from "../../../api/models/declension-full";
 
 @Component({
   selector: 'app-language-declension',
+  standalone: true,
   templateUrl: './language-declension.component.html',
   styleUrls: ['./language-declension.component.css']
 })

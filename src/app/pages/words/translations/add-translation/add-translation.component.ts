@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-translation',
+  standalone: true,
   templateUrl: './add-translation.component.html',
   styleUrls: ['./add-translation.component.css']
 })

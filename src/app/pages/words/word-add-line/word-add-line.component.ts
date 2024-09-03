@@ -8,6 +8,7 @@ import {Word} from '../../../api/models/word';
 
 @Component({
   selector: 'app-word-add-line',
+  standalone: true,
   templateUrl: './word-add-line.component.html',
   styleUrls: ['./word-add-line.component.css']
 })

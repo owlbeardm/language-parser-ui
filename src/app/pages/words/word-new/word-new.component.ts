@@ -6,6 +6,7 @@ import {LanguageConnectionType} from '../../../api/models/language-connection-ty
 
 @Component({
   selector: 'app-word-new',
+  standalone: true,
   templateUrl: './word-new.component.html',
   styleUrls: ['./word-new.component.css']
 })

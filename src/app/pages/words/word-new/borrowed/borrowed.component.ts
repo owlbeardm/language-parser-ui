@@ -9,6 +9,7 @@ import {LanguagesEvolutionService} from "../../../../api/services/languages-evol
 
 @Component({
   selector: 'tbody[app-borroved]',
+  standalone: true,
   templateUrl: './borrowed.component.html',
   styleUrls: ['./borrowed.component.css']
 })

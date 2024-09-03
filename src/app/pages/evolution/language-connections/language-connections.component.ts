@@ -9,6 +9,7 @@ import {SoundChangePurpose} from '../../../api/models/sound-change-purpose';
 
 @Component({
   selector: 'app-language-connections',
+  standalone: true,
   templateUrl: './language-connections.component.html',
   styleUrls: ['./language-connections.component.css']
 })

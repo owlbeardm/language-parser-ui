@@ -4,6 +4,7 @@ import {CategoryService} from "../../../../api/services/category.service";
 
 @Component({
   selector: 'app-language-category-value-details',
+  standalone: true,
   templateUrl: './language-category-value-details.component.html',
   styleUrls: ['./language-category-value-details.component.css']
 })

@@ -4,6 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-other-phonemes',
+  standalone: true,
   templateUrl: './other-phonemes.component.html',
   styleUrls: ['./other-phonemes.component.css']
 })

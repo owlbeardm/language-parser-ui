@@ -7,6 +7,7 @@ import {LanguagesEvolutionService} from "../../../../../api/services/languages-e
 
 @Component({
   selector: 'app-category-evolution-input',
+  standalone: true,
   templateUrl: './category-evolution-input.component.html',
   styleUrls: ['./category-evolution-input.component.css']
 })

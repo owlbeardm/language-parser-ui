@@ -10,6 +10,7 @@ import {WordsService} from '../../../api/services/words.service';
 
 @Component({
   selector: 'app-list-evolution',
+  standalone: true,
   templateUrl: './list-evolution.component.html',
   styleUrls: ['./list-evolution.component.css']
 })

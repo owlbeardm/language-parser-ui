@@ -3,6 +3,7 @@ import {ListOfLanguagePhonemes} from '../../../../api/models/list-of-language-ph
 
 @Component({
   selector: 'app-vowels',
+  standalone: true,
   templateUrl: './vowels.component.html',
   styleUrls: ['./vowels.component.css']
 })

@@ -7,6 +7,7 @@ import {LanguagesEvolutionService} from '../../../api/services/languages-evoluti
 
 @Component({
   selector: 'app-language-writing',
+  standalone: true,
   templateUrl: './language-writing.component.html',
   styleUrls: ['./language-writing.component.css']
 })

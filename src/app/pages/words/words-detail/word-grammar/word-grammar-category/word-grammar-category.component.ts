@@ -6,6 +6,7 @@ import {GrammaticalValueWordConnection, Word} from "../../../../../api/models";
 
 @Component({
   selector: 'app-word-grammar-category',
+  standalone: true,
   templateUrl: './word-grammar-category.component.html',
   styleUrls: ['./word-grammar-category.component.css']
 })

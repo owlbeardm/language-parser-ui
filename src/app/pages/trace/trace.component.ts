@@ -3,6 +3,7 @@ import {Language} from '../../api/models/language';
 
 @Component({
   selector: 'app-trace',
+  standalone: true,
   templateUrl: './trace.component.html',
   styleUrls: ['./trace.component.css']
 })

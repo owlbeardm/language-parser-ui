@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-trace-result',
+  standalone: true,
   templateUrl: './trace-result.component.html',
   styleUrls: ['./trace-result.component.css']
 })

@@ -5,6 +5,7 @@ import {LanguageConnectionType} from "../../../api/models/language-connection-ty
 
 @Component({
   selector: 'app-category-evolution',
+  standalone: true,
   templateUrl: './category-evolution.component.html',
   styleUrls: ['./category-evolution.component.css']
 })

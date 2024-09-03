@@ -3,6 +3,7 @@ import {WordWithTranslations} from '../../../../api/models/word-with-translation
 
 @Component({
   selector: 'app-word-detail-list',
+  standalone: true,
   templateUrl: './word-detail-list.component.html',
   styleUrls: ['./word-detail-list.component.css']
 })

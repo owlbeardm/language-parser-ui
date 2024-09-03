@@ -5,6 +5,7 @@ import {ListOfLanguagePhonemes} from '../../../api/models/list-of-language-phone
 
 @Component({
   selector: 'app-language-phonetics',
+  standalone: true,
   templateUrl: './language-phonetics.component.html',
   styleUrls: ['./language-phonetics.component.css']
 })

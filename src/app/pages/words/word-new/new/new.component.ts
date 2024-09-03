@@ -10,6 +10,7 @@ import { Word } from 'src/app/api/models';
 
 @Component({
   selector: 'tbody[app-new]',
+  standalone: true,
   templateUrl: './new.component.html',
   styleUrls: ['./new.component.css']
 })

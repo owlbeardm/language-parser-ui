@@ -9,6 +9,7 @@ import {GrammaticalCategoryConnection} from "../../../../api/models/grammatical-
 
 @Component({
   selector: 'app-language-category-details',
+  standalone: true,
   templateUrl: './language-category-details.component.html',
   styleUrls: ['./language-category-details.component.css']
 })

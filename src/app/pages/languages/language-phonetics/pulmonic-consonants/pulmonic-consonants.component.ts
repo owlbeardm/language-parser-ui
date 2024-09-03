@@ -5,6 +5,7 @@ import {LanguagesService} from '../../../../api/services/languages.service';
 
 @Component({
   selector: 'app-pulmonic-consonants',
+  standalone: true,
   templateUrl: './pulmonic-consonants.component.html',
   styleUrls: ['./pulmonic-consonants.component.css']
 })

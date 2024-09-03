@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "language-parser-ui"
+  "defaultProject": "language-parser-ui",
+  "cli": {
+    "analytics": false
+  }
 }

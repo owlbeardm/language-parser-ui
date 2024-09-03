@@ -13,6 +13,7 @@ import {PageResultWordWithCategoryValues} from "../../../../api/models/page-resu
 
 @Component({
   selector: 'tbody[app-derived]',
+  standalone: true,
   templateUrl: './derived.component.html',
   styleUrls: ['./derived.component.css']
 })

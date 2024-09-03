@@ -4,6 +4,7 @@ import {LanguagesService} from '../../../../api/services/languages.service';
 
 @Component({
   selector: 'app-non-pulmonic-consonants',
+  standalone: true,
   templateUrl: './non-pulmonic-consonants.component.html',
   styleUrls: ['./non-pulmonic-consonants.component.css']
 })

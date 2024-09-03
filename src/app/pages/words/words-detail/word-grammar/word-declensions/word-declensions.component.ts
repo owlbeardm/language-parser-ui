@@ -6,6 +6,7 @@ import {GrammaticalCategoryValue} from '../../../../../api/models/grammatical-ca
 
 @Component({
   selector: 'app-word-declensions',
+  standalone: true,
   templateUrl: './word-declensions.component.html',
   styleUrls: ['./word-declensions.component.css']
 })

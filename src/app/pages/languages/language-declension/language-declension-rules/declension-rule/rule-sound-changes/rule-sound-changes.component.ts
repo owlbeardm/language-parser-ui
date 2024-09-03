@@ -7,6 +7,7 @@ import {SoundChange} from "../../../../../../api/models/sound-change";
 
 @Component({
   selector: 'app-rule-sound-changes',
+  standalone: true,
   templateUrl: './rule-sound-changes.component.html',
   styleUrls: ['./rule-sound-changes.component.css']
 })

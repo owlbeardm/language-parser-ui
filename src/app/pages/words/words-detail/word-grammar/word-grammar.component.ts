@@ -7,6 +7,7 @@ import {CategoryService} from "../../../../api/services/category.service";
 
 @Component({
   selector: 'app-word-grammar',
+  standalone: true,
   templateUrl: './word-grammar.component.html',
   styleUrls: ['./word-grammar.component.css']
 })

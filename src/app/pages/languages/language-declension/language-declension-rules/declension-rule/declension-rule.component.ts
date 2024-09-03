@@ -7,6 +7,7 @@ import {CategoryService} from "../../../../../api/services/category.service";
 
 @Component({
   selector: 'app-declension-rule',
+  standalone: true,
   templateUrl: './declension-rule.component.html',
   styleUrls: ['./declension-rule.component.css']
 })

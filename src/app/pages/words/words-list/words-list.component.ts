@@ -7,12 +7,14 @@ import { Pos } from '../../../api/models/pos';
 import { LanguagesService } from '../../../api/services/languages.service';
 import { PosService } from '../../../api/services/pos.service';
 import { PageResultWordWithCategoryValues } from "../../../api/models/page-result-word-with-category-values";
+import {ListPaginatorComponent} from '../../../components/list/list-paginator/list-paginator.component';
 
 @Component({
   selector: 'app-words-list',
   standalone: true,
   templateUrl: './words-list.component.html',
-  styleUrls: ['./words-list.component.css']
+  styleUrls: ['./words-list.component.css'],
+  imports: [ListPaginatorComponent],
 })
 export class WordsListComponent implements OnInit {
 

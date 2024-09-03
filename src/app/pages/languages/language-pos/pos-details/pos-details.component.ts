@@ -5,6 +5,7 @@ import {PosService} from '../../../../api/services/pos.service';
 
 @Component({
   selector: 'app-pos-details',
+  standalone: true,
   templateUrl: './pos-details.component.html',
   styleUrls: ['./pos-details.component.css']
 })

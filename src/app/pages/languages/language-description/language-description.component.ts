@@ -4,6 +4,7 @@ import {LanguagesService} from '../../../api/services/languages.service';
 
 @Component({
   selector: 'app-language-description',
+  standalone: true,
   templateUrl: './language-description.component.html',
   styleUrls: ['./language-description.component.css']
 })

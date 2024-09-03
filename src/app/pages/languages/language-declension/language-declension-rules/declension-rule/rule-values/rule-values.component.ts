@@ -6,6 +6,7 @@ import {DeclensionRule} from "../../../../../../api/models/declension-rule";
 
 @Component({
   selector: 'app-rule-values',
+  standalone: true,
   templateUrl: './rule-values.component.html',
   styleUrls: ['./rule-values.component.css']
 })

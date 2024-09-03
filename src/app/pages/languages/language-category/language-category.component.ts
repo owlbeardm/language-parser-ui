@@ -9,6 +9,7 @@ import {GrammaticalCategoryValueConnection} from "../../../api/models/grammatica
 
 @Component({
   selector: 'app-language-category',
+  standalone: true,
   templateUrl: './language-category.component.html',
   styleUrls: ['./language-category.component.css']
 })

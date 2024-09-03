@@ -7,6 +7,7 @@ import {RefreshAll} from '../../interface/refresh-all';
 
 @Component({
   selector: 'app-evolution',
+  standalone: true,
   templateUrl: './evolution.component.html',
   styleUrls: ['./evolution.component.css']
 })

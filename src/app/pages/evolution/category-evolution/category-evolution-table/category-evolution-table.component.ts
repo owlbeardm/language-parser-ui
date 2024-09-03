@@ -8,6 +8,7 @@ import {GrammaticalCategoryValue} from "../../../../api/models/grammatical-categ
 
 @Component({
   selector: 'app-category-evolution-table',
+  standalone: true,
   templateUrl: './category-evolution-table.component.html',
   styleUrls: ['./category-evolution-table.component.css']
 })
