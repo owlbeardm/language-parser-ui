@@ -1,11 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ListOfLanguagePhonemes} from '../../../../api/models/list-of-language-phonemes';
+import {PhoneticBtnComponent} from "../../../../components/sound/phonetic-btn/phonetic-btn.component";
 
 @Component({
   selector: 'app-vowels',
   standalone: true,
   templateUrl: './vowels.component.html',
-  styleUrls: ['./vowels.component.css']
+  styleUrls: ['./vowels.component.css'],
+  imports: [PhoneticBtnComponent]
 })
 export class VowelsComponent implements OnInit {
 

@@ -1,12 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Translation} from '../../../../api/models/translation';
 import {TranslationType} from '../../../../api/models/translation-type';
+import {TranslationWordComponent} from "../../../../components/translation-word/translation-word.component";
+import {TranslationTypePipe} from "../../../../pipes/translation-type.pipe";
 
 @Component({
   selector: 'app-word-detail-translations',
   standalone: true,
   templateUrl: './word-detail-translations.component.html',
-  styleUrls: ['./word-detail-translations.component.css']
+  styleUrls: ['./word-detail-translations.component.css'],
+  imports: [TranslationWordComponent, TranslationTypePipe]
 })
 export class WordDetailTranslationsComponent implements OnInit {
 

@@ -2,12 +2,17 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {Language} from '../../../api/models/language';
 import {LanguagesService} from '../../../api/services/languages.service';
 import {ListOfLanguagePhonemes} from '../../../api/models/list-of-language-phonemes';
+import {OtherPhonemesComponent} from "./other-phonemes/other-phonemes.component";
+import {NonPulmonicConsonantsComponent} from "./non-pulmonic-consonants/non-pulmonic-consonants.component";
+import {VowelsComponent} from "./vowels/vowels.component";
+import {PulmonicConsonantsComponent} from "./pulmonic-consonants/pulmonic-consonants.component";
 
 @Component({
   selector: 'app-language-phonetics',
   standalone: true,
   templateUrl: './language-phonetics.component.html',
-  styleUrls: ['./language-phonetics.component.css']
+  styleUrls: ['./language-phonetics.component.css'],
+  imports: [OtherPhonemesComponent, NonPulmonicConsonantsComponent, VowelsComponent, PulmonicConsonantsComponent]
 })
 export class LanguagePhoneticsComponent implements OnInit, OnChanges {
 
@@ -47,7 +52,10 @@ export class LanguagePhoneticsComponent implements OnInit, OnChanges {
             }
           });
         } else {
-          this.languagesService.saveLanguagePhoneme({body: sound, languageId: this.languageSounds.langId}).subscribe((data) => {
+          this.languagesService.saveLanguagePhoneme({
+            body: sound,
+            languageId: this.languageSounds.langId
+          }).subscribe((data) => {
             this.languageSounds?.selectedMainPhonemes?.push(data);
           });
         }

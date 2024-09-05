@@ -1,12 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ListOfLanguagePhonemes} from '../../../../api/models/list-of-language-phonemes';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {PhoneticBtnComponent} from "../../../../components/sound/phonetic-btn/phonetic-btn.component";
 
 @Component({
   selector: 'app-other-phonemes',
   standalone: true,
   templateUrl: './other-phonemes.component.html',
-  styleUrls: ['./other-phonemes.component.css']
+  styleUrls: ['./other-phonemes.component.css'],
+  imports: [FormsModule, ReactiveFormsModule, PhoneticBtnComponent]
 })
 export class OtherPhonemesComponent implements OnInit {
 

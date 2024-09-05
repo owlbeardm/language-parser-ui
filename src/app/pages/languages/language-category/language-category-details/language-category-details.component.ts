@@ -1,17 +1,22 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {AbstractHasLanguageComponent} from "../../../../components/abstract/abstract-has-language/abstract-has-language.component";
+import {
+  AbstractHasLanguageComponent
+} from "../../../../components/abstract/abstract-has-language/abstract-has-language.component";
 import {GrammaticalCategory} from "../../../../api/models/grammatical-category";
 import {CategoryService} from "../../../../api/services/category.service";
 import {PosService} from "../../../../api/services/pos.service";
 import {Pos} from "../../../../api/models/pos";
 import {LanguagePos} from "../../../../api/models/language-pos";
 import {GrammaticalCategoryConnection} from "../../../../api/models/grammatical-category-connection";
+import {CommonModule} from "@angular/common";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-language-category-details',
   standalone: true,
   templateUrl: './language-category-details.component.html',
-  styleUrls: ['./language-category-details.component.css']
+  styleUrls: ['./language-category-details.component.css'],
+  imports: [CommonModule, FormsModule]
 })
 export class LanguageCategoryDetailsComponent extends AbstractHasLanguageComponent implements OnChanges {
 
@@ -83,12 +88,12 @@ export class LanguageCategoryDetailsComponent extends AbstractHasLanguageCompone
   }
 
   connect(p: Pos) {
-    const connection : GrammaticalCategoryConnection = {
+    const connection: GrammaticalCategoryConnection = {
       grammaticalCategory: this.selectedCategory,
       language: this.selectedLanguage,
       pos: p
     };
-    this.categoryService.saveGrammaticalCategoryConnection({body:connection}).subscribe((id)=>{
+    this.categoryService.saveGrammaticalCategoryConnection({body: connection}).subscribe((id) => {
       connection.id = id;
       this.gcc.push(connection);
     })
@@ -97,8 +102,8 @@ export class LanguageCategoryDetailsComponent extends AbstractHasLanguageCompone
 
   removeConnection(p: Pos) {
     const conenction = this.gcc.find(gcc => gcc.pos?.id === p.id);
-    if(conenction?.id){
-      this.categoryService.deleteGrammaticalCategoryConnection({connectionId:conenction.id}).subscribe(()=>{
+    if (conenction?.id) {
+      this.categoryService.deleteGrammaticalCategoryConnection({connectionId: conenction.id}).subscribe(() => {
         this.gcc = this.gcc.filter(gcc => gcc.pos?.id !== p.id);
       });
     }

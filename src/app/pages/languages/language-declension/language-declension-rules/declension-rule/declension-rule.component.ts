@@ -2,14 +2,18 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 import {DeclensionRule} from "../../../../../api/models/declension-rule";
 import {GrammaticalCategory} from "../../../../../api/models/grammatical-category";
 import {GrammaticalCategoryValue} from "../../../../../api/models/grammatical-category-value";
-import {GrammaticalValueWordConnection} from "../../../../../api/models/grammatical-value-word-connection";
 import {CategoryService} from "../../../../../api/services/category.service";
+import {RuleSoundChangesComponent} from "./rule-sound-changes/rule-sound-changes.component";
+import {RuleValuesComponent} from "./rule-values/rule-values.component";
+import {FormsModule} from "@angular/forms";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-declension-rule',
   standalone: true,
   templateUrl: './declension-rule.component.html',
-  styleUrls: ['./declension-rule.component.css']
+  styleUrls: ['./declension-rule.component.css'],
+  imports: [RuleSoundChangesComponent, RuleValuesComponent, FormsModule, CommonModule]
 })
 export class DeclensionRuleComponent implements OnInit, OnChanges {
 
@@ -52,6 +56,15 @@ export class DeclensionRuleComponent implements OnInit, OnChanges {
     this.changed = false;
   }
 
+  getRuleCategoryValue(c: GrammaticalCategory): GrammaticalCategoryValue | undefined {
+    const value = this.declensionRule.values?.find((v) => v?.category?.id == c.id);
+    return value == null ? undefined : value;
+  }
+
+  isCategoryConnected(c: GrammaticalCategory | undefined): boolean {
+    return !!c?.id && !!this.categoryConnections.get(c.id);
+  }
+
   private reloadValues(rule: DeclensionRule) {
     this.categoryValues.clear();
     this.categoryService.getAllCategories().subscribe((categories) => {
@@ -79,14 +92,5 @@ export class DeclensionRuleComponent implements OnInit, OnChanges {
           });
       });
     });
-  }
-
-  getRuleCategoryValue(c: GrammaticalCategory): GrammaticalCategoryValue | undefined {
-    const value = this.declensionRule.values?.find((v) => v?.category?.id == c.id);
-    return value == null ? undefined : value;
-  }
-
-  isCategoryConnected(c: GrammaticalCategory | undefined): boolean {
-    return !!c?.id && !!this.categoryConnections.get(c.id);
   }
 }

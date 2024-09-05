@@ -1,18 +1,20 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {Language} from '../../../api/models/language';
 import {PageResultWordWithTranslations} from '../../../api/models/page-result-word-with-translations';
 import {LanguagesService} from '../../../api/services/languages.service';
 import {TranslationService} from '../../../api/services/translation.service';
 import {TranslationListFilter} from '../../../api/models/translation-list-filter';
-import {WordWithTranslations} from '../../../api/models/word-with-translations';
-import {TranslationType} from '../../../api/models/translation-type';
-import {Translation} from '../../../api/models/translation';
+import {ListPaginatorComponent} from "../../../components/list/list-paginator/list-paginator.component";
+import {TranslationLineComponent} from "./translation-line/translation-line.component";
+import {FormsModule} from "@angular/forms";
+import {AllLanguagesComponent} from "../../../components/selectors/all-languages/all-languages.component";
 
 @Component({
   selector: 'app-translations',
   standalone: true,
   templateUrl: './translations.component.html',
-  styleUrls: ['./translations.component.css']
+  styleUrls: ['./translations.component.css'],
+  imports: [AllLanguagesComponent, ListPaginatorComponent, TranslationLineComponent, FormsModule]
 })
 export class TranslationsComponent {
 

@@ -2,12 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {RefreshAll} from '../../interface/refresh-all';
 import {LanguagesService} from '../../api/services/languages.service';
 import {Language} from '../../api/models/language';
+import {CommonModule} from "@angular/common";
+import {LanguageTabsComponent} from "./language-tabs/language-tabs.component";
 
 @Component({
   selector: 'app-languages',
   standalone: true,
   templateUrl: './languages.component.html',
-  styleUrls: ['./languages.component.css']
+  styleUrls: ['./languages.component.css'],
+  imports: [CommonModule, LanguageTabsComponent]
 })
 export class LanguagesComponent implements OnInit, RefreshAll {
 

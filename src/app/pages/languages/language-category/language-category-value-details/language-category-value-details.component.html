@@ -10,7 +10,7 @@
     <th style="text-align: right">Name</th>
     <th class="border"></th>
     <th style="text-align: left">
-      <input (ngModelChange)="canUpdate = true" [(ngModel)]="selectedValue.name"/>
+      <input (ngModelChange)="canUpdate = true" [(ngModel)]="selectedValue!.name"/>
       <span *ngIf="canUpdate"> [ <a (click)="saveChanges()" class="text-green-dull">Update</a> ] </span>
     </th>
     <th class="border" style="text-align: right">

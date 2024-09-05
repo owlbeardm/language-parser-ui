@@ -1,28 +1,23 @@
-import {Injectable} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {from, lastValueFrom, Observable} from 'rxjs';
-import {FireAuthService} from '../services/fire-auth.service';
+import { inject } from '@angular/core';
+import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { from, Observable, switchMap } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { FireAuthService } from '../services/fire-auth.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class FirebaseAuthInterceptor implements HttpInterceptor {
-
-  constructor(private fireAuthService: FireAuthService) {
-  }
-
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return from(this.handle(req, next));
-  }
-
-  async handle(req: HttpRequest<any>, next: HttpHandler) {
-    const token = await this.fireAuthService.getToken();
-    if (!token) {
-      return await lastValueFrom(next.handle(req));
-    }
-    const req1 = req.clone({
-      headers: req.headers.set('Authorization', `Bearer ${token}`),
-    });
-    return await lastValueFrom(next.handle(req1));
-  }
+export const firebaseAuthInterceptor: HttpInterceptorFn = (
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<unknown>> => {
+  const o = from(inject(FireAuthService).getToken());
+  return o.pipe(
+    map((token: string | undefined) => {
+      if (token == undefined) return req;
+      return req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    }),
+    switchMap((reqT: HttpRequest<unknown>) => next(reqT))
+  );
 }

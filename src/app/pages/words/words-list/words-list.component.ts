@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WordsService } from '../../../api/services/words.service';
 import { Word } from '../../../api/models/word';
 import { WordListFilter } from '../../../api/models/word-list-filter';
@@ -7,14 +9,16 @@ import { Pos } from '../../../api/models/pos';
 import { LanguagesService } from '../../../api/services/languages.service';
 import { PosService } from '../../../api/services/pos.service';
 import { PageResultWordWithCategoryValues } from "../../../api/models/page-result-word-with-category-values";
-import {ListPaginatorComponent} from '../../../components/list/list-paginator/list-paginator.component';
+import { ListPaginatorComponent } from '../../../components/list/list-paginator/list-paginator.component';
+import { WrittenWordPipe } from '../../../pipes/written-word.pipe';
 
 @Component({
   selector: 'app-words-list',
   standalone: true,
   templateUrl: './words-list.component.html',
   styleUrls: ['./words-list.component.css'],
-  imports: [ListPaginatorComponent],
+  imports: [ListPaginatorComponent, RouterLink, WrittenWordPipe, FormsModule],
+
 })
 export class WordsListComponent implements OnInit {
 

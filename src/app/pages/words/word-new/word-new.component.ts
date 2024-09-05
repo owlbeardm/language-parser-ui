@@ -3,12 +3,18 @@ import {Language} from '../../../api/models/language';
 import {WordOriginType} from '../../../api/models/word-origin-type';
 import {LanguagesEvolutionService} from '../../../api/services/languages-evolution.service';
 import {LanguageConnectionType} from '../../../api/models/language-connection-type';
+import {BorrowedComponent} from "./borrowed/borrowed.component";
+import {NewComponent} from "./new/new.component";
+import {DerivedComponent} from "./derived/derived.component";
+import {FormsModule} from "@angular/forms";
+import {AllLanguagesComponent} from "../../../components/selectors/all-languages/all-languages.component";
 
 @Component({
   selector: 'app-word-new',
   standalone: true,
   templateUrl: './word-new.component.html',
-  styleUrls: ['./word-new.component.css']
+  styleUrls: ['./word-new.component.css'],
+  imports: [AllLanguagesComponent, BorrowedComponent, NewComponent, DerivedComponent, FormsModule]
 })
 export class WordNewComponent implements OnInit {
   language?: Language;
@@ -31,8 +37,7 @@ export class WordNewComponent implements OnInit {
     if (idFrom) {
       this.languagesEvolutionService.getConnectionToLang({toLangId: idFrom}).subscribe((connections) => {
         this.languagesFrom = connections
-          .filter((connection) => (connection.connectionType === LanguageConnectionType.Evolving && type === 'Evolved')
-            || (connection.connectionType === LanguageConnectionType.Borrowing && type === 'Borrowed'))
+          .filter((connection) => (connection.connectionType === LanguageConnectionType.Evolving && type === 'Evolved') || (connection.connectionType === LanguageConnectionType.Borrowing && type === 'Borrowed'))
           .map((connection) => connection.langFrom).filter((l) => !!l).map((l) => {
             const lang: Language = {displayName: 'empty'};
             return !!l ? l : lang;

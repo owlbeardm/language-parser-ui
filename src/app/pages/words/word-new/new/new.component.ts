@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {WordOriginType} from '../../../../api/models/word-origin-type';
 import {Pos} from '../../../../api/models/pos';
 import {WordsService} from '../../../../api/services/words.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {WordNewDetailed} from "../word-new-detailed";
 import {PosService} from "../../../../api/services/pos.service";
 import {Language} from "../../../../api/models/language";
@@ -12,7 +12,8 @@ import { Word } from 'src/app/api/models';
   selector: 'tbody[app-new]',
   standalone: true,
   templateUrl: './new.component.html',
-  styleUrls: ['./new.component.css']
+  styleUrls: ['./new.component.css'],
+  imports: [FormsModule, ReactiveFormsModule]
 })
 export class NewComponent extends WordNewDetailed {
 

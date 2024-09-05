@@ -3,12 +3,15 @@ import {AbstractHasLanguageComponent} from '../../../components/abstract/abstrac
 import {PosService} from '../../../api/services/pos.service';
 import {Pos} from '../../../api/models/pos';
 import {LanguagePos} from '../../../api/models/language-pos';
+import {PosDetailsComponent} from "./pos-details/pos-details.component";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-language-pos',
   standalone: true,
   templateUrl: './language-pos.component.html',
-  styleUrls: ['./language-pos.component.css']
+  styleUrls: ['./language-pos.component.css'],
+  imports: [PosDetailsComponent, CommonModule]
 })
 export class LanguagePosComponent extends AbstractHasLanguageComponent implements OnChanges {
   pos: Pos[] = [];

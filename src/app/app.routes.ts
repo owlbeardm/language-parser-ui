@@ -1,14 +1,13 @@
-import { NgModule } from '@angular/core';
-import { ExtraOptions, RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { WorldDetailsResolver } from './resolvers/world-details.resolver';
 
-const routerOptions: ExtraOptions = {
-  scrollPositionRestoration: 'enabled',
-  anchorScrolling: 'enabled',
-  // scrollOffset: [0, 64],
-};
-const routes: Routes = [
-  { path: 'trace', loadComponent: () => import('./pages/trace/trace.component').then((c) => c.TraceComponent),
+// const routerOptions: ExtraOptions = {
+//   scrollPositionRestoration: 'enabled',
+//   anchorScrolling: 'enabled',
+//   // scrollOffset: [0, 64],
+// };
+export const ROUTES: Routes = [
+  { path: 'trace', loadComponent: () => import('./pages/trace/trace.component').then((c) => c.TraceComponent) },
   {
     path: 'words', loadComponent: () => import('./pages/words/words.component').then((c) => c.WordsComponent),
     children: [
@@ -37,10 +36,3 @@ const routes: Routes = [
       { path: 'laws', loadComponent: () => import('./pages/evolution/laws/laws.component').then((c) => c.LawsComponent), }]
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes, routerOptions)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {
-}

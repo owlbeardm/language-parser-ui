@@ -3,12 +3,14 @@ import {Word} from '../../../../../api/models/word';
 import {DeclensionService} from '../../../../../api/services/declension.service';
 import {DeclinedWord} from '../../../../../api/models/declined-word';
 import {GrammaticalCategoryValue} from '../../../../../api/models/grammatical-category-value';
+import {WordDeclensionTableComponent} from "./word-declension-table/word-declension-table.component";
 
 @Component({
-  selector: 'app-word-declensions',
+  selector: 'app-word-declensions[word]',
   standalone: true,
   templateUrl: './word-declensions.component.html',
-  styleUrls: ['./word-declensions.component.css']
+  styleUrls: ['./word-declensions.component.css'],
+  imports: [WordDeclensionTableComponent]
 })
 export class WordDeclensionsComponent implements OnInit {
 

@@ -15,15 +15,15 @@
       <span style="margin-left: 8px;">
         <select (ngModelChange)="loadDefault({languageId:$event?.id})" [(ngModel)]="language" class="languageSelector"
                 id="languageSelector">
-          <option [ngValue]="undefined">All languages</option>
-          <option *ngFor="let lang of languages" [ngValue]="lang">{{ lang.displayName }}</option>
+          <option [value]="undefined">All languages</option>
+          <option *ngFor="let lang of languages" [value]="lang">{{ lang.displayName }}</option>
         </select>
       </span>
       <span style="margin-left: 8px;">
         <select (ngModelChange)="loadDefault({posId:$event?.id})" [(ngModel)]="pos" class="posSelector"
                 id="posSelector">
-          <option [ngValue]="undefined">Any part of speech</option>
-          <option *ngFor="let p of poses" [ngValue]="p">{{ p.name }}</option>
+          <option [value]="undefined">Any part of speech</option>
+          <option *ngFor="let p of poses" [value]="p">{{ p.name }}</option>
         </select>
       </span>
     </th>
