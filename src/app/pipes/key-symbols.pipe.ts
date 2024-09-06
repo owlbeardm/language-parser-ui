@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { KeyNames } from '../models/keys';
 
 @Pipe({
-  name: 'keySymbols'
+    standalone: true,
+    name: 'keySymbols'
 })
 export class KeySymbolsPipe implements PipeTransform {
 

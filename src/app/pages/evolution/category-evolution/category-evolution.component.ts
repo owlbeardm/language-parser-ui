@@ -2,12 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {LanguagesEvolutionService} from "../../../api/services/languages-evolution.service";
 import {LanguageConnection} from "../../../api/models/language-connection";
 import {LanguageConnectionType} from "../../../api/models/language-connection-type";
+import {CategoryEvolutionTableComponent} from "./category-evolution-table/category-evolution-table.component";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-category-evolution',
   standalone: true,
   templateUrl: './category-evolution.component.html',
-  styleUrls: ['./category-evolution.component.css']
+  styleUrls: ['./category-evolution.component.css'],
+  imports: [CategoryEvolutionTableComponent, FormsModule]
 })
 export class CategoryEvolutionComponent implements OnInit {
 

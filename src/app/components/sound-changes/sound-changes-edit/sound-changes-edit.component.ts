@@ -1,11 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Language} from '../../../api/models/language';
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-sound-changes-edit',
   standalone: true,
   templateUrl: './sound-changes-edit.component.html',
-  styleUrls: ['./sound-changes-edit.component.css']
+  styleUrls: ['./sound-changes-edit.component.css'],
+  imports: [FormsModule]
 })
 export class SoundChangesEditComponent implements OnInit {
 

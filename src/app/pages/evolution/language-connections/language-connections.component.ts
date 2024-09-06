@@ -6,12 +6,23 @@ import {LanguageConnectionType} from '../../../api/models/language-connection-ty
 import {LanguageConnection} from '../../../api/models/language-connection';
 import {AbstractSoundChanges} from '../../../components/sound-changes/sound-chages-abstract.component.spec';
 import {SoundChangePurpose} from '../../../api/models/sound-change-purpose';
+import {
+  SoundChangesEditComponent
+} from "../../../components/sound-changes/sound-changes-edit/sound-changes-edit.component";
+import {
+  SoundChangesTableComponent
+} from "../../../components/sound-changes/sound-changes-table/sound-changes-table.component";
+import {
+  LanguageConnectionComponent
+} from "../../../components/selectors/language-connection/language-connection.component";
+import {AllLanguagesComponent} from "../../../components/selectors/all-languages/all-languages.component";
 
 @Component({
   selector: 'app-language-connections',
   standalone: true,
   templateUrl: './language-connections.component.html',
-  styleUrls: ['./language-connections.component.css']
+  styleUrls: ['./language-connections.component.css'],
+  imports: [SoundChangesEditComponent, SoundChangesTableComponent, LanguageConnectionComponent, AllLanguagesComponent]
 })
 export class LanguageConnectionsComponent extends AbstractSoundChanges {
 

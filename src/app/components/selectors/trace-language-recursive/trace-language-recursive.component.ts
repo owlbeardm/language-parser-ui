@@ -2,12 +2,14 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Language} from '../../../api/models/language';
 import {LanguagesService} from '../../../api/services/languages.service';
 import {LanguagesEvolutionService} from '../../../api/services/languages-evolution.service';
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-trace-language-recursive',
   standalone: true,
   templateUrl: './trace-language-recursive.component.html',
-  styleUrls: ['./trace-language-recursive.component.css']
+  styleUrls: ['./trace-language-recursive.component.css'],
+  imports: [FormsModule]
 })
 export class TraceLanguageRecursiveComponent implements OnInit {
 

@@ -3,6 +3,7 @@ import { ErrorService } from 'src/app/services/error.service';
 import { Error } from 'src/app/models/error';
 
 @Component({
+  standalone: true,
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']

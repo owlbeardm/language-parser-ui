@@ -5,12 +5,14 @@ import {Pos} from "../../../../api/models/pos";
 import {CategoryService} from "../../../../api/services/category.service";
 import {GrammaticalCategory} from "../../../../api/models/grammatical-category";
 import {GrammaticalCategoryValue} from "../../../../api/models/grammatical-category-value";
+import {CategoryEvolutionInputComponent} from "./category-evolution-input/category-evolution-input.component";
 
 @Component({
   selector: 'app-category-evolution-table',
   standalone: true,
   templateUrl: './category-evolution-table.component.html',
-  styleUrls: ['./category-evolution-table.component.css']
+  styleUrls: ['./category-evolution-table.component.css'],
+  imports: [CategoryEvolutionInputComponent]
 })
 export class CategoryEvolutionTableComponent implements OnInit, OnChanges {
 

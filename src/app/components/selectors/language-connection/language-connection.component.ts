@@ -1,12 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LanguageConnectionType} from '../../../api/models/language-connection-type';
 import {Language} from '../../../api/models/language';
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-language-connection',
   standalone: true,
   templateUrl: './language-connection.component.html',
-  styleUrls: ['./language-connection.component.css']
+  styleUrls: ['./language-connection.component.css'],
+  imports: [FormsModule]
 })
 export class LanguageConnectionComponent implements OnInit {
 
