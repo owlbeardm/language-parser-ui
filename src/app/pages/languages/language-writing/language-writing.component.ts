@@ -10,13 +10,14 @@ import {
 import {
   SoundChangesTableComponent
 } from "../../../components/sound-changes/sound-changes-table/sound-changes-table.component";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-language-writing',
   standalone: true,
   templateUrl: './language-writing.component.html',
   styleUrls: ['./language-writing.component.css'],
-  imports: [SoundChangesEditComponent, SoundChangesTableComponent]
+  imports: [SoundChangesEditComponent, SoundChangesTableComponent, NgIf]
 })
 export class LanguageWritingComponent extends AbstractSoundChanges {
 

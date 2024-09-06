@@ -3,13 +3,14 @@ import {WordWithTranslations} from '../../../../api/models/word-with-translation
 import {
   WordWrittenWithTranslationsComponent
 } from "../../../../components/word-written-with-translations/word-written-with-translations.component";
+import {NgFor} from "@angular/common";
 
 @Component({
   selector: 'app-word-detail-list',
   standalone: true,
   templateUrl: './word-detail-list.component.html',
   styleUrls: ['./word-detail-list.component.css'],
-  imports: [WordWrittenWithTranslationsComponent]
+  imports: [WordWrittenWithTranslationsComponent, NgFor]
 })
 export class WordDetailListComponent implements OnInit {
 

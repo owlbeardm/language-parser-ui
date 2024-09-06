@@ -1,12 +1,14 @@
 import { Component, OnInit, ViewChild, AfterViewChecked, HostListener, ChangeDetectorRef } from '@angular/core';
 import { ErrorService } from 'src/app/services/error.service';
 import { Error } from 'src/app/models/error';
+import {NgFor, NgIf} from "@angular/common";
 
 @Component({
   standalone: true,
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
+  styleUrls: ['./footer.component.css'],
+  imports: [NgIf, NgFor]
 })
 export class FooterComponent implements OnInit, AfterViewChecked {
 

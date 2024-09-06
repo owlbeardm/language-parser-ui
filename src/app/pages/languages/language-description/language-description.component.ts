@@ -2,13 +2,14 @@ import {Component, EventEmitter, OnChanges, Output, SimpleChanges} from '@angula
 import {AbstractHasLanguageComponent} from '../../../components/abstract/abstract-has-language/abstract-has-language.component';
 import {LanguagesService} from '../../../api/services/languages.service';
 import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-language-description',
   standalone: true,
   templateUrl: './language-description.component.html',
   styleUrls: ['./language-description.component.css'],
-  imports: [FormsModule]
+  imports: [FormsModule, NgIf]
 })
 export class LanguageDescriptionComponent extends AbstractHasLanguageComponent implements OnChanges {
   editComment = false;

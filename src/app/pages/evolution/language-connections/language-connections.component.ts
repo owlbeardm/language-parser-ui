@@ -16,13 +16,14 @@ import {
   LanguageConnectionComponent
 } from "../../../components/selectors/language-connection/language-connection.component";
 import {AllLanguagesComponent} from "../../../components/selectors/all-languages/all-languages.component";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-language-connections',
   standalone: true,
   templateUrl: './language-connections.component.html',
   styleUrls: ['./language-connections.component.css'],
-  imports: [SoundChangesEditComponent, SoundChangesTableComponent, LanguageConnectionComponent, AllLanguagesComponent]
+  imports: [SoundChangesEditComponent, SoundChangesTableComponent, LanguageConnectionComponent, AllLanguagesComponent, NgIf]
 })
 export class LanguageConnectionsComponent extends AbstractSoundChanges {
 

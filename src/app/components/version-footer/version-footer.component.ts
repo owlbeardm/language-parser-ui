@@ -1,11 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PingService} from "../../api/services/ping.service";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-version-footer',
   standalone: true,
   templateUrl: './version-footer.component.html',
-  styleUrls: ['./version-footer.component.css']
+  styleUrls: ['./version-footer.component.css'],
+  imports: [NgIf]
 })
 export class VersionFooterComponent implements OnInit {
 

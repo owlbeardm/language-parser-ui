@@ -1,10 +1,12 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {NgFor, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-list-paginator',
   standalone: true,
   templateUrl: './list-paginator.component.html',
-  styleUrls: ['./list-paginator.component.css']
+  styleUrls: ['./list-paginator.component.css'],
+  imports: [NgFor, NgIf]
 })
 export class ListPaginatorComponent implements OnInit, OnChanges {
 

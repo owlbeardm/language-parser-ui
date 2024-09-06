@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FireAuthService} from '../../services/fire-auth.service';
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  imports: [NgIf]
 })
 export class LoginComponent implements OnInit {
 

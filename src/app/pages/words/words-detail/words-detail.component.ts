@@ -10,6 +10,7 @@ import {WordDetailTranslationsComponent} from './word-detail-translations/word-d
 import {WordDetailListComponent} from './word-detail-list/word-detail-list.component';
 import {WordGrammarComponent} from './word-grammar/word-grammar.component';
 import {WrittenWordPipe} from "../../../pipes/written-word.pipe";
+import {NgFor, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-words',
@@ -23,7 +24,9 @@ import {WrittenWordPipe} from "../../../pipes/written-word.pipe";
     WordGrammarComponent,
     WordDetailTranslationsComponent,
     WordDetailListComponent,
-    WrittenWordPipe
+    WrittenWordPipe,
+    NgFor,
+    NgIf
   ],
 })
 export class WordsDetailComponent implements OnInit, OnDestroy {

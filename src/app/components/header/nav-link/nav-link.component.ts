@@ -3,13 +3,14 @@ import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {KeyNames} from 'src/app/models/keys';
 import {KeyBindService} from 'src/app/services/key-bind.service';
 import {KeySymbolsPipe} from "../../../pipes/key-symbols.pipe";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-header-nav-link',
   standalone: true,
   templateUrl: './nav-link.component.html',
   styleUrls: ['./nav-link.component.css'],
-  imports: [KeySymbolsPipe, RouterLink]
+  imports: [KeySymbolsPipe, RouterLink, NgIf]
 })
 export class NavLinkComponent implements OnInit {
 

@@ -3,13 +3,14 @@ import {Language} from '../../../api/models/language';
 import {LanguagesService} from '../../../api/services/languages.service';
 import {LanguagesEvolutionService} from '../../../api/services/languages-evolution.service';
 import {FormsModule} from "@angular/forms";
+import {NgFor, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-trace-language-recursive',
   standalone: true,
   templateUrl: './trace-language-recursive.component.html',
   styleUrls: ['./trace-language-recursive.component.css'],
-  imports: [FormsModule]
+  imports: [FormsModule, NgFor, NgIf]
 })
 export class TraceLanguageRecursiveComponent implements OnInit {
 

@@ -8,13 +8,14 @@ import {NewComponent} from "./new/new.component";
 import {DerivedComponent} from "./derived/derived.component";
 import {FormsModule} from "@angular/forms";
 import {AllLanguagesComponent} from "../../../components/selectors/all-languages/all-languages.component";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-word-new',
   standalone: true,
   templateUrl: './word-new.component.html',
   styleUrls: ['./word-new.component.css'],
-  imports: [AllLanguagesComponent, BorrowedComponent, NewComponent, DerivedComponent, FormsModule]
+  imports: [AllLanguagesComponent, BorrowedComponent, NewComponent, DerivedComponent, FormsModule, NgIf]
 })
 export class WordNewComponent implements OnInit {
   language?: Language;

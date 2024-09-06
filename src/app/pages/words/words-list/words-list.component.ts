@@ -11,13 +11,14 @@ import { PosService } from '../../../api/services/pos.service';
 import { PageResultWordWithCategoryValues } from "../../../api/models/page-result-word-with-category-values";
 import { ListPaginatorComponent } from '../../../components/list/list-paginator/list-paginator.component';
 import { WrittenWordPipe } from '../../../pipes/written-word.pipe';
+import {NgFor, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-words-list',
   standalone: true,
   templateUrl: './words-list.component.html',
   styleUrls: ['./words-list.component.css'],
-  imports: [ListPaginatorComponent, RouterLink, WrittenWordPipe, FormsModule],
+  imports: [ListPaginatorComponent, RouterLink, WrittenWordPipe, FormsModule, NgFor, NgIf],
 
 })
 export class WordsListComponent implements OnInit {

@@ -10,13 +10,14 @@ import {
 import {
   SoundChangesTableComponent
 } from "../../../../../../components/sound-changes/sound-changes-table/sound-changes-table.component";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-rule-sound-changes',
   standalone: true,
   templateUrl: './rule-sound-changes.component.html',
   styleUrls: ['./rule-sound-changes.component.css'],
-  imports: [SoundChangesEditComponent, SoundChangesTableComponent]
+  imports: [SoundChangesEditComponent, SoundChangesTableComponent, NgIf]
 })
 export class RuleSoundChangesComponent extends AbstractSoundChanges {
 

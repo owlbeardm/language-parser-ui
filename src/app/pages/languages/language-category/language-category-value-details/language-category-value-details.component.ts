@@ -2,13 +2,14 @@ import {Component, Input, OnInit} from '@angular/core';
 import {GrammaticalCategoryValue} from "../../../../api/models/grammatical-category-value";
 import {CategoryService} from "../../../../api/services/category.service";
 import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-language-category-value-details',
   standalone: true,
   templateUrl: './language-category-value-details.component.html',
   styleUrls: ['./language-category-value-details.component.css'],
-  imports: [FormsModule]
+  imports: [FormsModule, NgIf]
 })
 export class LanguageCategoryValueDetailsComponent implements OnInit {
 

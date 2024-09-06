@@ -3,13 +3,14 @@ import {AbstractHasLanguageComponent} from '../../../../components/abstract/abst
 import {Pos} from '../../../../api/models/pos';
 import {PosService} from '../../../../api/services/pos.service';
 import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-pos-details',
   standalone: true,
   templateUrl: './pos-details.component.html',
   styleUrls: ['./pos-details.component.css'],
-  imports: [FormsModule]
+  imports: [FormsModule, NgIf]
 })
 export class PosDetailsComponent extends AbstractHasLanguageComponent {
 

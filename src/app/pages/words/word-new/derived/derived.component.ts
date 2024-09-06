@@ -11,13 +11,14 @@ import {WordNewDetailed} from "../word-new-detailed";
 import {Language} from "../../../../api/models/language";
 import {PageResultWordWithCategoryValues} from "../../../../api/models/page-result-word-with-category-values";
 import {WrittenWordPipe} from "../../../../pipes/written-word.pipe";
+import {NgFor, NgIf} from "@angular/common";
 
 @Component({
   selector: 'tbody[app-derived]',
   standalone: true,
   templateUrl: './derived.component.html',
   styleUrls: ['./derived.component.css'],
-  imports: [WrittenWordPipe, FormsModule, ReactiveFormsModule]
+  imports: [WrittenWordPipe, FormsModule, ReactiveFormsModule, NgFor, NgIf]
 })
 export class DerivedComponent extends WordNewDetailed {
 
