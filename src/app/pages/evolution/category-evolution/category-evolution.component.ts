@@ -4,13 +4,14 @@ import {LanguageConnection} from "../../../api/models/language-connection";
 import {LanguageConnectionType} from "../../../api/models/language-connection-type";
 import {CategoryEvolutionTableComponent} from "./category-evolution-table/category-evolution-table.component";
 import {FormsModule} from "@angular/forms";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-category-evolution',
   standalone: true,
   templateUrl: './category-evolution.component.html',
   styleUrls: ['./category-evolution.component.css'],
-  imports: [CategoryEvolutionTableComponent, FormsModule]
+  imports: [CategoryEvolutionTableComponent, FormsModule, NgForOf]
 })
 export class CategoryEvolutionComponent implements OnInit {
 

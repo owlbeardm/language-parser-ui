@@ -5,13 +5,15 @@ import {Pos} from '../../../api/models/pos';
 import {LanguagePos} from '../../../api/models/language-pos';
 import {PosDetailsComponent} from "./pos-details/pos-details.component";
 import {CommonModule} from "@angular/common";
+import {HorizontalDashComponent} from "../../../components/spacer/horizontal-dash/horizontal-dash.component";
+import {VerticalDashComponent} from "../../../components/spacer/vertical-dash/vertical-dash.component";
 
 @Component({
   selector: 'app-language-pos',
   standalone: true,
   templateUrl: './language-pos.component.html',
   styleUrls: ['./language-pos.component.css'],
-  imports: [PosDetailsComponent, CommonModule]
+  imports: [PosDetailsComponent, CommonModule, HorizontalDashComponent, VerticalDashComponent]
 })
 export class LanguagePosComponent extends AbstractHasLanguageComponent implements OnChanges {
   pos: Pos[] = [];

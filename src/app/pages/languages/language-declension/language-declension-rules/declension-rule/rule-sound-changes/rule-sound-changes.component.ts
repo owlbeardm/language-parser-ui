@@ -11,13 +11,14 @@ import {
   SoundChangesTableComponent
 } from "../../../../../../components/sound-changes/sound-changes-table/sound-changes-table.component";
 import {NgIf} from "@angular/common";
+import {HorizontalDashComponent} from "../../../../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'app-rule-sound-changes',
   standalone: true,
   templateUrl: './rule-sound-changes.component.html',
   styleUrls: ['./rule-sound-changes.component.css'],
-  imports: [SoundChangesEditComponent, SoundChangesTableComponent, NgIf]
+  imports: [SoundChangesEditComponent, SoundChangesTableComponent, NgIf, HorizontalDashComponent]
 })
 export class RuleSoundChangesComponent extends AbstractSoundChanges {
 

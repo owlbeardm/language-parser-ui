@@ -9,13 +9,14 @@ import {LanguagesEvolutionService} from "../../../../api/services/languages-evol
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {RouterLink} from "@angular/router";
+import {HorizontalDashComponent} from "../../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'tbody[app-borroved]',
   standalone: true,
   templateUrl: './borrowed.component.html',
   styleUrls: ['./borrowed.component.css'],
-  imports: [CommonModule, FormsModule, RouterLink]
+  imports: [CommonModule, FormsModule, RouterLink, HorizontalDashComponent]
 })
 export class BorrowedComponent extends WordNewDetailed {
 

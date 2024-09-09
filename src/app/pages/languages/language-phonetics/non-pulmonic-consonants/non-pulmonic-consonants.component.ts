@@ -2,13 +2,14 @@ import {ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Ou
 import {ListOfLanguagePhonemes} from '../../../../api/models/list-of-language-phonemes';
 import {LanguagesService} from '../../../../api/services/languages.service';
 import {PhoneticBtnComponent} from "../../../../components/sound/phonetic-btn/phonetic-btn.component";
+import {HorizontalDashComponent} from "../../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'app-non-pulmonic-consonants',
   standalone: true,
   templateUrl: './non-pulmonic-consonants.component.html',
   styleUrls: ['./non-pulmonic-consonants.component.css'],
-  imports: [PhoneticBtnComponent]
+  imports: [PhoneticBtnComponent, HorizontalDashComponent]
 })
 export class NonPulmonicConsonantsComponent implements OnInit, OnChanges {
 

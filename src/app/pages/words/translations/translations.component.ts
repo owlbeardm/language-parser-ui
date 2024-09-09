@@ -8,13 +8,14 @@ import {ListPaginatorComponent} from "../../../components/list/list-paginator/li
 import {TranslationLineComponent} from "./translation-line/translation-line.component";
 import {FormsModule} from "@angular/forms";
 import {AllLanguagesComponent} from "../../../components/selectors/all-languages/all-languages.component";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-translations',
   standalone: true,
   templateUrl: './translations.component.html',
   styleUrls: ['./translations.component.css'],
-  imports: [AllLanguagesComponent, ListPaginatorComponent, TranslationLineComponent, FormsModule]
+  imports: [AllLanguagesComponent, ListPaginatorComponent, TranslationLineComponent, FormsModule, NgForOf]
 })
 export class TranslationsComponent {
 

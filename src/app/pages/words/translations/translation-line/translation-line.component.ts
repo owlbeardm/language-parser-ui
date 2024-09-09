@@ -16,13 +16,15 @@ import {FormsModule} from "@angular/forms";
 import {AllLanguagesComponent} from "../../../../components/selectors/all-languages/all-languages.component";
 import {TranslationWordComponent} from "../../../../components/translation-word/translation-word.component";
 import {TranslationTypePipe} from "../../../../pipes/translation-type.pipe";
+import {HorizontalDashComponent} from "../../../../components/spacer/horizontal-dash/horizontal-dash.component";
+import {VerticalDashComponent} from "../../../../components/spacer/vertical-dash/vertical-dash.component";
 
 @Component({
   selector: 'tbody[app-translation-line]',
   standalone: true,
   templateUrl: './translation-line.component.html',
   styleUrls: ['./translation-line.component.css'],
-  imports: [AllLanguagesComponent, TranslationWordComponent, TranslationTypePipe, WrittenWordPipe, RouterLink, CommonModule, FormsModule]
+  imports: [AllLanguagesComponent, TranslationWordComponent, TranslationTypePipe, WrittenWordPipe, RouterLink, CommonModule, FormsModule, HorizontalDashComponent, VerticalDashComponent]
 })
 export class TranslationLineComponent implements OnInit {
 

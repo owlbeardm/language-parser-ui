@@ -16,14 +16,15 @@ import {
   LanguageConnectionComponent
 } from "../../../components/selectors/language-connection/language-connection.component";
 import {AllLanguagesComponent} from "../../../components/selectors/all-languages/all-languages.component";
-import {NgIf} from "@angular/common";
+import {NgFor, NgForOf, NgIf} from "@angular/common";
+import {HorizontalDashComponent} from "../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'app-language-connections',
   standalone: true,
   templateUrl: './language-connections.component.html',
   styleUrls: ['./language-connections.component.css'],
-  imports: [SoundChangesEditComponent, SoundChangesTableComponent, LanguageConnectionComponent, AllLanguagesComponent, NgIf]
+  imports: [SoundChangesEditComponent, SoundChangesTableComponent, LanguageConnectionComponent, AllLanguagesComponent, NgIf, HorizontalDashComponent, NgForOf]
 })
 export class LanguageConnectionsComponent extends AbstractSoundChanges {
 

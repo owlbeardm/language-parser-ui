@@ -11,6 +11,8 @@ import {WordDetailListComponent} from './word-detail-list/word-detail-list.compo
 import {WordGrammarComponent} from './word-grammar/word-grammar.component';
 import {WrittenWordPipe} from "../../../pipes/written-word.pipe";
 import {NgFor, NgIf} from "@angular/common";
+import {HorizontalDashComponent} from "../../../components/spacer/horizontal-dash/horizontal-dash.component";
+import {VerticalDashComponent} from "../../../components/spacer/vertical-dash/vertical-dash.component";
 
 @Component({
   selector: 'app-words',
@@ -26,7 +28,9 @@ import {NgFor, NgIf} from "@angular/common";
     WordDetailListComponent,
     WrittenWordPipe,
     NgFor,
-    NgIf
+    NgIf,
+    HorizontalDashComponent,
+    VerticalDashComponent
   ],
 })
 export class WordsDetailComponent implements OnInit, OnDestroy {

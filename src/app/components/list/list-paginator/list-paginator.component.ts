@@ -1,12 +1,13 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {NgFor, NgIf} from "@angular/common";
+import {HorizontalDashComponent} from "../../spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'app-list-paginator',
   standalone: true,
   templateUrl: './list-paginator.component.html',
   styleUrls: ['./list-paginator.component.css'],
-  imports: [NgFor, NgIf]
+  imports: [NgFor, NgIf, HorizontalDashComponent]
 })
 export class ListPaginatorComponent implements OnInit, OnChanges {
 

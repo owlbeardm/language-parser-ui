@@ -12,13 +12,14 @@ import {Language} from "../../../../api/models/language";
 import {PageResultWordWithCategoryValues} from "../../../../api/models/page-result-word-with-category-values";
 import {WrittenWordPipe} from "../../../../pipes/written-word.pipe";
 import {NgFor, NgIf} from "@angular/common";
+import {HorizontalDashComponent} from "../../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'tbody[app-derived]',
   standalone: true,
   templateUrl: './derived.component.html',
   styleUrls: ['./derived.component.css'],
-  imports: [WrittenWordPipe, FormsModule, ReactiveFormsModule, NgFor, NgIf]
+  imports: [WrittenWordPipe, FormsModule, ReactiveFormsModule, NgFor, NgIf, HorizontalDashComponent]
 })
 export class DerivedComponent extends WordNewDetailed {
 

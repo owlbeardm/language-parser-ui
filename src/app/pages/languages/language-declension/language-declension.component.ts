@@ -13,13 +13,14 @@ import {DeclensionConnection} from "../../../api/models/declension-connection";
 import {DeclensionFull} from "../../../api/models/declension-full";
 import {LanguageDeclensionRulesComponent} from "./language-declension-rules/language-declension-rules.component";
 import {CommonModule} from "@angular/common";
+import {HorizontalDashComponent} from "../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'app-language-declension',
   standalone: true,
   templateUrl: './language-declension.component.html',
   styleUrls: ['./language-declension.component.css'],
-  imports: [LanguageDeclensionRulesComponent, CommonModule]
+  imports: [LanguageDeclensionRulesComponent, CommonModule, HorizontalDashComponent]
 })
 export class LanguageDeclensionComponent extends AbstractHasLanguageComponent implements OnChanges {
 

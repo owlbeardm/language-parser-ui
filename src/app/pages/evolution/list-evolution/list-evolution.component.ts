@@ -12,13 +12,14 @@ import {CommonModule} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {AllLanguagesComponent} from "../../../components/selectors/all-languages/all-languages.component";
+import {HorizontalDashComponent} from "../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'app-list-evolution',
   standalone: true,
   templateUrl: './list-evolution.component.html',
   styleUrls: ['./list-evolution.component.css'],
-  imports: [ListPaginatorComponent, CommonModule, RouterLink, FormsModule, AllLanguagesComponent]
+  imports: [ListPaginatorComponent, CommonModule, RouterLink, FormsModule, AllLanguagesComponent, HorizontalDashComponent]
 })
 export class ListEvolutionComponent implements OnInit {
   words: PageResultWordWithEvolution = {};

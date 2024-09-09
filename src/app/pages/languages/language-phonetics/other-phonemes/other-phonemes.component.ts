@@ -3,13 +3,14 @@ import {ListOfLanguagePhonemes} from '../../../../api/models/list-of-language-ph
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {PhoneticBtnComponent} from "../../../../components/sound/phonetic-btn/phonetic-btn.component";
 import {NgFor, NgIf} from "@angular/common";
+import {HorizontalDashComponent} from "../../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'app-other-phonemes',
   standalone: true,
   templateUrl: './other-phonemes.component.html',
   styleUrls: ['./other-phonemes.component.css'],
-  imports: [FormsModule, ReactiveFormsModule, PhoneticBtnComponent, NgFor, NgIf]
+  imports: [FormsModule, ReactiveFormsModule, PhoneticBtnComponent, NgFor, NgIf, HorizontalDashComponent]
 })
 export class OtherPhonemesComponent implements OnInit {
 

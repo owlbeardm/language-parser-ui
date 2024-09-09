@@ -2,13 +2,14 @@ import {Component, Input, OnInit} from '@angular/core';
 import {DeclinedWord} from '../../../../../../api/models/declined-word';
 import {GrammaticalCategoryValue} from '../../../../../../api/models/grammatical-category-value';
 import {NgFor, NgIf} from "@angular/common";
+import {HorizontalDashComponent} from "../../../../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'tbody[app-word-declension-table]',
   standalone: true,
   templateUrl: './word-declension-table.component.html',
   styleUrls: ['./word-declension-table.component.css'],
-  imports: [NgIf, NgFor]
+  imports: [NgIf, NgFor, HorizontalDashComponent]
 })
 export class WordDeclensionTableComponent implements OnInit {
   @Input() columnSize!: number;
