@@ -1,9 +1,10 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {timer} from 'rxjs';
+import {timer} from "rxjs";
 
 @Component({
   selector: 'th[app-horizontal-dash]',
+  standalone: true,
   templateUrl: './horizontal-dash.component.html',
   styleUrls: ['./horizontal-dash.component.css']
 })
@@ -12,6 +13,7 @@ export class HorizontalDashComponent implements OnInit, AfterViewChecked {
   @ViewChild('col') col: any;
   bcol = '';
   @Input() symbol?: string;
+  change: boolean = false;
 
   constructor(private cdRef: ChangeDetectorRef, private router: Router) {
     // router.events.subscribe((val) => {
@@ -28,7 +30,7 @@ export class HorizontalDashComponent implements OnInit, AfterViewChecked {
 
   @HostListener('window:resize', ['$event'])
   onResize(): void {
-    this.resizeDash();
+    // this.resizeDash();
   }
 
   ngAfterViewChecked(): void {

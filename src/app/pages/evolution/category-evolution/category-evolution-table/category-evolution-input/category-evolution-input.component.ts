@@ -4,11 +4,15 @@ import {Pos} from "../../../../../api/models/pos";
 import {GrammaticalCategoryValue} from "../../../../../api/models/grammatical-category-value";
 import {GrammaticalValueEvolution} from '../../../../../api/models/grammatical-value-evolution';
 import {LanguagesEvolutionService} from "../../../../../api/services/languages-evolution.service";
+import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-category-evolution-input',
+  standalone: true,
   templateUrl: './category-evolution-input.component.html',
-  styleUrls: ['./category-evolution-input.component.css']
+  styleUrls: ['./category-evolution-input.component.css'],
+imports: [FormsModule, NgIf]
 })
 export class CategoryEvolutionInputComponent implements OnInit {
 

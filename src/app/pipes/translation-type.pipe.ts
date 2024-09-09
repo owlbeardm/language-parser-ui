@@ -2,7 +2,8 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {TranslationType} from '../api/models/translation-type';
 
 @Pipe({
-  name: 'translationType'
+    standalone: true,
+    name: 'translationType'
 })
 export class TranslationTypePipe implements PipeTransform {
 

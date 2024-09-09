@@ -1,5 +1,7 @@
 import {Component, OnChanges, SimpleChanges} from '@angular/core';
-import {AbstractHasLanguageComponent} from "../../../components/abstract/abstract-has-language/abstract-has-language.component";
+import {
+  AbstractHasLanguageComponent
+} from "../../../components/abstract/abstract-has-language/abstract-has-language.component";
 import {PosService} from "../../../api/services/pos.service";
 import {Pos} from "../../../api/models/pos";
 import {GrammaticalCategory} from "../../../api/models/grammatical-category";
@@ -9,11 +11,16 @@ import {GrammaticalCategoryValue} from "../../../api/models/grammatical-category
 import {DeclensionService} from "../../../api/services/declension.service";
 import {DeclensionConnection} from "../../../api/models/declension-connection";
 import {DeclensionFull} from "../../../api/models/declension-full";
+import {LanguageDeclensionRulesComponent} from "./language-declension-rules/language-declension-rules.component";
+import {CommonModule} from "@angular/common";
+import {HorizontalDashComponent} from "../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'app-language-declension',
+  standalone: true,
   templateUrl: './language-declension.component.html',
-  styleUrls: ['./language-declension.component.css']
+  styleUrls: ['./language-declension.component.css'],
+  imports: [LanguageDeclensionRulesComponent, CommonModule, HorizontalDashComponent]
 })
 export class LanguageDeclensionComponent extends AbstractHasLanguageComponent implements OnChanges {
 

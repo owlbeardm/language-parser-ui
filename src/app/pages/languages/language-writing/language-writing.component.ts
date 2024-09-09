@@ -4,11 +4,21 @@ import {AbstractSoundChanges} from '../../../components/sound-changes/sound-chag
 import {SoundChangePurpose} from '../../../api/models/sound-change-purpose';
 import {SoundChange} from '../../../api/models/sound-change';
 import {LanguagesEvolutionService} from '../../../api/services/languages-evolution.service';
+import {
+  SoundChangesEditComponent
+} from "../../../components/sound-changes/sound-changes-edit/sound-changes-edit.component";
+import {
+  SoundChangesTableComponent
+} from "../../../components/sound-changes/sound-changes-table/sound-changes-table.component";
+import {NgIf} from "@angular/common";
+import {HorizontalDashComponent} from "../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'app-language-writing',
+  standalone: true,
   templateUrl: './language-writing.component.html',
-  styleUrls: ['./language-writing.component.css']
+  styleUrls: ['./language-writing.component.css'],
+  imports: [SoundChangesEditComponent, SoundChangesTableComponent, NgIf, HorizontalDashComponent]
 })
 export class LanguageWritingComponent extends AbstractSoundChanges {
 

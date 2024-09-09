@@ -9,7 +9,7 @@
   <tr>
     <th style="text-align: right">Name</th>
     <th class="border"></th>
-    <th style="text-align: left"><input (ngModelChange)="canUpdate = true" [(ngModel)]="selectedPos.name"/>
+    <th style="text-align: left"><input (ngModelChange)="canUpdate = true" [(ngModel)]="selectedPos!.name"/>
     </th>
     <th class="border" style="text-align: right">
 <!--      <span *ngIf="canUpdate"> [ <a (click)="saveChanges()" class="text-green-dull">Update</a> ] </span>-->
@@ -18,7 +18,7 @@
   <tr>
     <th style="text-align: right">Abbreviation</th>
     <th class="border"></th>
-    <th style="text-align: left"><input (ngModelChange)="canUpdate = true" [(ngModel)]="selectedPos.abbreviation"/>
+    <th style="text-align: left"><input (ngModelChange)="canUpdate = true" [(ngModel)]="selectedPos!.abbreviation"/>
     </th>
     <th class="border" style="text-align: right"></th>
   </tr>

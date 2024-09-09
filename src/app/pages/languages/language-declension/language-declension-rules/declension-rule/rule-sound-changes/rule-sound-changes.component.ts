@@ -4,11 +4,21 @@ import {DeclensionRule} from "../../../../../../api/models/declension-rule";
 import {LanguagesEvolutionService} from "../../../../../../api/services/languages-evolution.service";
 import {SoundChangePurpose} from "../../../../../../api/models/sound-change-purpose";
 import {SoundChange} from "../../../../../../api/models/sound-change";
+import {
+  SoundChangesEditComponent
+} from "../../../../../../components/sound-changes/sound-changes-edit/sound-changes-edit.component";
+import {
+  SoundChangesTableComponent
+} from "../../../../../../components/sound-changes/sound-changes-table/sound-changes-table.component";
+import {NgIf} from "@angular/common";
+import {HorizontalDashComponent} from "../../../../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'app-rule-sound-changes',
+  standalone: true,
   templateUrl: './rule-sound-changes.component.html',
-  styleUrls: ['./rule-sound-changes.component.css']
+  styleUrls: ['./rule-sound-changes.component.css'],
+  imports: [SoundChangesEditComponent, SoundChangesTableComponent, NgIf, HorizontalDashComponent]
 })
 export class RuleSoundChangesComponent extends AbstractSoundChanges {
 

@@ -1,14 +1,37 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, RouterLink} from '@angular/router';
+import {FormsModule} from '@angular/forms';
 import {DetailedWord} from '../../../api/models/detailed-word';
 import {Language} from '../../../api/models/language';
 import {WordWithWritten} from "../../../api/models/word-with-written";
 import {WordsService} from "../../../api/services/words.service";
+import {WordDetailDescendantsComponent} from './word-detail-descendants/word-detail-descendants.component';
+import {WordDetailTranslationsComponent} from './word-detail-translations/word-detail-translations.component';
+import {WordDetailListComponent} from './word-detail-list/word-detail-list.component';
+import {WordGrammarComponent} from './word-grammar/word-grammar.component';
+import {WrittenWordPipe} from "../../../pipes/written-word.pipe";
+import {NgFor, NgIf} from "@angular/common";
+import {HorizontalDashComponent} from "../../../components/spacer/horizontal-dash/horizontal-dash.component";
+import {VerticalDashComponent} from "../../../components/spacer/vertical-dash/vertical-dash.component";
 
 @Component({
   selector: 'app-words',
+  standalone: true,
   templateUrl: './words-detail.component.html',
-  styleUrls: ['./words-detail.component.css']
+  styleUrls: ['./words-detail.component.css'],
+  imports: [
+    FormsModule,
+    RouterLink,
+    WordDetailDescendantsComponent,
+    WordGrammarComponent,
+    WordDetailTranslationsComponent,
+    WordDetailListComponent,
+    WrittenWordPipe,
+    NgFor,
+    NgIf,
+    HorizontalDashComponent,
+    VerticalDashComponent
+  ],
 })
 export class WordsDetailComponent implements OnInit, OnDestroy {
 

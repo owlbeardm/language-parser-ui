@@ -7,11 +7,19 @@ import {PageResultWordWithEvolution} from '../../../api/models/page-result-word-
 import {WordWithEvolution} from '../../../api/models/word-with-evolution';
 import {WordToEvolve} from '../../../api/models';
 import {WordsService} from '../../../api/services/words.service';
+import {ListPaginatorComponent} from "../../../components/list/list-paginator/list-paginator.component";
+import {CommonModule} from "@angular/common";
+import {RouterLink} from "@angular/router";
+import {FormsModule} from "@angular/forms";
+import {AllLanguagesComponent} from "../../../components/selectors/all-languages/all-languages.component";
+import {HorizontalDashComponent} from "../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'app-list-evolution',
+  standalone: true,
   templateUrl: './list-evolution.component.html',
-  styleUrls: ['./list-evolution.component.css']
+  styleUrls: ['./list-evolution.component.css'],
+  imports: [ListPaginatorComponent, CommonModule, RouterLink, FormsModule, AllLanguagesComponent, HorizontalDashComponent]
 })
 export class ListEvolutionComponent implements OnInit {
   words: PageResultWordWithEvolution = {};

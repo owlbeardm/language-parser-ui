@@ -9,11 +9,22 @@ import {WordsService} from '../../../../api/services/words.service';
 import {WordWithWritten} from '../../../../api/models/word-with-written';
 import {TranslationService} from '../../../../api/services/translation.service';
 import {PageResultWordWithCategoryValues} from "../../../../api/models/page-result-word-with-category-values";
+import {WrittenWordPipe} from "../../../../pipes/written-word.pipe";
+import {RouterLink} from "@angular/router";
+import {CommonModule} from "@angular/common";
+import {FormsModule} from "@angular/forms";
+import {AllLanguagesComponent} from "../../../../components/selectors/all-languages/all-languages.component";
+import {TranslationWordComponent} from "../../../../components/translation-word/translation-word.component";
+import {TranslationTypePipe} from "../../../../pipes/translation-type.pipe";
+import {HorizontalDashComponent} from "../../../../components/spacer/horizontal-dash/horizontal-dash.component";
+import {VerticalDashComponent} from "../../../../components/spacer/vertical-dash/vertical-dash.component";
 
 @Component({
   selector: 'tbody[app-translation-line]',
+  standalone: true,
   templateUrl: './translation-line.component.html',
-  styleUrls: ['./translation-line.component.css']
+  styleUrls: ['./translation-line.component.css'],
+  imports: [AllLanguagesComponent, TranslationWordComponent, TranslationTypePipe, WrittenWordPipe, RouterLink, CommonModule, FormsModule, HorizontalDashComponent, VerticalDashComponent]
 })
 export class TranslationLineComponent implements OnInit {
 

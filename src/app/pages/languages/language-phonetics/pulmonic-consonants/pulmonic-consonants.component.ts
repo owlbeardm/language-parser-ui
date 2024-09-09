@@ -2,11 +2,15 @@ import {ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Ou
 import {timer} from 'rxjs';
 import {ListOfLanguagePhonemes} from '../../../../api/models/list-of-language-phonemes';
 import {LanguagesService} from '../../../../api/services/languages.service';
+import {PhoneticBtnComponent} from "../../../../components/sound/phonetic-btn/phonetic-btn.component";
+import {HorizontalDashComponent} from "../../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'app-pulmonic-consonants',
+  standalone: true,
   templateUrl: './pulmonic-consonants.component.html',
-  styleUrls: ['./pulmonic-consonants.component.css']
+  styleUrls: ['./pulmonic-consonants.component.css'],
+  imports: [PhoneticBtnComponent, HorizontalDashComponent]
 })
 export class PulmonicConsonantsComponent implements OnInit, OnChanges {
 

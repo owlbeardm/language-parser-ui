@@ -2,11 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {RefreshAll} from '../../interface/refresh-all';
 import {LanguagesService} from '../../api/services/languages.service';
 import {Language} from '../../api/models/language';
+import {CommonModule} from "@angular/common";
+import {LanguageTabsComponent} from "./language-tabs/language-tabs.component";
+import {HorizontalDashComponent} from "../../components/spacer/horizontal-dash/horizontal-dash.component";
+import {VerticalDashComponent} from "../../components/spacer/vertical-dash/vertical-dash.component";
 
 @Component({
   selector: 'app-languages',
+  standalone: true,
   templateUrl: './languages.component.html',
-  styleUrls: ['./languages.component.css']
+  styleUrls: ['./languages.component.css'],
+  imports: [CommonModule, LanguageTabsComponent, HorizontalDashComponent, VerticalDashComponent]
 })
 export class LanguagesComponent implements OnInit, RefreshAll {
 

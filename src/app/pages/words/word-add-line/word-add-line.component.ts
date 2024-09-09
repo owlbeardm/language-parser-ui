@@ -5,10 +5,15 @@ import {Language} from '../../../api/models/language';
 import {PosService} from '../../../api/services/pos.service';
 import {Pos} from '../../../api/models/pos';
 import {Word} from '../../../api/models/word';
+import {HorizontalDashComponent} from "../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'app-word-add-line',
+  standalone: true,
   templateUrl: './word-add-line.component.html',
+  imports: [
+    HorizontalDashComponent
+  ],
   styleUrls: ['./word-add-line.component.css']
 })
 export class WordAddLineComponent implements OnInit {

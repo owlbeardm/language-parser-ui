@@ -1,11 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IpaService} from '../../../services/ipa.service';
 import {ListOfLanguagePhonemes} from '../../../api/models/list-of-language-phonemes';
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-phonetic-btn',
+  standalone: true,
   templateUrl: './phonetic-btn.component.html',
-  styleUrls: ['./phonetic-btn.component.css']
+  styleUrls: ['./phonetic-btn.component.css'],
+  imports: [CommonModule]
 })
 export class PhoneticBtnComponent implements OnInit {
 

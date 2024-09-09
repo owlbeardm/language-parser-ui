@@ -20,7 +20,7 @@
             "outputPath": "dist/language-parser-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
@@ -33,6 +33,13 @@
             "scripts": []
           },
           "configurations": {
+            "dev": {
+              "buildOptimizer": false,
+              "extractLicenses": false,
+              "namedChunks": true,
+              "optimization": false,
+              "sourceMap": true,
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -45,8 +52,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -68,6 +73,9 @@
             "browserTarget": "language-parser-ui:build"
           },
           "configurations": {
+            "dev": {
+              "browserTarget": "language-parser-ui:build:dev"
+            },
             "production": {
               "browserTarget": "language-parser-ui:build:production"
             }
@@ -83,7 +91,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
@@ -124,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "language-parser-ui"
+  "defaultProject": "language-parser-ui",
+  "cli": {
+    "analytics": false
+  }
 }

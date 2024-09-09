@@ -3,11 +3,15 @@ import {GrammaticalCategory} from "../../../../../api/models/grammatical-categor
 import {GrammaticalCategoryValue} from "../../../../../api/models/grammatical-category-value";
 import {CategoryService} from "../../../../../api/services/category.service";
 import {GrammaticalValueWordConnection, Word} from "../../../../../api/models";
+import {FormsModule} from "@angular/forms";
+import {CommonModule} from "@angular/common";
 
 @Component({
-  selector: 'app-word-grammar-category',
+  selector: 'app-word-grammar-category[word][category][connected]',
+  standalone: true,
   templateUrl: './word-grammar-category.component.html',
-  styleUrls: ['./word-grammar-category.component.css']
+  styleUrls: ['./word-grammar-category.component.css'],
+  imports: [CommonModule, FormsModule]
 })
 export class WordGrammarCategoryComponent implements OnInit {
   @Input() category!: GrammaticalCategory;
@@ -21,7 +25,7 @@ export class WordGrammarCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("ngOnInit value", this.value);
-    this.value = this.categoryValues?.find((cv)=>cv.id==this.value?.id);
+    this.value = this.categoryValues?.find((cv) => cv.id == this.value?.id);
   }
 
   valueChanged(param: { value: GrammaticalCategoryValue | undefined }) {

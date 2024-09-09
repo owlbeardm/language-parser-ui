@@ -5,6 +5,7 @@ import {LanguageSoundClusters} from '../../../api/models/language-sound-clusters
 
 @Component({
   selector: 'app-clusters',
+  standalone: true,
   templateUrl: './clusters.component.html',
   styleUrls: ['./clusters.component.css']
 })

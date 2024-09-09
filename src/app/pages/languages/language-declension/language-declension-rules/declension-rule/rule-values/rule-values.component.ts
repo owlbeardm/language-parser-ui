@@ -3,11 +3,15 @@ import {GrammaticalCategory} from "../../../../../../api/models/grammatical-cate
 import {GrammaticalCategoryValue} from "../../../../../../api/models/grammatical-category-value";
 import {CategoryService} from "../../../../../../api/services/category.service";
 import {DeclensionRule} from "../../../../../../api/models/declension-rule";
+import {FormsModule} from "@angular/forms";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-rule-values',
+  standalone: true,
   templateUrl: './rule-values.component.html',
-  styleUrls: ['./rule-values.component.css']
+  styleUrls: ['./rule-values.component.css'],
+  imports: [FormsModule, CommonModule]
 })
 export class RuleValuesComponent implements OnInit {
   @Input() category!: GrammaticalCategory;

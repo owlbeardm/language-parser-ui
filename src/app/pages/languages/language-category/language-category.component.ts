@@ -6,11 +6,20 @@ import {GrammaticalCategoryValue} from "../../../api/models/grammatical-category
 import {PosService} from "../../../api/services/pos.service";
 import {Pos} from "../../../api/models/pos";
 import {GrammaticalCategoryValueConnection} from "../../../api/models/grammatical-category-value-connection";
+import {
+  LanguageCategoryValueDetailsComponent
+} from "./language-category-value-details/language-category-value-details.component";
+import {CommonModule} from "@angular/common";
+import {LanguageCategoryDetailsComponent} from "./language-category-details/language-category-details.component";
+import {HorizontalDashComponent} from "../../../components/spacer/horizontal-dash/horizontal-dash.component";
+import {VerticalDashComponent} from "../../../components/spacer/vertical-dash/vertical-dash.component";
 
 @Component({
   selector: 'app-language-category',
+  standalone: true,
   templateUrl: './language-category.component.html',
-  styleUrls: ['./language-category.component.css']
+  styleUrls: ['./language-category.component.css'],
+  imports: [LanguageCategoryValueDetailsComponent, CommonModule, LanguageCategoryDetailsComponent, HorizontalDashComponent, VerticalDashComponent]
 })
 export class LanguageCategoryComponent extends AbstractHasLanguageComponent implements OnChanges {
 

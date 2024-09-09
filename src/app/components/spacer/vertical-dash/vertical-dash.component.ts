@@ -1,13 +1,13 @@
-import {AfterViewChecked, ChangeDetectorRef, Component, HostListener, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterContentInit, ChangeDetectorRef, Component, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {timer} from 'rxjs';
 
 @Component({
   selector: 'th[app-vertical-dash]',
+  standalone: true,
   templateUrl: './vertical-dash.component.html',
   styleUrls: ['./vertical-dash.component.css']
 })
-export class VerticalDashComponent implements OnInit, AfterViewChecked {
+export class VerticalDashComponent implements OnInit, AfterContentInit {
 
   @ViewChild('row') row: any;
   brow = '';
@@ -15,13 +15,21 @@ export class VerticalDashComponent implements OnInit, AfterViewChecked {
   deleted = false;
 
   constructor(private cdRef: ChangeDetectorRef, private router: Router) {
-    router.events.subscribe((val) => {
-      this.brow = '';
-      this.cdRef.detectChanges();
-      timer(10).subscribe(() => {
-        this.resizeDash();
-      });
-    });
+    // router.events.subscribe((val) => {
+    //   this.brow = '';
+    //   this.cdRef.detectChanges();
+    //   timer(10).subscribe(() => {
+    //     this.resizeDash();
+    //   });
+    // });
+  }
+
+  ngAfterContentInit(): void {
+    this.resizeDash();
+  }
+
+  ngAfterContentChecked(): void {
+    // this.resizeDash();
   }
 
   ngOnInit(): void {
@@ -29,12 +37,12 @@ export class VerticalDashComponent implements OnInit, AfterViewChecked {
 
   @HostListener('window:resize', ['$event'])
   onResize(): void {
-    this.resizeDash();
+    // this.resizeDash();
   }
 
-  ngAfterViewChecked(): void {
-    this.resizeDash();
-  }
+  // ngAfterViewChecked(): void {
+  //   this.resizeDash();
+  // }
 
   resizeDash(): void {
     const rowLength = Math.max(0, Math.floor((this.row?.nativeElement.parentNode.offsetHeight) / 16));

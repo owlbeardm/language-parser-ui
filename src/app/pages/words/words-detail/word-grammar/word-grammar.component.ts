@@ -4,11 +4,17 @@ import {GrammaticalCategory} from "../../../../api/models/grammatical-category";
 import {GrammaticalCategoryValue} from "../../../../api/models/grammatical-category-value";
 import {GrammaticalValueWordConnection} from "../../../../api/models/grammatical-value-word-connection";
 import {CategoryService} from "../../../../api/services/category.service";
+import {WordDeclensionsComponent} from "./word-declensions/word-declensions.component";
+import {WordGrammarCategoryComponent} from "./word-grammar-category/word-grammar-category.component";
+import {CommonModule} from "@angular/common";
+import {WrittenWordPipe} from "../../../../pipes/written-word.pipe";
 
 @Component({
-  selector: 'app-word-grammar',
+  selector: 'app-word-grammar[word]',
+  standalone: true,
   templateUrl: './word-grammar.component.html',
-  styleUrls: ['./word-grammar.component.css']
+  styleUrls: ['./word-grammar.component.css'],
+  imports: [CommonModule, WordDeclensionsComponent, WordGrammarCategoryComponent, WrittenWordPipe]
 })
 export class WordGrammarComponent implements OnInit {
 

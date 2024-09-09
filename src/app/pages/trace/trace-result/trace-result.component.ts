@@ -5,11 +5,18 @@ import {LangService} from '../../../services/lang.service';
 import {ErrorService} from '../../../services/error.service';
 import {KeyBindService} from '../../../services/key-bind.service';
 import {Router} from '@angular/router';
+import {CommonModule} from "@angular/common";
+import {FormsModule} from "@angular/forms";
+import {LanguageTabsComponent} from "../../languages/language-tabs/language-tabs.component";
+import {VerticalDashComponent} from "../../../components/spacer/vertical-dash/vertical-dash.component";
+import {HorizontalDashComponent} from "../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'app-trace-result',
+  standalone: true,
   templateUrl: './trace-result.component.html',
-  styleUrls: ['./trace-result.component.css']
+  styleUrls: ['./trace-result.component.css'],
+  imports: [CommonModule, FormsModule, VerticalDashComponent, HorizontalDashComponent]
 })
 export class TraceResultComponent implements OnInit, OnChanges {
 

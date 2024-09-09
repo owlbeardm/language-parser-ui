@@ -1,6 +1,6 @@
 import {Component, Input, SimpleChanges} from '@angular/core';
 import {Pos} from '../../../../api/models/pos';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {WordListFilter} from '../../../../api/models/word-list-filter';
 import {WordsService} from '../../../../api/services/words.service';
 import {PosService} from '../../../../api/services/pos.service';
@@ -10,11 +10,16 @@ import {WordOriginType} from '../../../../api/models/word-origin-type';
 import {WordNewDetailed} from "../word-new-detailed";
 import {Language} from "../../../../api/models/language";
 import {PageResultWordWithCategoryValues} from "../../../../api/models/page-result-word-with-category-values";
+import {WrittenWordPipe} from "../../../../pipes/written-word.pipe";
+import {NgFor, NgIf} from "@angular/common";
+import {HorizontalDashComponent} from "../../../../components/spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
   selector: 'tbody[app-derived]',
+  standalone: true,
   templateUrl: './derived.component.html',
-  styleUrls: ['./derived.component.css']
+  styleUrls: ['./derived.component.css'],
+  imports: [WrittenWordPipe, FormsModule, ReactiveFormsModule, NgFor, NgIf, HorizontalDashComponent]
 })
 export class DerivedComponent extends WordNewDetailed {
 

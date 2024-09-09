@@ -2,11 +2,17 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {DeclensionFull} from "../../../../api/models/declension-full";
 import {DeclensionService} from "../../../../api/services/declension.service";
 import {DeclensionRule} from "../../../../api/models/declension-rule";
+import {CommonModule} from "@angular/common";
+import {DeclensionRuleComponent} from "./declension-rule/declension-rule.component";
+import {HorizontalDashComponent} from "../../../../components/spacer/horizontal-dash/horizontal-dash.component";
+import {VerticalDashComponent} from "../../../../components/spacer/vertical-dash/vertical-dash.component";
 
 @Component({
   selector: 'app-language-declension-rules',
+  standalone: true,
   templateUrl: './language-declension-rules.component.html',
-  styleUrls: ['./language-declension-rules.component.css']
+  styleUrls: ['./language-declension-rules.component.css'],
+  imports: [CommonModule, DeclensionRuleComponent, HorizontalDashComponent, VerticalDashComponent]
 })
 export class LanguageDeclensionRulesComponent implements OnInit, OnChanges {
 

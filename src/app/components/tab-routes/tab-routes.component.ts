@@ -1,11 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import {ActivatedRoute, Router, NavigationEnd, RouterLink, RouterOutlet} from '@angular/router';
 import { KeyBindService } from 'src/app/services/key-bind.service';
+import {CommonModule} from "@angular/common";
+import {HorizontalDashComponent} from "../spacer/horizontal-dash/horizontal-dash.component";
 
 @Component({
-  selector: 'app-tab-routes',
+  selector: 'app-tab-routes[tabs]',
   templateUrl: './tab-routes.component.html',
-  styleUrls: ['./tab-routes.component.css']
+  styleUrls: ['./tab-routes.component.css'],
+  standalone: true,
+  imports:[RouterLink, RouterOutlet, CommonModule, HorizontalDashComponent]
 })
 export class TabRoutesComponent implements OnInit {
 

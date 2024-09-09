@@ -4,11 +4,14 @@ import {Component, OnInit} from '@angular/core';
 // import { WordToEvolveJSON } from 'src/app/api/models/word-to-evolve-json';
 // import { ApiService } from 'src/app/api/services';
 import {RefreshAll} from '../../interface/refresh-all';
+import {TabRoutesComponent} from "../../components/tab-routes/tab-routes.component";
 
 @Component({
   selector: 'app-evolution',
+  standalone: true,
   templateUrl: './evolution.component.html',
-  styleUrls: ['./evolution.component.css']
+  styleUrls: ['./evolution.component.css'],
+  imports: [TabRoutesComponent]
 })
 export class EvolutionComponent implements OnInit, RefreshAll {
 

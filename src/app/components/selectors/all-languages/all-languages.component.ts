@@ -1,11 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LanguagesService} from '../../../api/services/languages.service';
 import {Language} from '../../../api/models/language';
+import {FormsModule} from "@angular/forms";
+import {NgFor} from "@angular/common";
 
 @Component({
   selector: 'app-all-languages',
+  standalone: true,
   templateUrl: './all-languages.component.html',
-  styleUrls: ['./all-languages.component.css']
+  styleUrls: ['./all-languages.component.css'],
+  imports: [FormsModule, NgFor]
 })
 export class AllLanguagesComponent implements OnInit {
 

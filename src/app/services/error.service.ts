@@ -4,7 +4,9 @@ import { BehaviorSubject } from 'rxjs';
 import { KeyBindService } from './key-bind.service';
 import { KEYS } from '../models/keys';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ErrorService {
 
   // private errors: Error[] = [];

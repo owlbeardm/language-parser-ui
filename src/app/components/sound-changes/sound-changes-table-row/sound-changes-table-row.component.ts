@@ -1,11 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SoundChange} from '../../../api/models/sound-change';
 import {LanguagesEvolutionService} from '../../../api/services/languages-evolution.service';
+import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'tr[app-sound-changes-table-row]',
+  standalone: true,
   templateUrl: './sound-changes-table-row.component.html',
-  styleUrls: ['./sound-changes-table-row.component.css']
+  styleUrls: ['./sound-changes-table-row.component.css'],
+  imports: [FormsModule, NgIf]
 })
 export class SoundChangesTableRowComponent implements OnInit {
 
